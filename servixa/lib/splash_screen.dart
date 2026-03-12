@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:servixa/core/const/image_app.dart';
+import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 3), () {
+      // edit
+      // إذا في token يروح عال home
+      // question
+      //بال login في زر رجوع ، مو غلط؟
+      Get.offAll(LoginPage());
+      // authService.box.read("token") == null
+      //     ? Get.offAll(LoginPage())
+      //     : Get.offAll(SuperHomePage());
+    });
+    return Scaffold(
+      body: Center(
+        child: Image(
+          image: AssetImage(ImageApp.logo),
+          width: MediaQuery.of(context).size.width * 0.65,
+          height: 143,
+          // height: MediaQuery.of(context).size.height * 0.14,
+        ),
+      ),
+    );
+  }
+}

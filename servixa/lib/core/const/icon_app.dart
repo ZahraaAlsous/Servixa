@@ -1,0 +1,53 @@
+class IconApp {
+  static const String home = "assets/icons/home.svg";
+  static const String homeFill = "assets/icons/home_fill.svg";
+  static const String notification = "assets/icons/notification.svg";
+  static const String notificationFill = "assets/icons/notification_fill.svg";
+  static const String ads = "assets/icons/ads.svg";
+  static const String adsFill = "assets/icons/ads_fill.svg";
+  static const String orders = "assets/icons/orders.svg";
+  static const String ordersFill = "assets/icons/orders_fill.svg";
+  static const String favorite = "assets/icons/favorite.svg";
+  static const String favoriteBorder = "assets/icons/favorite_border.svg";
+
+  static const String add = "assets/icons/add.svg";
+  static const String notificationCard = "assets/icons/notification_card.svg";
+  static const String notificationAlert = "assets/icons/notification_alert.svg";
+  static const String email = "assets/icons/email.svg";
+  static const String lock = "assets/icons/lock.svg";
+  static const String person = "assets/icons/person.svg";
+  static const String search = "assets/icons/search.svg";
+  static const String tune = "assets/icons/tune.svg";
+  static const String place = "assets/icons/place.svg";
+  static const String location = "assets/icons/location.svg";
+  static const String badgePercent = "assets/icons/badge-percent.svg";
+  static const String catalogAlt = "assets/icons/catalog-alt.svg";
+  static const String clarityDateLine = "assets/icons/clarity_date-line.svg";
+  static const String details = "assets/icons/details.svg";
+  static const String quantity = "assets/icons/fluent-mdl2_quantity.svg";
+  static const String cancel =
+      "assets/icons/material-symbols-light_cancel-outline.svg";
+  static const String reviewsRounded =
+      "assets/icons/material-symbols-light_reviews-outline-rounded.svg";
+  static const String messages = "assets/icons/messages.svg";
+  static const String Balconies = "assets/icons/Simplification (1).svg";
+  static const String Bedrooms = "assets/icons/Simplification (2).svg";
+  static const String Furnitures = "assets/icons/Simplification (3).svg";
+  static const String Status = "assets/icons/Simplification (4).svg";
+  static const String searchPaper = "assets/icons/Simplification (5).svg";
+  static const String personRounded = "assets/icons/Simplification.svg";
+  static const String phone = "assets/icons/solar_phone-linear.svg";
+  static const String starFill = "assets/icons/star_filled (1).svg";
+  static const String starNotFill = "assets/icons/star_filled.svg";
+  static const String category = "assets/icons/category.svg";
+  static const String google = "assets/icons/google.svg";
+  static const String comment = "assets/icons/comment.svg";
+  static const String circumBoxList = "assets/icons/circum_box-list.svg";
+  static const String mynauiGrid = "assets/icons/mynaui_grid.svg";
+  static const String description = "assets/icons/description-alt 1.svg";
+  static const String solarLinkOutline = "assets/icons/solar_link-outline.svg";
+  static const String solarTagPriceOutline = "assets/icons/solar_tag-price-outline.svg";
+  static const String camera = "assets/icons/assets/icons/camera.svg";
+  static const String suggestion = "assets/icons/assets/icons/suggestion 1.svg";
+  static const String tags = "assets/icons/assets/icons/tags.svg";
+}
