@@ -13,9 +13,6 @@ class AdsController extends GetxController {
   RxList<AdsModel> adsList = <AdsModel>[].obs;
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
 
-  // verbals add ads
-  Rx<CategoryModel?> selectedCategoryAds = Rx<CategoryModel?>(null);
-  Rx<SubCategoryModel?> selectedSubCategoryAds = Rx<SubCategoryModel?>(null);
 
   var selectedImage = Rx<File?>(null);
 
@@ -120,19 +117,5 @@ class AdsController extends GetxController {
     adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
   }
 
-  bool validateStepAddAds(int step) {
-    switch (step) {
-      case 0:
-        return true;
-      case 1:
-        return selectedCategoryAds.value != null;
-      case 2:
-        if (selectedCategoryAds.value?.subCategories.isNotEmpty ?? false) {
-          return selectedSubCategoryAds.value != null;
-        }
-        return true;
-      default:
-        return false;
-    }
-  }
+
 }

@@ -20,7 +20,7 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
-// import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -65,12 +65,29 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // _shareText();
+              // edit
+              // function from back
+            },
+            icon: SvgPicture.asset(
+              IconApp.report,
+              width: 24,
+              height: 24,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
+          ),
+
+          IconButton(
+            onPressed: () {
+              _shareAds();
               log("share");
             },
-            icon: Icon(Icons.share_outlined),
+            icon: SvgPicture.asset(
+              IconApp.share,
+              width: 24,
+              height: 24,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
           ),
-          Icon(Icons.favorite),
         ],
       ),
       body:
@@ -887,53 +904,36 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     );
   }
 
-  // void _shareText() {
-  //   SharePlus.instance.share(
-  //     ShareParams(
-  //       text:
-  //           'Check out my website https://example.com', // The content to share
-  //       subject: 'Example Subject', // Optional: used for email subject
-  //       title: 'Share Title', // Optional: share-sheet title (if supported)
-  //     ),
-  //   );
-  // }
+  Future<void> _shareAds() async {
+    try {
+      final ads = adsController.adsDetails.value!;
 
-  // void _shareText() async {
-  //   log("function share started");
-  //   await SharePlus.instance.share(
-  //     ShareParams(text: 'check out my website https://example.com'),
-  //   );
-  //   log("function share ended");
+      String shareContent =
+          '''
+🏠 *Share ad from Servixa*
+═══════════════════════
 
-  //   // log("function share started");
-  //   // await Share.share('check out my website https://example.com');
-  //   // log("function share ended");
-  // }
+📌 *${ads.title}*
+💰 *Price:* ${ads.price} ${ads.typeCoin}
+📍 *Location:* 742 Evergreen Terrace, Springfield
+📋 *Type:* ${ads.typeService}
 
-  //   void _shareText() async {
-  //     log("function share started");
+📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
 
-  //     // نص طويل للتأكد من ظهور المشاركة
-  //     String longText = '''
-  // مرحباً! هذا تطبيق Servixa للتجارة الإلكترونية.
-  // يمكنك تصفح العديد من المنتجات والخدمات.
-  // لدينا عروض حصرية وأسعار منافسة.
+⭐ *Rate:* 4.0/5
+═══════════════════════
+For more details:
+📱 Download the Servixa app''';
 
-  // حمل التطبيق الآن واستمتع بالتجربة!
-  // https://play.google.com/store/apps/details?id=com.servixa.app
-  // ''';
+      await SharePlus.instance.share(
+        ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
+      );
 
-  //     await SharePlus.instance.share(ShareParams(text: longText));
+      log("Share Done");
+    } catch (e) {
+      log("Error in share: $e");
+    }
+  }
 
-  //     log("function share ended");
-  //   }
-
-  // void _shareText() async {
-  //   final box = context.findRenderObject() as RenderBox?;
-
-  //   await Share.share(
-  //     'محتوى المشاركة هنا...',
-  //     sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-  //   );
   // }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
@@ -9,6 +10,8 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
   SecondStepSelectCategoryWidget({super.key});
   CategoryController categoryController = Get.put(CategoryController());
   AdsController adsController = Get.put(AdsController());
+    AddAdsController addAdsController = Get.put(AddAdsController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,8 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
         CategoryModel category = categoryController.categories[indexCategory];
         return HomeCardCategoryWidget(
           onTap: () {
-            adsController.selectedCategoryAds.value = category;
+            
+            addAdsController.selectedCategoryAds.value = category;
           },
           assetName: category.icon,
           categoryName: category.name,

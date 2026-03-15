@@ -136,7 +136,7 @@ import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/outlined_button_widget.dart';
+import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -274,7 +274,7 @@ class _FourStepWriteAdDetailsWidgetState
 
             Expanded(
               flex: 1,
-              child: OutlinedButtonWidget(
+              child: AppOutlinedButtonWidget(
                 textContent: "Add Main Picture",
                 isRow: listSelectedImage.isEmpty,
                 onPressed: () {

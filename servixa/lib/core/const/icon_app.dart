@@ -50,4 +50,6 @@ class IconApp {
   static const String camera = "assets/icons/camera.svg";
   static const String suggestion = "assets/icons/suggestion 1.svg";
   static const String tags = "assets/icons/tags.svg";
+  static const String report = "assets/icons/report.svg";
+  static const String share = "assets/icons/share_link.svg";
 }

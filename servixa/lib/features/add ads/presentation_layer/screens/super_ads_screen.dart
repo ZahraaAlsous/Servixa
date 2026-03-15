@@ -6,12 +6,14 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/first_step_business_account_widget.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/five_step_add_location_page.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/four_step_write_ad_details_widget.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/second_step_select_category_widget.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/third_step_sup_category_widget.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/first_step_business_account_widget.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/five_step_add_location_page.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/four_step_write_ad_details_widget.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/second_step_select_category_widget.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/third_step_sup_category_widget.dart';
+import 'package:servixa/features/category/business_later/category_controller.dart';
 
 class SuperAdsScreen extends StatefulWidget {
   SuperAdsScreen({super.key});
@@ -22,6 +24,8 @@ class SuperAdsScreen extends StatefulWidget {
 
 class _SuperAdsScreenState extends State<SuperAdsScreen> {
   AdsController adsController = Get.put(AdsController());
+  AddAdsController addAdsController = Get.put(AddAdsController());
+  CategoryController categoryController = Get.put(CategoryController());
   int _currentStep = 0;
 
   List<String> _stepTitles = [
@@ -167,9 +171,17 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
             onPressed: () {
               if (_currentStep < 4) {
                 // انتقال للخطوة التالية
+                if (_currentStep == 2) {
+                  categoryController.getSubCategories(
+                    addAdsController.selectedCategoryAds.value!.id,
+                  );
+                }
                 setState(() {
-                  adsController.validateStepAddAds(_currentStep)
-                      ? _currentStep++
+                  addAdsController.validateStepAddAds(_currentStep)
+                      ? (_currentStep == 1 &&
+                                categoryController.subCategories.value != null
+                            ? _currentStep++
+                            : _currentStep += 2)
                       : Get.snackbar("title", "message");
                 });
               } else {

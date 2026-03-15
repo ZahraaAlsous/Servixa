@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/core/const/icon_app.dart';
 
-class OutlinedButtonWidget extends StatelessWidget {
+class AppOutlinedButtonWidget extends StatelessWidget {
   String textContent;
   void Function()? onPressed;
   bool isRow;
-  OutlinedButtonWidget({
+  AppOutlinedButtonWidget({
     super.key,
     required this.textContent,
     required this.onPressed,
@@ -27,19 +27,13 @@ class OutlinedButtonWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(IconApp.camera),
-                  Text(
-                    textContent,
-                    style: TextStyle(color: Colors.amber),
-                  ),
+                  Text(textContent, style: TextStyle(color: Colors.amber)),
                 ],
               )
             : Column(
                 children: [
                   SvgPicture.asset(IconApp.camera),
-                  Text(
-                    textContent,
-                    style: TextStyle(color: Colors.amber),
-                  ),
+                  Text(textContent, style: TextStyle(color: Colors.amber)),
                 ],
               ),
       ),
