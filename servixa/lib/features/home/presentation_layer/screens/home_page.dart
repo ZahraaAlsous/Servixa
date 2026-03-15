@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,7 @@ import 'package:servixa/features/ads/presentation_layer/widgets/card_ads_widget.
 import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
@@ -224,7 +227,7 @@ class HomePage extends StatelessWidget {
                       color:
                           homeController.currentCarouselIndex.value == entry.key
                           ? ThemeApp.Foundation_Main_main_500
-                          : ThemeApp.colorCirclesSlider,
+                          : ThemeApp.colorCirclesSliderAndStar,
                     ),
                   );
                 }).toList(),
@@ -242,7 +245,7 @@ class HomePage extends StatelessWidget {
             SizedBox(
               // height: size.height * 0.090,
               // height: 200,
-              height: 95,
+              height: 84,
               child: Obx(() {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -290,7 +293,6 @@ class HomePage extends StatelessWidget {
                         widthCard: 0.413,
                         onTap: () {
                           Get.to(AdsDetailsScreen(adsId: ads.id));
-                          // Get.to(MapScreen());
                         },
                         isGridView: true,
                       ),
@@ -321,12 +323,18 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: adsController.adsList.length,
                   itemBuilder: (context, indexAds) {
+                    AdsModel ads = adsController.adsList[indexAds];
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
+
                       child: CardAdsWidget(
-                        ads: adsController.adsList[indexAds],
+                        ads: ads,
                         widthCard: 0.367,
                         isGridView: true,
+                        onTap: () {
+                          Get.to(AdsDetailsScreen(adsId: ads.id));
+                        },
                       ),
                     );
                   },
@@ -354,12 +362,17 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: adsController.adsList.length,
                   itemBuilder: (context, indexAds) {
+                    AdsModel ads = adsController.adsList[indexAds];
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: CardAdsWidget(
                         ads: adsController.adsList[indexAds],
                         widthCard: 0.611,
                         isGridView: true,
+                        onTap: () {
+                          Get.to(AdsDetailsScreen(adsId: ads.id));
+                        },
                       ),
                     );
                   },
@@ -384,6 +397,9 @@ class HomePage extends StatelessWidget {
                     ads: ads,
                     widthCard: 0.431,
                     isGridView: true,
+                    onTap: () {
+                      Get.to(AdsDetailsScreen(adsId: ads.id));
+                    },
                   );
                 },
               );

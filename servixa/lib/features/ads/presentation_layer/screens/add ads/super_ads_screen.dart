@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/first_step_business_account_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/five_step_add_location_page.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/four_step_write_ad_details_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/second_step_select_category_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/add%20ads/third_step_sup_category_widget.dart';
 
 class SuperAdsScreen extends StatefulWidget {
   SuperAdsScreen({super.key});
@@ -13,6 +21,7 @@ class SuperAdsScreen extends StatefulWidget {
 }
 
 class _SuperAdsScreenState extends State<SuperAdsScreen> {
+  AdsController adsController = Get.put(AdsController());
   int _currentStep = 0;
 
   List<String> _stepTitles = [
@@ -30,6 +39,13 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     IconApp.mynauiGrid,
     IconApp.camera,
   ];
+  List<Widget> _pages = [
+    FirstStepBusinessAccountWidget(),
+    SecondStepSelectCategoryWidget(),
+    ThirdStepSupCategoryWidget(),
+    FourStepWriteAdDetailsWidget(),
+    FiveStepAddLocationPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,53 +53,57 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
-      body: Column(
-        children: [
-          _buildStepIndicator(size),
-          Container(
-            width: size.width * 0.23488,
-            height: size.width * 0.23488,
-            alignment: AlignmentGeometry.center,
-            decoration: BoxDecoration(
-              color: ThemeApp.Foundation_Main_main_100,
-              borderRadius: BorderRadius.circular(26),
+      body: SingleChildScrollView(
+        padding: EdgeInsetsGeometry.symmetric(
+          horizontal: size.width * DimensApp.spaceHorizontalScreen,
+        ),
+        child: Column(
+          children: [
+            _buildStepIndicator(size),
+            Container(
+              width: size.width * 0.23488,
+              height: size.width * 0.23488,
+              alignment: AlignmentGeometry.center,
+              decoration: BoxDecoration(
+                color: ThemeApp.Foundation_Main_main_100,
+                borderRadius: BorderRadius.circular(26),
+              ),
+              // edit
+              // يمكن صورة من الباك
+              child: SvgPicture.asset(
+                _stepIcon[_currentStep],
+                width: 48,
+                height: 48,
+                color: ThemeApp.Foundation_Main_main_500,
+              ),
             ),
-            // edit
-            // يمكن صورة من الباك
-            child: SvgPicture.asset(
-              _stepIcon[_currentStep],
-              width: 48,
-              height: 48,
-              color: ThemeApp.Foundation_Main_main_500,
-            ),
-          ),
 
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child:
-          Text(
-            _stepTitles[_currentStep],
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          // ),
-          _buildStepContent(),
-          _buildNavigationButtons(),
-        ],
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child:
+            Text(
+              _stepTitles[_currentStep],
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            // ),
+            // _buildStepContent(),
+            _pages[_currentStep],
+            _buildNavigationButtons(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildStepIndicator(Size size) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(5, (index) {
           return _buildStepCircle(
             index: index,
-            isActive:
-                index <= _currentStep, // الدائرة الحالية والتي قبلها ملونة
-            isCurrent: index == _currentStep, // هل هي الخطوة الحالية
+            isActive: index <= _currentStep,
             size: size,
           );
         }),
@@ -94,113 +114,82 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   Widget _buildStepCircle({
     required int index,
     required bool isActive,
-    required bool isCurrent,
+    // required bool isCurrent,
     required Size size,
   }) {
     return Row(
-      // mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // الدائرة
         Container(
-          margin: EdgeInsetsGeometry.symmetric(horizontal: 2),
-          width: size.width * 0.2145,
+          margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
+          width: size.width * 0.179,
           height: 8.5,
           decoration: BoxDecoration(
-            // shape: BoxShape.circle,
             borderRadius: BorderRadius.circular(7),
             color: isActive
-                ? ThemeApp
-                      .Foundation_Main_main_500 // ملونة
-                : Colors.grey[300], // غير ملونة
-            // border: isCurrent
-            //     ? Border.all(color: ThemeApp.Foundation_Main_main_500, width: 3)
-            //     : null,
+                ? ThemeApp.Foundation_Main_main_500
+                : ThemeApp.Foundation_Secendary_grey_100,
           ),
-          // child: Center(
-          //   child: isActive
-          //       ? const Icon(Icons.check, color: Colors.white, size: 20)
-          //       : Text(
-          //           '${index + 1}',
-          //           style: const TextStyle(
-          //             color: Colors.white,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          // ),
         ),
-
-        // // خط بين الدوائر (ما عدا آخر دائرة)
-        // if (index < 4)
-        //   Container(
-        //     width: 30,
-        //     height: 2,
-        //     color: index < _currentStep
-        //         ? ThemeApp
-        //               .Foundation_Main_main_500 // الخط ملون
-        //         : Colors.grey[300], // الخط رمادي
-        //   ),
       ],
     );
   }
 
   Widget _buildNavigationButtons() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // زر الرجوع (يظهر من الخطوة 1 إلى 4)
-          if (_currentStep > 0)
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () {
-                  setState(() {
-                    _currentStep--;
-                  });
-                },
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
-                ),
-                child: const Text('السابق'),
-              ),
-            ),
-
-          if (_currentStep > 0) const SizedBox(width: 10),
-
-          // زر التالي/نشر
+    return Row(
+      children: [
+        if (_currentStep > 0)
           Expanded(
-            child: ElevatedButton(
+            child: OutlinedButton(
               onPressed: () {
-                if (_currentStep < 4) {
-                  // انتقال للخطوة التالية
-                  setState(() {
-                    _currentStep++;
-                  });
-                } else {
-                  // نشر الإعلان
-                  _publishAd();
-                }
+                setState(() {
+                  _currentStep--;
+                });
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ThemeApp.Foundation_Main_main_500,
+              style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 15),
+                side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
               ),
-              child: Text(_currentStep == 4 ? 'نشر الإعلان' : 'التالي'),
+              child: Text(
+                'Previous',
+                style: TypographyApp.Body_mid_Mid.copyWith(
+                  color: ThemeApp.Foundation_Main_main_500,
+                ),
+              ),
             ),
           ),
-        ],
-      ),
+
+        if (_currentStep > 0) const SizedBox(width: 10),
+
+        // زر التالي/نشر
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              if (_currentStep < 4) {
+                // انتقال للخطوة التالية
+                setState(() {
+                  adsController.validateStepAddAds(_currentStep)
+                      ? _currentStep++
+                      : Get.snackbar("title", "message");
+                });
+              } else {
+                // نشر الإعلان
+                _publishAd();
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ThemeApp.Foundation_Main_main_500,
+              padding: const EdgeInsets.symmetric(vertical: 15),
+            ),
+            child: Text(
+              _currentStep == 4 ? 'Submit' : 'Next',
+              style: TypographyApp.Body_mid_Mid.copyWith(
+                color: ThemeApp.Foundation_Main_main_50,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -217,62 +206,20 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     );
   }
 
-  Widget _buildStepContent() {
-    switch (_currentStep) {
-      case 0:
-        return _Step1BasicDetails();
-      case 1:
-        return _Step2Images();
-      case 2:
-        return _Step3Location();
-      case 3:
-        return _Step4Price();
-      case 4:
-        return _Step5Review();
-      default:
-        return Container();
-    }
-  }
-
-  // كل خطوة في ويدجت منفصل (أسهل للصيانة)
-  Widget _Step1BasicDetails() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'عنوان الإعلان',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            maxLines: 3,
-            decoration: const InputDecoration(
-              labelText: 'وصف الإعلان',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          // ... باقي الحقول
-        ],
-      ),
-    );
-  }
-
-  Widget _Step2Images() {
-    return Center(child: Text('خطوة إضافة الصور'));
-  }
-
-  Widget _Step3Location() {
-    return Center(child: Text('خطوة تحديد الموقع'));
-  }
-
-  Widget _Step4Price() {
-    return Center(child: Text('خطوة تحديد السعر'));
-  }
-
-  Widget _Step5Review() {
-    return Center(child: Text('خطوة مراجعة الإعلان'));
-  }
+  // Widget _buildStepContent() {
+  //   switch (_currentStep) {
+  //     case 0:
+  //       return FirstStepBusinessAccountWidget();
+  //     case 1:
+  //       return SecondStepSelectCategoryWidget();
+  //     case 2:
+  //       return ThirdStepSupCategoryWidget();
+  //     case 3:
+  //       return FourStepWriteAdDetailsWidget();
+  //     case 4:
+  //       return FiveStepAddLocationPage();
+  //     default:
+  //       return Container();
+  //   }
+  // }
 }

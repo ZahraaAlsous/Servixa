@@ -15,7 +15,7 @@ class HomeCardCategoryWidget extends StatelessWidget {
     required this.categoryName,
     this.typographyApp,
     this.margin,
-    this.onTap
+    this.onTap,
   });
 
   @override
@@ -24,21 +24,20 @@ class HomeCardCategoryWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: 
-        margin == null
+        margin: margin == null
             ? EdgeInsetsGeometry.zero
             : EdgeInsetsGeometry.symmetric(
-              // edit
-              // إذا ضفت padding أو margin للصفحة كاملة  ما يتأثر الطرف الأول من الناصر مع طرف الصفحة
-                horizontal: size.width * (DimensApp.gapBetweenCategoryCard /2),
+                // edit
+                // إذا ضفت padding أو margin للصفحة كاملة  ما يتأثر الطرف الأول من الناصر مع طرف الصفحة
+                horizontal: size.width * (DimensApp.gapBetweenCategoryCard / 2),
               ),
-        padding: EdgeInsetsGeometry.all(10),
+        padding: EdgeInsetsGeometry.all(5),
         width: size.width * 0.279,
-        // height: size.height * 0.090,
-        height: 84,
+        height: 100,
         decoration: BoxDecoration(
           color: ThemeApp.Foundation_Main_main_50,
           // color: const Color.fromARGB(255, 235, 144, 26),
+          // borderRadius: BorderRadius.circular(41),
           borderRadius: BorderRadius.circular(41),
         ),
         child: Column(
@@ -53,10 +52,12 @@ class HomeCardCategoryWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               // note
               maxLines: 2,
-              style: typographyApp?? TypographyApp.Body_mid_Mid.copyWith(
-                
-                overflow: TextOverflow.ellipsis,
-              ),
+              style:
+                  typographyApp ??
+                  TypographyApp.Body_mid_Mid.copyWith(
+                    overflow: TextOverflow.ellipsis,
+                    color: ThemeApp.Foundation_Secendary_grey_600,
+                  ),
             ),
           ],
         ),

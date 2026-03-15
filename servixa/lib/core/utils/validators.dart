@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 
 class Validators {
   static String? validateEmail(String? value) {
@@ -81,4 +81,17 @@ class Validators {
     return null;
   }
 
+  static String? validateReviewAndRequestOrder(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "This field is required";
+    }
+    return null;
+  }
+
+  static String? validateDate(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please select a date";
+    }
+    return null;
+  }
 }

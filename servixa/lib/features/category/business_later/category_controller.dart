@@ -36,6 +36,11 @@ class CategoryController extends GetxController {
             name: "Heavy Vehicles",
             icon: "assets/images/Simplification.png",
           ),
+          SubCategoryModel(
+            id: 2,
+            name: "Plumbing & Electrical",
+            icon: "assets/images/Simplification.png",
+          ),
         ],
       ),
       CategoryModel(

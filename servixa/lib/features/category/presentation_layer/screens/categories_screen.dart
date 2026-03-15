@@ -8,6 +8,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/presentation_layer/screens/sub_category_screen.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -17,8 +18,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return 
-    Scaffold(
+    return Scaffold(
       appBar: AppBarWidget(),
       backgroundColor: ThemeApp.whiteBackground,
       body: SingleChildScrollView(
@@ -41,9 +41,9 @@ class CategoriesScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                mainAxisSpacing: 22,
-                crossAxisSpacing: 20,
-                childAspectRatio: 1,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 1,
+                childAspectRatio: 120 / 84,
               ),
               itemCount: categoryController.categories.length,
               itemBuilder: (context, indexCategory) {
@@ -52,6 +52,9 @@ class CategoriesScreen extends StatelessWidget {
                 return HomeCardCategoryWidget(
                   assetName: category.icon,
                   categoryName: category.name,
+                  onTap: () {
+                    Get.to(SubCategoryScreen(categoryId: category.id));
+                  },
                 );
               },
             ),
@@ -59,6 +62,5 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
     );
-  
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -7,12 +8,13 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
+import 'package:servixa/features/auth/presentation_layer/screens/verify_screen.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
-import 'package:servixa/features/auth/presentation_layer/widgets/auth_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:country_picker/country_picker.dart';
 
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -21,10 +23,12 @@ class RegisterPage extends StatelessWidget {
   TextEditingController emailPhoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
-  // edit
+  final Rx<Country?> selectedCountry = Rx<Country?>(
+    Country.parse('SY'),
+  ); // edit
   // تكون سوريا
-  PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
-    TextEditingController phoneController = TextEditingController();
+  // PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
+  // TextEditingController phoneController = TextEditingController();
 
   AuthController authController = Get.put(AuthController());
 
@@ -37,7 +41,8 @@ class RegisterPage extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AuthAppBarWidget(),
       body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: size.width * DimensApp.spaceHorizontalScreen,
+        padding: EdgeInsetsGeometry.symmetric(
+          horizontal: size.width * DimensApp.spaceHorizontalScreen,
         ),
         child: Column(
           children: [
@@ -63,7 +68,7 @@ class RegisterPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AuthTextFormField(
+                      AppTextFormField(
                         labelText: "First Name",
                         hintText: "Ahmad",
                         icon: IconApp.person,
@@ -72,7 +77,7 @@ class RegisterPage extends StatelessWidget {
                         validator: Validators.validateFirstName,
                       ),
                       SizedBox(width: DimensApp.widthBetweenTextFormField),
-                      AuthTextFormField(
+                      AppTextFormField(
                         labelText: "Last Name",
                         hintText: "Ahmad",
                         icon: IconApp.person,
@@ -84,7 +89,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-                  AuthTextFormField(
+                  AppTextFormField(
                     labelText: "Write Email or phone number",
                     hintText: "0911111111 || example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
@@ -93,9 +98,112 @@ class RegisterPage extends StatelessWidget {
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
+                  // Container(
+                  //   height: 48,
+                  //   width: size.width * 0.934,
+                  //   margin: EdgeInsetsGeometry.symmetric(vertical: 20),
+
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(16),
+                  //     border: BoxBorder.all(
+                  //       color: ThemeApp.Foundation_Secendary_grey_100,
+                  //       width: 1,
+                  //     ),
+                  //   ),
+                  //   child: InternationalPhoneNumberInput(
+                  //     hintText: "Enter your phone (optional)",
+                  //     onInputChanged: (PhoneNumber number) {
+                  //       phoneNumber = number;
+                  //     },
+                  //     onInputValidated: (bool isValid) {
+                  //       print('Is valid: $isValid');
+                  //     },
+
+                  //     selectorConfig: const SelectorConfig(
+                  //       selectorType: PhoneInputSelectorType.DIALOG,
+                  //       useEmoji: true,
+                  //       // leadingSelector: true,
+                  //       leadingPadding: 10,
+                  //       setSelectorButtonAsPrefixIcon: true,
+                  //       trailingSpace: false,
+                  //     ),
+                  //     initialValue: phoneNumber,
+                  //     textFieldController: phoneController,
+                  //     formatInput: true,
+                  //     inputBorder: InputBorder.none,
+                  //     keyboardType: const TextInputType.numberWithOptions(
+                  //       signed: true,
+                  //       decimal: true,
+                  //     ),
+                  //     // validator: (String? value) {
+                  //     //   if (value == null || value.isEmpty) {
+                  //     //     return 'Phone number is required';
+                  //     //   }
+                  //     //   // تحقق إضافي حسب طول الرقم
+                  //     //   if (value.length < 9) {
+                  //     //     return 'Phone number is too short';
+                  //     //   }
+                  //     //   return null;
+                  //     // },
+                  //   ),
+                  // ),
+                  Obx(
+                    () => GestureDetector(
+                      onTap: () {
+                        showCountryPicker(
+                          context: context,
+                          showPhoneCode: true,
+                          onSelect: (Country country) {
+                            selectedCountry.value = country;
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 48,
+                        width: size.width * 0.934,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: ThemeApp.Foundation_Secendary_grey_100,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            if (selectedCountry.value != null)
+                              Text(
+                                selectedCountry.value!.flagEmoji,
+                                style: const TextStyle(fontSize: 24),
+                              )
+                            else
+                              const Icon(Icons.flag, color: Colors.grey),
+
+                            const SizedBox(width: 10),
+
+                            Expanded(
+                              child: Text(
+                                selectedCountry.value!.displayName,
+                                style: TypographyApp.Body_mid_Regular,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: DimensApp.hightBetweenTextFormField),
+
                   Obx(() {
                     bool isVisible = authController.isPasswordVisible.value;
-                    return AuthTextFormField(
+                    return AppTextFormField(
                       labelText: "Password",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,
@@ -125,7 +233,7 @@ class RegisterPage extends StatelessWidget {
                   Obx(() {
                     bool isVisible =
                         authController.isConfirmPasswordVisible.value;
-                    return AuthTextFormField(
+                    return AppTextFormField(
                       labelText: "Confirm Password",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,
@@ -155,95 +263,55 @@ class RegisterPage extends StatelessWidget {
                       ),
                     );
                   }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Obx(
-                        () => Checkbox(
-                          value: authController.isAgreeTermsAndPolicies.value,
-                          onChanged: (value) {
-                            authController.changeAgreeTermsAndPolicies();
-                          },
-                          activeColor: ThemeApp.Foundation_Statue_Green,
-                          checkColor: ThemeApp.secondaryButtonBg,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          side: BorderSide(
-                            width: 1.5,
-                            color: ThemeApp.Foundation_Secendary_grey_600,
-                          ),
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        ),
-                      ),
-                      Text(
-                        "I agree with ",
-                        style: TypographyApp.Body_mid_Mid.copyWith(
-                          color: ThemeApp.Foundation_Secendary_grey_600,
-                        ),
-                      ),
-                      TextButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          // minimumSize: Size.zero,
-                        ),
-                        onPressed: () {
-                          Get.to(RegisterPage());
-                        },
 
-                        child: Text(
-                          "terms & policies",
-                          style: TypographyApp.Body_mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Obx(
+                  //       () => Checkbox(
+                  //         value: authController.isAgreeTermsAndPolicies.value,
+                  //         onChanged: (value) {
+                  //           authController.changeAgreeTermsAndPolicies();
+                  //         },
+                  //         activeColor: ThemeApp.Foundation_Statue_Green,
+                  //         checkColor: ThemeApp.secondaryButtonBg,
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(4),
+                  //         ),
+                  //         side: BorderSide(
+                  //           width: 1.5,
+                  //           color: ThemeApp.Foundation_Secendary_grey_600,
+                  //         ),
+                  //         visualDensity: VisualDensity.compact,
+                  //         materialTapTargetSize:
+                  //             MaterialTapTargetSize.shrinkWrap,
+                  //       ),
+                  //     ),
+                  //     Text(
+                  //       "I agree with ",
+                  //       style: TypographyApp.Body_mid_Mid.copyWith(
+                  //         color: ThemeApp.Foundation_Secendary_grey_600,
+                  //       ),
+                  //     ),
+                  //     TextButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         padding: EdgeInsets.zero,
+                  //         // minimumSize: Size.zero,
+                  //       ),
+                  //       onPressed: () {
+                  //         Get.to(RegisterPage());
+                  //       },
+                  //       child: Text(
+                  //         "terms & policies",
+                  //         style: TypographyApp.Body_mid_Mid.copyWith(
+                  //           color: ThemeApp.Foundation_Main_main_500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  AppCheckboxTermsPoliciesWidget(),
 
-                  // ✅ حقل رقم الهاتف
-                  InternationalPhoneNumberInput(
-                    hintText: "zahraa",
-                    onInputChanged: (PhoneNumber number) {
-                      phoneNumber = number;
-                    },
-                    onInputValidated: (bool isValid) {
-                      print('Is valid: $isValid');
-                    },
-                    selectorConfig: const SelectorConfig(
-                      selectorType: PhoneInputSelectorType.DIALOG,
-                      useEmoji: true,
-                      // leadingSelector: true,
-                      trailingSpace: false,
-                    ),
-                    initialValue: phoneNumber,
-                    textFieldController: phoneController,
-                    formatInput: true,
-                    inputBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(
-                        // color: ThemeApp.Foundation_Secendary_grey_200,
-                        color: ThemeApp.Foundation_Secendary_grey_100,
-                      ),
-                    ),
-                    keyboardType: const TextInputType.numberWithOptions(
-                      signed: true,
-                      decimal: true,
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Phone number is required';
-                      }
-                      // تحقق إضافي حسب طول الرقم
-                      if (value.length < 9) {
-                        return 'Phone number is too short';
-                      }
-                      return null;
-                    },
-                  ),
-                  
                   // edit
                   // add function register
                   Obx(
@@ -257,7 +325,8 @@ class RegisterPage extends StatelessWidget {
                               if (_formKey.currentState!.validate()) {
                                 // edit
                                 // تابع تسجيل حساب
-                                Get.offAll(SuperHomeScreen());
+                                // Get.offAll(SuperHomeScreen());
+                                Get.to(VerifyScreen());
                               }
                             }
                           : null,

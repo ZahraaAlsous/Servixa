@@ -13,7 +13,7 @@ import 'package:servixa/features/auth/presentation_layer/screens/verify_screen.d
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
-import 'package:servixa/features/auth/presentation_layer/widgets/auth_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class LoginPage extends StatelessWidget {
@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  AuthTextFormField(
+                  AppTextFormField(
                     labelText: "Email Address",
                     hintText: "example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
@@ -77,7 +77,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
                   Obx(() {
                     bool isVisible = authController.isPasswordVisible.value;
-                    return AuthTextFormField(
+                    return AppTextFormField(
                       labelText: "Password",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,
@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       controller: passwordController,
-                      validator: Validators.validatePassword
+                      validator: Validators.validatePassword,
                     );
                   }),
 

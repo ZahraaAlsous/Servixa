@@ -26,18 +26,15 @@ class ThemeApp {
   static const Color Foundation_Main_main_800 = Color(0xff3B1F62);
   static const Color Foundation_Main_main_900 = Color(0xff2D184B);
 
-  
   static const Color Foundation_Main_Color_900 = Color(0xff010A1C);
-  
 
   static const Color Foundation_Main_yellow_50 = Color(0xffFEFAED);
 
   static const Color secondaryButtonBg = Color(0xffFFFFFF);
   static const Color Foundation_Statue_Green = Color(0xff4EC87B);
-  static const Color colorCirclesSlider = Color(0xffD9D9D9);
+  static const Color colorCirclesSliderAndStar = Color(0xffD9D9D9);
   static const Color black = Color(0xff000000);
   static const Color Foundation_Grey_grey_700 = Color(0xff000000);
-
 
   static const Color colorIconProfileHomeScreen = Color(0xff6D3FAE);
   static const Color Foundation_Secendary_Color_Light_hover = Color(0xffDEDEDE);

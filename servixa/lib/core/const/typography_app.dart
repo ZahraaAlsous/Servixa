@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TypographyApp {
   static const TextStyle Headline_small_Mid = TextStyle(
@@ -68,16 +69,14 @@ class TypographyApp {
     letterSpacing: 0,
   );
 
-  static const TextStyle title_home_page = TextStyle(
-    fontFamily: "Poppins",
+ static TextStyle title_home_page = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 22,
     height: 1.4,
     letterSpacing: 0,
   );
 
-  static const TextStyle text_button_home_page = TextStyle(
-    fontFamily: "Poppins",
+  static  TextStyle text_button_home_page =  GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 14,
     height: 1.4,
@@ -92,12 +91,10 @@ class TypographyApp {
   );
 
   static const TextStyle time_notification = TextStyle(
-    fontFamily: "The Year of Handicrafts",
+    fontFamily: "TheYearOfHandicrafts",
     fontWeight: FontWeight.w400,
     fontSize: 14,
     height: 1.4,
     letterSpacing: 0,
   );
-
-
 }

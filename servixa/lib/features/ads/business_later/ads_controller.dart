@@ -1,11 +1,23 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/core/const/image_app.dart';
+import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
+import 'package:servixa/features/profile/data_layer/models/user_model.dart';
+import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
 class AdsController extends GetxController {
   RxBool showMore = false.obs;
   RxList<AdsModel> adsList = <AdsModel>[].obs;
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
+
+  // verbals add ads
+  Rx<CategoryModel?> selectedCategoryAds = Rx<CategoryModel?>(null);
+  Rx<SubCategoryModel?> selectedSubCategoryAds = Rx<SubCategoryModel?>(null);
+
+  var selectedImage = Rx<File?>(null);
 
   @override
   void onInit() {
@@ -28,6 +40,14 @@ class AdsController extends GetxController {
         typeCoin: "Sp",
         typeService: "Rent",
         status: "accept",
+        listReview: [
+          ReviewModel(
+            id: 1,
+            text: "very beatufull",
+            user: UserModel(id: 1, firstName: "Zahraa", lastName: "Alsous"),
+            date: "6/15/2026",
+          ),
+        ],
       ),
       AdsModel(
         id: 2,
@@ -98,5 +118,21 @@ class AdsController extends GetxController {
 
   void getAdsDetails(int AdsId) {
     adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
+  }
+
+  bool validateStepAddAds(int step) {
+    switch (step) {
+      case 0:
+        return true;
+      case 1:
+        return selectedCategoryAds.value != null;
+      case 2:
+        if (selectedCategoryAds.value?.subCategories.isNotEmpty ?? false) {
+          return selectedSubCategoryAds.value != null;
+        }
+        return true;
+      default:
+        return false;
+    }
   }
 }

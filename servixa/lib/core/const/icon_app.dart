@@ -47,7 +47,7 @@ class IconApp {
   static const String description = "assets/icons/description-alt 1.svg";
   static const String solarLinkOutline = "assets/icons/solar_link-outline.svg";
   static const String solarTagPriceOutline = "assets/icons/solar_tag-price-outline.svg";
-  static const String camera = "assets/icons/assets/icons/camera.svg";
-  static const String suggestion = "assets/icons/assets/icons/suggestion 1.svg";
-  static const String tags = "assets/icons/assets/icons/tags.svg";
+  static const String camera = "assets/icons/camera.svg";
+  static const String suggestion = "assets/icons/suggestion 1.svg";
+  static const String tags = "assets/icons/tags.svg";
 }

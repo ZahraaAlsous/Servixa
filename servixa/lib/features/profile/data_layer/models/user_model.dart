@@ -7,7 +7,7 @@ class UserModel {
   String? email;
   String? phone;
   String? image;
-  String token;
+  String? token;
   List<BusinessAccountModel>? listBusinessAccount;
 
   UserModel({
@@ -17,7 +17,7 @@ class UserModel {
     this.email,
     this.phone,
     this.image,
-    required this.token,
+     this.token,
     this.listBusinessAccount,
   });
 }

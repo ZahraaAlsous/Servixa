@@ -18,15 +18,18 @@ class AppTitleSectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          data,
-          style:
-              typographyAppTitle ??
-              TypographyApp.title_home_page.copyWith(
-                color: ThemeApp.Foundation_Main_Color_900,
-              ),
+        Expanded(
+          child: Text(
+            data,
+            style:
+                typographyAppTitle ??
+                TypographyApp.title_home_page.copyWith(
+                  color: ThemeApp.Foundation_Main_Color_900,
+                  overflow: TextOverflow.ellipsis
+                ),
+          ),
         ),
         TextButton(
           onPressed: onPressed,

@@ -110,7 +110,7 @@ import 'package:servixa/core/const/typography_app.dart';
 //   }
 // }
 
-class AuthTextFormField extends StatelessWidget {
+class AppTextFormField extends StatelessWidget {
   String? labelText;
   String hintText;
   String? icon;
@@ -126,7 +126,7 @@ class AuthTextFormField extends StatelessWidget {
   int? minLines;
   int? maxLines;
 
-  AuthTextFormField({
+  AppTextFormField({
     super.key,
     this.labelText,
     required this.hintText,
@@ -141,7 +141,7 @@ class AuthTextFormField extends StatelessWidget {
     this.colorIconPrefix,
     this.sizeIconPrefix,
     this.minLines,
-    this.maxLines
+    this.maxLines,
   });
 
   @override
@@ -151,7 +151,7 @@ class AuthTextFormField extends StatelessWidget {
     return SizedBox(
       width: size.width * (widthTextFormField ?? 0.934),
       child: TextFormField(
-        minLines: minLines?? null,
+        minLines: minLines ?? null,
         maxLines: maxLines ?? null,
         textInputAction: textInputAction ?? TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.text,
@@ -194,7 +194,7 @@ class AuthTextFormField extends StatelessWidget {
 
           prefixIcon: icon != null
               ? Padding(
-                  padding: const EdgeInsets.all(12), 
+                  padding: const EdgeInsets.all(12),
                   child: SvgPicture.asset(
                     icon!,
                     width: sizeIconPrefix ?? 20,

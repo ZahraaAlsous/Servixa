@@ -7,7 +7,6 @@ import 'package:servixa/features/category/business_later/category_controller.dar
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
 
@@ -56,9 +55,9 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  mainAxisSpacing: 22,
-                  crossAxisSpacing: 20,
-                  childAspectRatio: 1,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 1,
+                  childAspectRatio: 120 / 84,
                 ),
                 itemCount: categoryController.subCategories.length,
                 itemBuilder: (context, indexSubCategory) {

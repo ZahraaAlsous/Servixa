@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -10,6 +11,7 @@ import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/space_between_section_widget.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
@@ -17,6 +19,8 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
+import 'package:servixa/features/review/data_layer/models/review_model.dart';
+// import 'package:share_plus/share_plus.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -58,8 +62,16 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        // elevation: ,
-        actions: [Icon(Icons.share_outlined), Icon(Icons.favorite)],
+        actions: [
+          IconButton(
+            onPressed: () {
+              // _shareText();
+              log("share");
+            },
+            icon: Icon(Icons.share_outlined),
+          ),
+          Icon(Icons.favorite),
+        ],
       ),
       body:
           // SingleChildScrollView(child: Column(children: [
@@ -155,7 +167,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                   homeController.currentCarouselIndex.value ==
                                       entry.key
                                   ? ThemeApp.Foundation_Main_main_500
-                                  : ThemeApp.colorCirclesSlider,
+                                  : ThemeApp.colorCirclesSliderAndStar,
                             ),
                           );
                         }).toList(),
@@ -693,180 +705,235 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     ],
                   ),
                 ),
-
-                //                 RatingBar(
-                //    initialRating: 3,
-                //    direction: Axis.horizontal,
-                //    allowHalfRating: true,
-                //    itemCount: 5,
-                //    ratingWidget: RatingWidget(
-                //      full: _image('assets/heart.png'),
-                //      half: _image('assets/heart_half.png'),
-                //      empty: _image('assets/heart_border.png'),
-                //    ),
-                //    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                //    onRatingUpdate: (rating) {
-                //      print(rating);
-                //    },
-                // ),
-                // RatingBar.builder(
-                //   initialRating: 3,
-                //   itemCount: 5,
-                //   itemBuilder: (context, index) {
-                //     switch (index) {
-                //       case 0:
-                //         return Icon(
-                //           Icons.sentiment_very_dissatisfied,
-                //           color: Colors.red,
-                //         );
-                //       case 1:
-                //         return Icon(
-                //           Icons.sentiment_dissatisfied,
-                //           color: Colors.redAccent,
-                //         );
-                //       case 2:
-                //         return Icon(
-                //           Icons.sentiment_neutral,
-                //           color: Colors.amber,
-                //         );
-                //       case 3:
-                //         return Icon(
-                //           Icons.sentiment_satisfied,
-                //           color: Colors.lightGreen,
-                //         );
-                //       case 4:
-                //         return Icon(
-                //           Icons.sentiment_very_satisfied,
-                //           color: Colors.green,
-                //         );
-                //     }
-                //   },
-                //   onRatingUpdate: (rating) {
-                //     print(rating);
-                //   },
-                // ),
+                AppTitleSectionWidget(
+                  data: "Top Reviews",
+                  typographyAppButton: TypographyApp.Body_mid_Mid,
+                  typographyAppTitle: TypographyApp.Title_larg_Mid,
+                  // edit
+                  // شو لبصفحة يلي بروح عليها
+                  onPressed: () {},
+                ),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
                     horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    vertical: 10,
+                    // vertical: 10,
                   ),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      AppTitleSectionWidget(
-                        data: "Top Reviews",
-                        typographyAppButton: TypographyApp.Body_mid_Mid,
-                        typographyAppTitle: TypographyApp.Title_larg_Mid,
-                        // edit
-                        // شو لبصفحة يلي بروح عليها
-                        onPressed: () {},
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 5,
-                        itemBuilder: (context, indexReview) {
-                          return Container(
-                            padding: EdgeInsetsGeometry.all(5),
-                            width: size.width * 0.9255,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: BoxBorder.all(
-                                width: 1,
-                                color: ThemeApp
-                                    .Foundation_Secendary_Color_Light_hover,
+                      ads.listReview != null && ads.listReview!.isNotEmpty
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: ads.listReview!.length,
+                              itemBuilder: (context, indexReview) {
+                                ReviewModel review =
+                                    ads.listReview![indexReview];
+                                return Container(
+                                  padding: EdgeInsetsGeometry.all(5),
+                                  width: size.width * 0.9255,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: BoxBorder.all(
+                                      width: 1,
+                                      color: ThemeApp
+                                          .Foundation_Secendary_Color_Light_hover,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            width: size.width * 0.109,
+                                            height: 48.6,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                  review.user.image != null
+                                                      ? review.user.image!
+                                                      : ImageApp.profileImage,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                review.user.firstName +
+                                                    " " +
+                                                    review.user.lastName,
+                                              ),
+                                              Text(review.date),
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          // edit
+                                          Text("4"),
+                                          SvgPicture.asset(IconApp.starFill),
+                                        ],
+                                      ),
+                                      Text(review.text),
+                                    ],
+                                  ),
+                                );
+                              },
+                            )
+                          : Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text(
+                                  "No reviews yet",
+                                  style:
+                                      TypographyApp.Body_mid_Regular.copyWith(
+                                        color: ThemeApp
+                                            .Foundation_Secendary_grey_400,
+                                      ),
+                                ),
                               ),
                             ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: size.width * 0.109,
-                                      height: 48.6,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                            ImageApp.profileImage,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text("lilia sallem"),
-                                        Text("6/15/ 2025"),
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Text("4"),
-                                    SvgPicture.asset(IconApp.starFill),
-                                  ],
-                                ),
-                                Text(
-                                  "Great product! Works as expected, easy to use, and feels high-quality. Just wish the battery lasted a bit longer.",
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    vertical: 10,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Get.bottomSheet(
-                            //   backgroundColor: Colors.amber,
-                            //   // Container(
-                            //   //   decoration: BoxDecoration(
-                            //   //     borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))
-                            //   //   ),
-                            //   //   child: Wrap(
-                            //   //     children: [
-                            //   //       ListTile(
-                            //   //         leading: Icon(Icons.music_note),
-                            //   //         title: Text('Music'),
-                            //   //       ),
-                            //   //       ListTile(
-                            //   //         leading: Icon(Icons.videocam),
-                            //   //         title: Text('Video'),
-                            //   //       ),
-                            //   //     ],
-                            //   //   ),
-                            //   // ),
-                            // );
-                            Get.bottomSheet(
-                              isDismissible: true,
-                              enableDrag: true,
-                              BottomSheetReviewWidget(),
-                            );
-                          },
-                          child: Text("Chat"),
-                        ),
-                      ),
-                      SizedBox(width: 32),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text("Make An Offer"),
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsetsGeometry.symmetric(
+          horizontal: size.width * DimensApp.spaceHorizontalScreen,
+          vertical: 0,
+        ),
+        // height: 60.0,
+        // color: Colors.blue,
+        child: Row(
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                onPressed: () {
+                  Get.bottomSheet(
+                    isDismissible: true,
+                    enableDrag: true,
+                    BottomSheetReviewWidget(),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      IconApp.messages,
+                      width: 20,
+                      height: 20,
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                    Text(
+                      "Chat",
+                      style: TypographyApp.Body_mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Main_main_500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ThemeApp.Foundation_Main_main_500,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+
+                onPressed: () {
+                  Get.bottomSheet(
+                    isDismissible: true,
+                    enableDrag: true,
+                    isScrollControlled: true,
+                    BottomSheetAddOrderWidget(),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      IconApp.badgePercent,
+                      width: 20,
+                      height: 20,
+                      color: ThemeApp.Foundation_Main_yellow_50,
+                    ),
+
+                    Text(
+                      " Make An Offer",
+                      style: TypographyApp.Body_mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Main_yellow_50,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  // void _shareText() {
+  //   SharePlus.instance.share(
+  //     ShareParams(
+  //       text:
+  //           'Check out my website https://example.com', // The content to share
+  //       subject: 'Example Subject', // Optional: used for email subject
+  //       title: 'Share Title', // Optional: share-sheet title (if supported)
+  //     ),
+  //   );
+  // }
+
+  // void _shareText() async {
+  //   log("function share started");
+  //   await SharePlus.instance.share(
+  //     ShareParams(text: 'check out my website https://example.com'),
+  //   );
+  //   log("function share ended");
+
+  //   // log("function share started");
+  //   // await Share.share('check out my website https://example.com');
+  //   // log("function share ended");
+  // }
+
+  //   void _shareText() async {
+  //     log("function share started");
+
+  //     // نص طويل للتأكد من ظهور المشاركة
+  //     String longText = '''
+  // مرحباً! هذا تطبيق Servixa للتجارة الإلكترونية.
+  // يمكنك تصفح العديد من المنتجات والخدمات.
+  // لدينا عروض حصرية وأسعار منافسة.
+
+  // حمل التطبيق الآن واستمتع بالتجربة!
+  // https://play.google.com/store/apps/details?id=com.servixa.app
+  // ''';
+
+  //     await SharePlus.instance.share(ShareParams(text: longText));
+
+  //     log("function share ended");
+  //   }
+
+  // void _shareText() async {
+  //   final box = context.findRenderObject() as RenderBox?;
+
+  //   await Share.share(
+  //     'محتوى المشاركة هنا...',
+  //     sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+  //   );
+  // }
 }
