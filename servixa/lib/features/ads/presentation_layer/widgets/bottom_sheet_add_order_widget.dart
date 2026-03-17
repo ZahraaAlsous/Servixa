@@ -6,7 +6,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/utils/validators.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/ads_text_area_widget.dart';
+import 'package:servixa/common/widgets/app_text_area_widget.dart';
 
 class BottomSheetAddOrderWidget extends StatelessWidget {
   BottomSheetAddOrderWidget({super.key});
@@ -212,7 +212,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
 
               Expanded(
                 flex: 4,
-                child: AdsTextAreaWidget(
+                child: AppTextAreaWidget(
                   hintText: "Enter Details",
                   prefixIcon: IconApp.details,
                   controller: detailsController,

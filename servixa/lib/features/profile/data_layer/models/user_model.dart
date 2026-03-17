@@ -17,7 +17,7 @@ class UserModel {
     this.email,
     this.phone,
     this.image,
-     this.token,
+    this.token,
     this.listBusinessAccount,
   });
 }

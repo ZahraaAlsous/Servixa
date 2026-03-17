@@ -52,4 +52,8 @@ class IconApp {
   static const String tags = "assets/icons/tags.svg";
   static const String report = "assets/icons/report.svg";
   static const String share = "assets/icons/share_link.svg";
+  static const String price = "assets/icons/type_price.svg";
+  static const String arrowUp = "assets/icons/arrow_up.svg";
+  static const String business = "assets/icons/light_business-center-outline-sharp.svg";
+  static const String SubCategory = "assets/icons/Simplification (7).svg";
 }

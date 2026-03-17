@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/ads_text_area_widget.dart';
+import 'package:servixa/common/widgets/app_text_area_widget.dart';
 
 class BottomSheetReviewWidget extends StatelessWidget {
   BottomSheetReviewWidget({super.key});
@@ -97,7 +97,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
             ),
             Expanded(
               flex: 6,
-              child: AdsTextAreaWidget(
+              child: AppTextAreaWidget(
                 controller: reviewController,
                 prefixIcon: IconApp.comment,
                 hintText: "Share your Thought...",

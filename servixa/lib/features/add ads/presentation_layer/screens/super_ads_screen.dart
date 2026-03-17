@@ -29,19 +29,19 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   int _currentStep = 0;
 
   List<String> _stepTitles = [
+    "Select your business account",
     "Select the Main Category",
     "Select the Sub Category",
-    "Write Your Ad Details",
     "Write Your Ad Details",
     "Add The Location",
   ];
 
   List<String> _stepIcon = [
+    IconApp.business,
     IconApp.category,
-    IconApp.Bedrooms,
-    IconApp.Status,
-    IconApp.mynauiGrid,
-    IconApp.camera,
+    IconApp.SubCategory,
+    IconApp.searchPaper,
+    IconApp.SubCategory,
   ];
   List<Widget> _pages = [
     FirstStepBusinessAccountWidget(),
@@ -81,17 +81,15 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 color: ThemeApp.Foundation_Main_main_500,
               ),
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child:
+            const SizedBox(height: 10),
             Text(
               _stepTitles[_currentStep],
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            // ),
-            // _buildStepContent(),
+            const SizedBox(height: 10),
             _pages[_currentStep],
+           const SizedBox(height: 10),
+
             _buildNavigationButtons(),
           ],
         ),
@@ -169,26 +167,67 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              if (_currentStep < 4) {
-                // انتقال للخطوة التالية
-                if (_currentStep == 2) {
+              if (addAdsController.validateStepAddAds(_currentStep)) {
+                // التحقق من وجود فروع عند الخطوة الثانية
+                if (_currentStep == 1) {
+                  // الخطوة الثانية (Select the Sub Category)
+                  // if (addAdsController.hasSubCategories) {
                   categoryController.getSubCategories(
                     addAdsController.selectedCategoryAds.value!.id,
                   );
+                  if (categoryController.subCategories.value.isNotEmpty) {
+                    // إذا في فروع → انتقل للخطوة الثالثة
+                    setState(() {
+                      _currentStep = 2;
+                    });
+                  } else {
+                    // إذا مافي فروع → انتقل للخطوة الرابعة
+                    setState(() {
+                      _currentStep = 3; // تخطي خطوة اختيار الفرع
+                    });
+                  }
+                } else {
+                  // باقي الخطوات تتصرف طبيعي
+                  setState(() {
+                    _currentStep++;
+                  });
                 }
-                setState(() {
-                  addAdsController.validateStepAddAds(_currentStep)
-                      ? (_currentStep == 1 &&
-                                categoryController.subCategories.value != null
-                            ? _currentStep++
-                            : _currentStep += 2)
-                      : Get.snackbar("title", "message");
-                });
               } else {
-                // نشر الإعلان
-                _publishAd();
+                Get.snackbar(
+                  "Alert",
+                  "This step is required",
+                  backgroundColor: ThemeApp.Foundation_Main_main_50,
+                  colorText: ThemeApp.Foundation_Main_main_500,
+                );
               }
             },
+
+            // onPressed: () {
+            //   if (_currentStep < 4) {
+            //     // انتقال للخطوة التالية
+            //     if (_currentStep == 2) {
+            //       categoryController.getSubCategories(
+            //         addAdsController.selectedCategoryAds.value!.id,
+            //       );
+            //     }
+            //     setState(() {
+            //       // addAdsController.validateStepAddAds(_currentStep);
+            //       // ? (_currentStep == 1 &&
+            //       //           categoryController.subCategories.value != null
+            //       //       ?
+            //       // _currentStep++
+            //       //       : _currentStep += 2)
+            //       // : Get.snackbar("title", "message");
+
+            //       addAdsController.validateStepAddAds(_currentStep)
+            //           ? _currentStep++
+            //           : Get.snackbar("title", "This step is important");
+            //     });
+            //   } else {
+            //     // نشر الإعلان
+            //     _publishAd();
+            //   }
+            // },
             style: ElevatedButton.styleFrom(
               backgroundColor: ThemeApp.Foundation_Main_main_500,
               padding: const EdgeInsets.symmetric(vertical: 15),

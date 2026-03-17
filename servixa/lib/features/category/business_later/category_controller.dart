@@ -71,13 +71,7 @@ class CategoryController extends GetxController {
         id: 5,
         name: "Interior Design",
         icon: "assets/images/Simplification.png",
-        subCategories: [
-          SubCategoryModel(
-            id: 1,
-            name: "Heavy Vehicles",
-            icon: "assets/images/Simplification.png",
-          ),
-        ],
+        subCategories: [],
       ),
     ]);
   }

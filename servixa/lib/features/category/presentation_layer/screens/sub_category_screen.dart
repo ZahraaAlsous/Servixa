@@ -66,6 +66,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                   return HomeCardCategoryWidget(
                     assetName: subCategory.icon,
                     categoryName: subCategory.name,
+                    CategoryId: subCategory.id,
                     typographyApp: TypographyApp.Label_Mid_Mid,
                   );
                 },

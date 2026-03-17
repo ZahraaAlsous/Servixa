@@ -125,6 +125,7 @@ class AppTextFormField extends StatelessWidget {
   double? sizeIconPrefix;
   int? minLines;
   int? maxLines;
+  void Function(String)? onChanged;
 
   AppTextFormField({
     super.key,
@@ -142,6 +143,7 @@ class AppTextFormField extends StatelessWidget {
     this.sizeIconPrefix,
     this.minLines,
     this.maxLines,
+    this.onChanged,
   });
 
   @override
@@ -211,6 +213,7 @@ class AppTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: onChanged,
         controller: controller,
         validator: validator,
       ),

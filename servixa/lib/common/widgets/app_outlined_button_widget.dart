@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/core/const/icon_app.dart';
+import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/const/typography_app.dart';
 
 class AppOutlinedButtonWidget extends StatelessWidget {
   String textContent;
@@ -19,6 +21,7 @@ class AppOutlinedButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        side: BorderSide(color: ThemeApp.Foundation_Main_main_500, width: 1),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
@@ -26,14 +29,26 @@ class AppOutlinedButtonWidget extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(IconApp.camera),
-                  Text(textContent, style: TextStyle(color: Colors.amber)),
+                  SvgPicture.asset(IconApp.camera, color: ThemeApp.Foundation_Main_main_500,),
+                  SizedBox(width: 8),
+                  Text(
+                    textContent,
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  ),
                 ],
               )
             : Column(
                 children: [
-                  SvgPicture.asset(IconApp.camera),
-                  Text(textContent, style: TextStyle(color: Colors.amber)),
+                  SvgPicture.asset(IconApp.camera, color: ThemeApp.Foundation_Main_main_500,),
+                  Text(
+                    textContent,
+                    textAlign: TextAlign.center,
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  ),
                 ],
               ),
       ),

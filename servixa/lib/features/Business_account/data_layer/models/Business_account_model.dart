@@ -15,6 +15,7 @@ class BusinessAccountModel {
   // صورة ولا عدة صور
   String? image;
   List<String> doc;
+  String status; //Account under review / Accepted / Rejected
 
   BusinessAccountModel({
     required this.id,
@@ -29,5 +30,6 @@ class BusinessAccountModel {
     required this.details,
     required this.doc,
     this.image,
+    required this.status
   });
 }

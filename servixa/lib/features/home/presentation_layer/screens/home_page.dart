@@ -256,6 +256,7 @@ class HomePage extends StatelessWidget {
                     return HomeCardCategoryWidget(
                       assetName: category.icon,
                       categoryName: category.name,
+                      CategoryId: category.id,
                       margin: true,
                       onTap: () {
                         Get.to(SubCategoryScreen(categoryId: category.id));
