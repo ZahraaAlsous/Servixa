@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
@@ -11,6 +13,7 @@ import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_dr
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 
 class FourStepWriteAdDetailsWidget extends StatefulWidget {
   FourStepWriteAdDetailsWidget({super.key});
@@ -349,6 +352,70 @@ class _FourStepWriteAdDetailsWidgetState
             ),
           ],
         ),
+        if (addAdsController.selectedCategoryAds.value?.questions != null &&
+            addAdsController.selectedCategoryAds.value!.questions!.isNotEmpty)
+          // Container(
+          //   width: 100,
+          //   height: 100,
+          //   color: Colors.amber,
+          // ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount:
+                addAdsController.selectedCategoryAds.value!.questions!.length,
+            itemBuilder: (context, indexQuestion) {
+              CategoryQuestionModel question = addAdsController
+                  .selectedCategoryAds
+                  .value!
+                  .questions![indexQuestion];
+              if (question.type == "text") {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(question.question),
+                    AppTextFormField(hintText: question.question),
+                  ],
+                );
+              } else if (question.type == "dropdown") {
+                // AddAdsDropdownButtonFormFieldWidget(items: [],)
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(question.question),
+                    AddAdsDropdownButtonFormFieldWidget(
+                      hintText: question.question,
+                      onChanged: (value) {},
+                      items:
+                          question.options?.map((option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Text(
+                                option,
+                                style: TypographyApp.Body_mid_Mid.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_400,
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                            );
+                          }).toList() ??
+                          [],
+                      prefixIcon: IconApp.Status,
+                      borderRadio: 16,
+                    ),
+                  ],
+                );
+              } else if (question.type == "checkbox") {
+                return Row(
+                  children: [
+                    Checkbox(value: true, onChanged: (value) {}),
+                    Text(question.question),
+                  ],
+                );
+              }
+            },
+          ),
 
         AppCheckboxTermsPoliciesWidget(),
       ],

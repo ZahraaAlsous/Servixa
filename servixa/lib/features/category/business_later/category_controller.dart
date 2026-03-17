@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 
 class CategoryController extends GetxController {
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<SubCategoryModel> subCategories = <SubCategoryModel>[].obs;
+  RxList<CategoryQuestionModel> categoryQuestions =
+      <CategoryQuestionModel>[].obs;
   RxString titleCategory = "".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -23,6 +27,20 @@ class CategoryController extends GetxController {
             id: 1,
             name: "Heavy Vehicles",
             icon: "assets/images/Simplification.png",
+          ),
+        ],
+        questions: [
+          CategoryQuestionModel(id: 1, question: "question text", type: "text"),
+          CategoryQuestionModel(
+            id: 2,
+            question: "question dropdown",
+            type: "dropdown",
+            options: ["1", "2", "3"],
+          ),
+          CategoryQuestionModel(
+            id: 3,
+            question: "question checkbox",
+            type: "checkbox",
           ),
         ],
       ),
@@ -84,4 +102,7 @@ class CategoryController extends GetxController {
     titleCategory.value = category.name;
     subCategories.value = category.subCategories;
   }
+
+  // void getCategoryQustions(){
+  // }
 }
