@@ -69,14 +69,14 @@ class TypographyApp {
     letterSpacing: 0,
   );
 
- static TextStyle title_home_page = GoogleFonts.poppins(
+  static TextStyle title_home_page = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 22,
     height: 1.4,
     letterSpacing: 0,
   );
 
-  static  TextStyle text_button_home_page =  GoogleFonts.poppins(
+  static TextStyle text_button_home_page = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 14,
     height: 1.4,
@@ -94,6 +94,14 @@ class TypographyApp {
     fontFamily: "TheYearOfHandicrafts",
     fontWeight: FontWeight.w400,
     fontSize: 14,
+    height: 1.4,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle Headline_larg_mid = TextStyle(
+    fontFamily: "Roboto",
+    fontWeight: FontWeight.w500,
+    fontSize: 32,
     height: 1.4,
     letterSpacing: 0,
   );

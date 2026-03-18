@@ -138,7 +138,9 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   }
 
   Widget _buildNavigationButtons() {
-    return Row(
+    return 
+    
+    Row(
       children: [
         if (_currentStep > 0)
           Expanded(
@@ -242,6 +244,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
         ),
       ],
     );
+  
   }
 
   void _publishAd() {

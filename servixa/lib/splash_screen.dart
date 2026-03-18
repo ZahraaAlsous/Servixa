@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
+import 'package:servixa/features/bording/presentation_layer/screens/super_bording_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -13,7 +14,8 @@ class SplashScreen extends StatelessWidget {
       // إذا في token يروح عال home
       // question
       //بال login في زر رجوع ، مو غلط؟
-      Get.offAll(LoginPage());
+      // Get.offAll(LoginPage());
+      Get.offAll(SuperBordingScreen());
       // authService.box.read("token") == null
       //     ? Get.offAll(LoginPage())
       //     : Get.offAll(SuperHomePage());

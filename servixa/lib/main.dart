@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/features/bording/presentation_layer/screens/super_bording_screen.dart';
 import 'package:servixa/splash_screen.dart';
 
 void main()  {
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
       ),
       
       home: SplashScreen(),
-      // home: LoginPage(),
     );
   }
 }
