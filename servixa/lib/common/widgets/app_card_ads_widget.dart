@@ -7,7 +7,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
-class CardAdsWidget extends StatelessWidget {
+class AppCardAdsWidget extends StatelessWidget {
   AdsController adsController = Get.put(AdsController());
   // String assetName;
   // bool favorit;
@@ -16,7 +16,8 @@ class CardAdsWidget extends StatelessWidget {
   double widthCard;
   final bool isGridView;
   void Function()? onTap;
-  CardAdsWidget({
+  bool isSearchCard;
+  AppCardAdsWidget({
     super.key,
     // required this.assetName,
     // required this.favorit,
@@ -25,6 +26,7 @@ class CardAdsWidget extends StatelessWidget {
     required this.widthCard,
     required this.isGridView,
     this.onTap,
+    this.isSearchCard = false,
   });
 
   @override
@@ -32,9 +34,7 @@ class CardAdsWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onTap,
-      child: isGridView
-          ? _buildGridLayout(size) // تصميم الشبكة (صورة فوق)
-          : _buildListLayout(size),
+      child: isGridView ? _buildGridLayout(size) : _buildListLayout(size),
     );
   }
 
@@ -45,6 +45,7 @@ class CardAdsWidget extends StatelessWidget {
       // height: 222,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
+
         border: BoxBorder.all(
           color: ThemeApp.Foundation_Secendary_grey_50,
           width: 1,
@@ -125,16 +126,6 @@ class CardAdsWidget extends StatelessWidget {
                             : ThemeApp.black,
                       ),
                     ),
-
-                    // favorit
-                    //     ? SvgPicture.asset(
-                    //         IconApp.favorite,
-                    //         color: ThemeApp.Foundation_Main_main_400,
-                    //       )
-                    //     : SvgPicture.asset(
-                    //         IconApp.favoriteBorder,
-                    //         color: ThemeApp.black,
-                    //       ),
                   ],
                 ),
               ],
@@ -154,10 +145,28 @@ class CardAdsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(33),
         color: ThemeApp.whiteBackground,
-        border: BoxBorder.all(
-          color: ThemeApp.Foundation_Secendary_grey_50,
-          width: 1,
-        ),
+        border: isSearchCard
+            ? BoxBorder.all(
+                color: ThemeApp.Foundation_Secendary_grey_50,
+                width: 1,
+              )
+            : null,
+        boxShadow: isSearchCard
+            ? [
+                BoxShadow(
+                  offset: const Offset(0, 16),
+                  blurRadius: 32,
+                  spreadRadius: -4,
+                  color: Color(0xff0C0C0D1A).withOpacity(0.10),
+                ),
+                BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 4,
+                  spreadRadius: -4,
+                  color: Color(0xff0C0C0D1A).withOpacity(0.05),
+                ),
+              ]
+            : null,
       ),
 
       child: Row(

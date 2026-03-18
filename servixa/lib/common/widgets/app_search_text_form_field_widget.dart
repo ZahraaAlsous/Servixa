@@ -7,8 +7,18 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
   double? radio;
   double? widthTextForm;
+  bool? readOnly;
+  void Function()? onTap;
+  void Function(String)? onFieldSubmitted;
 
-  AppSearchTextFormFieldWidget({super.key, this.radio, this.widthTextForm});
+  AppSearchTextFormFieldWidget({
+    super.key,
+    this.radio,
+    this.widthTextForm,
+    this.readOnly,
+    this.onTap,
+    this.onFieldSubmitted
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +30,8 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
         controller: searchController,
+        readOnly: readOnly ?? false,
+        onTap: onTap,
         decoration: InputDecoration(
           hintText: "Search any item...",
           enabledBorder: OutlineInputBorder(
@@ -64,6 +76,7 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
         ),
         // edit
         // إعمل validator? التطبيقات الضخمة ما بتعمل
+        onFieldSubmitted: onFieldSubmitted,
       ),
     );
   }

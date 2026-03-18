@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -19,11 +17,11 @@ import 'package:servixa/features/category/data_layer/models/category_model.dart'
 import 'package:servixa/features/category/presentation_layer/screens/categories_screen.dart';
 import 'package:servixa/features/category/presentation_layer/screens/sub_category_screen.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class HomePage extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
@@ -75,7 +73,7 @@ class HomePage extends StatelessWidget {
                 //   //     ? const Icon(Icons.person, size: 60)
                 //   //     : null,
                 // ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -121,11 +119,16 @@ class HomePage extends StatelessWidget {
             AppRichTextWidget(
               firstText: "All the Equipment and \n Services ",
               secondText: "You Need",
-              typographyApp: TypographyApp.title_home_page,
+              typographyApp: TypographyApp.title_Sections,
               maxLines: 2,
             ),
             SizedBox(height: DimensApp.spaceBetweenSection),
-            AppSearchTextFormFieldWidget(),
+            AppSearchTextFormFieldWidget(
+              readOnly: true,
+              onTap: () {
+                Get.to(SearchScreen());
+              },
+            ),
             SizedBox(height: DimensApp.spaceBetweenSection),
 
             // SizedBox(
@@ -289,7 +292,7 @@ class HomePage extends StatelessWidget {
                     AdsModel ads = adsController.adsList[indexAds];
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: CardAdsWidget(
+                      child: AppCardAdsWidget(
                         ads: ads,
                         widthCard: 0.413,
                         onTap: () {
@@ -329,7 +332,7 @@ class HomePage extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
 
-                      child: CardAdsWidget(
+                      child: AppCardAdsWidget(
                         ads: ads,
                         widthCard: 0.367,
                         isGridView: true,
@@ -367,7 +370,7 @@ class HomePage extends StatelessWidget {
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: CardAdsWidget(
+                      child: AppCardAdsWidget(
                         ads: adsController.adsList[indexAds],
                         widthCard: 0.611,
                         isGridView: true,
@@ -394,7 +397,7 @@ class HomePage extends StatelessWidget {
                 itemCount: adsController.adsList.length,
                 itemBuilder: (context, indexAds) {
                   AdsModel ads = adsController.adsList[indexAds];
-                  return CardAdsWidget(
+                  return AppCardAdsWidget(
                     ads: ads,
                     widthCard: 0.431,
                     isGridView: true,

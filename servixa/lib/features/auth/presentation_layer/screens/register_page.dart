@@ -9,7 +9,7 @@ import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/verify_screen.dart';
-import 'package:servixa/features/auth/presentation_layer/widgets/auth_app_bar_widget.dart';
+import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
@@ -39,7 +39,7 @@ class RegisterPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAppBarWidget(),
+      appBar: AuthAndBoardingAppBarWidget(),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
-class AuthAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AuthAppBarWidget({super.key});
+class AuthAndBoardingAppBarWidget extends StatelessWidget
+    implements PreferredSizeWidget {
+  const AuthAndBoardingAppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

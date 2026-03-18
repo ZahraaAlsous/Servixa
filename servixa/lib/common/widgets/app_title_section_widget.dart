@@ -25,9 +25,9 @@ class AppTitleSectionWidget extends StatelessWidget {
             data,
             style:
                 typographyAppTitle ??
-                TypographyApp.title_home_page.copyWith(
+                TypographyApp.title_Sections.copyWith(
                   color: ThemeApp.Foundation_Main_Color_900,
-                  overflow: TextOverflow.ellipsis
+                  overflow: TextOverflow.ellipsis,
                 ),
           ),
         ),

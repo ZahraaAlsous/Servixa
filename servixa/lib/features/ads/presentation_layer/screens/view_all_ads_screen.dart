@@ -10,7 +10,7 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 
 class ViewAllAdsScreen extends StatelessWidget {
   ViewAllAdsScreen({super.key});
@@ -21,8 +21,7 @@ class ViewAllAdsScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: 
-      AppBarWidget(),
+      appBar: AppBarWidget(),
       // AppBar(
       //   flexibleSpace: Container(
       //     decoration: const BoxDecoration(
@@ -53,9 +52,7 @@ class ViewAllAdsScreen extends StatelessWidget {
                 color: ThemeApp.Foundation_Main_main_500,
               ),
             ),
-            SizedBox(
-              height: DimensApp.spaceBetweenTitleAndDetails,
-            ),
+            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               return Row(
                 children: [
@@ -94,7 +91,7 @@ class ViewAllAdsScreen extends StatelessWidget {
                   ),
                   itemCount: adsController.adsList.length,
                   itemBuilder: (context, indexAds) {
-                    return CardAdsWidget(
+                    return AppCardAdsWidget(
                       ads: adsController.adsList[indexAds],
                       widthCard: 0.431,
                       isGridView: crossAxisCount.value == 2,

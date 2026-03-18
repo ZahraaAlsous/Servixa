@@ -4,7 +4,7 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/auth/presentation_layer/widgets/auth_app_bar_widget.dart';
+import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/bording/business_later/bording_controller.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/bording_one_screen.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/bording_second_screen.dart';
@@ -22,7 +22,7 @@ class SuperBordingScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAppBarWidget(),
+      appBar: AuthAndBoardingAppBarWidget(),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,

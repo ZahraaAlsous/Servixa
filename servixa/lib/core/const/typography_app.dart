@@ -69,7 +69,7 @@ class TypographyApp {
     letterSpacing: 0,
   );
 
-  static TextStyle title_home_page = GoogleFonts.poppins(
+  static TextStyle title_Sections = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 22,
     height: 1.4,

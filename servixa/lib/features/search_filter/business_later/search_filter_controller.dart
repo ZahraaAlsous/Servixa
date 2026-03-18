@@ -1,28 +1,23 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
-import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/core/const/image_app.dart';
-import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
+import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
-class AdsController extends GetxController {
-  RxBool showMore = false.obs;
-  RxList<AdsModel> adsList = <AdsModel>[].obs;
-  Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
-
-  var selectedImage = Rx<File?>(null);
+class SearchFilterController extends GetxController {
+  AdsController adsController = Get.put(AdsController());
+  RxList<AdsModel> adsSearchList = <AdsModel>[].obs;
+  RxString filterSearch = "".obs;
 
   @override
   void onInit() {
     super.onInit();
-    getAds();
+    getPopularAds();
   }
 
-  void getAds() {
-    adsList.addAll([
+  void getPopularAds() {
+    adsSearchList.addAll([
       AdsModel(
         id: 1,
         title: "SPR Claw Hammers1",
@@ -104,15 +99,13 @@ class AdsController extends GetxController {
     ]);
   }
 
-  void favorite(int adsId) {
-    final index = adsList.indexWhere((item) => item.id == adsId);
-    if (index != -1) {
-      adsList[index].favorite = !adsList[index].favorite;
-      adsList.refresh();
-    }
+  void applyFilters() {
+    searchResault(name: filterSearch.value.isEmpty ? null : filterSearch.value);
   }
 
-  void getAdsDetails(int AdsId) {
-    adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
+  void searchResault({String? name}) {
+    adsSearchList.value = adsController.adsList
+        .where((item) => item.title == name)
+        .toList();
   }
 }
