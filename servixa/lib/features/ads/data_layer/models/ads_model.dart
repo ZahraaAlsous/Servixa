@@ -1,3 +1,5 @@
+import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
 class AdsModel {
@@ -13,6 +15,8 @@ class AdsModel {
   String typeService;
   List<ReviewModel>? listReview;
   String status;
+  CategoryModel category;
+  SubCategoryModel? subCategory;
 
   // edit
   // categore or sub category ?
@@ -30,6 +34,8 @@ class AdsModel {
     this.dictation,
     required this.typeService,
     this.listReview,
-    required this.status
+    required this.status,
+    required this.category,
+    this.subCategory,
   });
 }

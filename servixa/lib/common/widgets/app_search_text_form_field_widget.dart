@@ -10,6 +10,8 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
   bool? readOnly;
   void Function()? onTap;
   void Function(String)? onFieldSubmitted;
+  void Function(String)? onChanged;
+  void Function()? onPressed;
 
   AppSearchTextFormFieldWidget({
     super.key,
@@ -17,7 +19,9 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
     this.widthTextForm,
     this.readOnly,
     this.onTap,
-    this.onFieldSubmitted
+    this.onFieldSubmitted,
+    this.onChanged,
+    this.onPressed,
   });
 
   @override
@@ -56,7 +60,7 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
           suffixIcon: IconButton(
             // edit
             // تابع فلترة
-            onPressed: () {},
+            onPressed: onPressed,
             icon: SvgPicture.asset(
               IconApp.tune,
               width: 20,
@@ -77,6 +81,7 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
         // edit
         // إعمل validator? التطبيقات الضخمة ما بتعمل
         onFieldSubmitted: onFieldSubmitted,
+        onChanged: onChanged,
       ),
     );
   }

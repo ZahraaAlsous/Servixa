@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
@@ -22,7 +23,8 @@ class AdsController extends GetxController {
   }
 
   void getAds() {
-    adsList.addAll([
+    adsList.addAll(
+      [
       AdsModel(
         id: 1,
         title: "SPR Claw Hammers1",
@@ -44,6 +46,29 @@ class AdsController extends GetxController {
             date: "6/15/2026",
           ),
         ],
+        category: CategoryModel(
+          id: 2,
+          name: "Interior Design",
+          icon: "assets/images/Simplification.png",
+          subCategories: [
+            SubCategoryModel(
+              id: 1,
+              name: "Heavy Vehicles",
+              icon: "assets/images/Simplification.png",
+            ),
+            SubCategoryModel(
+              id: 2,
+              name: "Plumbing & Electrical",
+              icon: "assets/images/Simplification.png",
+            ),
+          ],
+        ),
+
+        subCategory: SubCategoryModel(
+          id: 2,
+          name: "Plumbing & Electrical",
+          icon: "assets/images/Simplification.png",
+        ),
       ),
       AdsModel(
         id: 2,
@@ -58,6 +83,36 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
+        category: CategoryModel(
+          id: 1,
+          name: "Equipment",
+          icon: "assets/images/Simplification.png",
+          subCategories: [
+            SubCategoryModel(
+              id: 1,
+              name: "Heavy Vehicles",
+              icon: "assets/images/Simplification.png",
+            ),
+          ],
+          questions: [
+            CategoryQuestionModel(
+              id: 1,
+              question: "question text",
+              type: "text",
+            ),
+            CategoryQuestionModel(
+              id: 2,
+              question: "question dropdown",
+              type: "dropdown",
+              options: ["1", "2", "3"],
+            ),
+            CategoryQuestionModel(
+              id: 3,
+              question: "question checkbox",
+              type: "checkbox",
+            ),
+          ],
+        ),
       ),
       AdsModel(
         id: 3,
@@ -72,6 +127,23 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
+        category: CategoryModel(
+          id: 2,
+          name: "Interior Design",
+          icon: "assets/images/Simplification.png",
+          subCategories: [
+            SubCategoryModel(
+              id: 1,
+              name: "Heavy Vehicles",
+              icon: "assets/images/Simplification.png",
+            ),
+            SubCategoryModel(
+              id: 2,
+              name: "Plumbing & Electrical",
+              icon: "assets/images/Simplification.png",
+            ),
+          ],
+        ),
       ),
       AdsModel(
         id: 4,
@@ -86,6 +158,36 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
+        category: CategoryModel(
+          id: 1,
+          name: "Equipment",
+          icon: "assets/images/Simplification.png",
+          subCategories: [
+            SubCategoryModel(
+              id: 1,
+              name: "Heavy Vehicles",
+              icon: "assets/images/Simplification.png",
+            ),
+          ],
+          questions: [
+            CategoryQuestionModel(
+              id: 1,
+              question: "question text",
+              type: "text",
+            ),
+            CategoryQuestionModel(
+              id: 2,
+              question: "question dropdown",
+              type: "dropdown",
+              options: ["1", "2", "3"],
+            ),
+            CategoryQuestionModel(
+              id: 3,
+              question: "question checkbox",
+              type: "checkbox",
+            ),
+          ],
+        ),
       ),
       AdsModel(
         id: 5,
@@ -100,8 +202,26 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
+        category: CategoryModel(
+          id: 2,
+          name: "Interior Design",
+          icon: "assets/images/Simplification.png",
+          subCategories: [
+            SubCategoryModel(
+              id: 1,
+              name: "Heavy Vehicles",
+              icon: "assets/images/Simplification.png",
+            ),
+            SubCategoryModel(
+              id: 2,
+              name: "Plumbing & Electrical",
+              icon: "assets/images/Simplification.png",
+            ),
+          ],
+        ),
       ),
     ]);
+  
   }
 
   void favorite(int adsId) {

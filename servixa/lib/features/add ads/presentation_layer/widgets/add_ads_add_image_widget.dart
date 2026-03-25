@@ -115,6 +115,7 @@ class AddAdsAddImageWidget extends StatelessWidget {
             flex: 1,
             child: AppOutlinedButtonWidget(
               textContent: buttonContain,
+              icon: IconApp.camera,
               isRow: list.isEmpty,
               onPressed: () {
                 addAdsController.pickImage(list);

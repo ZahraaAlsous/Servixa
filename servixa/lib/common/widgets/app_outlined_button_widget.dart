@@ -8,11 +8,13 @@ class AppOutlinedButtonWidget extends StatelessWidget {
   String textContent;
   void Function()? onPressed;
   bool isRow;
+  String icon;
   AppOutlinedButtonWidget({
     super.key,
     required this.textContent,
     required this.onPressed,
-    required this.isRow,
+    this.isRow = true,
+    required this.icon
   });
 
   @override
@@ -29,7 +31,11 @@ class AppOutlinedButtonWidget extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(IconApp.camera, color: ThemeApp.Foundation_Main_main_500,),
+                  SvgPicture.asset(
+                    // IconApp.camera,
+                    icon,
+                    color: ThemeApp.Foundation_Main_main_500,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     textContent,
@@ -41,7 +47,11 @@ class AppOutlinedButtonWidget extends StatelessWidget {
               )
             : Column(
                 children: [
-                  SvgPicture.asset(IconApp.camera, color: ThemeApp.Foundation_Main_main_500,),
+                  SvgPicture.asset(
+                    // IconApp.camera,
+                    icon,
+                    color: ThemeApp.Foundation_Main_main_500,
+                  ),
                   Text(
                     textContent,
                     textAlign: TextAlign.center,

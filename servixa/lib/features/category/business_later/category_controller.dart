@@ -23,11 +23,11 @@ class CategoryController extends GetxController {
         name: "Equipment",
         icon: "assets/images/Simplification.png",
         subCategories: [
-          SubCategoryModel(
-            id: 1,
-            name: "Heavy Vehicles",
-            icon: "assets/images/Simplification.png",
-          ),
+        //   SubCategoryModel(
+        //     id: 1,
+        //     name: "Heavy Vehicles",
+        //     icon: "assets/images/Simplification.png",
+        //   ),
         ],
         questions: [
           CategoryQuestionModel(id: 1, question: "question text", type: "text"),
@@ -44,6 +44,7 @@ class CategoryController extends GetxController {
           ),
         ],
       ),
+      
       CategoryModel(
         id: 2,
         name: "Interior Design",
@@ -61,36 +62,7 @@ class CategoryController extends GetxController {
           ),
         ],
       ),
-      CategoryModel(
-        id: 3,
-        name: "Interior Design",
-        icon: "assets/images/Simplification.png",
-        subCategories: [
-          SubCategoryModel(
-            id: 1,
-            name: "Heavy Vehicles",
-            icon: "assets/images/Simplification.png",
-          ),
-        ],
-      ),
-      CategoryModel(
-        id: 4,
-        name: "Interior Design",
-        icon: "assets/images/Simplification.png",
-        subCategories: [
-          SubCategoryModel(
-            id: 1,
-            name: "Heavy Vehicles",
-            icon: "assets/images/Simplification.png",
-          ),
-        ],
-      ),
-      CategoryModel(
-        id: 5,
-        name: "Interior Design",
-        icon: "assets/images/Simplification.png",
-        subCategories: [],
-      ),
+    
     ]);
   }
 

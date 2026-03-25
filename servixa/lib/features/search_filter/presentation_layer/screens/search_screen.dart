@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
@@ -8,12 +9,17 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
+import 'package:servixa/features/search_filter/presentation_layer/widgets/filtter_bottom_sheet_widget.dart';
+
+enum SingingCharacter { lafayette, jefferson }
 
 class SearchScreen extends StatelessWidget {
   final SearchFilterController searchFilterController = Get.put(
     SearchFilterController(),
   );
+  final CategoryController categoryController = Get.put(CategoryController());
 
   SearchScreen({super.key});
 
@@ -32,6 +38,15 @@ class SearchScreen extends StatelessWidget {
           children: [
             Center(
               child: AppSearchTextFormFieldWidget(
+                onChanged: searchFilterController.onSearchChanged,
+                onPressed: () {
+                  Get.bottomSheet(
+                    isDismissible: true,
+                    enableDrag: true,
+                    isScrollControlled: true,
+                    FiltterBottomSheetWidget(),
+                  );
+                },
                 onFieldSubmitted: (value) {
                   searchFilterController.filterSearch.value = value;
                   searchFilterController.applyFilters();
@@ -39,10 +54,14 @@ class SearchScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
-            Text(
-              "Popular Ads",
-              style: TypographyApp.title_Sections.copyWith(
-                color: ThemeApp.Foundation_Main_Color_900,
+            Obx(
+              () => Text(
+                searchFilterController.isDisplayTitleSearchResults()
+                    ? "Searched items"
+                    : "Popular Ads",
+                style: TypographyApp.title_Sections.copyWith(
+                  color: ThemeApp.Foundation_Main_Color_900,
+                ),
               ),
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),

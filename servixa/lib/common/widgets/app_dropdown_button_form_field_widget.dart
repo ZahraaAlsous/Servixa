@@ -83,25 +83,26 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 
-// ✅ Generic class with T
-class AddAdsDropdownButtonFormFieldWidget<T> extends StatelessWidget {
+class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
   final String hintText;
   final void Function(T?)? onChanged;
   final List<DropdownMenuItem<T>> items;
-  final String prefixIcon;
+  final String? prefixIcon;
   final double borderRadio;
   final String? Function(T?)? validator;
   final T? value;
+  final Widget? isChanged;
 
-  const AddAdsDropdownButtonFormFieldWidget({
+  const AppDropdownButtonFormFieldWidget({
     super.key,
     required this.hintText,
     required this.onChanged,
     required this.items,
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.borderRadio,
     this.validator,
     this.value,
+     this.isChanged,
   });
 
   @override
@@ -131,15 +132,17 @@ class AddAdsDropdownButtonFormFieldWidget<T> extends StatelessWidget {
           color: ThemeApp.Foundation_Secendary_grey_200,
         ),
         // contentPadding: EdgeInsetsGeometry.only(left:13 , right: 28, top:16 , bottom: 16),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SvgPicture.asset(
-            prefixIcon,
-            // width: 20,
-            // height: 20,
-            color: ThemeApp.Foundation_Main_main_500,
-          ),
-        ),
+        prefixIcon:
+            isChanged ?? 
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: SvgPicture.asset(
+                prefixIcon!,
+                // width: 20,
+                // height: 20,
+                color: ThemeApp.Foundation_Main_main_500,
+              ),
+            ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadio),
           borderSide: BorderSide(color: ThemeApp.Foundation_Secendary_grey_100),

@@ -1,6 +1,11 @@
-import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:flutter/material.dart';
+import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
+import 'package:get/get.dart';
 
 class Validators {
+  final SearchFilterController searchFilterController = Get.put(
+    SearchFilterController(),
+  );
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
       return "Email is required";
@@ -92,6 +97,83 @@ class Validators {
     if (value == null || value.trim().isEmpty) {
       return "Please select a date";
     }
+    return null;
+  }
+
+  // static String? validateMinPrice(
+  //   String? value,
+  //   SearchFilterController controller,
+  // ) {
+  //   if (value != null &&
+  //       value.trim().isNotEmpty &&
+  //       controller.maxPriceFilter.value != null &&
+  //       int.parse(value) > controller.maxPriceFilter.value!) {
+  //     return "hhh";
+  //   }
+  //   return null;
+  // }
+
+  // static String? validateMaxPrice(
+  //   String? value,
+  //   SearchFilterController controller,
+  // ) {
+  //   if (value != null &&
+  //       value.trim().isNotEmpty &&
+  //       controller.minPriceFilter.value != null &&
+  //       int.parse(value) < controller.minPriceFilter.value!) {
+  //     return "hhh";
+  //   }
+  //   return null;
+  // }
+
+static String? validateMinPrice(
+    String? value,
+    SearchFilterController controller,
+  ) {
+    // إذا كان الحقل فارغاً، لا مشكلة
+    if (value == null || value.trim().isEmpty) {
+      return null;
+    }
+
+    final minPrice = int.tryParse(value.trim());
+    if (minPrice == null) {
+      return "Please enter a valid number";
+    }
+
+    if (controller.maxPriceFilter.value != null &&
+        minPrice > controller.maxPriceFilter.value!) {
+      return "Minimum price cannot be greater than maximum price";
+    }
+
+    if (minPrice < 0) {
+      return "Price cannot be negative";
+    }
+
+    return null;
+  }
+
+  static String? validateMaxPrice(
+    String? value,
+    SearchFilterController controller,
+  ) {
+    if (value == null || value.trim().isEmpty) {
+      return null;
+    }
+
+    final maxPrice = int.tryParse(value.trim());
+    if (maxPrice == null) {
+      return "Please enter a valid number";
+    }
+
+    if (controller.minPriceFilter.value != null &&
+        maxPrice < controller.minPriceFilter.value!) {
+      return "Maximum price cannot be less than minimum price";
+    }
+
+    if (maxPrice < 0) {
+      return "Price cannot be negative";
+    }
+
     return null;
   }
 }

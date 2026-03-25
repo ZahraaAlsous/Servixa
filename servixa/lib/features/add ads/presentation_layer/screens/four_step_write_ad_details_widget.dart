@@ -9,7 +9,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_add_image_widget.dart';
-import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_dropdown_button_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
@@ -212,7 +212,7 @@ class _FourStepWriteAdDetailsWidgetState
         ),
         const SizedBox(height: 5),
 
-        AddAdsDropdownButtonFormFieldWidget(
+        AppDropdownButtonFormFieldWidget(
           hintText: "Fixed",
           onChanged: (value) {
             addAdsController.typeCoin = value;
@@ -320,7 +320,7 @@ class _FourStepWriteAdDetailsWidgetState
         //     ),
         //   ],
         // ),
-        AddAdsDropdownButtonFormFieldWidget(
+        AppDropdownButtonFormFieldWidget(
           hintText: "Service Request",
           onChanged: (value) {
             addAdsController.typeService = value;
@@ -384,8 +384,9 @@ class _FourStepWriteAdDetailsWidgetState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(question.question),
-                    AddAdsDropdownButtonFormFieldWidget(
+                    AppDropdownButtonFormFieldWidget(
                       hintText: question.question,
+                      // edit
                       onChanged: (value) {},
                       items:
                           question.options?.map((option) {
