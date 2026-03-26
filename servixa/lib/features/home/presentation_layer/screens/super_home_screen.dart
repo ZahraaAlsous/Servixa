@@ -7,7 +7,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
-import 'package:servixa/features/orders/presentation_layer/screens/order_screen.dart';
+import 'package:servixa/features/orders/presentation_layer/screens/super_order_screen.dart';
 
 class SuperHomeScreen extends StatefulWidget {
   const SuperHomeScreen({super.key});
@@ -21,8 +21,8 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
   List<Widget> pages = [
     HomePage(),
     NotificationScreen(),
-     SuperAdsScreen(),
-    const OrderScreen(),
+    SuperAdsScreen(),
+     SuperOrderScreen(),
   ];
 
   @override

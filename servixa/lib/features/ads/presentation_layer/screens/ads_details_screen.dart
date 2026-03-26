@@ -184,7 +184,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                   homeController.currentCarouselIndex.value ==
                                       entry.key
                                   ? ThemeApp.Foundation_Main_main_500
-                                  : ThemeApp.colorCirclesSliderAndStar,
+                                  : ThemeApp
+                                        .colorCirclesSliderAndStarAndDivider,
                             ),
                           );
                         }).toList(),

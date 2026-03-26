@@ -16,8 +16,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
+    return Container(
       padding: EdgeInsetsGeometry.all(22),
       decoration: BoxDecoration(
         color: ThemeApp.whiteBackground,
@@ -72,7 +71,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
             Expanded(
               flex: 2,
               child: RatingBar.builder(
-                unratedColor: ThemeApp.colorCirclesSliderAndStar,
+                unratedColor: ThemeApp.colorCirclesSliderAndStarAndDivider,
                 initialRating: 0,
                 minRating: 1,
                 direction: Axis.horizontal,
@@ -160,6 +159,5 @@ class BottomSheetReviewWidget extends StatelessWidget {
         ),
       ),
     );
- 
   }
 }

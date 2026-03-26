@@ -82,6 +82,12 @@ class TypographyApp {
     height: 1.4,
     letterSpacing: 0,
   );
+  static TextStyle text_button_order = GoogleFonts.poppins(
+    fontWeight: FontWeight.w500,
+    fontSize: 13,
+    height: 1.4,
+    letterSpacing: 0,
+  );
   static const TextStyle H3_Bold = TextStyle(
     fontFamily: "Roboto",
     fontWeight: FontWeight.w700,

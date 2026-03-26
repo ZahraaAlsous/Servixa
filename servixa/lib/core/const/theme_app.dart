@@ -32,7 +32,8 @@ class ThemeApp {
 
   static const Color secondaryButtonBg = Color(0xffFFFFFF);
   static const Color Foundation_Statue_Green = Color(0xff4EC87B);
-  static const Color colorCirclesSliderAndStar = Color(0xffD9D9D9);
+  static const Color Foundation_Statue_Red = Color(0xffD85A5A);
+  static const Color colorCirclesSliderAndStarAndDivider = Color(0xffD9D9D9);
   static const Color black = Color(0xff000000);
   static const Color Foundation_Grey_grey_700 = Color(0xff000000);
 
