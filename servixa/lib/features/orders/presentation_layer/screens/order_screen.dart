@@ -9,9 +9,9 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 
-class SuperOrderScreen extends StatelessWidget {
+class OrderScreen extends StatelessWidget {
   final OrderController orderController = Get.put(OrderController());
-  SuperOrderScreen({super.key});
+  OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

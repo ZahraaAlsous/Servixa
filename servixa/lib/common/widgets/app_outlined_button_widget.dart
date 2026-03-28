@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 
@@ -9,12 +8,14 @@ class AppOutlinedButtonWidget extends StatelessWidget {
   void Function()? onPressed;
   bool isRow;
   String icon;
+  double? paddingVertical;
   AppOutlinedButtonWidget({
     super.key,
     required this.textContent,
     required this.onPressed,
     this.isRow = true,
-    required this.icon
+    required this.icon,
+    this.paddingVertical,
   });
 
   @override
@@ -26,7 +27,7 @@ class AppOutlinedButtonWidget extends StatelessWidget {
         side: BorderSide(color: ThemeApp.Foundation_Main_main_500, width: 1),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: EdgeInsets.symmetric(vertical: paddingVertical ?? 15),
         child: isRow
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,

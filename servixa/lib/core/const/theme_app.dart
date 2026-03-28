@@ -41,4 +41,5 @@ class ThemeApp {
   static const Color Foundation_Secendary_Color_Light_hover = Color(0xffDEDEDE);
   static const Color gray_scale_Most_Dark = Color(0xff717171);
   static const Color time_notification = Color(0xff51566B);
+  static const Color linearBackgroundCardProfile = Color(0xff916CC5);
 }

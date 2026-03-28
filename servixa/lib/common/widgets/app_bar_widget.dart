@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  final Widget? child;
+  AppBarWidget({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             colors: [ThemeApp.linearBackground, ThemeApp.whiteBackground],
           ),
         ),
+        child: child,
       ),
     );
   }

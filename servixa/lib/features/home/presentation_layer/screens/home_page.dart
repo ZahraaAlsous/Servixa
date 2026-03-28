@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -21,6 +22,7 @@ import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,6 +42,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: ThemeApp.whiteBackground,
+      appBar: AppBarWidget(),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -50,12 +54,17 @@ class HomePage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  width: size.width * 0.109,
-                  height: 48.6,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(ImageApp.profileImage),
+                InkWell(
+                  onTap: () {
+                    Get.to(OptionProfileScreen());
+                  },
+                  child: Container(
+                    width: size.width * 0.109,
+                    height: 48.6,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageApp.profileImage),
+                      ),
                     ),
                   ),
                 ),
@@ -115,6 +124,7 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+            
             SizedBox(height: DimensApp.spaceBetweenSection),
             AppRichTextWidget(
               firstText: "All the Equipment and \n Services ",

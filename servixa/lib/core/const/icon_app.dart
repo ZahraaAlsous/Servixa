@@ -46,7 +46,8 @@ class IconApp {
   static const String mynauiGrid = "assets/icons/mynaui_grid.svg";
   static const String description = "assets/icons/description-alt 1.svg";
   static const String solarLinkOutline = "assets/icons/solar_link-outline.svg";
-  static const String solarTagPriceOutline = "assets/icons/solar_tag-price-outline.svg";
+  static const String solarTagPriceOutline =
+      "assets/icons/solar_tag-price-outline.svg";
   static const String camera = "assets/icons/camera.svg";
   static const String suggestion = "assets/icons/suggestion 1.svg";
   static const String tags = "assets/icons/tags.svg";
@@ -54,6 +55,22 @@ class IconApp {
   static const String share = "assets/icons/share_link.svg";
   static const String price = "assets/icons/type_price.svg";
   static const String arrowUp = "assets/icons/arrow_up.svg";
-  static const String business = "assets/icons/light_business-center-outline-sharp.svg";
+  static const String business =
+      "assets/icons/light_business-center-outline-sharp.svg";
   static const String SubCategory = "assets/icons/Simplification (7).svg";
+  static const String favoriteListTile =
+      "assets/icons/favorite_outline_rounded.svg";
+  static const String language = "assets/icons/language.svg";
+  static const String notificationsListTile =
+      "assets/icons/notifications-outline.svg";
+  static const String changePassword = "assets/icons/changePassword.svg";
+  static const String shareOutline = "assets/icons/share-outline.svg";
+  static const String myAdsListTile = "assets/icons/myAds.svg";
+  static const String logout = "assets/icons/logout.svg";
+  static const String weuiArrowOutlined =
+      "assets/icons/weui_arrow-outlined.svg";
+  static const String edit = "assets/icons/edit.svg";
+  static const String businessProfileType = "assets/icons/business_profile_type.svg";
+  static const String businessDetails = "assets/icons/business_details.svg";
+  static const String contactInformation = "assets/icons/contact_information.svg";
 }

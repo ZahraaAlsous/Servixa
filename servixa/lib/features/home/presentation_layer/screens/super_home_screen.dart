@@ -7,7 +7,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
-import 'package:servixa/features/orders/presentation_layer/screens/super_order_screen.dart';
+import 'package:servixa/features/orders/presentation_layer/screens/order_screen.dart';
 
 class SuperHomeScreen extends StatefulWidget {
   const SuperHomeScreen({super.key});
@@ -22,7 +22,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
     HomePage(),
     NotificationScreen(),
     SuperAdsScreen(),
-     SuperOrderScreen(),
+     OrderScreen(),
   ];
 
   @override
@@ -77,7 +77,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               // crossAxisAlignment: CrossAxisAlignment
-              //     .stretch, // 👈 لجعل العناصر تأخذ الارتفاع الكامل
+              //     .stretch,
               children: [
                 _buildNavItem(IconApp.home, IconApp.homeFill, "Home", 0),
                 _buildNavItem(
@@ -118,7 +118,6 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
               // mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // ✅ الشريط العلوي للأيقونة المحددة
                 if (isSelected)
                   Container(
                     width: size.width * 0.1226,
@@ -134,7 +133,6 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                     ),
                   ),
                 SizedBox(height: 5),
-                // ✅ المساحة للأيقونة والنص
                 // Expanded(
                 //   child: Column(
                 //     // mainAxisSize: MainAxisSize.min,

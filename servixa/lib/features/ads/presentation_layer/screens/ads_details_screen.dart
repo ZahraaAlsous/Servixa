@@ -251,6 +251,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       Row(
                         children: [
                           SvgPicture.asset(IconApp.place),
+                          // edit
                           Text(
                             "742 Evergreen Terrace, Springfield",
                             style: TypographyApp.Body_mid_Regular,
@@ -594,12 +595,20 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     vertical: 5,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Location",
                         style: TypographyApp.Title_larg_Mid.copyWith(
                           color: ThemeApp.Foundation_Main_Color_900,
                         ),
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(IconApp.place),
+                          // edit
+                          Text(ads.place),
+                        ],
                       ),
                     ],
                   ),
