@@ -16,7 +16,9 @@ class BottomSheetReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    
+    Container(
       padding: EdgeInsetsGeometry.all(22),
       decoration: BoxDecoration(
         color: ThemeApp.whiteBackground,
@@ -31,7 +33,8 @@ class BottomSheetReviewWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: Row(
+              child:
+               Row(
                 children: [
                   Expanded(
                     child: SvgPicture.asset(
@@ -67,6 +70,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
                   ),
                 ],
               ),
+            
             ),
             Expanded(
               flex: 2,
@@ -159,5 +163,6 @@ class BottomSheetReviewWidget extends StatelessWidget {
         ),
       ),
     );
+  
   }
 }

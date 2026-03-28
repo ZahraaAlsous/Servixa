@@ -12,6 +12,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_portfolio_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/space_between_section_widget.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
@@ -610,9 +611,117 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                           Text(ads.place),
                         ],
                       ),
+                      Row(
+                        children: [
+                          // InkWell(
+                          //   onTap: () {
+                          //     // Get.to(OptionProfileScreen());
+                          //   },
+                          //   child: Container(
+                          //     width: size.width * 0.109,
+                          //     height: 48.6,
+                          //     decoration: BoxDecoration(
+                          //       image: DecorationImage(
+                          //         image: AssetImage(ImageApp.profileImage),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          Expanded(
+                            flex: 15,
+                            child: InkWell(
+                              onTap: () {
+                                Get.bottomSheet(
+                                  isDismissible: true,
+                                  enableDrag: true,
+                                  BottomSheetPortfolioWidget()
+                                );
+                              },
+                              child: 
+                              
+                              CircleAvatar(
+                                radius: size.width * 0.100,
+                                // radius: 36,
+                                // edit
+                                // الصورة ما عم تطلع
+                                backgroundImage: AssetImage(
+                                  ImageApp.profileImage,
+                                ),
+                                // backgroundImage: selectedImage != null
+                                //     ? FileImage(selectedImage!)
+                                //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+                                // child: user.img!.isEmpty && selectedImage == null
+                                //     ? const Icon(Icons.person, size: 60)
+                                //     : null,
+                              ),
+                            
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          Expanded(
+                            flex: 65,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Mhamad Alshame",
+                                  style: TypographyApp.Title_Mid_Mid.copyWith(
+                                    color: ThemeApp.Foundation_Grey_grey_700,
+                                  ),
+                                ),
+                                Row(
+                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    // qustion
+                                    // مو من مكتبة الألوان
+                                    // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                                    SvgPicture.asset(
+                                      IconApp.place,
+                                      width: 16,
+                                      height: 16,
+                                      color:
+                                          ThemeApp.colorIconProfileHomeScreen,
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      "Riyadh – Malaz",
+                                      style:
+                                          TypographyApp
+                                              .Label_Mid_Regular.copyWith(
+                                            color: ThemeApp
+                                                .Foundation_Secendary_grey_600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Spacer(),
+                          Expanded(
+                            flex: 10,
+                            child: SvgPicture.asset(
+                              IconApp.messages,
+                              width: 29,
+                              height: 29,
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: SvgPicture.asset(
+                              IconApp.phone,
+                              width: 29,
+                              height: 29,
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
+
                 const SpaceBetweenSectionWidget(),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
