@@ -249,13 +249,18 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                         ],
                       ),
 
-                      Row(
+                        Row(
                         children: [
-                          SvgPicture.asset(IconApp.place),
+                          SvgPicture.asset(
+                            IconApp.place,
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
                           // edit
                           Text(
                             "742 Evergreen Terrace, Springfield",
-                            style: TypographyApp.Body_mid_Regular,
+                            style: TypographyApp.Body_mid_Regular.copyWith(
+                              color: ThemeApp.Foundation_Secendary_grey_300,
+                            ),
                           ),
                         ],
                       ),

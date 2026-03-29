@@ -42,4 +42,5 @@ class ThemeApp {
   static const Color gray_scale_Most_Dark = Color(0xff717171);
   static const Color time_notification = Color(0xff51566B);
   static const Color linearBackgroundCardProfile = Color(0xff916CC5);
+  static const Color Foundation_Main_green_50 = Color(0xffE9EDEB);
 }

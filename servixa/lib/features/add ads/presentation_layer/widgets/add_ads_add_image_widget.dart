@@ -29,7 +29,9 @@ class AddAdsAddImageWidget extends StatelessWidget {
               flex: 2,
               child: SizedBox(
                 height: 95,
-                child: ListView.builder(
+                child: 
+                
+                ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
@@ -108,6 +110,7 @@ class AddAdsAddImageWidget extends StatelessWidget {
                     );
                   },
                 ),
+              
               ),
             ),
 

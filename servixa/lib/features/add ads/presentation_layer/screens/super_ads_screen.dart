@@ -88,7 +88,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
             ),
             const SizedBox(height: 10),
             _pages[_currentStep],
-           const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             _buildNavigationButtons(),
           ],
@@ -138,9 +138,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   }
 
   Widget _buildNavigationButtons() {
-    return 
-    
-    Row(
+    return Row(
       children: [
         if (_currentStep > 0)
           Expanded(
@@ -244,7 +242,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
         ),
       ],
     );
-  
   }
 
   void _publishAd() {

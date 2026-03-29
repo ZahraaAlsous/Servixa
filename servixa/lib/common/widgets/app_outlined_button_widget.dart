@@ -20,7 +20,8 @@ class AppOutlinedButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return 
+    OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -33,7 +34,6 @@ class AppOutlinedButtonWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    // IconApp.camera,
                     icon,
                     color: ThemeApp.Foundation_Main_main_500,
                   ),

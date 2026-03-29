@@ -17,6 +17,7 @@ class AppCardAdsWidget extends StatelessWidget {
   final bool isGridView;
   void Function()? onTap;
   bool isSearchCard;
+  bool isMyAdd;
   AppCardAdsWidget({
     super.key,
     // required this.assetName,
@@ -27,6 +28,7 @@ class AppCardAdsWidget extends StatelessWidget {
     required this.isGridView,
     this.onTap,
     this.isSearchCard = false,
+    this.isMyAdd = false
   });
 
   @override
@@ -41,8 +43,6 @@ class AppCardAdsWidget extends StatelessWidget {
   Widget _buildGridLayout(Size size) {
     return Container(
       width: size.width * widthCard,
-      // width: 500,
-      // height: 222,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
 
@@ -56,21 +56,44 @@ class AppCardAdsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Image.asset("assets/images/Rectangle 9772.png"),
-          // Image.asset(ads.image),
-          Container(
-            width: size.width,
-            height: 126,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+          Stack(
+            children: [
+              Container(
+                width: size.width,
+                height: 126,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage(ads.image),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-              image: DecorationImage(
-                image: AssetImage(ads.image),
-                fit: BoxFit.cover,
-              ),
-            ),
+          isMyAdd ?    Row(
+                children: [
+                  IconButton(
+                    // edit
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      IconApp.edit,
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    // edit
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete_rounded,
+                      color: ThemeApp.Foundation_Statue_Red,
+                    ),
+                  ),
+                ],
+              ) : SizedBox()
+            ],
           ),
           Padding(
             padding: const EdgeInsetsGeometry.only(
@@ -139,7 +162,6 @@ class AppCardAdsWidget extends StatelessWidget {
   Widget _buildListLayout(Size size) {
     return Container(
       width: size.width * widthCard,
-      // width: 500,
       height: 118,
       padding: EdgeInsetsGeometry.symmetric(vertical: 10, horizontal: 19),
       decoration: BoxDecoration(

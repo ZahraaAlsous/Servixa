@@ -256,7 +256,6 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
             ),
           ),
 
-          // المحتوى القابل للتمرير
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -284,8 +283,32 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                         height: 16,
                       ),
                       SizedBox(width: 5),
-                      Text("Qualified Plus+"),
+
+                      Text(
+                        "Qualified Plus+",
+                        style: TypographyApp.Body_mid_Mid.copyWith(
+                          color: ThemeApp.Foundation_Main_main_500,
+                        ),
+                      ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(IconApp.Balconies),
+                              Text("data"),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
 
                   Divider(
@@ -382,10 +405,8 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                               return Container(
                                 width: size.width * 0.367,
                                 margin: EdgeInsets.only(right: 12),
-                                child: 
-                                AppCardAdsWidget(
-                                  ads:
-                                   AdsModel(
+                                child: AppCardAdsWidget(
+                                  ads: AdsModel(
                                     id: indexAds + 1,
                                     title: "Title $indexAds",
                                     place: "Place $indexAds",
@@ -412,8 +433,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                   widthCard: size.width * 0.367,
                                   isGridView: true,
                                 ),
-                              )
-                              ;
+                              );
                             },
                           ),
                         ),

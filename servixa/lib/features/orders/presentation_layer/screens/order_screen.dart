@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
+import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
@@ -43,50 +44,98 @@ class OrderScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Obx(
-                      () => ElevatedButton(
-                        onPressed: () {
-                          orderController.isSelectedMyOrders.value = false;
-                        },
-                        child: Text(
-                          "Received Orders",
-                          style: TypographyApp.text_button_order.copyWith(
-                            color: orderController.isSelectedMyOrders.value
-                                ? ThemeApp.Foundation_Main_main_500
-                                : ThemeApp.whiteBackground,
+                      () =>
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     orderController.isSelectedMyOrders.value = false;
+                          //   },
+                          //   child: Text(
+                          //     "Received Orders",
+                          //     style: TypographyApp.text_button_order.copyWith(
+                          //       color: orderController.isSelectedMyOrders.value
+                          //           ? ThemeApp.Foundation_Main_main_500
+                          //           : ThemeApp.whiteBackground,
+                          //     ),
+                          //   ),
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor:
+                          //         !orderController.isSelectedMyOrders.value
+                          //         ? ThemeApp.Foundation_Main_main_500
+                          //         : ThemeApp.whiteBackground,
+                          //     elevation: 0,
+                          //   ),
+                          // ),
+                          InkWell(
+                            onTap: () {
+                              orderController.isSelectedMyOrders.value = false;
+                            },
+                            child: Container(
+                              alignment: AlignmentGeometry.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: !orderController.isSelectedMyOrders.value
+                                    ? ThemeApp.Foundation_Main_main_500
+                                    : ThemeApp.whiteBackground,
+                              ),
+                              child: Text(
+                                "Received Orders",
+                                style: TypographyApp.text_button_order.copyWith(
+                                  color:
+                                      orderController.isSelectedMyOrders.value
+                                      ? ThemeApp.Foundation_Main_main_500
+                                      : ThemeApp.whiteBackground,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              !orderController.isSelectedMyOrders.value
-                              ? ThemeApp.Foundation_Main_main_500
-                              : ThemeApp.whiteBackground,
-                          elevation: 0,
-                        ),
-                      ),
                     ),
                   ),
                   Expanded(
                     child: Obx(
-                      () => ElevatedButton(
-                        onPressed: () {
-                          orderController.isSelectedMyOrders.value = true;
-                        },
-                        child: Text(
-                          "My Orders",
-                          style: TypographyApp.text_button_order.copyWith(
-                            color: !orderController.isSelectedMyOrders.value
-                                ? ThemeApp.Foundation_Main_main_500
-                                : ThemeApp.whiteBackground,
+                      () =>
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     orderController.isSelectedMyOrders.value = true;
+                          //   },
+                          //   child: Text(
+                          //     "My Orders",
+                          //     style: TypographyApp.text_button_order.copyWith(
+                          //       color: !orderController.isSelectedMyOrders.value
+                          //           ? ThemeApp.Foundation_Main_main_500
+                          //           : ThemeApp.whiteBackground,
+                          //     ),
+                          //   ),
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor:
+                          //         orderController.isSelectedMyOrders.value
+                          //         ? ThemeApp.Foundation_Main_main_500
+                          //         : ThemeApp.whiteBackground,
+                          //     elevation: 0,
+                          //   ),
+                          // ),
+                          InkWell(
+                            onTap: () {
+                              orderController.isSelectedMyOrders.value = true;
+                            },
+                            child: Container(
+                              alignment: AlignmentGeometry.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: orderController.isSelectedMyOrders.value
+                                    ? ThemeApp.Foundation_Main_main_500
+                                    : ThemeApp.whiteBackground,
+                              ),
+                              child: Text(
+                                "My Orders",
+                                style: TypographyApp.text_button_order.copyWith(
+                                  color:
+                                      !orderController.isSelectedMyOrders.value
+                                      ? ThemeApp.Foundation_Main_main_500
+                                      : ThemeApp.whiteBackground,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              orderController.isSelectedMyOrders.value
-                              ? ThemeApp.Foundation_Main_main_500
-                              : ThemeApp.whiteBackground,
-                          elevation: 0,
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -271,7 +320,7 @@ class OrderScreen extends StatelessWidget {
     return Container(
       height: 231,
       width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 22, horizontal: 8),
+      padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal:15),
       margin: EdgeInsetsGeometry.symmetric(vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(13),
@@ -332,31 +381,42 @@ class OrderScreen extends StatelessWidget {
               color: ThemeApp.Foundation_Secendary_grey_300,
             ),
           ),
-          SizedBox(height: 6),
+          // SizedBox(height: 6),
 
           Divider(
-            height: 20,
+            // height: 20,
             thickness: 2,
             color: ThemeApp.colorCirclesSliderAndStarAndDivider,
           ),
 
           // SizedBox(height: 9),
-          Expanded(
-            child: OutlinedButton(
-              onPressed: () {},
-              child: Text(
-                "Decline",
-                style: TypographyApp.Label_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Statue_Red,
+          Center(
+            child: SizedBox(
+              width: size.width * 0.739,
+              height: 29,
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // edit
+                    SvgPicture.asset(IconApp.favorite),
+                    Text(
+                      "Decline",
+                      style: TypographyApp.Label_Mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Statue_Red,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                side: BorderSide(
-                  color: ThemeApp.Foundation_Statue_Red,
-                  width: 1,
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  side: BorderSide(
+                    color: ThemeApp.Foundation_Statue_Red,
+                    width: 1,
+                  ),
                 ),
               ),
             ),

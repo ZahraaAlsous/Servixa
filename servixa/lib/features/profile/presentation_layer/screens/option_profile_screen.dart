@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/Business_account/presentation_layer/screens/create_business_account_screen.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
+import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
+import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_change_acount_widget.dart';
+import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_view_profile_widget.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/list_tile_widget.dart';
 
 class OptionProfileScreen extends StatelessWidget {
@@ -44,12 +46,22 @@ class OptionProfileScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: size.width * 0.109,
-                        height: 48.6,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(ImageApp.profileImage),
+                      InkWell(
+                        onTap: () {
+                          Get.bottomSheet(
+                            isDismissible: true,
+                            enableDrag: true,
+                            isScrollControlled: true,
+                            BottomSheetViewProfileWidget(),
+                          );
+                        },
+                        child: Container(
+                          width: size.width * 0.109,
+                          height: 48.6,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(ImageApp.profileImage),
+                            ),
                           ),
                         ),
                       ),
@@ -88,9 +100,9 @@ class OptionProfileScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       ElevatedButton(
-                        // edit
-                        // where go
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(EditProfileScreen());
+                        },
                         child: Row(
                           children: [
                             SvgPicture.asset(
@@ -139,7 +151,12 @@ class OptionProfileScreen extends StatelessWidget {
                           // where go
                           onPressed: () {
                             // edit
-                            Get.to(CreateBusinessAccountScreen());
+                            // Get.to(CreateBusinessAccountScreen());
+                            Get.bottomSheet(
+                              isDismissible: true,
+                              enableDrag: true,
+                              BottomSheetChangeAcountWidget(),
+                            );
                           },
                           child: Text(
                             "Change",
@@ -178,7 +195,9 @@ class OptionProfileScreen extends StatelessWidget {
           ListTileWidget(
             title: "My Ads",
             // edit
-            onTap: () {},
+            onTap: () {
+              Get.to(MyAdsScreen());
+            },
             icon: IconApp.myAdsListTile,
           ),
           ListTileWidget(
@@ -202,8 +221,14 @@ class OptionProfileScreen extends StatelessWidget {
           ),
           ListTileWidget(
             title: "Profile Detail",
-            // edit
-            onTap: () {},
+            onTap: () {
+              Get.bottomSheet(
+                isDismissible: true,
+                enableDrag: true,
+                isScrollControlled: true,
+                BottomSheetViewProfileWidget(),
+              );
+            },
             icon: IconApp.person,
             isNotLastTileList: false,
           ),
