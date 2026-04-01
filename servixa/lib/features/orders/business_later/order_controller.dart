@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 

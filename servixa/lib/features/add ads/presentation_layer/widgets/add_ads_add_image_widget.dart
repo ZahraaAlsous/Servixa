@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -29,9 +29,7 @@ class AddAdsAddImageWidget extends StatelessWidget {
               flex: 2,
               child: SizedBox(
                 height: 95,
-                child: 
-                
-                ListView.builder(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
@@ -110,7 +108,6 @@ class AddAdsAddImageWidget extends StatelessWidget {
                     );
                   },
                 ),
-              
               ),
             ),
 

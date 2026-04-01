@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
@@ -85,7 +86,7 @@ class EditProfileScreen extends StatelessWidget {
                 // addAdsController.typeService = value;
               },
               // edit
-              prefixIcon: IconApp.suggestion,
+              prefixIcon: IconApp.city,
               borderRadio: 16,
               // edit
               // validator: Validators.validateReviewAndRequestOrder,
@@ -130,6 +131,9 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: DimensApp.hightBetweenTextFormField),
+
+            AppMapWidget(),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
             AppTextAreaWidget(

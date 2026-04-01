@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/notification/data_layer/models/notification_model.dart';
 
 class NotificationController extends GetxController {

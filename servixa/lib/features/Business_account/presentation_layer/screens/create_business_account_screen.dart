@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -43,7 +43,9 @@ class CreateBusinessAccountScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: size.width * DimensApp.spaceHorizontalScreen),
+        padding: EdgeInsetsGeometry.symmetric(
+          horizontal: size.width * DimensApp.spaceHorizontalScreen,
+        ),
         child: Column(
           children: [
             _buildStepIndicator(size),
@@ -77,13 +79,13 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+
             // Padding(
             //   padding: EdgeInsets.symmetric(
             //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
             //   ),
-            //   child: 
-              
-              Obx(() => _pages[_currentStep.value]),
+            //   child:
+            Obx(() => _pages[_currentStep.value]),
             // ),
             const SizedBox(height: 10),
 
@@ -227,7 +229,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
 // }
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:get/get.dart';
+// import 'package:get/get.dart' hide Trans;
 // import 'package:servixa/core/const/dimens_app.dart';
 // import 'package:servixa/core/const/icon_app.dart';
 // import 'package:servixa/core/const/theme_app.dart';
@@ -442,6 +444,205 @@ class CreateBusinessAccountScreen extends StatelessWidget {
 //         actions: [
 //           TextButton(onPressed: () => Get.back(), child: const Text('OK')),
 //         ],
+//       ),
+//     );
+//   }
+// }
+
+// import 'dart:developer';
+// import 'dart:io';
+// import 'package:flutter/material.dart';
+// import 'package:file_picker/file_picker.dart';
+// import 'package:image_picker/image_picker.dart';
+
+// class CreateBusinessAccountScreen extends StatefulWidget {
+//   @override
+//   _CreateBusinessAccountScreenState createState() => _CreateBusinessAccountScreenState();
+// }
+
+// class _CreateBusinessAccountScreenState extends State<CreateBusinessAccountScreen> {
+//   List<File> _selectedFiles = [];
+//   String _fileName = '';
+//   String _fileSize = '';
+
+//   // 1. اختيار ملف واحد (أي نوع)
+//   Future<void> pickSingleFile() async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+//       if (result != null) {
+//         File file = File(result.files.single.path!);
+//         setState(() {
+//           _selectedFiles = [file];
+//           _fileName = result.files.single.name;
+//           _fileSize = (result.files.single.size / 1024).toStringAsFixed(2);
+//         });
+//         log("تم اختيار الملف: ${file.path}");
+//       }
+//     } catch (e) {
+//       log("خطأ: $e");
+//     }
+//   }
+
+//   // 2. اختيار ملف واحد بنوع محدد (PDF فقط)
+//   Future<void> pickPDFFile() async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['pdf'],
+//       );
+
+//       if (result != null) {
+//         File file = File(result.files.single.path!);
+//         setState(() {
+//           _selectedFiles = [file];
+//         });
+//         log("تم اختيار PDF: ${file.path}");
+//       }
+//     } catch (e) {
+//       log("خطأ: $e");
+//     }
+//   }
+
+//   // 3. اختيار صور فقط
+//   Future<void> pickImages() async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.image,
+//         allowMultiple: true, // اختيار عدة صور
+//       );
+
+//       if (result != null) {
+//         List<File> files = result.paths.map((path) => File(path!)).toList();
+//         setState(() {
+//           _selectedFiles = files;
+//         });
+//         log("تم اختيار ${files.length} صورة");
+//       }
+//     } catch (e) {
+//       log("خطأ: $e");
+//     }
+//   }
+
+//   // 4. اختيار ملفات متعددة
+//   Future<void> pickMultipleFiles() async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         allowMultiple: true,
+//       );
+
+//       if (result != null) {
+//         List<File> files = result.paths.map((path) => File(path!)).toList();
+//         setState(() {
+//           _selectedFiles = files;
+//         });
+//         log("تم اختيار ${files.length} ملف");
+//       }
+//     } catch (e) {
+//       log("خطأ: $e");
+//     }
+//   }
+
+//   // 5. اختيار مجلد
+//   Future<void> pickDirectory() async {
+//     try {
+//       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+
+//       if (selectedDirectory != null) {
+//         setState(() {
+//           _fileName = selectedDirectory;
+//         });
+//         log("تم اختيار المجلد: $selectedDirectory");
+//       }
+//     } catch (e) {
+//       log("خطأ: $e");
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('File Picker Example')),
+//       body: Padding(
+//         padding: EdgeInsets.all(16),
+//         child: Column(
+//           children: [
+//             // أزرار الاختيار
+//             ElevatedButton.icon(
+//               onPressed: pickSingleFile,
+//               icon: Icon(Icons.file_upload),
+//               label: Text("اختيار ملف واحد"),
+//             ),
+//             SizedBox(height: 10),
+
+//             ElevatedButton.icon(
+//               onPressed: pickPDFFile,
+//               icon: Icon(Icons.picture_as_pdf),
+//               label: Text("اختيار PDF فقط"),
+//             ),
+//             SizedBox(height: 10),
+
+//             ElevatedButton.icon(
+//               onPressed: pickMultipleFiles,
+//               icon: Icon(Icons.folder),
+//               label: Text("اختيار ملفات متعددة"),
+//             ),
+//             SizedBox(height: 10),
+
+//             ElevatedButton.icon(
+//               onPressed: pickDirectory,
+//               icon: Icon(Icons.folder_open),
+//               label: Text("اختيار مجلد"),
+//             ),
+
+//             SizedBox(height: 20),
+//             Divider(),
+
+//             // عرض الملفات المختارة
+//             Text(
+//               "الملفات المختارة (${_selectedFiles.length}):",
+//               style: TextStyle(fontWeight: FontWeight.bold),
+//             ),
+//             SizedBox(height: 10),
+
+//             Expanded(
+//               child: _selectedFiles.isEmpty
+//                   ? Center(child: Text("لم يتم اختيار أي ملف"))
+//                   : ListView.builder(
+//                       itemCount: _selectedFiles.length,
+//                       itemBuilder: (context, index) {
+//                         return ListTile(
+//                           leading: Icon(Icons.insert_drive_file),
+//                           title: Text(
+//                             _selectedFiles[index].path.split('/').last,
+//                           ),
+//                           subtitle: Text(_selectedFiles[index].path),
+//                           trailing: IconButton(
+//                             icon: Icon(Icons.delete, color: Colors.red),
+//                             onPressed: () {
+//                               setState(() {
+//                                 _selectedFiles.removeAt(index);
+//                               });
+//                             },
+//                           ),
+//                         );
+//                       },
+//                     ),
+//             ),
+
+//             if (_fileName.isNotEmpty)
+//               Container(
+//                 padding: EdgeInsets.all(8),
+//                 color: Colors.grey[200],
+//                 child: Column(
+//                   children: [
+//                     Text("آخر ملف: $_fileName"),
+//                     Text("الحجم: $_fileSize KB"),
+//                   ],
+//                 ),
+//               ),
+//           ],
+//         ),
 //       ),
 //     );
 //   }

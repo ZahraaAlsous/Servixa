@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 
 class Validators {
   final SearchFilterController searchFilterController = Get.put(
@@ -126,7 +126,7 @@ class Validators {
   //   return null;
   // }
 
-static String? validateMinPrice(
+  static String? validateMinPrice(
     String? value,
     SearchFilterController controller,
   ) {

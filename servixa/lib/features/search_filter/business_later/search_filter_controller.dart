@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'dart:async';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';

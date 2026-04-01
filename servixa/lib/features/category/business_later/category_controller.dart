@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
@@ -23,11 +23,11 @@ class CategoryController extends GetxController {
         name: "Equipment",
         icon: "assets/images/Simplification.png",
         subCategories: [
-        //   SubCategoryModel(
-        //     id: 1,
-        //     name: "Heavy Vehicles",
-        //     icon: "assets/images/Simplification.png",
-        //   ),
+          //   SubCategoryModel(
+          //     id: 1,
+          //     name: "Heavy Vehicles",
+          //     icon: "assets/images/Simplification.png",
+          //   ),
         ],
         questions: [
           CategoryQuestionModel(id: 1, question: "question text", type: "text"),
@@ -44,7 +44,7 @@ class CategoryController extends GetxController {
           ),
         ],
       ),
-      
+
       CategoryModel(
         id: 2,
         name: "Interior Design",
@@ -62,7 +62,6 @@ class CategoryController extends GetxController {
           ),
         ],
       ),
-    
     ]);
   }
 

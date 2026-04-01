@@ -71,7 +71,7 @@ class TypographyApp {
 
   static TextStyle title_Sections = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
-    fontSize: 22,
+    fontSize: 19,
     height: 1.4,
     letterSpacing: 0,
   );

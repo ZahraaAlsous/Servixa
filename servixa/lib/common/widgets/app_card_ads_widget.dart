@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -28,7 +28,7 @@ class AppCardAdsWidget extends StatelessWidget {
     required this.isGridView,
     this.onTap,
     this.isSearchCard = false,
-    this.isMyAdd = false
+    this.isMyAdd = false,
   });
 
   @override
@@ -72,27 +72,29 @@ class AppCardAdsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-          isMyAdd ?    Row(
-                children: [
-                  IconButton(
-                    // edit
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      IconApp.edit,
-                      color: ThemeApp.Foundation_Main_main_500,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    // edit
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.delete_rounded,
-                      color: ThemeApp.Foundation_Statue_Red,
-                    ),
-                  ),
-                ],
-              ) : SizedBox()
+              isMyAdd
+                  ? Row(
+                      children: [
+                        IconButton(
+                          // edit
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            IconApp.edit,
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                        ),
+                        Spacer(),
+                        IconButton(
+                          // edit
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.delete_rounded,
+                            color: ThemeApp.Foundation_Statue_Red,
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
             ],
           ),
           Padding(

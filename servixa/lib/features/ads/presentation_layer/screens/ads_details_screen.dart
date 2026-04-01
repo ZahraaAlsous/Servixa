@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -21,7 +22,8 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -54,6 +56,14 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     }
   }
 
+  // final Completer<GoogleMapController> _controller =
+  //     Completer<GoogleMapController>();
+
+  // static const CameraPosition _kGooglePlex = CameraPosition(
+  //   target: LatLng(37.42796133580664, -122.085749655962),
+  //   zoom: 14.4746,
+  // );
+
   @override
   Widget build(BuildContext context) {
     AdsModel ads = adsController.adsDetails.value!;
@@ -79,7 +89,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
           IconButton(
             onPressed: () {
-              _shareAds();
+              // _shareAds();
               log("share");
             },
             icon: SvgPicture.asset(
@@ -249,7 +259,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                         ],
                       ),
 
-                        Row(
+                      Row(
                         children: [
                           SvgPicture.asset(
                             IconApp.place,
@@ -609,6 +619,9 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                           color: ThemeApp.Foundation_Main_Color_900,
                         ),
                       ),
+                      // ElevatedButton(onPressed: (){
+                      //   Get.to(MapSample());
+                      // }, child: Text("data")),
                       Row(
                         children: [
                           SvgPicture.asset(IconApp.place),
@@ -616,112 +629,154 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                           Text(ads.place),
                         ],
                       ),
-                      Row(
-                        children: [
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Get.to(OptionProfileScreen());
-                          //   },
-                          //   child: Container(
-                          //     width: size.width * 0.109,
-                          //     height: 48.6,
-                          //     decoration: BoxDecoration(
-                          //       image: DecorationImage(
-                          //         image: AssetImage(ImageApp.profileImage),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          Expanded(
-                            flex: 15,
-                            child: InkWell(
-                              onTap: () {
-                                Get.bottomSheet(
-                                  isDismissible: true,
-                                  enableDrag: true,
-                                  BottomSheetPortfolioWidget()
-                                );
-                              },
-                              child: 
-                              
-                              CircleAvatar(
-                                radius: size.width * 0.100,
-                                // radius: 36,
-                                // edit
-                                // الصورة ما عم تطلع
-                                backgroundImage: AssetImage(
-                                  ImageApp.profileImage,
-                                ),
-                                // backgroundImage: selectedImage != null
-                                //     ? FileImage(selectedImage!)
-                                //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                                // child: user.img!.isEmpty && selectedImage == null
-                                //     ? const Icon(Icons.person, size: 60)
-                                //     : null,
-                              ),
-                            
+                      Container(
+                        width: size.width * 0.9255,
+                        height: 329,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: ThemeApp.whiteBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 4,
+                              spreadRadius: -1,
+                              color: Color.fromRGBO(12, 12, 13, 0.05),
                             ),
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            flex: 65,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 4,
+                              spreadRadius: -1,
+                              color: Color.fromRGBO(12, 12, 13, 0.1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: size.width * 0.9255,
+                              height: 250,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+
+                              // child: GoogleMap(
+                              //   mapType: MapType.hybrid,
+                              //   initialCameraPosition: _kGooglePlex,
+                              //   onMapCreated: (GoogleMapController controller) {
+                              //     _controller.complete(controller);
+                              //   },
+                              // ),
+                            ),
+                            Row(
                               children: [
-                                Text(
-                                  "Mhamad Alshame",
-                                  style: TypographyApp.Title_Mid_Mid.copyWith(
-                                    color: ThemeApp.Foundation_Grey_grey_700,
+                                // InkWell(
+                                //   onTap: () {
+                                //     // Get.to(OptionProfileScreen());
+                                //   },
+                                //   child: Container(
+                                //     width: size.width * 0.109,
+                                //     height: 48.6,
+                                //     decoration: BoxDecoration(
+                                //       image: DecorationImage(
+                                //         image: AssetImage(ImageApp.profileImage),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                                Expanded(
+                                  flex: 15,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.bottomSheet(
+                                        isDismissible: true,
+                                        enableDrag: true,
+                                        BottomSheetPortfolioWidget(),
+                                      );
+                                    },
+                                    child: CircleAvatar(
+                                      radius: size.width * 0.100,
+                                      // radius: 36,
+                                      // edit
+                                      // الصورة ما عم تطلع
+                                      backgroundImage: AssetImage(
+                                        ImageApp.profileImage,
+                                      ),
+                                      // backgroundImage: selectedImage != null
+                                      //     ? FileImage(selectedImage!)
+                                      //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+                                      // child: user.img!.isEmpty && selectedImage == null
+                                      //     ? const Icon(Icons.person, size: 60)
+                                      //     : null,
+                                    ),
                                   ),
                                 ),
-                                Row(
-                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    // qustion
-                                    // مو من مكتبة الألوان
-                                    // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                                    SvgPicture.asset(
-                                      IconApp.place,
-                                      width: 16,
-                                      height: 16,
-                                      color:
-                                          ThemeApp.colorIconProfileHomeScreen,
-                                    ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "Riyadh – Malaz",
-                                      style:
-                                          TypographyApp
-                                              .Label_Mid_Regular.copyWith(
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  flex: 65,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Mhamad Alshame",
+                                        style:
+                                            TypographyApp
+                                                .Title_Mid_Mid.copyWith(
+                                              color: ThemeApp
+                                                  .Foundation_Grey_grey_700,
+                                            ),
+                                      ),
+                                      Row(
+                                        // mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          // qustion
+                                          // مو من مكتبة الألوان
+                                          // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                                          SvgPicture.asset(
+                                            IconApp.place,
+                                            width: 16,
+                                            height: 16,
                                             color: ThemeApp
-                                                .Foundation_Secendary_grey_600,
+                                                .colorIconProfileHomeScreen,
                                           ),
-                                    ),
-                                  ],
+                                          SizedBox(width: 5),
+                                          Text(
+                                            "Riyadh – Malaz",
+                                            style:
+                                                TypographyApp
+                                                    .Label_Mid_Regular.copyWith(
+                                                  color: ThemeApp
+                                                      .Foundation_Secendary_grey_600,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Spacer(),
+                                Expanded(
+                                  flex: 10,
+                                  child: SvgPicture.asset(
+                                    IconApp.messages,
+                                    width: 29,
+                                    height: 29,
+                                    color: ThemeApp.Foundation_Main_main_500,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 10,
+                                  child: SvgPicture.asset(
+                                    IconApp.phone,
+                                    width: 29,
+                                    height: 29,
+                                    color: ThemeApp.Foundation_Main_main_500,
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                          // Spacer(),
-                          Expanded(
-                            flex: 10,
-                            child: SvgPicture.asset(
-                              IconApp.messages,
-                              width: 29,
-                              height: 29,
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 10,
-                            child: SvgPicture.asset(
-                              IconApp.phone,
-                              width: 29,
-                              height: 29,
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -993,7 +1048,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-
                 onPressed: () {
                   Get.bottomSheet(
                     isDismissible: true,
@@ -1028,36 +1082,36 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     );
   }
 
-  Future<void> _shareAds() async {
-    try {
-      final ads = adsController.adsDetails.value!;
+  //   Future<void> _shareAds() async {
+  //     try {
+  //       final ads = adsController.adsDetails.value!;
 
-      String shareContent =
-          '''
-🏠 *Share ad from Servixa*
-═══════════════════════
+  //       String shareContent =
+  //           '''
+  // 🏠 *Share ad from Servixa*
+  // ═══════════════════════
 
-📌 *${ads.title}*
-💰 *Price:* ${ads.price} ${ads.typeCoin}
-📍 *Location:* 742 Evergreen Terrace, Springfield
-📋 *Type:* ${ads.typeService}
+  // 📌 *${ads.title}*
+  // 💰 *Price:* ${ads.price} ${ads.typeCoin}
+  // 📍 *Location:* 742 Evergreen Terrace, Springfield
+  // 📋 *Type:* ${ads.typeService}
 
-📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
+  // 📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
 
-⭐ *Rate:* 4.0/5
-═══════════════════════
-For more details:
-📱 Download the Servixa app''';
+  // ⭐ *Rate:* 4.0/5
+  // ═══════════════════════
+  // For more details:
+  // 📱 Download the Servixa app''';
 
-      await SharePlus.instance.share(
-        ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
-      );
+  //       await SharePlus.instance.share(
+  //         ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
+  //       );
 
-      log("Share Done");
-    } catch (e) {
-      log("Error in share: $e");
-    }
-  }
+  //       log("Share Done");
+  //     } catch (e) {
+  //       log("Error in share: $e");
+  //     }
+  //   }
 
   // }
 }

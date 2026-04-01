@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 
 class AuthController extends GetxController {
   RxBool isPasswordVisible = false.obs;

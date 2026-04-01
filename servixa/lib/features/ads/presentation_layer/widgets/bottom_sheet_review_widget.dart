@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -16,9 +16,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    
-    Container(
+    return Container(
       padding: EdgeInsetsGeometry.all(22),
       decoration: BoxDecoration(
         color: ThemeApp.whiteBackground,
@@ -33,8 +31,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child:
-               Row(
+              child: Row(
                 children: [
                   Expanded(
                     child: SvgPicture.asset(
@@ -70,7 +67,6 @@ class BottomSheetReviewWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            
             ),
             Expanded(
               flex: 2,
@@ -163,6 +159,5 @@ class BottomSheetReviewWidget extends StatelessWidget {
         ),
       ),
     );
-  
   }
 }

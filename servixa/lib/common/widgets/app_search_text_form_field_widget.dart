@@ -46,6 +46,14 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
               color: ThemeApp.Foundation_Secendary_grey_200,
             ),
           ),
+                    focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              width: 1,
+              color: ThemeApp.Foundation_Secendary_grey_100,
+            ),
+          ),
+
           // edit
           // تابع بحث
           prefixIcon: IconButton(

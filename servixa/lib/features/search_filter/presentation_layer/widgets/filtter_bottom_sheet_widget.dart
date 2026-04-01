@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';

@@ -73,4 +73,9 @@ class IconApp {
   static const String businessProfileType = "assets/icons/business_profile_type.svg";
   static const String businessDetails = "assets/icons/business_details.svg";
   static const String contactInformation = "assets/icons/contact_information.svg";
+  static const String city = "assets/icons/city.svg";
+  static const String delete = "assets/icons/delete_outline.svg";
+  static const String view = "assets/icons/view-alt-fill.svg";
+  static const String pdf = "assets/icons/pdf.svg";
+  static const String locationPrefix = "assets/icons/locationPrefix.svg";
 }

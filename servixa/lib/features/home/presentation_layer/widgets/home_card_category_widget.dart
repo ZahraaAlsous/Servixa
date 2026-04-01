@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -56,8 +56,8 @@ class HomeCardCategoryWidget extends StatelessWidget {
 
     // Widget _buildContent(Size size) {
     return InkWell(
-      highlightColor: Colors.transparent, // ✅ إزالة التظليل
-      splashColor: Colors.transparent, // ✅ إزالة التموج
+      highlightColor: Colors.transparent, 
+      splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         margin: margin == null

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/image_app.dart';
-import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/super_bording_screen.dart';
 
 class SplashScreen extends StatelessWidget {

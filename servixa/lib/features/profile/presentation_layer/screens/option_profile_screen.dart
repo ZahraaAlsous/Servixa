@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -254,7 +255,15 @@ class OptionProfileScreen extends StatelessWidget {
           ListTileWidget(
             title: "Change Language",
             // edit
-            onTap: () {},
+            onTap: () {
+              if (context.locale == const Locale('en')) {
+                context.setLocale(const Locale('ar'));
+                Get.updateLocale(const Locale('ar'));
+              } else {
+                context.setLocale(const Locale('en'));
+                Get.updateLocale(const Locale('en'));
+              }
+            },
             icon: IconApp.language,
           ),
           ListTileWidget(

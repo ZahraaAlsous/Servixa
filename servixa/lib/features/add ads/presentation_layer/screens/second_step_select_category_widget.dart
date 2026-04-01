@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
@@ -14,8 +14,8 @@ import 'package:servixa/features/home/presentation_layer/widgets/home_card_categ
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return 
-    
+//     return
+
 //     GridView.builder(
 //       shrinkWrap: true,
 //       physics: NeverScrollableScrollPhysics(),
@@ -42,11 +42,9 @@ import 'package:servixa/features/home/presentation_layer/widgets/home_card_categ
 //         );
 //       },
 //     );
-  
-  
+
 //   }
 // }
-
 
 class SecondStepSelectCategoryWidget extends StatelessWidget {
   SecondStepSelectCategoryWidget({super.key});

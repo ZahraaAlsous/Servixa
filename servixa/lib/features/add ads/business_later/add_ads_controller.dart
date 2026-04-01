@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:image_picker/image_picker.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
@@ -58,7 +58,7 @@ class AddAdsController extends GetxController {
   }
 
   void addImage(RxList<File> list, File image) {
-    list.add(image); // ✅ هذه الطريقة تعمل مع .obs
+    list.add(image);
   }
 
   // ✅ دالة لحذف صورة
@@ -71,7 +71,7 @@ class AddAdsController extends GetxController {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
-        maxWidth: 1024, // ✅ أضفها عشان تتحكم بحجم الصورة
+        maxWidth: 1024,
         maxHeight: 1024,
         imageQuality: 85,
       );

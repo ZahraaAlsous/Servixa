@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -48,7 +48,7 @@ import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_bu
 //               //     ),
 //               //   ),
 //               // ),
-              
+
 //               const SizedBox(width: 16),
 
 //               // تفاصيل الحساب
@@ -116,7 +116,6 @@ class FirstStepBusinessAccountWidget extends StatelessWidget {
                   if (!addAdsController.isBusinessAccountValid()) {
                     Get.snackbar("ops", "This account not valid");
                   }
-                  
                 },
               );
             },

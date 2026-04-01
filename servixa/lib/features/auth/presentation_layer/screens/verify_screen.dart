@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:pinput/pinput.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 import 'package:servixa/core/const/typography_app.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -32,7 +32,9 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
                   : ThemeApp.Foundation_Secendary_grey_100,
               width: isSelected ? 2 : 1,
             ),
-            color: isSelected ? ThemeApp.Foundation_Main_main_50 : ThemeApp.whiteBackground,
+            color: isSelected
+                ? ThemeApp.Foundation_Main_main_50
+                : ThemeApp.whiteBackground,
           ),
           child: Row(
             children: [

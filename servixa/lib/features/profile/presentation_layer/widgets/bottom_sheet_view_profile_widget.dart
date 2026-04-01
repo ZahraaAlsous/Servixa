@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:get/get.dart';
+// import 'package:get/get.dart' hide Trans;
 // import 'package:servixa/core/const/icon_app.dart';
 // import 'package:servixa/core/const/theme_app.dart';
 // import 'package:servixa/core/const/typography_app.dart';
@@ -90,7 +90,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -195,7 +195,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
             _buildListTile("English Name : ", IconApp.person, "Ahmad Mohammad"),
             // edit
             // icon
-            _buildListTile("City :", IconApp.person, "Newyork , USA"),
+            _buildListTile("City :", IconApp.city, "Newyork , USA"),
             // edit
             // icon
             _buildListTile(
@@ -232,8 +232,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(
-            // edit
-            IconApp.catalogAlt,
+            IconApp.view,
             width: 25,
             height: 25,
             color: ThemeApp.Foundation_Main_main_300,

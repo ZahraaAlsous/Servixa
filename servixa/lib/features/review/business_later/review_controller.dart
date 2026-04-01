@@ -1,5 +1,6 @@
-import 'package:get/get.dart';
-class ReviewController extends GetxController{
+import 'package:get/get.dart' hide Trans;
+
+class ReviewController extends GetxController {
   // RxList<ReviewModel> reviewsForAds = <ReviewModel>[].obs;
   // AdsController adsController = Get.put(AdsController());
 

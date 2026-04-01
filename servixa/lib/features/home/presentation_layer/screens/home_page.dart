@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -43,7 +44,155 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(
+        title: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                Get.to(OptionProfileScreen());
+              },
+              child: Container(
+                width: size.width * 0.109,
+                height: 48.6,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(ImageApp.profileImage),
+                  ),
+                ),
+              ),
+            ),
+
+            // CircleAvatar(
+            //   radius: size.width * 0.109,
+            //   // radius: 36,
+            //   // edit
+            //   // الصورة ما عم تطلع
+            //   backgroundImage: AssetImage(ImageApp.profileImage),
+            //   // backgroundImage: selectedImage != null
+            //   //     ? FileImage(selectedImage!)
+            //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+            //   // child: user.img!.isEmpty && selectedImage == null
+            //   //     ? const Icon(Icons.person, size: 60)
+            //   //     : null,
+            // ),
+            const SizedBox(width: 5),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Mhamad Alshame",
+                  style: TypographyApp.Title_Mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Grey_grey_700,
+                  ),
+                ),
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // qustion
+                    // مو من مكتبة الألوان
+                    // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                    SvgPicture.asset(
+                      IconApp.place,
+                      width: 16,
+                      height: 16,
+                      color: ThemeApp.colorIconProfileHomeScreen,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      "Riyadh – Malaz",
+                      style: TypographyApp.Label_Mid_Regular.copyWith(
+                        color: ThemeApp.Foundation_Secendary_grey_600,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Spacer(),
+            SvgPicture.asset(
+              IconApp.location,
+              width: 34,
+              height: 34,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
+          ],
+        ),
+      ),
+
+      // appBar: AppBar(
+      //   title: Row(
+      //     children: [
+      //       InkWell(
+      //         onTap: () {
+      //           Get.to(OptionProfileScreen());
+      //         },
+      //         child: Container(
+      //           width: size.width * 0.109,
+      //           height: 48.6,
+      //           decoration: BoxDecoration(
+      //             image: DecorationImage(
+      //               image: AssetImage(ImageApp.profileImage),
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+
+      //       // CircleAvatar(
+      //       //   radius: size.width * 0.109,
+      //       //   // radius: 36,
+      //       //   // edit
+      //       //   // الصورة ما عم تطلع
+      //       //   backgroundImage: AssetImage(ImageApp.profileImage),
+      //       //   // backgroundImage: selectedImage != null
+      //       //   //     ? FileImage(selectedImage!)
+      //       //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+      //       //   // child: user.img!.isEmpty && selectedImage == null
+      //       //   //     ? const Icon(Icons.person, size: 60)
+      //       //   //     : null,
+      //       // ),
+      //       const SizedBox(width: 5),
+      //       Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           Text(
+      //             "Mhamad Alshame",
+      //             style: TypographyApp.Title_Mid_Mid.copyWith(
+      //               color: ThemeApp.Foundation_Grey_grey_700,
+      //             ),
+      //           ),
+      //           Row(
+      //             // mainAxisAlignment: MainAxisAlignment.end,
+      //             children: [
+      //               // qustion
+      //               // مو من مكتبة الألوان
+      //               // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+      //               SvgPicture.asset(
+      //                 IconApp.place,
+      //                 width: 16,
+      //                 height: 16,
+      //                 color: ThemeApp.colorIconProfileHomeScreen,
+      //               ),
+      //               SizedBox(width: 5),
+      //               Text(
+      //                 "Riyadh – Malaz",
+      //                 style: TypographyApp.Label_Mid_Regular.copyWith(
+      //                   color: ThemeApp.Foundation_Secendary_grey_600,
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ],
+      //       ),
+      //       Spacer(),
+      //       SvgPicture.asset(
+      //         IconApp.location,
+      //         width: 34,
+      //         height: 34,
+      //         color: ThemeApp.Foundation_Main_main_500,
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -52,80 +201,81 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(OptionProfileScreen());
-                  },
-                  child: Container(
-                    width: size.width * 0.109,
-                    height: 48.6,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(ImageApp.profileImage),
-                      ),
-                    ),
-                  ),
-                ),
+             Text("Zahraa".tr()),
+            // Row(
+            //   children: [
+            //     InkWell(
+            //       onTap: () {
+            //         Get.to(OptionProfileScreen());
+            //       },
+            //       child: Container(
+            //         width: size.width * 0.109,
+            //         height: 48.6,
+            //         decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //             image: AssetImage(ImageApp.profileImage),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
 
-                // CircleAvatar(
-                //   radius: size.width * 0.109,
-                //   // radius: 36,
-                //   // edit
-                //   // الصورة ما عم تطلع
-                //   backgroundImage: AssetImage(ImageApp.profileImage),
-                //   // backgroundImage: selectedImage != null
-                //   //     ? FileImage(selectedImage!)
-                //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                //   // child: user.img!.isEmpty && selectedImage == null
-                //   //     ? const Icon(Icons.person, size: 60)
-                //   //     : null,
-                // ),
-                const SizedBox(width: 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Mhamad Alshame",
-                      style: TypographyApp.Title_Mid_Mid.copyWith(
-                        color: ThemeApp.Foundation_Grey_grey_700,
-                      ),
-                    ),
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // qustion
-                        // مو من مكتبة الألوان
-                        // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                        SvgPicture.asset(
-                          IconApp.place,
-                          width: 16,
-                          height: 16,
-                          color: ThemeApp.colorIconProfileHomeScreen,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "Riyadh – Malaz",
-                          style: TypographyApp.Label_Mid_Regular.copyWith(
-                            color: ThemeApp.Foundation_Secendary_grey_600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Spacer(),
-                SvgPicture.asset(
-                  IconApp.location,
-                  width: 34,
-                  height: 34,
-                  color: ThemeApp.Foundation_Main_main_500,
-                ),
-              ],
-            ),
-            
-            SizedBox(height: DimensApp.spaceBetweenSection),
+            //     // CircleAvatar(
+            //     //   radius: size.width * 0.109,
+            //     //   // radius: 36,
+            //     //   // edit
+            //     //   // الصورة ما عم تطلع
+            //     //   backgroundImage: AssetImage(ImageApp.profileImage),
+            //     //   // backgroundImage: selectedImage != null
+            //     //   //     ? FileImage(selectedImage!)
+            //     //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+            //     //   // child: user.img!.isEmpty && selectedImage == null
+            //     //   //     ? const Icon(Icons.person, size: 60)
+            //     //   //     : null,
+            //     // ),
+            //     const SizedBox(width: 5),
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(
+            //           "Mhamad Alshame",
+            //           style: TypographyApp.Title_Mid_Mid.copyWith(
+            //             color: ThemeApp.Foundation_Grey_grey_700,
+            //           ),
+            //         ),
+            //         Row(
+            //           // mainAxisAlignment: MainAxisAlignment.end,
+            //           children: [
+            //             // qustion
+            //             // مو من مكتبة الألوان
+            //             // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+            //             SvgPicture.asset(
+            //               IconApp.place,
+            //               width: 16,
+            //               height: 16,
+            //               color: ThemeApp.colorIconProfileHomeScreen,
+            //             ),
+            //             SizedBox(width: 5),
+            //             Text(
+            //               "Riyadh – Malaz",
+            //               style: TypographyApp.Label_Mid_Regular.copyWith(
+            //                 color: ThemeApp.Foundation_Secendary_grey_600,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //     Spacer(),
+            //     SvgPicture.asset(
+            //       IconApp.location,
+            //       width: 34,
+            //       height: 34,
+            //       color: ThemeApp.Foundation_Main_main_500,
+            //     ),
+            //   ],
+            // ),
+
+            // SizedBox(height: DimensApp.spaceBetweenSection),
             AppRichTextWidget(
               firstText: "All the Equipment and \n Services ",
               secondText: "You Need",
@@ -248,7 +398,8 @@ class HomePage extends StatelessWidget {
             ), // edit
             // الاتنتقال إلى صفحة ال categories
             AppTitleSectionWidget(
-              data: "Categories",
+              // data: "Categories".tr(),
+              data: "Categories".tr(),
               onPressed: () {
                 Get.to(CategoriesScreen());
               },

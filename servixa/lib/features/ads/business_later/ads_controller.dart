@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
@@ -23,8 +23,7 @@ class AdsController extends GetxController {
   }
 
   void getAds() {
-    adsList.addAll(
-      [
+    adsList.addAll([
       AdsModel(
         id: 1,
         title: "SPR Claw Hammers1",
@@ -221,7 +220,6 @@ class AdsController extends GetxController {
         ),
       ),
     ]);
-  
   }
 
   void favorite(int adsId) {

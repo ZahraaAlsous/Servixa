@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/bording/presentation_layer/screens/bording_one_screen.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/bording_second_screen.dart';
 
@@ -10,7 +10,7 @@ class BordingController extends GetxController {
     BordingSecondScreen(),
   ];
 }
-// import 'package:get/get.dart';
+// import 'package:get/get.dart' hide Trans;
 
 // class BordingController extends GetxController {
 //   RxInt currentPageIndex = 0.obs;

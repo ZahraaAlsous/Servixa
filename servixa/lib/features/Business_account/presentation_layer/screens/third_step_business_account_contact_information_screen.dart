@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -27,7 +29,7 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           onChanged: (value) {
             // addAdsController.typeService = value;
           },
-          prefixIcon: IconApp.suggestion,
+          prefixIcon: IconApp.city,
           borderRadio: 16,
           validator: Validators.validateReviewAndRequestOrder,
           items: [
@@ -68,6 +70,26 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           prefixIcon: IconApp.Balconies,
           controller: addressDetailsController,
         ),
+        const SizedBox(height: 10),
+
+        Row(
+          children: [
+            SvgPicture.asset(
+              IconApp.place,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
+            // edit
+            Text(
+              "742 Evergreen Terrace, Springfield",
+              style: TypographyApp.Body_mid_Regular.copyWith(
+                color: ThemeApp.Foundation_Secendary_grey_300,
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 10),
+        AppMapWidget(),
       ],
     );
   }

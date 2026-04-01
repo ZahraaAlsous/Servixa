@@ -1,10 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
-import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 
@@ -20,17 +23,53 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Supporting Documents",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
-          ),
+        // ElevatedButton(onPressed: (){
+
+        // }, child: Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     SvgPicture.asset(IconApp.notification),
+        //     Text("  Upload Doc")
+        //   ],
+        // )),
+        ElevatedButton(
+          onPressed:
+              ()
+              {
+              // () async {
+              //   try {
+              //     var result = await FilePicker.platform.pickFiles();
+              //     if (result != null) {
+              //       log("success: ${result.files.first.path}");
+              //     }
+              //   } catch (e) {
+              //     log("error: $e");
+              //   }
+              },
+          child: Text("Test File Picker"),
         ),
-       
+
         AppOutlinedButtonWidget(
           textContent: "Upload Doc",
           paddingVertical: 5,
-          onPressed: () {},
+          onPressed: () {
+            // async {
+            // busiessAccountController.pickFile();
+            // addAdsController.pickImage(busiessAccountController.listFile);
+            log("click");
+            // final result = await FilePicker.platform.pickFiles();
+            // if (result == null) return;
+            // final File file = File(result.files.single.path!);
+            // Future.microtask(() async {
+            //   try {
+            //     final result = await FilePicker.platform.pickFiles();
+            //     if (result == null) return;
+            //     final File file = File(result.files.single.path!);
+            //   } catch (e) {
+            //     log("error + $e");
+            //   }
+            // });
+          },
           icon: IconApp.favorite,
         ),
         Obx(() {
@@ -131,6 +170,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
             return SizedBox();
           }
         }),
+
         AppOutlinedButtonWidget(
           textContent: "Upload Image",
           onPressed: () {

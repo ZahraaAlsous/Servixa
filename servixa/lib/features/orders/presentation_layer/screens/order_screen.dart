@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -18,154 +19,273 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBarWidget(),
-      appBar: AppBar(backgroundColor: ThemeApp.linearBackground),
-      backgroundColor: ThemeApp.whiteBackground,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [ThemeApp.linearBackground, ThemeApp.whiteBackground],
-            stops: [0.0, 0.1],
+      appBar: AppBarWidget(
+        title: Container(
+          height: 48,
+          width: size.width * 0.895,
+          padding: EdgeInsetsGeometry.all(2),
+          decoration: BoxDecoration(
+            color: ThemeApp.whiteBackground,
+            borderRadius: BorderRadius.circular(21),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Obx(
+                  () =>
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     orderController.isSelectedMyOrders.value = false;
+                      //   },
+                      //   child: Text(
+                      //     "Received Orders",
+                      //     style: TypographyApp.text_button_order.copyWith(
+                      //       color: orderController.isSelectedMyOrders.value
+                      //           ? ThemeApp.Foundation_Main_main_500
+                      //           : ThemeApp.whiteBackground,
+                      //     ),
+                      //   ),
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor:
+                      //         !orderController.isSelectedMyOrders.value
+                      //         ? ThemeApp.Foundation_Main_main_500
+                      //         : ThemeApp.whiteBackground,
+                      //     elevation: 0,
+                      //   ),
+                      // ),
+                      InkWell(
+                              highlightColor: Colors.transparent, 
+      splashColor: Colors.transparent,
+
+                        onTap: () {
+                          orderController.isSelectedMyOrders.value = false;
+                        },
+                        child: Container(
+                          alignment: AlignmentGeometry.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: !orderController.isSelectedMyOrders.value
+                                ? ThemeApp.Foundation_Main_main_500
+                                : ThemeApp.whiteBackground,
+                          ),
+                          child: Text(
+                            "Received Orders",
+                            style: TypographyApp.text_button_order.copyWith(
+                              color: orderController.isSelectedMyOrders.value
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : ThemeApp.whiteBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                ),
+              ),
+              Expanded(
+                child: Obx(
+                  () =>
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     orderController.isSelectedMyOrders.value = true;
+                      //   },
+                      //   child: Text(
+                      //     "My Orders",
+                      //     style: TypographyApp.text_button_order.copyWith(
+                      //       color: !orderController.isSelectedMyOrders.value
+                      //           ? ThemeApp.Foundation_Main_main_500
+                      //           : ThemeApp.whiteBackground,
+                      //     ),
+                      //   ),
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor:
+                      //         orderController.isSelectedMyOrders.value
+                      //         ? ThemeApp.Foundation_Main_main_500
+                      //         : ThemeApp.whiteBackground,
+                      //     elevation: 0,
+                      //   ),
+                      // ),
+
+                      InkWell(
+                              highlightColor: Colors.transparent, 
+      splashColor: Colors.transparent,
+
+                        onTap: () {
+                          orderController.isSelectedMyOrders.value = true;
+                        },
+                        child: Container(
+                          alignment: AlignmentGeometry.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: orderController.isSelectedMyOrders.value
+                                ? ThemeApp.Foundation_Main_main_500
+                                : ThemeApp.whiteBackground,
+                          ),
+                          child: Text(
+                            "My Orders",
+                            style: TypographyApp.text_button_order.copyWith(
+                              color: !orderController.isSelectedMyOrders.value
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : ThemeApp.whiteBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                ),
+              ),
+            ],
           ),
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 48,
-              width: size.width * 0.895,
-              padding: EdgeInsetsGeometry.all(2),
-              decoration: BoxDecoration(
-                color: ThemeApp.whiteBackground,
-                borderRadius: BorderRadius.circular(21),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Obx(
-                      () =>
-                          // ElevatedButton(
-                          //   onPressed: () {
-                          //     orderController.isSelectedMyOrders.value = false;
-                          //   },
-                          //   child: Text(
-                          //     "Received Orders",
-                          //     style: TypographyApp.text_button_order.copyWith(
-                          //       color: orderController.isSelectedMyOrders.value
-                          //           ? ThemeApp.Foundation_Main_main_500
-                          //           : ThemeApp.whiteBackground,
-                          //     ),
-                          //   ),
-                          //   style: ElevatedButton.styleFrom(
-                          //     backgroundColor:
-                          //         !orderController.isSelectedMyOrders.value
-                          //         ? ThemeApp.Foundation_Main_main_500
-                          //         : ThemeApp.whiteBackground,
-                          //     elevation: 0,
-                          //   ),
-                          // ),
-                          InkWell(
-                            onTap: () {
-                              orderController.isSelectedMyOrders.value = false;
-                            },
-                            child: Container(
-                              alignment: AlignmentGeometry.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: !orderController.isSelectedMyOrders.value
-                                    ? ThemeApp.Foundation_Main_main_500
-                                    : ThemeApp.whiteBackground,
-                              ),
-                              child: Text(
-                                "Received Orders",
-                                style: TypographyApp.text_button_order.copyWith(
-                                  color:
-                                      orderController.isSelectedMyOrders.value
-                                      ? ThemeApp.Foundation_Main_main_500
-                                      : ThemeApp.whiteBackground,
-                                ),
-                              ),
-                            ),
-                          ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Obx(
-                      () =>
-                          // ElevatedButton(
-                          //   onPressed: () {
-                          //     orderController.isSelectedMyOrders.value = true;
-                          //   },
-                          //   child: Text(
-                          //     "My Orders",
-                          //     style: TypographyApp.text_button_order.copyWith(
-                          //       color: !orderController.isSelectedMyOrders.value
-                          //           ? ThemeApp.Foundation_Main_main_500
-                          //           : ThemeApp.whiteBackground,
-                          //     ),
-                          //   ),
-                          //   style: ElevatedButton.styleFrom(
-                          //     backgroundColor:
-                          //         orderController.isSelectedMyOrders.value
-                          //         ? ThemeApp.Foundation_Main_main_500
-                          //         : ThemeApp.whiteBackground,
-                          //     elevation: 0,
-                          //   ),
-                          // ),
-                          InkWell(
-                            onTap: () {
-                              orderController.isSelectedMyOrders.value = true;
-                            },
-                            child: Container(
-                              alignment: AlignmentGeometry.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: orderController.isSelectedMyOrders.value
-                                    ? ThemeApp.Foundation_Main_main_500
-                                    : ThemeApp.whiteBackground,
-                              ),
-                              child: Text(
-                                "My Orders",
-                                style: TypographyApp.text_button_order.copyWith(
-                                  color:
-                                      !orderController.isSelectedMyOrders.value
-                                      ? ThemeApp.Foundation_Main_main_500
-                                      : ThemeApp.whiteBackground,
-                                ),
-                              ),
-                            ),
-                          ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              height: 500,
-              child: Obx(() {
-                return ListView.builder(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                  ),
-                  itemCount: orderController.isSelectedMyOrders.value
-                      ? orderController.myOrders.length
-                      : orderController.receivedOrders.length,
-                  itemBuilder: (context, indexOrder) {
-                    return orderController.isSelectedMyOrders.value
-                        ? myOrders(size, orderController.myOrders[indexOrder])
-                        : receivedOrders(
-                            size,
-                            orderController.receivedOrders[indexOrder],
-                          );
-                  },
-                );
-              }),
-            ),
-          ],
-        ),
       ),
+      // appBar: AppBar(backgroundColor: ThemeApp.linearBackground),
+      backgroundColor: ThemeApp.whiteBackground,
+      body:
+          // Container(
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //       colors: [ThemeApp.linearBackground, ThemeApp.whiteBackground],
+          //       stops: [0.0, 0.1],
+          //     ),
+          //   ),
+          //   child:
+          Column(
+            children: [
+              // Container(
+              //   height: 48,
+              //   width: size.width * 0.895,
+              //   padding: EdgeInsetsGeometry.all(2),
+              //   decoration: BoxDecoration(
+              //     color: ThemeApp.whiteBackground,
+              //     borderRadius: BorderRadius.circular(21),
+              //   ),
+              //   child:
+
+              //   Row(
+              //     children: [
+              //       Expanded(
+              //         child: Obx(
+              //           () =>
+              //               // ElevatedButton(
+              //               //   onPressed: () {
+              //               //     orderController.isSelectedMyOrders.value = false;
+              //               //   },
+              //               //   child: Text(
+              //               //     "Received Orders",
+              //               //     style: TypographyApp.text_button_order.copyWith(
+              //               //       color: orderController.isSelectedMyOrders.value
+              //               //           ? ThemeApp.Foundation_Main_main_500
+              //               //           : ThemeApp.whiteBackground,
+              //               //     ),
+              //               //   ),
+              //               //   style: ElevatedButton.styleFrom(
+              //               //     backgroundColor:
+              //               //         !orderController.isSelectedMyOrders.value
+              //               //         ? ThemeApp.Foundation_Main_main_500
+              //               //         : ThemeApp.whiteBackground,
+              //               //     elevation: 0,
+              //               //   ),
+              //               // ),
+              //               InkWell(
+              //                 onTap: () {
+              //                   orderController.isSelectedMyOrders.value = false;
+              //                 },
+              //                 child: Container(
+              //                   alignment: AlignmentGeometry.center,
+              //                   decoration: BoxDecoration(
+              //                     borderRadius: BorderRadius.circular(16),
+              //                     color: !orderController.isSelectedMyOrders.value
+              //                         ? ThemeApp.Foundation_Main_main_500
+              //                         : ThemeApp.whiteBackground,
+              //                   ),
+              //                   child: Text(
+              //                     "Received Orders",
+              //                     style: TypographyApp.text_button_order.copyWith(
+              //                       color:
+              //                           orderController.isSelectedMyOrders.value
+              //                           ? ThemeApp.Foundation_Main_main_500
+              //                           : ThemeApp.whiteBackground,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Obx(
+              //           () =>
+              //               // ElevatedButton(
+              //               //   onPressed: () {
+              //               //     orderController.isSelectedMyOrders.value = true;
+              //               //   },
+              //               //   child: Text(
+              //               //     "My Orders",
+              //               //     style: TypographyApp.text_button_order.copyWith(
+              //               //       color: !orderController.isSelectedMyOrders.value
+              //               //           ? ThemeApp.Foundation_Main_main_500
+              //               //           : ThemeApp.whiteBackground,
+              //               //     ),
+              //               //   ),
+              //               //   style: ElevatedButton.styleFrom(
+              //               //     backgroundColor:
+              //               //         orderController.isSelectedMyOrders.value
+              //               //         ? ThemeApp.Foundation_Main_main_500
+              //               //         : ThemeApp.whiteBackground,
+              //               //     elevation: 0,
+              //               //   ),
+              //               // ),
+              //               InkWell(
+              //                 onTap: () {
+              //                   orderController.isSelectedMyOrders.value = true;
+              //                 },
+              //                 child: Container(
+              //                   alignment: AlignmentGeometry.center,
+              //                   decoration: BoxDecoration(
+              //                     borderRadius: BorderRadius.circular(16),
+              //                     color: orderController.isSelectedMyOrders.value
+              //                         ? ThemeApp.Foundation_Main_main_500
+              //                         : ThemeApp.whiteBackground,
+              //                   ),
+              //                   child: Text(
+              //                     "My Orders",
+              //                     style: TypographyApp.text_button_order.copyWith(
+              //                       color:
+              //                           !orderController.isSelectedMyOrders.value
+              //                           ? ThemeApp.Foundation_Main_main_500
+              //                           : ThemeApp.whiteBackground,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              SizedBox(height: 10),
+              SizedBox(
+                height: 500,
+                child: Obx(() {
+                  return ListView.builder(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    ),
+                    itemCount: orderController.isSelectedMyOrders.value
+                        ? orderController.myOrders.length
+                        : orderController.receivedOrders.length,
+                    itemBuilder: (context, indexOrder) {
+                      return orderController.isSelectedMyOrders.value
+                          ? myOrders(size, orderController.myOrders[indexOrder])
+                          : receivedOrders(
+                              size,
+                              orderController.receivedOrders[indexOrder],
+                            );
+                    },
+                  );
+                }),
+              ),
+            ],
+          ),
+      // ),
     );
   }
 
@@ -320,7 +440,7 @@ class OrderScreen extends StatelessWidget {
     return Container(
       height: 231,
       width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal:15),
+      padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 15),
       margin: EdgeInsetsGeometry.symmetric(vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(13),
@@ -381,8 +501,8 @@ class OrderScreen extends StatelessWidget {
               color: ThemeApp.Foundation_Secendary_grey_300,
             ),
           ),
-          // SizedBox(height: 6),
 
+          // SizedBox(height: 6),
           Divider(
             // height: 20,
             thickness: 2,
@@ -394,21 +514,15 @@ class OrderScreen extends StatelessWidget {
             child: SizedBox(
               width: size.width * 0.739,
               height: 29,
-              child: OutlinedButton(
+              child: OutlinedButton.icon(
                 onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // edit
-                    SvgPicture.asset(IconApp.favorite),
-                    Text(
-                      "Decline",
-                      style: TypographyApp.Label_Mid_Mid.copyWith(
-                        color: ThemeApp.Foundation_Statue_Red,
-                      ),
-                    ),
-                  ],
+                label: Text(
+                  "Decline",
+                  style: TypographyApp.Label_Mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Statue_Red,
+                  ),
                 ),
+                icon: SvgPicture.asset(IconApp.delete),
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
