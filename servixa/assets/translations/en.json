@@ -1,4 +1,18 @@
 {
+  "titleHome1": "All the Equipment and \n Services ",
+  "titleHome2": "You Need",
   "Categories": "Categories",
+  "titleSectionHome1": "Top Tools & Equipment's",
+  "titleSectionHome2": "Top Construction Services",
+  "titleSectionHome3": "Top Items",
+
+  "navigationBarHome": "Home",
+  "navigationBarNotification": "Notification",
+  "navigationBarMyAds": "My Ads",
+  "navigationBarOrders": "Orders",
+
+  "hintSearch" : "Search any item...",
+
+  "ShowAll": "Show All",
   "Zahraa": "Zahraa"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AppSearchTextFormFieldWidget extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
@@ -37,7 +38,7 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
         readOnly: readOnly ?? false,
         onTap: onTap,
         decoration: InputDecoration(
-          hintText: "Search any item...",
+          hintText: "hintSearch".tr(),
           enabledBorder: OutlineInputBorder(
             // gapPadding: 50,
             borderRadius: BorderRadius.circular(radio ?? 8),

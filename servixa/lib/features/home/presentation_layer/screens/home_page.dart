@@ -66,7 +66,6 @@ class HomePage extends StatelessWidget {
             //   radius: size.width * 0.109,
             //   // radius: 36,
             //   // edit
-            //   // الصورة ما عم تطلع
             //   backgroundImage: AssetImage(ImageApp.profileImage),
             //   // backgroundImage: selectedImage != null
             //   //     ? FileImage(selectedImage!)
@@ -118,81 +117,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-
-      // appBar: AppBar(
-      //   title: Row(
-      //     children: [
-      //       InkWell(
-      //         onTap: () {
-      //           Get.to(OptionProfileScreen());
-      //         },
-      //         child: Container(
-      //           width: size.width * 0.109,
-      //           height: 48.6,
-      //           decoration: BoxDecoration(
-      //             image: DecorationImage(
-      //               image: AssetImage(ImageApp.profileImage),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-
-      //       // CircleAvatar(
-      //       //   radius: size.width * 0.109,
-      //       //   // radius: 36,
-      //       //   // edit
-      //       //   // الصورة ما عم تطلع
-      //       //   backgroundImage: AssetImage(ImageApp.profileImage),
-      //       //   // backgroundImage: selectedImage != null
-      //       //   //     ? FileImage(selectedImage!)
-      //       //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-      //       //   // child: user.img!.isEmpty && selectedImage == null
-      //       //   //     ? const Icon(Icons.person, size: 60)
-      //       //   //     : null,
-      //       // ),
-      //       const SizedBox(width: 5),
-      //       Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Text(
-      //             "Mhamad Alshame",
-      //             style: TypographyApp.Title_Mid_Mid.copyWith(
-      //               color: ThemeApp.Foundation_Grey_grey_700,
-      //             ),
-      //           ),
-      //           Row(
-      //             // mainAxisAlignment: MainAxisAlignment.end,
-      //             children: [
-      //               // qustion
-      //               // مو من مكتبة الألوان
-      //               // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-      //               SvgPicture.asset(
-      //                 IconApp.place,
-      //                 width: 16,
-      //                 height: 16,
-      //                 color: ThemeApp.colorIconProfileHomeScreen,
-      //               ),
-      //               SizedBox(width: 5),
-      //               Text(
-      //                 "Riyadh – Malaz",
-      //                 style: TypographyApp.Label_Mid_Regular.copyWith(
-      //                   color: ThemeApp.Foundation_Secendary_grey_600,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ],
-      //       ),
-      //       Spacer(),
-      //       SvgPicture.asset(
-      //         IconApp.location,
-      //         width: 34,
-      //         height: 34,
-      //         color: ThemeApp.Foundation_Main_main_500,
-      //       ),
-      //     ],
-      //   ),
-      // ),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -201,84 +125,9 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-             Text("Zahraa".tr()),
-            // Row(
-            //   children: [
-            //     InkWell(
-            //       onTap: () {
-            //         Get.to(OptionProfileScreen());
-            //       },
-            //       child: Container(
-            //         width: size.width * 0.109,
-            //         height: 48.6,
-            //         decoration: BoxDecoration(
-            //           image: DecorationImage(
-            //             image: AssetImage(ImageApp.profileImage),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-
-            //     // CircleAvatar(
-            //     //   radius: size.width * 0.109,
-            //     //   // radius: 36,
-            //     //   // edit
-            //     //   // الصورة ما عم تطلع
-            //     //   backgroundImage: AssetImage(ImageApp.profileImage),
-            //     //   // backgroundImage: selectedImage != null
-            //     //   //     ? FileImage(selectedImage!)
-            //     //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-            //     //   // child: user.img!.isEmpty && selectedImage == null
-            //     //   //     ? const Icon(Icons.person, size: 60)
-            //     //   //     : null,
-            //     // ),
-            //     const SizedBox(width: 5),
-            //     Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text(
-            //           "Mhamad Alshame",
-            //           style: TypographyApp.Title_Mid_Mid.copyWith(
-            //             color: ThemeApp.Foundation_Grey_grey_700,
-            //           ),
-            //         ),
-            //         Row(
-            //           // mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             // qustion
-            //             // مو من مكتبة الألوان
-            //             // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-            //             SvgPicture.asset(
-            //               IconApp.place,
-            //               width: 16,
-            //               height: 16,
-            //               color: ThemeApp.colorIconProfileHomeScreen,
-            //             ),
-            //             SizedBox(width: 5),
-            //             Text(
-            //               "Riyadh – Malaz",
-            //               style: TypographyApp.Label_Mid_Regular.copyWith(
-            //                 color: ThemeApp.Foundation_Secendary_grey_600,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ],
-            //     ),
-            //     Spacer(),
-            //     SvgPicture.asset(
-            //       IconApp.location,
-            //       width: 34,
-            //       height: 34,
-            //       color: ThemeApp.Foundation_Main_main_500,
-            //     ),
-            //   ],
-            // ),
-
-            // SizedBox(height: DimensApp.spaceBetweenSection),
             AppRichTextWidget(
-              firstText: "All the Equipment and \n Services ",
-              secondText: "You Need",
+              firstText: "titleHome1".tr(),
+              secondText: "titleHome2".tr(),
               typographyApp: TypographyApp.title_Sections,
               maxLines: 2,
             ),
@@ -290,40 +139,6 @@ class HomePage extends StatelessWidget {
               },
             ),
             SizedBox(height: DimensApp.spaceBetweenSection),
-
-            // SizedBox(
-            //   height: 300,
-            //   child: CarouselSlider.builder(
-            //     itemCount: carouselImages.length,
-            //     itemBuilder:
-            //         (BuildContext context, int itemIndex, int pageViewIndex) =>
-            //             Container(
-            //               width: size.width * 0.913,
-            //               height: 166,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                   image: AssetImage(carouselImages[itemIndex]),
-            //                 ),
-            //               ),
-            //             ),
-            //     options: CarouselOptions(
-            //       height: 200,
-            //       // aspectRatio: 16 / 9,
-            //       viewportFraction: 0.8,
-            //       initialPage: 0,
-            //       enableInfiniteScroll: true,
-            //       reverse: false,
-            //       autoPlay: true,
-            //       autoPlayInterval: Duration(seconds: 3),
-            //       autoPlayAnimationDuration: Duration(milliseconds: 800),
-            //       autoPlayCurve: Curves.fastOutSlowIn,
-            //       enlargeCenterPage: true,
-            //       enlargeFactor: 0.3,
-            //       // onPageChanged: callbackFunction,
-            //       scrollDirection: Axis.horizontal,
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 145,
               child: CarouselSlider.builder(
@@ -399,7 +214,7 @@ class HomePage extends StatelessWidget {
             // الاتنتقال إلى صفحة ال categories
             AppTitleSectionWidget(
               // data: "Categories".tr(),
-              data: "Categories".tr(),
+              data: "Categories",
               onPressed: () {
                 Get.to(CategoriesScreen());
               },
@@ -435,7 +250,7 @@ class HomePage extends StatelessWidget {
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة
             AppTitleSectionWidget(
-              data: "Top Tools & Equipment's",
+              data: "titleSectionHome1",
               onPressed: () {
                 Get.to(ViewAllAdsScreen());
               },
@@ -472,7 +287,7 @@ class HomePage extends StatelessWidget {
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة
             AppTitleSectionWidget(
-              data: "Top Construction Services",
+              data: "titleSectionHome2",
               onPressed: () {
                 Get.to(ViewAllAdsScreen());
               },
@@ -511,7 +326,7 @@ class HomePage extends StatelessWidget {
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة
             AppTitleSectionWidget(
-              data: "Top Items",
+              data: "titleSectionHome3",
               onPressed: () {
                 Get.to(ViewAllAdsScreen());
               },

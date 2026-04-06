@@ -22,8 +22,8 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
-// import 'package:share_plus/share_plus.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -56,13 +56,14 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     }
   }
 
-  // final Completer<GoogleMapController> _controller =
-  //     Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   target: LatLng(37.42796133580664, -122.085749655962),
-  //   zoom: 14.4746,
-  // );
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    // target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(33.5138, 36.2765),
+    zoom: 14.4746,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
           IconButton(
             onPressed: () {
-              // _shareAds();
+              _shareAds();
               log("share");
             },
             icon: SvgPicture.asset(
@@ -102,9 +103,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
         ],
       ),
       body:
-          // SingleChildScrollView(child: Column(children: [
-          //   ],
-          // )),
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -659,13 +657,13 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
 
-                              // child: GoogleMap(
-                              //   mapType: MapType.hybrid,
-                              //   initialCameraPosition: _kGooglePlex,
-                              //   onMapCreated: (GoogleMapController controller) {
-                              //     _controller.complete(controller);
-                              //   },
-                              // ),
+                              child: GoogleMap(
+                                // mapType: MapType.hybrid,
+                                initialCameraPosition: _kGooglePlex,
+                                onMapCreated: (GoogleMapController controller) {
+                                  _controller.complete(controller);
+                                },
+                              ),
                             ),
                             Row(
                               children: [
@@ -1082,36 +1080,36 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     );
   }
 
-  //   Future<void> _shareAds() async {
-  //     try {
-  //       final ads = adsController.adsDetails.value!;
+  Future<void> _shareAds() async {
+    try {
+      final ads = adsController.adsDetails.value!;
 
-  //       String shareContent =
-  //           '''
-  // 🏠 *Share ad from Servixa*
-  // ═══════════════════════
+      String shareContent =
+          '''
+  🏠 *Share ad from Servixa*
+  ═══════════════════════
 
-  // 📌 *${ads.title}*
-  // 💰 *Price:* ${ads.price} ${ads.typeCoin}
-  // 📍 *Location:* 742 Evergreen Terrace, Springfield
-  // 📋 *Type:* ${ads.typeService}
+  📌 *${ads.title}*
+  💰 *Price:* ${ads.price} ${ads.typeCoin}
+  📍 *Location:* 742 Evergreen Terrace, Springfield
+  📋 *Type:* ${ads.typeService}
 
-  // 📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
+  📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
 
-  // ⭐ *Rate:* 4.0/5
-  // ═══════════════════════
-  // For more details:
-  // 📱 Download the Servixa app''';
+  ⭐ *Rate:* 4.0/5
+  ═══════════════════════
+  For more details:
+  📱 Download the Servixa app''';
 
-  //       await SharePlus.instance.share(
-  //         ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
-  //       );
+      await SharePlus.instance.share(
+        ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
+      );
 
-  //       log("Share Done");
-  //     } catch (e) {
-  //       log("Error in share: $e");
-  //     }
-  //   }
+      log("Share Done");
+    } catch (e) {
+      log("Error in share: $e");
+    }
+  }
 
   // }
 }

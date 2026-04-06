@@ -196,6 +196,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               //     colorText: ThemeApp.Foundation_Main_main_500,
               //   );
               // }
+              
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ThemeApp.Foundation_Main_main_500,

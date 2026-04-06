@@ -130,6 +130,11 @@ class AppMapWidget extends StatelessWidget {
                 ),
               ),
               style: OutlinedButton.styleFrom(
+                // note
+                // التأكد إذا الكل زاوية 16 ولا لا
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 side: BorderSide(
                   color: ThemeApp.Foundation_Main_main_500,
                   width: 1,

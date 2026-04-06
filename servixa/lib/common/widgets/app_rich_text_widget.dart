@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 
@@ -26,12 +27,16 @@ class AppRichTextWidget extends StatelessWidget {
         style: typographyApp,
         children: [
           TextSpan(
-            text: firstText,
-            style: TextStyle(color: colorFirstText ?? ThemeApp.Foundation_Secendary_grey_700),
+            text: firstText.tr(),
+            style: TextStyle(
+              color: colorFirstText ?? ThemeApp.Foundation_Secendary_grey_700,
+            ),
           ),
           TextSpan(
-            text: secondText,
-            style: TextStyle(color: colorSecondText?? ThemeApp.Foundation_Main_main_500),
+            text: secondText.tr(),
+            style: TextStyle(
+              color: colorSecondText ?? ThemeApp.Foundation_Main_main_500,
+            ),
           ),
         ],
       ),

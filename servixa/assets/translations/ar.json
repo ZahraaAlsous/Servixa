@@ -1,4 +1,18 @@
 {
+  "titleHome1": "كل المعدات والخدمات التي ",
+  "titleHome2": "تحتاجها",
   "Categories": "الفئات",
+  "titleSectionHome1": "أفضل الأدوات والمعدات",
+  "titleSectionHome2": "أفضل خدمات البناء",
+  "titleSectionHome3": "أفضل العناصر",
+
+  "navigationBarHome": "الرئيسية",
+  "navigationBarNotification": "إشعارات",
+  "navigationBarMyAds": "إعلاناتي",
+  "navigationBarOrders": "Orders",
+
+  "hintSearch": "ابحث عن أي عنصر...",
+
+  "ShowAll": "عرض الكل",
   "Zahraa": "زهراء"
 }

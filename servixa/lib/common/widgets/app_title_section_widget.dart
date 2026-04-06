@@ -1,4 +1,5 @@
 // import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -23,7 +24,7 @@ class AppTitleSectionWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            data,
+            data.tr(),
             style:
                 typographyAppTitle ??
                 TypographyApp.title_Sections.copyWith(
@@ -35,7 +36,7 @@ class AppTitleSectionWidget extends StatelessWidget {
         TextButton(
           onPressed: onPressed,
           child: Text(
-            "Show All",
+            "ShowAll".tr(),
             style:
                 typographyAppButton ??
                 TypographyApp.text_button_home_page.copyWith(

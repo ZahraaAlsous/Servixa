@@ -1,15 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
-
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
+import 'package:servixa/features/Business_account/presentation_layer/screens/dd.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
+
 
 class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
   BusiessAccountController busiessAccountController = Get.put(
@@ -20,57 +21,104 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ElevatedButton(onPressed: (){
-
-        // }, child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     SvgPicture.asset(IconApp.notification),
-        //     Text("  Upload Doc")
-        //   ],
-        // )),
-        ElevatedButton(
-          onPressed:
-              ()
-              {
-              // () async {
-              //   try {
-              //     var result = await FilePicker.platform.pickFiles();
-              //     if (result != null) {
-              //       log("success: ${result.files.first.path}");
-              //     }
-              //   } catch (e) {
-              //     log("error: $e");
-              //   }
-              },
-          child: Text("Test File Picker"),
+        Text(
+          "Supporting Documents",
+          style: TypographyApp.Title_Mid_Mid.copyWith(
+            color: ThemeApp.Foundation_Secendary_grey_600,
+          ),
         ),
+        Obx(
+          () => ListView.builder(
+            itemCount: busiessAccountController.listFile.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, indexFile) {
+              File file = busiessAccountController.listFile[indexFile];
+              String fileName = file.path.split('/').last;
 
+              return Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                alignment: Alignment.center,
+                width: size.width * 0.9139,
+                height: 85,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    width: 1,
+                    color: ThemeApp.Foundation_Secendary_grey_100,
+                  ),
+                ),
+                child: ListTile(
+                  leading: Icon(
+                    fileName.endsWith('.pdf')
+                        ? Icons.picture_as_pdf
+                        : Icons.description,
+                    color: fileName.endsWith('.pdf') ? Colors.red : Colors.blue,
+                    size: 30,
+                  ),
+                  title: Text(
+                    fileName,
+                    style: TypographyApp.Body_mid_Regular.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_800,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  subtitle: Text(
+                    "Max Size ${(file.lengthSync() / (1024 * 1024)).toStringAsFixed(2)} MB",
+                    style: TypographyApp.Label_Mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_300,
+                    ),
+                  ),
+                  trailing: TextButton(
+                    onPressed: () {
+                      busiessAccountController.openFile(file.path);
+                    },
+                    child: Text(
+                      "View",
+                      style: TypographyApp.Body_mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Main_main_500,
+                      ),
+                    ),
+                  ),
+
+                  // IconButton(
+                  //   icon: const Icon(Icons.delete_outline, color: Colors.red),
+                  //   onPressed: () {
+                  //     busiessAccountController.deleteFile(indexFile);
+                  //   },
+                  // ),
+                ),
+              );
+            },
+          ),
+        ),
         AppOutlinedButtonWidget(
           textContent: "Upload Doc",
           paddingVertical: 5,
           onPressed: () {
-            // async {
-            // busiessAccountController.pickFile();
-            // addAdsController.pickImage(busiessAccountController.listFile);
-            log("click");
-            // final result = await FilePicker.platform.pickFiles();
-            // if (result == null) return;
-            // final File file = File(result.files.single.path!);
-            // Future.microtask(() async {
+            busiessAccountController.pickFile();
+            // () async {
             //   try {
-            //     final result = await FilePicker.platform.pickFiles();
-            //     if (result == null) return;
-            //     final File file = File(result.files.single.path!);
+            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
+            //       allowMultiple: true,
+            //       type: FileType.custom,
+            //       allowedExtensions: ['pdf', 'doc'],
+            //     );
+            //     if (result != null) {
+            //       List<File> files = result.paths
+            //           .map((path) => File(path!))
+            //           .toList();
+            //     }
             //   } catch (e) {
-            //     log("error + $e");
+            //     log("error: $e");
             //   }
-            // });
           },
-          icon: IconApp.favorite,
+          icon: IconApp.pdf,
         ),
         Obx(() {
           if (busiessAccountController.listImage.isNotEmpty) {
@@ -178,6 +226,9 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
           },
           icon: IconApp.camera,
         ),
+        ElevatedButton(onPressed: (){
+          Get.to(CurrentLocationPage());
+        }, child: Text("jj"))
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -80,19 +81,34 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
               // crossAxisAlignment: CrossAxisAlignment
               //     .stretch,
               children: [
-                _buildNavItem(IconApp.home, IconApp.homeFill, "Home", 0),
+                _buildNavItem(
+                  IconApp.home,
+                  IconApp.homeFill,
+                  "navigationBarHome",
+                  0,
+                ),
                 _buildNavItem(
                   IconApp.notification,
                   IconApp.notificationFill,
-                  "Notification",
+                  "navigationBarNotification",
                   1,
                 ),
 
                 const SizedBox(width: 60),
 
-                _buildNavItem(IconApp.ads, IconApp.adsFill, "My Ads", 2),
+                _buildNavItem(
+                  IconApp.ads,
+                  IconApp.adsFill,
+                  "navigationBarMyAds",
+                  2,
+                ),
 
-                _buildNavItem(IconApp.orders, IconApp.ordersFill, "Orders", 3),
+                _buildNavItem(
+                  IconApp.orders,
+                  IconApp.ordersFill,
+                  "navigationBarOrders",
+                  3,
+                ),
               ],
             ),
         // ),
@@ -149,11 +165,11 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                         : ThemeApp.Foundation_Secendary_grey_200,
                     BlendMode.srcIn,
                   ),
-                  semanticsLabel: label,
+                  semanticsLabel: label.tr(),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  label,
+                  label.tr(),
                   style: TypographyApp.Label_Mid_Regular.copyWith(
                     color: isSelected
                         ? ThemeApp.Foundation_Main_main_500
