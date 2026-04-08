@@ -6,21 +6,21 @@ import 'package:servixa/features/bording/presentation_layer/screens/bording_seco
 
 class BordingController extends GetxController {
   final storage = FlutterSecureStorage();
+  RxBool isFirstLunch = true.obs;
   RxInt currentPageIndex = 0.obs;
   final List<Widget> boardingPages = [
     BordingOneScreen(),
     BordingSecondScreen(),
   ];
 
-  bool isFirstLunch() {
+  void checkIfFirstLunch () {
     // bool isFirstLunch = storage.read(key: "isFirstLunch") == "true";
-    bool isFirstLunch = storage.read(key: "isFirstLunch") == "true";
+    bool stateIsFirstLunch = storage.read(key: "isFirstLunch") == "true";
 
-    if (isFirstLunch) {
+    if (stateIsFirstLunch) {
       storage.write(key: "isFirstLunch", value: "false");
+      isFirstLunch.value = false;
     }
-
-    return isFirstLunch;
   }
 
 }

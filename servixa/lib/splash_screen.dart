@@ -19,10 +19,8 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(Duration(seconds: 3), () {
       // edit
       // إذا في token يروح عال home
-      // question
-      //بال login في زر رجوع ، مو غلط؟
       // Get.offAll(LoginPage());
-      bordingController.isFirstLunch()
+      bordingController.isFirstLunch.value
           ? Get.offAll(SuperBordingScreen())
           // : (authController.isLoggedIn.value
           : (authController.isLoggedIn.value
