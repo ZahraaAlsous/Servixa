@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
+import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
 import 'package:servixa/features/bording/business_later/bording_controller.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/bording_one_screen.dart';
 import 'package:servixa/features/bording/presentation_layer/screens/bording_second_screen.dart';
-import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SuperBordingScreen extends StatelessWidget {
   final BordingController bordingController = Get.put(BordingController());
@@ -22,7 +21,7 @@ class SuperBordingScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(),
+      appBar: AuthAndBoardingAppBarWidget(whereGo: LoginPage(),),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -71,7 +70,8 @@ class SuperBordingScreen extends StatelessWidget {
                         if (_currentStep.value < _pages.length - 1) {
                           _currentStep.value++;
                         } else {
-                          Get.to(SuperHomeScreen());
+                          // Get.to(SuperHomeScreen());
+                          Get.to(LoginPage());
                         }
                       },
 

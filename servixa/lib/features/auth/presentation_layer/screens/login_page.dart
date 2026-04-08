@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(),
+      appBar: AuthAndBoardingAppBarWidget(whereGo: SuperHomeScreen()),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: DimensApp.spaceHorizontalScreen,
@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Get.offAll(SuperHomeScreen());
-                        Get.offAll(VerifyScreen());
+                        Get.offAll(() => VerifyScreen());
                         log("function login");
                       }
                       // Get.offAll(page)
@@ -138,7 +138,7 @@ class LoginPage extends StatelessWidget {
                     // minimumSize: Size.zero,
                   ),
                   onPressed: () {
-                    Get.offAll(RegisterPage());
+                    Get.offAll(() => RegisterPage());
                   },
 
                   child: Text(

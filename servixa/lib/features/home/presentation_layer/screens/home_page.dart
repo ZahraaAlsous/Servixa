@@ -14,6 +14,7 @@ import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/view_all_ads_screen.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/presentation_layer/screens/categories_screen.dart';
@@ -27,6 +28,7 @@ import 'package:servixa/features/profile/presentation_layer/screens/option_profi
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class HomePage extends StatelessWidget {
+  final AuthController authController = Get.put(AuthController());
   TextEditingController searchController = TextEditingController();
   CategoryController categoryController = Get.put(CategoryController());
   HomeController homeController = Get.put(HomeController());
@@ -44,80 +46,109 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(
-        title: Row(
-          children: [
-            InkWell(
-              onTap: () {
-                Get.to(OptionProfileScreen());
-              },
-              child: Container(
-                width: size.width * 0.109,
-                height: 48.6,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(ImageApp.profileImage),
-                  ),
-                ),
-              ),
-            ),
-
-            // CircleAvatar(
-            //   radius: size.width * 0.109,
-            //   // radius: 36,
-            //   // edit
-            //   backgroundImage: AssetImage(ImageApp.profileImage),
-            //   // backgroundImage: selectedImage != null
-            //   //     ? FileImage(selectedImage!)
-            //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-            //   // child: user.img!.isEmpty && selectedImage == null
-            //   //     ? const Icon(Icons.person, size: 60)
-            //   //     : null,
-            // ),
-            const SizedBox(width: 5),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Mhamad Alshame",
-                  style: TypographyApp.Title_Mid_Mid.copyWith(
-                    color: ThemeApp.Foundation_Grey_grey_700,
-                  ),
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // qustion
-                    // مو من مكتبة الألوان
-                    // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                    SvgPicture.asset(
-                      IconApp.place,
-                      width: 16,
-                      height: 16,
-                      color: ThemeApp.colorIconProfileHomeScreen,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Riyadh – Malaz",
-                      style: TypographyApp.Label_Mid_Regular.copyWith(
-                        color: ThemeApp.Foundation_Secendary_grey_600,
+      appBar: authController.isLoggedIn.value
+          ? AppBarWidget(
+              title: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.to(OptionProfileScreen());
+                    },
+                    child: Container(
+                      width: size.width * 0.109,
+                      height: 48.6,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(ImageApp.profileImage),
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+
+                  // CircleAvatar(
+                  //   radius: size.width * 0.109,
+                  //   // radius: 36,
+                  //   // edit
+                  //   backgroundImage: AssetImage(ImageApp.profileImage),
+                  //   // backgroundImage: selectedImage != null
+                  //   //     ? FileImage(selectedImage!)
+                  //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+                  //   // child: user.img!.isEmpty && selectedImage == null
+                  //   //     ? const Icon(Icons.person, size: 60)
+                  //   //     : null,
+                  // ),
+                  const SizedBox(width: 5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Mhamad Alshame",
+                        style: TypographyApp.Title_Mid_Mid.copyWith(
+                          color: ThemeApp.Foundation_Grey_grey_700,
+                        ),
+                      ),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // qustion
+                          // مو من مكتبة الألوان
+                          // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                          SvgPicture.asset(
+                            IconApp.place,
+                            width: 16,
+                            height: 16,
+                            color: ThemeApp.colorIconProfileHomeScreen,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            "Riyadh – Malaz",
+                            style: TypographyApp.Label_Mid_Regular.copyWith(
+                              color: ThemeApp.Foundation_Secendary_grey_600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  SvgPicture.asset(
+                    IconApp.location,
+                    width: 34,
+                    height: 34,
+                    color: ThemeApp.Foundation_Main_main_500,
+                  ),
+                ],
+              ),
+            )
+// الجزء الخاص بالزائر في الـ AppBar داخل HomePage
+: AppBarWidget(
+    title: Row(
+      children: [
+        InkWell(
+          onTap: () => Get.to(OptionProfileScreen()),
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: ThemeApp.Foundation_Main_main_100,
+            child: Icon(Icons.person_outline, color: ThemeApp.Foundation_Main_main_500),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Welcome, Guest".tr(),
+              style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
             ),
-            Spacer(),
-            SvgPicture.asset(
-              IconApp.location,
-              width: 34,
-              height: 34,
-              color: ThemeApp.Foundation_Main_main_500,
+            Text(
+              "Login to enjoy all features".tr(),
+              style: TypographyApp.Label_Mid_Mid.copyWith(color: Colors.grey),
             ),
           ],
         ),
-      ),
-      body: SingleChildScrollView(
+      ],
+    ),
+  ),      body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
         ),

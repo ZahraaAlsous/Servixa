@@ -6,7 +6,8 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class AuthAndBoardingAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  const AuthAndBoardingAppBarWidget({super.key});
+  final Widget whereGo;
+  AuthAndBoardingAppBarWidget({super.key, required Widget this.whereGo});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,10 @@ class AuthAndBoardingAppBarWidget extends StatelessWidget
       actions: [
         TextButton(
           onPressed: () {
-            Get.offAll(SuperHomeScreen());
+            Get.offAll(
+              whereGo,
+              //  SuperHomeScreen()
+            );
           },
           child: Text(
             "Skip",

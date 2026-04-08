@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
@@ -13,24 +15,24 @@ import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
-import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailPhoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailPhoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpasswordController =
+      TextEditingController();
+  final AuthController authController = Get.put(AuthController());
   final Rx<Country?> selectedCountry = Rx<Country?>(
     Country.parse('SY'),
   ); // edit
   // تكون سوريا
   // PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
   // TextEditingController phoneController = TextEditingController();
-
-  AuthController authController = Get.put(AuthController());
 
   RegisterPage({super.key});
 
@@ -39,7 +41,7 @@ class RegisterPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(),
+      appBar: AuthAndBoardingAppBarWidget(whereGo: SuperHomeScreen()),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -315,22 +317,40 @@ class RegisterPage extends StatelessWidget {
                   // edit
                   // add function register
                   Obx(
-                    () => AuthElevatedButtonWidget(
-                      colorButton: !authController.isAgreeTermsAndPolicies.value
-                          ? ThemeApp.Foundation_Secendary_grey_200
-                          : null,
-                      text: "Register",
-                      onPressed: authController.isAgreeTermsAndPolicies.value
-                          ? () {
-                              if (_formKey.currentState!.validate()) {
-                                // edit
-                                // تابع تسجيل حساب
-                                // Get.offAll(SuperHomeScreen());
-                                Get.to(VerifyScreen());
-                              }
-                            }
-                          : null,
-                    ),
+                    () => authController.isLoading.value
+                        ? CircularProgressIndicator()
+                        : AuthElevatedButtonWidget(
+                            // colorButton: !authController.isAgreeTermsAndPolicies.value
+                            //     ? ThemeApp.Foundation_Secendary_grey_200
+                            //     : null,
+                            text: "Register",
+                            onPressed:
+                                // authController.isAgreeTermsAndPolicies.value
+                                //     ?
+                                () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // edit
+                                    // تابع تسجيل حساب
+                                    // Get.offAll(SuperHomeScreen());
+                                    // Get.to(VerifyScreen());
+                                    // log("******************************Click REGISTER");
+                                    // authController.register(
+                                    //   firstNameController.text,
+                                    //   lastNameController.text,
+                                    //   emailPhoneController.text,
+                                    //   // emailPhoneController.text,
+                                    //   passwordController.text,
+                                    //   () {
+                                        Get.to(VerifyScreen());
+                                      // },
+                                      // (e) {
+                                      //   Get.snackbar("Message", e);
+                                      // },
+                                    // );
+                                  }
+                                },
+                            // : null,
+                          ),
                   ),
                 ],
               ),
@@ -351,7 +371,7 @@ class RegisterPage extends StatelessWidget {
                     minimumSize: Size.zero,
                   ),
                   onPressed: () {
-                    Get.offAll(LoginPage());
+                    Get.offAll(() => LoginPage());
                   },
 
                   child: Text(
