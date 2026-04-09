@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/auth/data_layer/sourses/auth_service.dart';
@@ -12,6 +13,9 @@ class AuthController extends GetxController {
   RxBool isPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
   RxBool isAgreeTermsAndPolicies = false.obs;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void onInit() {
@@ -60,4 +64,11 @@ class AuthController extends GetxController {
   //     isLoading.value = false;
   //   }
   // }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.onClose();
+  }
 }

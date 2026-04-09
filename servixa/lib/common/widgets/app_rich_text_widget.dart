@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 
 class AppRichTextWidget extends StatelessWidget {
-  String firstText;
-  String secondText;
-  Color? colorFirstText;
-  Color? colorSecondText;
-  TextStyle typographyApp;
-  int? maxLines;
-  AppRichTextWidget({
+  final String firstText;
+  final String secondText;
+  final Color? colorFirstText;
+  final Color? colorSecondText;
+  final TextStyle typographyApp;
+  final int? maxLines;
+  const AppRichTextWidget({
     super.key,
     required this.firstText,
     required this.secondText,

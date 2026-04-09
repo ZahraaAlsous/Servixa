@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/icon_app.dart';
@@ -18,28 +19,32 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  AuthController authController = Get.put(AuthController());
+  // final TextEditingController emailController = TextEditingController();
+  // final TextEditingController passwordController = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
 
   LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    final size = Get.width;
 
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(whereGo: SuperHomeScreen()),
+      appBar: const AuthAndBoardingAppBarWidget(
+        whereGo: const SuperHomeScreen(),
+      ),
       body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.symmetric(
+        padding: const EdgeInsetsGeometry.symmetric(
           horizontal: DimensApp.spaceHorizontalScreen,
         ),
         child: Column(
           children: [
             Image(
-              image: AssetImage(ImageApp.logo),
-              width: size.width * 0.674,
+              image: const AssetImage(ImageApp.logo),
+              // width: size.width * 0.674,
+              width: size * 0.674,
               // height: size.height * 0.092,
               height: 86,
             ),
@@ -47,15 +52,15 @@ class LoginPage extends StatelessWidget {
             // const SizedBox(height: 20),
             // edit
             // لازم عرض النص أقل من عرض حقل الإدخال
-            AppRichTextWidget(
-              firstText: "Login to your ",
+            const AppRichTextWidget(
+              firstText: "TitleLogin",
               secondText: "Account",
               typographyApp: TypographyApp.Display_small_Mid,
             ),
 
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             Text(
-              "Welcome back! Log in to continue",
+              "TextLogin".tr(),
               style: TypographyApp.Title_Mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Secendary_grey_400,
               ),
@@ -66,12 +71,13 @@ class LoginPage extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  AppTextFormField(
+                   AppTextFormField(
                     labelText: "Email Address",
                     hintText: "example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
                     icon: IconApp.email,
-                    controller: emailController,
+                    // controller: emailController,
+                    controller: authController.emailController,
                     validator: Validators.validateEmail,
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
@@ -99,7 +105,8 @@ class LoginPage extends StatelessWidget {
                           size: 18.33,
                         ),
                       ),
-                      controller: passwordController,
+                      // controller: passwordController,
+                      controller: authController.passwordController,
                       validator: Validators.validatePassword,
                     );
                   }),
@@ -107,7 +114,8 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
                   // edit
                   // get.offall
-                  // يروح عال home
+                  // يروح عال home?
+                  // لازم laoding و جرب const
                   AuthElevatedButtonWidget(
                     text: "Login",
                     onPressed: () {
@@ -127,7 +135,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Don’t have an account ?",
+                  "Don’t have an account ?".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_600,
                   ),
@@ -142,7 +150,7 @@ class LoginPage extends StatelessWidget {
                   },
 
                   child: Text(
-                    "Register",
+                    "Register".tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),

@@ -9,6 +9,16 @@
   "navigationBarMyAds": "إعلاناتي",
   "navigationBarOrders": "Orders",
 
+  "Login" : "تسجيل الدخول",
+  "TitleLogin": "سجل الدخول إلى ",
+  "Account": "حسابك",
+  "TextLogin": "مرحباً بك! سجل الدخول للمتابعة",
+  "Don’t have an account ?" : "ليس لديك حساب؟",
+  "Email Address" : "عنوان البريد الإلكتروني",
+  "Password" : "كلمة المرور",
+
+  "Register" : "تسجيل",
+
   "titleHome1": "كل المعدات والخدمات التي ",
   "titleHome2": "تحتاجها",
   "Categories": "الفئات",

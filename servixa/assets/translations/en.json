@@ -9,6 +9,16 @@
   "navigationBarMyAds": "My Ads",
   "navigationBarOrders": "Orders",
 
+  "Login" : "Login",
+  "TitleLogin": "Login to your ",
+  "Account": "Account",
+  "TextLogin": "Welcome back! Log in to continue",
+  "Don’t have an account ?": "Don’t have an account ?",
+  "Email Address" : "Email Address",
+  "Password" : "Password",
+
+  "Register" : "Register",
+
   "titleHome1": "All the Equipment and \n Services ",
   "titleHome2": "You Need",
   "Categories": "Categories",
