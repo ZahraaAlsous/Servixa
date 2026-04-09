@@ -1,4 +1,14 @@
 {
+  "titleOnBoarding1": "اكتشف الخدمات أو روّج لخدماتك الخاصة",
+  "textOnBoarding1": "هل تبحث عن خدمات أو تقدم خدمات؟ تصفح الفئات بسهولة أو انشر إعلاناتك الخاصة للوصول إلى جمهور أوسع.",
+  "titleOnBoarding2": "حلول ذكية لكل مشروع",
+  "textOnBoarding2": "سواء كان الأمر يتعلق بأعمال السباكة أو الأعمال الكهربائية أو التصميم الداخلي أو الصيانة العامة، فإن منصتنا تربطك بخبراء موثوق بهم.",
+
+  "navigationBarHome": "الرئيسية",
+  "navigationBarNotification": "إشعارات",
+  "navigationBarMyAds": "إعلاناتي",
+  "navigationBarOrders": "Orders",
+
   "titleHome1": "كل المعدات والخدمات التي ",
   "titleHome2": "تحتاجها",
   "Categories": "الفئات",
@@ -6,13 +16,10 @@
   "titleSectionHome2": "أفضل خدمات البناء",
   "titleSectionHome3": "أفضل العناصر",
 
-  "navigationBarHome": "الرئيسية",
-  "navigationBarNotification": "إشعارات",
-  "navigationBarMyAds": "إعلاناتي",
-  "navigationBarOrders": "Orders",
-
   "hintSearch": "ابحث عن أي عنصر...",
 
   "ShowAll": "عرض الكل",
-  "Zahraa": "زهراء"
+  "Next": "التالي",
+  "Previous": "السابق",
+  "Skip": "تخطي"
 }

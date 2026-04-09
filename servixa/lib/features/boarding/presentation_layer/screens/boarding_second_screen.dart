@@ -1,23 +1,24 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 
-class BordingSecondScreen extends StatelessWidget {
-  const BordingSecondScreen({super.key});
+class BoardingSecondScreen extends StatelessWidget {
+  const BoardingSecondScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image(image: AssetImage(ImageApp.bording2)),
+        const Image(image: AssetImage(ImageApp.bording2)),
         Text(
-          "Smart Solutions for Every Project",
+          "titleOnBoarding2".tr(),
           textAlign: TextAlign.center,
           style: TypographyApp.Headline_larg_mid,
         ),
 
         Text(
-          "Whether it’s plumbing, electrical work, interior design, or general maintenance—our platform connects you with trusted experts.",
+          "textOnBoarding2".tr(),
           textAlign: TextAlign.center,
           style: TypographyApp.Title_Mid_Regular,
         ),

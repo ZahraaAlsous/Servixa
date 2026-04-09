@@ -69,20 +69,20 @@ class TypographyApp {
     letterSpacing: 0,
   );
 
-  static TextStyle title_Sections = GoogleFonts.poppins(
+  static final TextStyle title_Sections = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 19,
     height: 1.4,
     letterSpacing: 0,
   );
 
-  static TextStyle text_button_home_page = GoogleFonts.poppins(
+  static final TextStyle text_button_home_page = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 14,
     height: 1.4,
     letterSpacing: 0,
   );
-  static TextStyle text_button_order = GoogleFonts.poppins(
+  static final TextStyle text_button_order = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 13,
     height: 1.4,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/splash_screen.dart';
+import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() async  {

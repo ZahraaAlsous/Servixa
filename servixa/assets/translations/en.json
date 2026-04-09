@@ -1,4 +1,14 @@
 {
+  "titleOnBoarding1": "Discover Services or Promote Your Own",
+  "textOnBoarding1": "Looking for services or offering them? Easily browse categories or post your own ads to reach a wider audience.",
+  "titleOnBoarding2": "Smart Solutions for Every Project",
+  "textOnBoarding2": "Whether it’s plumbing, electrical work, interior design, or general maintenance—our platform connects you with trusted experts.",
+
+  "navigationBarHome": "Home",
+  "navigationBarNotification": "Notification",
+  "navigationBarMyAds": "My Ads",
+  "navigationBarOrders": "Orders",
+
   "titleHome1": "All the Equipment and \n Services ",
   "titleHome2": "You Need",
   "Categories": "Categories",
@@ -6,13 +16,10 @@
   "titleSectionHome2": "Top Construction Services",
   "titleSectionHome3": "Top Items",
 
-  "navigationBarHome": "Home",
-  "navigationBarNotification": "Notification",
-  "navigationBarMyAds": "My Ads",
-  "navigationBarOrders": "Orders",
-
-  "hintSearch" : "Search any item...",
+  "hintSearch": "Search any item...",
 
   "ShowAll": "Show All",
-  "Zahraa": "Zahraa"
+  "Next": "Next",
+  "Previous": "Previous",
+  "Skip": "Skip"
 }
