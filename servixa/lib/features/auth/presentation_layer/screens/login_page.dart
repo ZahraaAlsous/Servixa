@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                   AppTextFormField(
+                  AppTextFormField(
                     labelText: "Email Address",
                     hintText: "example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
@@ -106,7 +106,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       // controller: passwordController,
-                      controller: authController.passwordController,
+                      controller: authController.passwordLoginController,
                       validator: Validators.validatePassword,
                     );
                   }),
@@ -121,8 +121,17 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Get.offAll(SuperHomeScreen());
-                        Get.offAll(() => VerifyScreen());
-                        log("function login");
+                        // Get.offAll(() => VerifyScreen());
+                        // log("function login");
+                        // authController.getCategory();
+                        // authController.login(
+                        //   () {
+                        //     Get.offAll(SuperHomeScreen());
+                        //   },
+                        //   (e) {
+                        //     Get.snackbar("Error", e);
+                        //   },
+                        // );
                       }
                       // Get.offAll(page)
                     },

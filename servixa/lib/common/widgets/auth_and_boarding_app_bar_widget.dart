@@ -19,7 +19,7 @@ class AuthAndBoardingAppBarWidget extends StatelessWidget
         TextButton(
           onPressed: () {
             Get.offAll(
-              whereGo,
+              () => whereGo,
               //  SuperHomeScreen()
             );
           },

@@ -9,15 +9,23 @@
   "navigationBarMyAds": "إعلاناتي",
   "navigationBarOrders": "Orders",
 
-  "Login" : "تسجيل الدخول",
+  "Login": "تسجيل الدخول",
   "TitleLogin": "سجل الدخول إلى ",
   "Account": "حسابك",
   "TextLogin": "مرحباً بك! سجل الدخول للمتابعة",
-  "Don’t have an account ?" : "ليس لديك حساب؟",
-  "Email Address" : "عنوان البريد الإلكتروني",
-  "Password" : "كلمة المرور",
+  "Don’t have an account ?": "ليس لديك حساب؟",
+  "Email Address": "عنوان البريد الإلكتروني",
+  "Password": "كلمة المرور",
 
-  "Register" : "تسجيل",
+  "Register": "تسجيل",
+  "TitleRegister": "أنشئ ",
+  "TextRegister": "أدخل معلوماتك للبدء",
+  "Already have an account ?": "هل لديك حساب بالفعل؟ ",
+  "First Name": "الاسم الأول",
+  "Ahmad": "أحمد",
+  "Last Name": "الاسم الأخير",
+  "Write Email or phone number": "اكتب البريد الإلكتروني أو رقم الهاتف",
+  "Confirm": "تأكيد كلمة المرور",
 
   "titleHome1": "كل المعدات والخدمات التي ",
   "titleHome2": "تحتاجها",
@@ -28,6 +36,8 @@
 
   "hintSearch": "ابحث عن أي عنصر...",
 
+  "agreeTermsAndPolicies": "أوافق على ",
+  "termsAndPolicies": "الشروط والسياسات",
   "ShowAll": "عرض الكل",
   "Next": "التالي",
   "Previous": "السابق",

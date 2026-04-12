@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
@@ -24,7 +25,7 @@ class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
-            side: BorderSide(
+            side: const BorderSide(
               width: 1.5,
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -33,7 +34,7 @@ class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
           ),
         ),
         Text(
-          "I agree with ",
+          "agreeTermsAndPolicies".tr(),
           style: TypographyApp.Body_mid_Mid.copyWith(
             color: ThemeApp.Foundation_Secendary_grey_600,
           ),
@@ -49,10 +50,11 @@ class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
             // Get.to(RegisterPage());
           },
           child: Text(
-            "terms & policies",
+            "termsAndPolicies".tr(),
             style: TypographyApp.Body_mid_Mid.copyWith(
               color: ThemeApp.Foundation_Main_main_500,
             ),
+            
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
@@ -20,16 +21,16 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailPhoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController =
-      TextEditingController();
   final AuthController authController = Get.put(AuthController());
-  final Rx<Country?> selectedCountry = Rx<Country?>(
-    Country.parse('SY'),
-  ); // edit
+  // final TextEditingController firstNameController = TextEditingController();
+  // final TextEditingController lastNameController = TextEditingController();
+  // final TextEditingController emailPhoneController = TextEditingController();
+  // final TextEditingController passwordController = TextEditingController();
+  // final TextEditingController confirmpasswordController =
+  //     TextEditingController();
+  // final Rx<Country?> selectedCountry = Rx<Country?>(
+  //   Country.parse('SY'),
+  // ); // edit
   // تكون سوريا
   // PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
   // TextEditingController phoneController = TextEditingController();
@@ -38,25 +39,29 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    final size = Get.width;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(whereGo: SuperHomeScreen()),
+      appBar: const AuthAndBoardingAppBarWidget(
+        whereGo: const SuperHomeScreen(),
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
-          horizontal: size.width * DimensApp.spaceHorizontalScreen,
+          // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+          horizontal: size * DimensApp.spaceHorizontalScreen,
         ),
         child: Column(
           children: [
-            AppRichTextWidget(
-              firstText: "Create Your ",
+            const AppRichTextWidget(
+              firstText: "TitleRegister",
               secondText: "Account",
               typographyApp: TypographyApp.Display_small_Mid,
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
             Text(
-              "Fill your information to get started",
+              "TextRegister".tr(),
               style: TypographyApp.Title_Mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Secendary_grey_400,
               ),
@@ -75,16 +80,18 @@ class RegisterPage extends StatelessWidget {
                         hintText: "Ahmad",
                         icon: IconApp.person,
                         widthTextFormField: 0.444,
-                        controller: firstNameController,
+                        controller: authController.firstNameController,
                         validator: Validators.validateFirstName,
                       ),
-                      SizedBox(width: DimensApp.widthBetweenTextFormField),
+                      const SizedBox(
+                        width: DimensApp.widthBetweenTextFormField,
+                      ),
                       AppTextFormField(
                         labelText: "Last Name",
                         hintText: "Ahmad",
                         icon: IconApp.person,
                         widthTextFormField: 0.444,
-                        controller: lastNameController,
+                        controller: authController.lastNameController,
                         validator: Validators.validateLastName,
                       ),
                     ],
@@ -95,7 +102,7 @@ class RegisterPage extends StatelessWidget {
                     labelText: "Write Email or phone number",
                     hintText: "0911111111 || example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
-                    controller: emailPhoneController,
+                    controller: authController.emailPhoneController,
                     validator: Validators.validateEmailOrPhone,
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
@@ -156,13 +163,14 @@ class RegisterPage extends StatelessWidget {
                           context: context,
                           showPhoneCode: true,
                           onSelect: (Country country) {
-                            selectedCountry.value = country;
+                            authController.selectedCountry.value = country;
                           },
                         );
                       },
                       child: Container(
                         height: 48,
-                        width: size.width * 0.934,
+                        // width: size.width * 0.934,
+                        width: size * 0.934,
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
@@ -174,9 +182,9 @@ class RegisterPage extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            if (selectedCountry.value != null)
+                            if (authController.selectedCountry.value != null)
                               Text(
-                                selectedCountry.value!.flagEmoji,
+                                authController.selectedCountry.value!.flagEmoji,
                                 style: const TextStyle(fontSize: 24),
                               )
                             else
@@ -186,7 +194,10 @@ class RegisterPage extends StatelessWidget {
 
                             Expanded(
                               child: Text(
-                                selectedCountry.value!.displayName,
+                                authController
+                                    .selectedCountry
+                                    .value!
+                                    .displayName,
                                 style: TypographyApp.Body_mid_Regular,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -226,7 +237,7 @@ class RegisterPage extends StatelessWidget {
                           size: 18.33,
                         ),
                       ),
-                      controller: passwordController,
+                      controller: authController.passwordRegisterController,
                       validator: Validators.validatePassword,
                     );
                   }),
@@ -236,7 +247,7 @@ class RegisterPage extends StatelessWidget {
                     bool isVisible =
                         authController.isConfirmPasswordVisible.value;
                     return AppTextFormField(
-                      labelText: "Confirm Password",
+                      labelText: "Confirm",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,
                       keyboardType: TextInputType.visiblePassword,
@@ -258,98 +269,51 @@ class RegisterPage extends StatelessWidget {
                           size: 18.33,
                         ),
                       ),
-                      controller: confirmpasswordController,
+                      controller: authController.confirmPasswordController,
                       validator: (value) => Validators.validateConfirmPassword(
                         value,
-                        passwordController.text,
+                        authController.passwordRegisterController.text,
                       ),
                     );
                   }),
-
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Obx(
-                  //       () => Checkbox(
-                  //         value: authController.isAgreeTermsAndPolicies.value,
-                  //         onChanged: (value) {
-                  //           authController.changeAgreeTermsAndPolicies();
-                  //         },
-                  //         activeColor: ThemeApp.Foundation_Statue_Green,
-                  //         checkColor: ThemeApp.secondaryButtonBg,
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(4),
-                  //         ),
-                  //         side: BorderSide(
-                  //           width: 1.5,
-                  //           color: ThemeApp.Foundation_Secendary_grey_600,
-                  //         ),
-                  //         visualDensity: VisualDensity.compact,
-                  //         materialTapTargetSize:
-                  //             MaterialTapTargetSize.shrinkWrap,
-                  //       ),
-                  //     ),
-                  //     Text(
-                  //       "I agree with ",
-                  //       style: TypographyApp.Body_mid_Mid.copyWith(
-                  //         color: ThemeApp.Foundation_Secendary_grey_600,
-                  //       ),
-                  //     ),
-                  //     TextButton(
-                  //       style: ElevatedButton.styleFrom(
-                  //         padding: EdgeInsets.zero,
-                  //         // minimumSize: Size.zero,
-                  //       ),
-                  //       onPressed: () {
-                  //         Get.to(RegisterPage());
-                  //       },
-                  //       child: Text(
-                  //         "terms & policies",
-                  //         style: TypographyApp.Body_mid_Mid.copyWith(
-                  //           color: ThemeApp.Foundation_Main_main_500,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   AppCheckboxTermsPoliciesWidget(),
 
-                  // edit
-                  // add function register
                   Obx(
                     () => authController.isLoading.value
                         ? CircularProgressIndicator()
                         : AuthElevatedButtonWidget(
-                            // colorButton: !authController.isAgreeTermsAndPolicies.value
-                            //     ? ThemeApp.Foundation_Secendary_grey_200
-                            //     : null,
+                            colorButton:
+                                !authController.isAgreeTermsAndPolicies.value
+                                ? ThemeApp.Foundation_Secendary_grey_200
+                                : null,
                             text: "Register",
                             onPressed:
-                                // authController.isAgreeTermsAndPolicies.value
-                                //     ?
-                                () {
-                                  if (_formKey.currentState!.validate()) {
-                                    // edit
-                                    // تابع تسجيل حساب
-                                    // Get.offAll(SuperHomeScreen());
-                                    // Get.to(VerifyScreen());
-                                    // log("******************************Click REGISTER");
-                                    // authController.register(
-                                    //   firstNameController.text,
-                                    //   lastNameController.text,
-                                    //   emailPhoneController.text,
-                                    //   // emailPhoneController.text,
-                                    //   passwordController.text,
-                                    //   () {
-                                        Get.to(VerifyScreen());
-                                      // },
-                                      // (e) {
-                                      //   Get.snackbar("Message", e);
-                                      // },
-                                    // );
+                                authController.isAgreeTermsAndPolicies.value
+                                ? () {
+                                    if (_formKey.currentState!.validate()) {
+                                      // edit
+                                      // تابع تسجيل حساب
+                                      // Get.offAll(SuperHomeScreen());
+                                      // Get.to(VerifyScreen());
+                                      log(
+                                        "******************************Click REGISTER",
+                                      );
+                                      authController.register(
+                                        // firstNameController.text,
+                                        // lastNameController.text,
+                                        // emailPhoneController.text,
+                                        // // emailPhoneController.text,
+                                        // passwordController.text,
+                                        () {
+                                          Get.to(VerifyScreen());
+                                        },
+                                        (e) {
+                                          Get.snackbar("Message", e);
+                                        },
+                                      );
+                                    }
                                   }
-                                },
-                            // : null,
+                                : null,
                           ),
                   ),
                 ],
@@ -360,7 +324,7 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Already have an account ?",
+                  "Already have an account ?".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_600,
                   ),
@@ -375,7 +339,7 @@ class RegisterPage extends StatelessWidget {
                   },
 
                   child: Text(
-                    "Login",
+                    "Login".tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),

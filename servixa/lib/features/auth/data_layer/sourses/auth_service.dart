@@ -1,49 +1,49 @@
-// // import 'dart:developer';
+import 'dart:developer';
 
-// // import 'package:dio/dio.dart';
-// // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-// // class AuthService {
-// //   final Dio dio = Dio();
-// //   final storage = FlutterSecureStorage();
+class AuthService {
+  final Dio dio = Dio();
+  final storage = FlutterSecureStorage();
 
-// //   Future<bool> register(
-// //     String first_name,
-// //     String last_name,
-// //     String email, // String? email,
-// //     // String? phone,
-// //     String password,
-// //   ) async {
-// //     try {
-// //       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Register IN");
-// //       Response response = await dio.post(
-// //         "https://services.tamkeen-dev.com/api/v1/register",
-// //         data: {
-// //           "first_name": first_name,
-// //           "last_name": last_name,
-// //           "email": email, // if (email != null) "email": email,
-// //           // if (phone != null) "phone_number": phone,
-// //           "password": password,
-// //         },
-// //         options: Options(headers: {"Accept": "application/json"}),
-// //       );
-// //       log("==============================Service : Register OK");
-// //       return response.statusCode == 200;
-// //     } on DioException catch (e) {
-// //       if (e.type == DioExceptionType.connectionTimeout ||
-// //           e.type == DioExceptionType.connectionError) {
-// //         log("==============================Service : Register ERROR_Net");
-// //         throw "Connection failed: Please check your internet";
-// //       }
-// //       log("==============================Service : Register ERROR");
-// //       throw e.response!.data["message"];
-// //     }
-// //   }
+  Future<bool> register(
+    String first_name,
+    String last_name,
+    String email, // String? email,
+    // String? phone,
+    String password,
+  ) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Register IN");
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/register",
+        data: {
+          "first_name": first_name,
+          "last_name": last_name,
+          "email": email, // if (email != null) "email": email,
+          // if (phone != null) "phone_number": phone,
+          "password": password,
+        },
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      log("==============================Service : Register OK");
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : Register ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : Register ERROR");
+      throw e.response!.data["message"];
+    }
+  }
 
-// //   void saveToken(String token) async {
-// //     await storage.write(key: "token", value: token);
-// //   }
-// // }
+  void saveToken(String token) async {
+    await storage.write(key: "token", value: token);
+  }
+}
 // import 'dart:developer';
 // import 'package:dio/dio.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -62,13 +62,19 @@
 //       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Register IN");
 //       Response response = await dio.post(
 //         "https://services.tamkeen-dev.com/api/v1/register",
+//         // "https://training.tamkeen-dev.com/herafi/public/api/register",
 //         data: {
 //           "first_name": first_name,
 //           "last_name": last_name,
 //           "email": email,
 //           "password": password,
 //         },
-//         options: Options(headers: {"Accept": "application/json"}),
+//         options: Options(
+//           headers: {
+//             "Accept": "application/json",
+//             "Content-Type": "application/json",
+//           },
+//         ),
 //       );
 //       log("==============================Service : Register OK");
 //       return response.statusCode == 200 || response.statusCode == 201;
@@ -80,11 +86,68 @@
 //       }
 //       log("==============================Service : Register ERROR");
 //       // تأكدي من شكل الـ Error القادم من السيرفر، أحياناً يكون داخل map
-//       throw e.response?.data["message"] ?? "حدث خطأ غير متوقع";
+//       throw e.response?.data["message"];
 //     }
 //   }
 
-//   Future<void> saveToken(String token) async {
-//     await storage.write(key: "token", value: token);
-//   }
+//   // Future<bool> login(String email, String password) async {
+//   //   try {
+//   //     log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Login IN");
+//   //     Response response = await dio.post(
+//   //       "https://services.tamkeen-dev.com/api/v1/login",
+//   //       data: {"email": email, "password": password},
+//   //       options: Options(
+//   //         headers: {
+//   //           "Accept": "application/json",
+//   //           "Content-Type": "application/json",
+//   //         },
+//   //       ),
+//   //     );
+//   //     // log("==============================Service : Login OK");
+//   //     if (response.statusCode == 200) {
+//   //       log("==============================Service : Login OK");
+
+//   //       String token = response.data["token"];
+//   //       await saveToken(token);
+//   //       return true;
+//   //     }
+//   //     return false;
+//   //   } on DioException catch (e) {
+//   //     if (e.type == DioExceptionType.connectionTimeout ||
+//   //         e.type == DioExceptionType.connectionError) {
+//   //       log("==============================Service : Login ERROR_Net");
+//   //       throw "Connection failed: Please check your internet";
+//   //     }
+//   //     log("==============================Service : Login ERROR");
+//   //     throw e.response?.data["message"] ?? "حدث خطأ غير متوقع";
+//   //   }
+//   // }
+
+//   // Future<void> getCategory() async {
+//   //   try {
+//   //     Response response = await dio.get(
+//   //       // "https://services.tamkeen-dev.com/api/v1/categories",
+//   //       "https://training.tamkeen-dev.com/herafi/public/api/category",
+//   //       options: Options(headers: {"Accept": "application/json"}),
+//   //     );
+
+//   //     if (response.statusCode == 200) {
+//   //       log(response.data["data"].toString());
+//   //     }
+//   //   } on DioException catch (e) {
+//   //     if (e.type == DioExceptionType.connectionTimeout ||
+//   //         e.type == DioExceptionType.connectionError) {
+//   //       log("==============================Service : Login ERROR_Net");
+//   //       throw "Connection failed: Please check your internet";
+//   //     }
+
+//   //     log(e.response!.data["message"]);
+//   //     throw e.response!.data["message"];
+//   //   }
+//   // }
+
+//   // Future<void> saveToken(String token) async {
+//   //   await storage.write(key: "token", value: token);
+//   // }
+
 // }

@@ -9,15 +9,23 @@
   "navigationBarMyAds": "My Ads",
   "navigationBarOrders": "Orders",
 
-  "Login" : "Login",
+  "Login": "Login",
   "TitleLogin": "Login to your ",
   "Account": "Account",
   "TextLogin": "Welcome back! Log in to continue",
   "Don’t have an account ?": "Don’t have an account ?",
-  "Email Address" : "Email Address",
-  "Password" : "Password",
+  "Email Address": "Email Address",
+  "Password": "Password",
 
-  "Register" : "Register",
+  "Register": "Register",
+  "TitleRegister": "Create Your ",
+  "TextRegister": "Fill your information to get started",
+  "Already have an account ?": "Already have an account ?",
+  "First Name": "First Name",
+  "Ahmad": "Ahmad",
+  "Last Name": "Last Name",
+  "Write Email or phone number": "Write Email or phone number",
+  "Confirm": "Confirm Password",
 
   "titleHome1": "All the Equipment and \n Services ",
   "titleHome2": "You Need",
@@ -28,6 +36,8 @@
 
   "hintSearch": "Search any item...",
 
+  "agreeTermsAndPolicies": "I agree with ",
+  "termsAndPolicies": "terms & policies",
   "ShowAll": "Show All",
   "Next": "Next",
   "Previous": "Previous",
