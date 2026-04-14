@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -299,16 +300,11 @@ class RegisterPage extends StatelessWidget {
                                         "******************************Click REGISTER",
                                       );
                                       authController.register(
-                                        // firstNameController.text,
-                                        // lastNameController.text,
-                                        // emailPhoneController.text,
-                                        // // emailPhoneController.text,
-                                        // passwordController.text,
                                         () {
                                           Get.to(VerifyScreen());
                                         },
                                         (e) {
-                                          Get.snackbar("Message", e);
+                                          AppSnackbar.showError(e.toString());
                                         },
                                       );
                                     }

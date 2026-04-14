@@ -41,5 +41,7 @@
   "ShowAll": "Show All",
   "Next": "Next",
   "Previous": "Previous",
-  "Skip": "Skip"
+  "Skip": "Skip",
+  "Close": "Close",
+  "Alert": "Alert"
 }
