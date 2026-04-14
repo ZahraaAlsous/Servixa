@@ -6,20 +6,27 @@ import 'package:servixa/features/boarding/presentation_layer/screens/boarding_se
 
 class BoardingController extends GetxController {
   final storage = FlutterSecureStorage();
-  RxBool isFirstLunch = true.obs;
+  RxBool isFirstLaunch = true.obs;
   RxInt currentStep = 0.obs;
   final List<Widget> boardingPages = [
     BoardingOneScreen(),
     BoardingSecondScreen(),
   ];
 
-  void checkIfFirstLunch() {
-    // bool isFirstLunch = storage.read(key: "isFirstLunch") == "true";
-    bool stateIsFirstLunch = storage.read(key: "isFirstLunch") == "true";
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   checkIfFirstLunch();
+  // }
 
-    if (stateIsFirstLunch) {
-      storage.write(key: "isFirstLunch", value: "false");
-      isFirstLunch.value = false;
+  void checkIfFirstLunch() async {
+    String? status = await storage.read(key: "isFirstLaunch");
+
+    if (status == null || status == "true") {
+      isFirstLaunch.value = true;
+      await storage.write(key: "isFirstLaunch", value: "false");
+    } else {
+      isFirstLaunch.value = false;
     }
   }
 }

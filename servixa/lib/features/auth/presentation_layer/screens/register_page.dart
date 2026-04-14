@@ -23,18 +23,6 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final AuthController authController = Get.put(AuthController());
-  // final TextEditingController firstNameController = TextEditingController();
-  // final TextEditingController lastNameController = TextEditingController();
-  // final TextEditingController emailPhoneController = TextEditingController();
-  // final TextEditingController passwordController = TextEditingController();
-  // final TextEditingController confirmpasswordController =
-  //     TextEditingController();
-  // final Rx<Country?> selectedCountry = Rx<Country?>(
-  //   Country.parse('SY'),
-  // ); // edit
-  // تكون سوريا
-  // PhoneNumber phoneNumber = PhoneNumber(isoCode: 'SA');
-  // TextEditingController phoneController = TextEditingController();
 
   RegisterPage({super.key});
 
@@ -149,7 +137,6 @@ class RegisterPage extends StatelessWidget {
                   //     //   if (value == null || value.isEmpty) {
                   //     //     return 'Phone number is required';
                   //     //   }
-                  //     //   // تحقق إضافي حسب طول الرقم
                   //     //   if (value.length < 9) {
                   //     //     return 'Phone number is too short';
                   //     //   }
@@ -292,10 +279,6 @@ class RegisterPage extends StatelessWidget {
                                 authController.isAgreeTermsAndPolicies.value
                                 ? () {
                                     if (_formKey.currentState!.validate()) {
-                                      // edit
-                                      // تابع تسجيل حساب
-                                      // Get.offAll(SuperHomeScreen());
-                                      // Get.to(VerifyScreen());
                                       log(
                                         "******************************Click REGISTER",
                                       );

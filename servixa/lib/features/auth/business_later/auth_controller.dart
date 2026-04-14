@@ -82,37 +82,28 @@ class AuthController extends GetxController {
     }
   }
 
-  // Future<bool> login(
-  //   void Function() onSuccess,
-  //   void Function(String e) onError,
-  // ) async {
-  //   try {
-  //     isLoading.value = true;
-  //     log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Login IN");
-  //     bool isSuccess = await authService.login(
-  //       emailController.text,
-  //       passwordLoginController.text,
-  //     );
-  //     isLoggedIn.value = true;
-  //     onSuccess();
-  //     log("==============================Controller : Login OK");
-  //     return isSuccess;
-  //   } catch (e) {
-  //     onError(e.toString());
-  //     log("==============================Controller : Login ERROR");
-  //     return false;
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
-  // Future<void> getCategory() async {
-  //   try {
-  //     await authService.getCategory();
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
+  Future<void> login(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      isLoading.value = true;
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Login IN");
+      await authService.login(
+        emailController.text,
+        passwordLoginController.text,
+      );
+      onSuccess();
+      isLoggedIn.value = true;
+      log("==============================Controller : Login OK");
+      log(authService.storage.read(key: "token").toString());
+    } catch (e) {
+      onError(e.toString());
+      log("==============================Controller : Login ERROR");
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   @override
   void onClose() {

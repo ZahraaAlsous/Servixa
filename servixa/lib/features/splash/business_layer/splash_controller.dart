@@ -6,9 +6,13 @@ import 'package:servixa/features/boarding/presentation_layer/screens/super_board
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SplashController extends GetxController {
+  BoardingController boardingController = Get.put(BoardingController());
+  AuthController authController = Get.put(AuthController());
   @override
   void onInit() {
     super.onInit();
+    boardingController.checkIfFirstLunch();
+    authController.checkLoginStatus();
     _navigateToNext();
   }
 
@@ -18,7 +22,7 @@ class SplashController extends GetxController {
     final boardingController = Get.put(BoardingController());
     final authController = Get.put(AuthController());
 
-    if (boardingController.isFirstLunch.value) {
+    if (boardingController.isFirstLaunch.value) {
       Get.offAll(() => SuperBoardingScreen());
     } else {
       if (authController.isLoggedIn.value) {

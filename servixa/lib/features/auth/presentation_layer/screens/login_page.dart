@@ -1,7 +1,9 @@
 import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -10,7 +12,6 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/register_page.dart';
-import 'package:servixa/features/auth/presentation_layer/screens/verify_screen.dart';
 import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
@@ -19,8 +20,6 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  // final TextEditingController emailController = TextEditingController();
-  // final TextEditingController passwordController = TextEditingController();
   final AuthController authController = Get.put(AuthController());
 
   LoginPage({super.key});
@@ -116,26 +115,25 @@ class LoginPage extends StatelessWidget {
                   // get.offall
                   // يروح عال home?
                   // لازم laoding و جرب const
-                  AuthElevatedButtonWidget(
-                    text: "Login",
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Get.offAll(SuperHomeScreen());
-                        // Get.offAll(() => VerifyScreen());
-                        // log("function login");
-                        // authController.getCategory();
-                        // authController.login(
-                        //   () {
-                        //     Get.offAll(SuperHomeScreen());
-                        //   },
-                        //   (e) {
-                        //     Get.snackbar("Error", e);
-                        //   },
-                        // );
-                      }
-                      // Get.offAll(page)
-                    },
-                  ),
+                  authController.isLoading.value
+                      ? CircularProgressIndicator()
+                      : AuthElevatedButtonWidget(
+                          text: "Login",
+                          onPressed: authController.isLoading.value ? null :  () {
+                            if (_formKey.currentState!.validate()) {
+                              log("******************************Click LOGIN");
+                              authController.login(
+                                () {
+                                  Get.offAll(SuperHomeScreen());
+                                },
+                                (e) {
+                                  AppSnackbar.showError(e.toString());
+                                },
+                              );
+                            }
+                            // Get.offAll(page)
+                          },
+                        ),
                 ],
               ),
             ),
@@ -150,10 +148,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    // minimumSize: Size.zero,
-                  ),
+                  style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
                   onPressed: () {
                     Get.offAll(() => RegisterPage());
                   },
