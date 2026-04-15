@@ -25,9 +25,8 @@ class AuthController extends GetxController {
       TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final Rx<Country?> selectedCountry = Rx<Country?>(
-    Country.parse('SY'),
-  ); // edit
+  final TextEditingController otpController = TextEditingController();
+  final Rx<Country?> selectedCountry = Rx<Country?>(Country.parse('SY'));
 
   Rx<UserModel?> currentUser = Rx<UserModel?>(null);
 
@@ -104,6 +103,30 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Login ERROR");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> verifyEmail(
+    // String code,
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      isLoading.value = true;
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Verify Email IN");
+      bool isVerified = await authService.verifyEmail(otpController.text);
+      if (isVerified) {
+        onSuccess();
+        log("==============================Controller : Verify Email OK");
+      } else {
+        onError("Verification failed: Invalid code");
+        log("==============================Controller : Verify Email FAILED");
+      }
+    } catch (e) {
+      onError(e.toString());
+      log("==============================Controller : Verify Email ERROR");
     } finally {
       isLoading.value = false;
     }
