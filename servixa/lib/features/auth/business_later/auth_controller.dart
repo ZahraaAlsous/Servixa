@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/auth/data_layer/sourses/auth_service.dart';
+import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class AuthController extends GetxController {
   final storage = FlutterSecureStorage();
@@ -27,6 +28,8 @@ class AuthController extends GetxController {
   final Rx<Country?> selectedCountry = Rx<Country?>(
     Country.parse('SY'),
   ); // edit
+
+  Rx<UserModel?> currentUser = Rx<UserModel?>(null);
 
   @override
   void onInit() {
@@ -89,10 +92,11 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Login IN");
-      await authService.login(
+      UserModel user = await authService.login(
         emailController.text,
         passwordLoginController.text,
       );
+      currentUser.value = user;
       onSuccess();
       isLoggedIn.value = true;
       log("==============================Controller : Login OK");

@@ -59,32 +59,28 @@ class HomePage extends StatelessWidget {
                       height: 48.6,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(ImageApp.profileImage),
+                          image: authController.currentUser.value!.image != null
+                              ? NetworkImage(
+                                  authController.currentUser.value!.image!,
+                                )
+                              : AssetImage(ImageApp.profileImage),
                         ),
                       ),
                     ),
                   ),
-
-                  // CircleAvatar(
-                  //   radius: size.width * 0.109,
-                  //   // radius: 36,
-                  //   // edit
-                  //   backgroundImage: AssetImage(ImageApp.profileImage),
-                  //   // backgroundImage: selectedImage != null
-                  //   //     ? FileImage(selectedImage!)
-                  //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                  //   // child: user.img!.isEmpty && selectedImage == null
-                  //   //     ? const Icon(Icons.person, size: 60)
-                  //   //     : null,
-                  // ),
                   const SizedBox(width: 5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Mhamad Alshame",
-                        style: TypographyApp.Title_Mid_Mid.copyWith(
-                          color: ThemeApp.Foundation_Grey_grey_700,
+                      Obx(
+                        () => Text(
+                          // "Mhamad Alshame",
+                          authController.currentUser.value!.firstName +
+                              " " +
+                              authController.currentUser.value!.lastName,
+                          style: TypographyApp.Title_Mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Grey_grey_700,
+                          ),
                         ),
                       ),
                       Row(
@@ -110,6 +106,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   Spacer(),
                   SvgPicture.asset(
                     IconApp.location,
@@ -120,35 +117,43 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             )
-// الجزء الخاص بالزائر في الـ AppBar داخل HomePage
-: AppBarWidget(
-    title: Row(
-      children: [
-        InkWell(
-          onTap: () => Get.to(OptionProfileScreen()),
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: ThemeApp.Foundation_Main_main_100,
-            child: Icon(Icons.person_outline, color: ThemeApp.Foundation_Main_main_500),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Welcome, Guest".tr(),
-              style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
+          // الجزء الخاص بالزائر في الـ AppBar داخل HomePage
+          : AppBarWidget(
+              title: Row(
+                children: [
+                  InkWell(
+                    onTap: () => Get.to(OptionProfileScreen()),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: ThemeApp.Foundation_Main_main_100,
+                      child: Icon(
+                        Icons.person_outline,
+                        color: ThemeApp.Foundation_Main_main_500,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Welcome, Guest".tr(),
+                        style: TypographyApp.Title_Mid_Mid.copyWith(
+                          color: ThemeApp.black,
+                        ),
+                      ),
+                      Text(
+                        "Login to enjoy all features".tr(),
+                        style: TypographyApp.Label_Mid_Mid.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Text(
-              "Login to enjoy all features".tr(),
-              style: TypographyApp.Label_Mid_Mid.copyWith(color: Colors.grey),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ),      body: SingleChildScrollView(
+      body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
         ),

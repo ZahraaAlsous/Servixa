@@ -7,8 +7,8 @@ class UserModel {
   String? email;
   String? phone;
   String? image;
-  String? token;
-  List<BusinessAccountModel>? listBusinessAccount;
+  // List<BusinessAccountModel>? listBusinessAccount;
+  bool has_business_account;
 
   UserModel({
     required this.id,
@@ -17,7 +17,23 @@ class UserModel {
     this.email,
     this.phone,
     this.image,
-    this.token,
-    this.listBusinessAccount,
+    // this.listBusinessAccount,
+    this.has_business_account = false,
   });
+
+    factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json["id"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      email: json["email"] ?? null,
+      phone: json["phone_number"] ?? null,
+      image: json["image"] ?? null,
+      // listBusinessAccount: (json["business_accounts"] as List<dynamic>?)
+      //     ?.map((account) => BusinessAccountModel.fromJson(account))
+      //     .toList(),
+      has_business_account: json["has_business_account"],
+    );
+  }
+
 }

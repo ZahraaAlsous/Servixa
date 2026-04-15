@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class AuthService {
   final Dio dio = Dio();
@@ -40,7 +41,7 @@ class AuthService {
     }
   }
 
-  Future<void> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Login IN");
       Response response = await dio.post(
@@ -54,7 +55,11 @@ class AuthService {
           key: "token",
           value: response.data["data"]["token"],
         );
+        // return response.data["data"]["user"];
+        return UserModel.fromJson(response.data["data"]["user"]);
+
       }
+      throw "Login failed: Unexpected response from server";
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
@@ -65,4 +70,28 @@ class AuthService {
       throw e.response!.data["message"];
     }
   }
+
+  // Future<bool> verifyEmail(String email, String password) async {
+  //   try {
+  //     log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Verify Email IN");
+  //     Response response = await dio.post(
+  //       "https://services.tamkeen-dev.com/api/v1/verify-email",
+  //       data: {"email": email, "password": password},
+  //       options: Options(headers: {"Accept": "application/json"}),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       log("==============================Service : Verify Email OK");
+  //       return true;
+  //     }
+  //     return false;
+  //   } on DioException catch (e) {
+  //     if (e.type == DioExceptionType.connectionTimeout ||
+  //         e.type == DioExceptionType.connectionError) {
+  //       log("==============================Service : Verify Email ERROR_Net");
+  //       throw "Connection failed: Please check your internet";
+  //     }
+  //     log("==============================Service : Verify Email ERROR");
+  //     throw e.response!.data["message"];
+  //   }
+  // }
 }
