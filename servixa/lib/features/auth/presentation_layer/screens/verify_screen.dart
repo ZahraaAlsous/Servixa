@@ -70,7 +70,10 @@ class VerifyScreen extends StatelessWidget {
                 defaultPinTheme: defaultPinTheme,
                 // focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
+                // edit
+                // التأكد كرمال يجيبها من ال email فوراً
                 autofillHints: null,
+                autofocus: true,
                 controller: authController.otpController,
                 onCompleted: (pin) async {
                   authController.otpController.text = pin;
@@ -97,23 +100,29 @@ class VerifyScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () async {
-                              authController.verifyEmail(
-                                () {
-                                  Get.offAll(SuperHomeScreen());
-                                },
-                                (e) {
-                                  AppSnackbar.showError(e.toString());
-                                },
-                              );
-                            },
-                            icon: Icon(Icons.check_circle_outline, size: 20),
+                            onPressed:
+                                authController.otpController.text.length < 6
+                                ? null
+                                : () async {
+                                    authController.verifyEmail(
+                                      () {
+                                        Get.offAll(SuperHomeScreen());
+                                      },
+                                      (e) {
+                                        AppSnackbar.showError(e.toString());
+                                      },
+                                    );
+                                  },
+                            icon: const Icon(
+                              Icons.check_circle_outline,
+                              size: 20,
+                            ),
                             label: Text("Verify".tr()),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   ThemeApp.Foundation_Main_main_500,
                               foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 12,
                               ),
