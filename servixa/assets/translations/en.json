@@ -38,6 +38,17 @@
   "titleSectionHome2": "Top Construction Services",
   "titleSectionHome3": "Top Items",
 
+  "About The App": "About The App",
+  "Settings": "Settings",
+  "Notifications": "Notifications",
+  "Favorite": "Favorite",
+  "Share This App": "Share This App",
+  "Profile Detail": "Profile Detail",
+  "Change Password": "Change Password",
+  "Change Language": "Change Language",
+  "Logout": "Logout",
+  "Business Account": "Business Account",
+
   "hintSearch": "Search any item...",
 
   "agreeTermsAndPolicies": "I agree with ",
@@ -47,5 +58,9 @@
   "Previous": "Previous",
   "Skip": "Skip",
   "Close": "Close",
-  "Alert": "Alert"
+  "Alert": "Alert",
+  "Edit": "Edit",
+  "Change": "Change",
+
+  "Login to enjoy all features": "Login to enjoy all features"
 }

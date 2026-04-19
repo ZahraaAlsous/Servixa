@@ -38,6 +38,17 @@
   "titleSectionHome2": "أفضل خدمات البناء",
   "titleSectionHome3": "أفضل العناصر",
 
+  "About The App": "حول التطبيق",
+  "Settings": "الإعدادات",
+  "Notifications": "الإشعارات",
+  "Favorite": "المفضلة",
+  "Share This App": "مشاركة هذا التطبيق",
+  "Profile Detail": "تفاصيل الملف الشخصي",
+  "Change Password": "تغيير كلمة المرور",
+  "Change Language": "تغيير اللغة",
+  "Logout": "تسجيل الخروج",
+  "Business Account": "حساب تجاري",
+
   "hintSearch": "ابحث عن أي عنصر...",
 
   "agreeTermsAndPolicies": "أوافق على ",
@@ -47,5 +58,9 @@
   "Previous": "السابق",
   "Skip": "تخطي",
   "Close": "إغلاق",
-  "Alert": "تنبيه"
+  "Alert": "تنبيه",
+  "Edit": "تعديل",
+  "Change": "تغيير",
+
+  "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
 }
