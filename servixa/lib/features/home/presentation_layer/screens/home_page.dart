@@ -116,7 +116,6 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             )
-          // الجزء الخاص بالزائر في الـ AppBar داخل HomePage
           : AppBarWidget(
               title: Row(
                 children: [
@@ -307,7 +306,7 @@ class HomePage extends StatelessWidget {
                         ads: ads,
                         widthCard: 0.413,
                         onTap: () {
-                          Get.to( () => AdsDetailsScreen(adsId: ads.id));
+                          Get.to(() => AdsDetailsScreen(adsId: ads.id));
                           // Get.to(AdsDetailsScreen(), arguments: ads.id);
                         },
                         isGridView: true,

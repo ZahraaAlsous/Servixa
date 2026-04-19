@@ -99,6 +99,14 @@ class AuthService {
       );
       if (response.statusCode == 200) {
         log("==============================Service : Verify Email OK");
+        await storage.write(
+          key: "token",
+          value: response.data["data"]["token"],
+        );
+        await storage.write(
+          key: "user",
+          value: jsonEncode(response.data["data"]["user"]),
+        );
         return true;
       }
       log("==============================Service : Verify Email HAVE_PROBLEM");

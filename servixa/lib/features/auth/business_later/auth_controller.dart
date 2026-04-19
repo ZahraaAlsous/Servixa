@@ -103,11 +103,10 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Register ERROR");
-            log(
+      log(
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
-
     } finally {
       isLoading.value = false;
     }
@@ -139,11 +138,10 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Login ERROR");
-            log(
+      log(
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
-
     } finally {
       isLoading.value = false;
     }
@@ -159,6 +157,11 @@ class AuthController extends GetxController {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Verify Email IN");
       bool isVerified = await authService.verifyEmail(otpController.text);
       if (isVerified) {
+        String? userJson = await storage.read(key: "user");
+        if (userJson != null) {
+          currentUser.value = UserModel.fromJson(jsonDecode(userJson));
+        }
+        isLoggedIn.value = true;
         onSuccess();
         log("==============================Controller : Verify Email OK");
       } else {
@@ -168,11 +171,10 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Verify Email ERROR");
-            log(
+      log(
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
-
     } finally {
       isLoading.value = false;
     }
