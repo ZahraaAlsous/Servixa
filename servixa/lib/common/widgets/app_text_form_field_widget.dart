@@ -157,7 +157,7 @@ class AppTextFormField extends StatelessWidget {
       width: size * (widthTextFormField ?? 0.934),
       child: TextFormField(
         minLines: minLines ?? null,
-        maxLines: maxLines ?? null,
+        maxLines: maxLines ?? 1,
         textInputAction: textInputAction ?? TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.text,
         obscureText: obscureText ?? false,

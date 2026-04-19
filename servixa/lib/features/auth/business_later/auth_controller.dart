@@ -13,15 +13,18 @@ class AuthController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
 
-  RxBool isPasswordVisible = false.obs;
-  RxBool isConfirmPasswordVisible = false.obs;
+  // RxBool isPasswordVisible = false.obs;
+  RxBool isPasswordVisible = true.obs;
+  // RxBool isConfirmPasswordVisible = false.obs;
   RxBool isAgreeTermsAndPolicies = false.obs;
+  RxBool isConfirmPasswordVisible = true.obs;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordLoginController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailPhoneController = TextEditingController();
+  // final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordRegisterController =
       TextEditingController();
   final TextEditingController confirmPasswordController =

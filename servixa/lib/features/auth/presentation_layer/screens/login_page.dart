@@ -81,14 +81,15 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
                   Obx(() {
-                    bool isVisible = authController.isPasswordVisible.value;
+                    bool isObscured = authController.isPasswordVisible.value;
                     return AppTextFormField(
                       labelText: "Password",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: authController.isPasswordVisible.value,
+                      obscureText: isObscured,
+                      maxLines: 1,
                       suffixIcon: IconButton(
                         onPressed: () {
                           authController.changePasswordVisible();
@@ -97,7 +98,7 @@ class LoginPage extends StatelessWidget {
                         // icon visible
                         // size icon
                         icon: Icon(
-                          isVisible
+                          isObscured
                               ? Icons.visibility_outlined
                               : Icons.visibility,
                           color: ThemeApp.Foundation_Secendary_grey_100,
@@ -116,7 +117,7 @@ class LoginPage extends StatelessWidget {
                   // يروح عال home?
                   // لازم laoding و جرب const
                   authController.isLoading.value
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : AuthElevatedButtonWidget(
                           text: "Login",
                           onPressed: authController.isLoading.value ? null :  () {
