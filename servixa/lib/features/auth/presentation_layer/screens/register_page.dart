@@ -88,118 +88,78 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
                   AppTextFormField(
-                    labelText: "Write Email or phone number",
-                    hintText: "0911111111 || example@gmail.com",
+                    labelText: "Email (you can enter email or phone)",
+                    hintText: "example@gmail.com",
                     keyboardType: TextInputType.emailAddress,
-                    controller: authController.emailPhoneController,
-                    validator: Validators.validateEmailOrPhone,
+                    controller: authController.emailRegisterController,
+                    validator: (value) => Validators.validateEmailRegister(
+                      value,
+                      authController.phoneController.text,
+                    ),
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-                  // Container(
-                  //   height: 48,
-                  //   width: size.width * 0.934,
-                  //   margin: EdgeInsetsGeometry.symmetric(vertical: 20),
+                  AppTextFormField(
+                    hintText: "912345678",
+                    controller: authController.phoneController,
+                    keyboardType: TextInputType.phone,
+                    validator: (value) => Validators.validatePhoneRegister(
+                      value,
+                      authController.emailRegisterController.text,
+                    ),
+                    prefix: Obx(
+                      () => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: size * 0.3,
+                          child: GestureDetector(
+                            onTap: () {
+                              showCountryPicker(
+                                context: context,
+                                showPhoneCode: true,
+                                onSelect: (Country country) {
+                                  authController.selectedCountry.value =
+                                      country;
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                if (authController.selectedCountry.value !=
+                                    null)
+                                  Text(
+                                    authController
+                                        .selectedCountry
+                                        .value!
+                                        .flagEmoji,
+                                    style: const TextStyle(fontSize: 24),
+                                  )
+                                else
+                                  const Icon(Icons.flag, color: Colors.grey),
 
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(16),
-                  //     border: BoxBorder.all(
-                  //       color: ThemeApp.Foundation_Secendary_grey_100,
-                  //       width: 1,
-                  //     ),
-                  //   ),
-                  //   child: InternationalPhoneNumberInput(
-                  //     hintText: "Enter your phone (optional)",
-                  //     onInputChanged: (PhoneNumber number) {
-                  //       phoneNumber = number;
-                  //     },
-                  //     onInputValidated: (bool isValid) {
-                  //       print('Is valid: $isValid');
-                  //     },
+                                const SizedBox(width: 10),
 
-                  //     selectorConfig: const SelectorConfig(
-                  //       selectorType: PhoneInputSelectorType.DIALOG,
-                  //       useEmoji: true,
-                  //       // leadingSelector: true,
-                  //       leadingPadding: 10,
-                  //       setSelectorButtonAsPrefixIcon: true,
-                  //       trailingSpace: false,
-                  //     ),
-                  //     initialValue: phoneNumber,
-                  //     textFieldController: phoneController,
-                  //     formatInput: true,
-                  //     inputBorder: InputBorder.none,
-                  //     keyboardType: const TextInputType.numberWithOptions(
-                  //       signed: true,
-                  //       decimal: true,
-                  //     ),
-                  //     // validator: (String? value) {
-                  //     //   if (value == null || value.isEmpty) {
-                  //     //     return 'Phone number is required';
-                  //     //   }
-                  //     //   if (value.length < 9) {
-                  //     //     return 'Phone number is too short';
-                  //     //   }
-                  //     //   return null;
-                  //     // },
-                  //   ),
-                  // ),
-                  Obx(
-                    () => GestureDetector(
-                      onTap: () {
-                        showCountryPicker(
-                          context: context,
-                          showPhoneCode: true,
-                          onSelect: (Country country) {
-                            authController.selectedCountry.value = country;
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 48,
-                        // width: size.width * 0.934,
-                        width: size * 0.934,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: ThemeApp.Foundation_Secendary_grey_100,
-                            width: 1,
+                                Expanded(
+                                  child: Text(
+                                    authController
+                                        .selectedCountry
+                                        .value!
+                                        .displayName,
+                                    style: TypographyApp.Body_mid_Regular,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.grey,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            if (authController.selectedCountry.value != null)
-                              Text(
-                                authController.selectedCountry.value!.flagEmoji,
-                                style: const TextStyle(fontSize: 24),
-                              )
-                            else
-                              const Icon(Icons.flag, color: Colors.grey),
-
-                            const SizedBox(width: 10),
-
-                            Expanded(
-                              child: Text(
-                                authController
-                                    .selectedCountry
-                                    .value!
-                                    .displayName,
-                                style: TypographyApp.Body_mid_Regular,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.grey,
-                            ),
-                          ],
                         ),
                       ),
                     ),
                   ),
-
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
                   Obx(() {

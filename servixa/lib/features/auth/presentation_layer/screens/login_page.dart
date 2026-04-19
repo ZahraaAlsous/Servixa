@@ -76,8 +76,9 @@ class LoginPage extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     icon: IconApp.email,
                     // controller: emailController,
-                    controller: authController.emailController,
-                    validator: Validators.validateEmail,
+                    controller: authController.emailLoginController,
+                    // validator: Validators.validateEmail,
+                    validator: Validators.validateEmailOrPhone,
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
                   Obx(() {

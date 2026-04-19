@@ -3,19 +3,19 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class AuthService {
   final Dio dio = Dio();
   final storage = FlutterSecureStorage();
 
-  Future<bool> register(
-    String first_name,
-    String last_name,
-    String email, // String? email,
-    // String? phone,
-    String password,
-  ) async {
+  Future<bool> register({
+    required String first_name,
+    required String last_name,
+    // String email,
+    String? email,
+    String? phone,
+    required String password,
+  }) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Register IN");
       Response response = await dio.post(
@@ -23,16 +23,15 @@ class AuthService {
         data: {
           "first_name": first_name,
           "last_name": last_name,
-          "email": email, // if (email != null) "email": email,
-          // if (phone != null) "phone_number": phone,
+          // "email": email,
+          if (email != null) "email": email,
+          if (phone != null) "phone_number": phone,
           "password": password,
         },
         options: Options(headers: {"Accept": "application/json"}),
       );
       log("==============================Service : Register OK");
       if (response.statusCode == 200) {
-        // edit
-        // إذا دخل فقط رقم و ما دخل email
         await storage.write(key: "email", value: email);
       }
       return response.statusCode == 200;
@@ -43,6 +42,10 @@ class AuthService {
         throw "Connection failed: Please check your internet";
       }
       log("==============================Service : Register ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
       throw e.response!.data["message"];
     }
   }
@@ -76,6 +79,9 @@ class AuthService {
         throw "Connection failed: Please check your internet";
       }
       log("==============================Service : Login ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
       throw e.response!.data["message"];
     }
   }
@@ -104,6 +110,9 @@ class AuthService {
         throw "Connection failed: Please check your internet";
       }
       log("==============================Service : Verify Email ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
       throw e.response!.data["message"];
     }
   }

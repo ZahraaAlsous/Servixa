@@ -68,6 +68,78 @@ class Validators {
     return null;
   }
 
+  static String? validatePhoneRegister(String? value, String? emailValue) {
+    // // if (value == null || value.trim().isEmpty) {
+    // //   return "This field is required";
+    // // }
+    // bool isPhone = true;
+    // if (value != null  ) {
+    //   String input = value.trim();
+    //   //  isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
+    //    isPhone = RegExp(r'^[0-9]{9,15}$').hasMatch(input);
+    // }
+    // // bool isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
+
+    // // if (!isPhone && !isEmail) {
+    // if (value != null && !isPhone) {
+    //   return "Enter a valid phone number";
+    // }
+
+    // return null;
+
+    String input = value?.trim() ?? "";
+    String emailInput = emailValue?.trim() ?? "";
+
+    // إذا كان الحقلين فارغين
+    if (input.isEmpty && emailInput.isEmpty) {
+      return "Please enter either Email or Phone";
+    }
+
+    // إذا بدأ المستخدم بالكتابة في حقل الهاتف، نتحقق من الصيغة
+    if (input.isNotEmpty) {
+      bool isPhone = RegExp(r'^[0-9]{9,15}$').hasMatch(input);
+      if (!isPhone) return "Enter a valid phone number";
+    }
+
+    return null;
+  }
+
+  static String? validateEmailRegister(String? value, String? phoneValue) {
+    // // if (value == null || value.trim().isEmpty) {
+    // //   return "This field is required";
+    // // }
+    // bool isEmail = true;
+    // if (value != null) {
+    //   String input = value.trim();
+    //   isEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input);
+    // }
+    // // bool isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
+
+    // // if (!isPhone && !isEmail) {
+    // if (value != null && !isEmail) {
+    //   return "Enter a valid email address";
+    // }
+
+    // return null;
+    String input = value?.trim() ?? "";
+    String phoneInput = phoneValue?.trim() ?? "";
+
+    // إذا كان الحقلين فارغين
+    if (input.isEmpty && phoneInput.isEmpty) {
+      return "Please enter either Email or Phone";
+    }
+
+    // إذا بدأ المستخدم بالكتابة في حقل الإيميل، نتحقق من الصيغة
+    if (input.isNotEmpty) {
+      bool isEmail = RegExp(
+        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+      ).hasMatch(input);
+      if (!isEmail) return "Enter a valid email address";
+    }
+
+    return null;
+  }
+
   static String? validateEmailOrPhone(String? value) {
     if (value == null || value.trim().isEmpty) {
       return "This field is required";

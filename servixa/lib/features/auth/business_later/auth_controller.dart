@@ -19,12 +19,12 @@ class AuthController extends GetxController {
   RxBool isAgreeTermsAndPolicies = false.obs;
   RxBool isConfirmPasswordVisible = true.obs;
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailLoginController = TextEditingController();
   final TextEditingController passwordLoginController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailPhoneController = TextEditingController();
-  // final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailRegisterController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordRegisterController =
       TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -55,7 +55,7 @@ class AuthController extends GetxController {
   Future<void> checkLoginStatus() async {
     String? token = await storage.read(key: "token");
     isLoggedIn.value = token != null;
-          String? userJson = await storage.read(key: "user");
+    String? userJson = await storage.read(key: "user");
     if (userJson != null) {
       currentUser.value = UserModel.fromJson(jsonDecode(userJson));
     }
@@ -74,11 +74,27 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Register IN");
+      // await authService.register(
+      //   firstNameController.text,
+      //   lastNameController.text,
+      //   emailRegisterController.text,
+      //   passwordRegisterController.text
+      // );
+      String? finalEmail = emailRegisterController.text.trim().isEmpty
+          ? null
+          : emailRegisterController.text.trim();
+
+      String? finalPhone;
+      if (phoneController.text.trim().isNotEmpty) {
+        String countryCode = selectedCountry.value?.phoneCode ?? "963";
+        finalPhone = countryCode + phoneController.text.trim();
+      }
       await authService.register(
-        firstNameController.text,
-        lastNameController.text,
-        emailPhoneController.text,
-        passwordRegisterController.text,
+        first_name: firstNameController.text,
+        last_name: lastNameController.text,
+        email: finalEmail,
+        phone: finalPhone,
+        password: passwordRegisterController.text,
       );
       // await authService.register(first_name, last_name, email, password);
       // await authService.register(first_name, last_name, email, phone, password);
@@ -87,6 +103,11 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Register ERROR");
+            log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+
     } finally {
       isLoading.value = false;
     }
@@ -104,7 +125,7 @@ class AuthController extends GetxController {
       //   passwordLoginController.text,
       // );
       await authService.login(
-        emailController.text,
+        emailLoginController.text,
         passwordLoginController.text,
       );
       String? userJson = await storage.read(key: "user");
@@ -118,6 +139,11 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Login ERROR");
+            log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+
     } finally {
       isLoading.value = false;
     }
@@ -142,6 +168,11 @@ class AuthController extends GetxController {
     } catch (e) {
       onError(e.toString());
       log("==============================Controller : Verify Email ERROR");
+            log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+
     } finally {
       isLoading.value = false;
     }
@@ -149,11 +180,11 @@ class AuthController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
+    emailLoginController.dispose();
     passwordLoginController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
-    emailPhoneController.dispose();
+    emailRegisterController.dispose();
     passwordRegisterController.dispose();
     confirmPasswordController.dispose();
     super.onClose();
