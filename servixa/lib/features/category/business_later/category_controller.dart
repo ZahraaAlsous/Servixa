@@ -71,7 +71,7 @@ class CategoryController extends GetxController {
     );
 
     titleCategory.value = category.name;
-    subCategories.value = category.subCategories;
+    subCategories.value = category.subCategories!;
   }
 
   // void getCategoryQustions(){

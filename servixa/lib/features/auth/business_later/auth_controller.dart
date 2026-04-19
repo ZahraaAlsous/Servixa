@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,10 @@ class AuthController extends GetxController {
   Future<void> checkLoginStatus() async {
     String? token = await storage.read(key: "token");
     isLoggedIn.value = token != null;
+          String? userJson = await storage.read(key: "user");
+    if (userJson != null) {
+      currentUser.value = UserModel.fromJson(jsonDecode(userJson));
+    }
   }
 
   Future<void> register(
@@ -91,11 +96,18 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Login IN");
-      UserModel user = await authService.login(
+      // UserModel user = await authService.login(
+      //   emailController.text,
+      //   passwordLoginController.text,
+      // );
+      await authService.login(
         emailController.text,
         passwordLoginController.text,
       );
-      currentUser.value = user;
+      String? userJson = await storage.read(key: "user");
+      if (userJson != null) {
+        currentUser.value = UserModel.fromJson(jsonDecode(userJson));
+      }
       onSuccess();
       isLoggedIn.value = true;
       log("==============================Controller : Login OK");

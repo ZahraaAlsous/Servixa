@@ -85,7 +85,8 @@ class SearchFilterController extends GetxController {
           ReviewModel(
             id: 1,
             text: "very beatufull",
-            user: UserModel(id: 1, firstName: "Zahraa", lastName: "Alsous"),
+            user: UserModel(id: 1, firstName: "Zahraa", lastName: "Alsous",                                       name: "jjj",
+            ),
             date: "6/15/2026",
           ),
         ],
@@ -111,6 +112,8 @@ class SearchFilterController extends GetxController {
           id: 2,
           name: "Plumbing & Electrical",
           icon: "assets/images/Simplification.png",
+        ),
+        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
         ),
       ),
       AdsModel(
@@ -156,6 +159,12 @@ class SearchFilterController extends GetxController {
             ),
           ],
         ),
+        user: UserModel(
+          id: 1,
+          firstName: "firstName",
+          lastName: "lastName",
+          name: "jjj",
+        ),
       ),
       AdsModel(
         id: 3,
@@ -186,6 +195,8 @@ class SearchFilterController extends GetxController {
               icon: "assets/images/Simplification.png",
             ),
           ],
+        ),
+        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
         ),
       ),
       AdsModel(
@@ -231,6 +242,8 @@ class SearchFilterController extends GetxController {
             ),
           ],
         ),
+        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
+        ),
       ),
       AdsModel(
         id: 5,
@@ -261,6 +274,8 @@ class SearchFilterController extends GetxController {
               icon: "assets/images/Simplification.png",
             ),
           ],
+        ),
+        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
         ),
       ),
     ]);

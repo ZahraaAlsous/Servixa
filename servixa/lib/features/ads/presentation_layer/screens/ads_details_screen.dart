@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
@@ -39,7 +40,11 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
   @override
   void initState() {
-    adsController.getAdsDetails(widget.adsId);
+    // adsController.getAdsDetails(widget.adsId);
+    adsController.getAddDetailss(widget.adsId, (e) {
+      // Get.snackbar("title", e);
+      AppSnackbar.showError(e);
+    });
 
     super.initState();
   }
@@ -67,9 +72,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AdsModel ads = adsController.adsDetails.value!;
-    final size = MediaQuery.of(context).size;
-    bool showMore = adsController.showMore.value;
+    // final size = MediaQuery.of(context).size;
+    final widthScreen = Get.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -102,110 +106,120 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
           ),
         ],
       ),
-      body:
-          SingleChildScrollView(
+      body: Obx(() {
+        // if (adsController.adsDetails.value == null) {
+        if (adsController.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        AdsModel ads = adsController.adsDetails.value!;
+
+        return Scaffold(
+          body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  alignment: AlignmentGeometry.bottomCenter,
-                  children: [
-                    CarouselSlider.builder(
-                      itemCount: ads.images.length,
-                      itemBuilder:
-                          (
-                            BuildContext context,
-                            int itemIndex,
-                            int pageViewIndex,
-                          ) {
-                            return Container(
-                              width: size.width,
-                              height: 325,
-                              decoration: BoxDecoration(
-                                // color: Colors.amberAccent,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(21),
-                                  bottomRight: Radius.circular(21),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 1),
-                                    blurRadius: 7,
-                                    spreadRadius: 0,
-                                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                if (ads.images.isNotEmpty)
+                  Stack(
+                    alignment: AlignmentGeometry.bottomCenter,
+                    children: [
+                      CarouselSlider.builder(
+                        itemCount: ads.images.length,
+                        itemBuilder:
+                            (
+                              BuildContext context,
+                              int itemIndex,
+                              int pageViewIndex,
+                            ) {
+                              return Container(
+                                // width: size.width,
+                                width: widthScreen,
+                                height: 325,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(21),
+                                    bottomRight: Radius.circular(21),
                                   ),
-                                ],
-                                image: DecorationImage(
-                                  image: AssetImage(ads.images[itemIndex]),
-                                  fit: BoxFit.cover,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 1),
+                                      blurRadius: 7,
+                                      spreadRadius: 0,
+                                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                    image: AssetImage(ads.images[itemIndex]),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                              );
+                            },
+                        options: CarouselOptions(
+                          height: 325,
+                          // aspectRatio: 16 / 9,
+                          viewportFraction: 1,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration: const Duration(
+                            milliseconds: 800,
+                          ),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          // enlargeCenterPage: true,
+                          // enlargeFactor: 0.3,
+                          enlargeCenterPage: false,
+                          onPageChanged: (index, reason) {
+                            homeController.currentCarouselIndex.value = index;
+                          },
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: ads.images.asMap().entries.map((entry) {
+                            return Container(
+                              // edit
+                              // غير قياس
+                              width: 7,
+                              height: 7,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 4.0,
+                                vertical: 8.0,
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                // edit
+                                // غير سماكة
+                                border:
+                                    homeController.currentCarouselIndex.value ==
+                                        entry.key
+                                    ? Border.all(
+                                        color:
+                                            ThemeApp.Foundation_Main_main_100,
+                                        width: 1.5,
+                                      )
+                                    : Border.all(style: BorderStyle.none),
+                                color:
+                                    homeController.currentCarouselIndex.value ==
+                                        entry.key
+                                    ? ThemeApp.Foundation_Main_main_500
+                                    : ThemeApp
+                                          .colorCirclesSliderAndStarAndDivider,
                               ),
                             );
-                          },
-                      options: CarouselOptions(
-                        height: 325,
-                        // aspectRatio: 16 / 9,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration: const Duration(
-                          milliseconds: 800,
+                          }).toList(),
                         ),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        // enlargeCenterPage: true,
-                        // enlargeFactor: 0.3,
-                        enlargeCenterPage: false,
-                        onPageChanged: (index, reason) {
-                          homeController.currentCarouselIndex.value = index;
-                        },
-                        scrollDirection: Axis.horizontal,
                       ),
-                    ),
-                    Obx(
-                      () => Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: ads.images.asMap().entries.map((entry) {
-                          return Container(
-                            // edit
-                            // غير قياس
-                            width: 7,
-                            height: 7,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                              vertical: 8.0,
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              // edit
-                              // غير سماكة
-                              border:
-                                  homeController.currentCarouselIndex.value ==
-                                      entry.key
-                                  ? Border.all(
-                                      color: ThemeApp.Foundation_Main_main_100,
-                                      width: 1.5,
-                                    )
-                                  : Border.all(style: BorderStyle.none),
-                              color:
-                                  homeController.currentCarouselIndex.value ==
-                                      entry.key
-                                  ? ThemeApp.Foundation_Main_main_500
-                                  : ThemeApp
-                                        .colorCirclesSliderAndStarAndDivider,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Column(
@@ -264,27 +278,24 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             color: ThemeApp.Foundation_Main_main_500,
                           ),
                           // edit
-                          Text(
-                            "742 Evergreen Terrace, Springfield",
-                            style: TypographyApp.Body_mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Secendary_grey_300,
+                          if (ads.place != null)
+                            Text(
+                              // "742 Evergreen Terrace, Springfield",
+                              ads.place!,
+                              style: TypographyApp.Body_mid_Regular.copyWith(
+                                color: ThemeApp.Foundation_Secendary_grey_300,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                // Container(
-                //   width: size.width,
-                //   height: 8,
-                //   color: ThemeApp.Foundation_Secendary_grey_50,
-                // ),
                 const SpaceBetweenSectionWidget(),
-
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Column(
@@ -494,7 +505,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Column(
@@ -605,7 +617,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 const SpaceBetweenSectionWidget(),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Column(
@@ -624,11 +637,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                         children: [
                           SvgPicture.asset(IconApp.place),
                           // edit
-                          Text(ads.place),
+                          Text(ads.place ?? "place"),
                         ],
                       ),
                       Container(
-                        width: size.width * 0.9255,
+                        // width: size.width * 0.9255,
+                        width: widthScreen * 0.9255,
                         height: 329,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
@@ -651,7 +665,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                         child: Column(
                           children: [
                             Container(
-                              width: size.width * 0.9255,
+                              // width: size.width * 0.9255,
+                              width: widthScreen * 0.9255,
                               height: 250,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
@@ -692,7 +707,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                       );
                                     },
                                     child: CircleAvatar(
-                                      radius: size.width * 0.100,
+                                      // radius: size.width * 0.100,
+                                      radius: widthScreen * 0.100,
                                       // radius: 36,
                                       // edit
                                       // الصورة ما عم تطلع
@@ -783,11 +799,13 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 const SpaceBetweenSectionWidget(),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Container(
-                    width: size.width * 0.9348,
+                    // width: size.width * 0.9348,
+                    width: widthScreen * 0.9348,
                     height: 51,
                     alignment: AlignmentGeometry.center,
                     // color: Colors.red,
@@ -818,7 +836,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 const SpaceBetweenSectionWidget(),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal:   size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     vertical: 5,
                   ),
                   child: Row(
@@ -870,27 +889,32 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             RateStarWidget(
                               percent: 33,
                               numberStar: 5,
-                              widthBarPercentage: size.width * 0.437,
+                              // widthBarPercentage: size.width * 0.437,
+                              widthBarPercentage: widthScreen * 0.437,
                             ),
                             RateStarWidget(
                               percent: 48,
                               numberStar: 4,
-                              widthBarPercentage: size.width * 0.437,
+                              // widthBarPercentage: size.width * 0.437,
+                              widthBarPercentage: widthScreen * 0.437,
                             ),
                             RateStarWidget(
                               percent: 28,
                               numberStar: 3,
-                              widthBarPercentage: size.width * 0.437,
+                              // widthBarPercentage: size.width * 0.437,
+                              widthBarPercentage: widthScreen * 0.437,
                             ),
                             RateStarWidget(
                               percent: 12,
                               numberStar: 2,
-                              widthBarPercentage: size.width * 0.437,
+                              // widthBarPercentage: size.width * 0.437,
+                              widthBarPercentage: widthScreen * 0.437,
                             ),
                             RateStarWidget(
                               percent: 10,
                               numberStar: 1,
-                              widthBarPercentage: size.width * 0.437,
+                              // widthBarPercentage: size.width * 0.437,
+                              widthBarPercentage: widthScreen * 0.437,
                             ),
                           ],
                         ),
@@ -909,7 +933,9 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 ),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    horizontal:
+                        widthScreen * DimensApp.spaceHorizontalScreen,
                     // vertical: 10,
                   ),
                   child: Column(
@@ -925,7 +951,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                     ads.listReview![indexReview];
                                 return Container(
                                   padding: EdgeInsetsGeometry.all(5),
-                                  width: size.width * 0.9255,
+                                  // width: size.width * 0.9255,
+                                  width: widthScreen * 0.9255,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     border: BoxBorder.all(
@@ -941,7 +968,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                       Row(
                                         children: [
                                           Container(
-                                            width: size.width * 0.109,
+                                            width: widthScreen * 0.109,
                                             height: 48.6,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
@@ -994,89 +1021,93 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
               ],
             ),
           ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsetsGeometry.symmetric(
-          horizontal: size.width * DimensApp.spaceHorizontalScreen,
-          vertical: 0,
-        ),
-        // height: 60.0,
-        // color: Colors.blue,
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                onPressed: () {
-                  Get.bottomSheet(
-                    isDismissible: true,
-                    enableDrag: true,
-                    BottomSheetReviewWidget(),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      IconApp.messages,
-                      width: 20,
-                      height: 20,
-                      color: ThemeApp.Foundation_Main_main_500,
-                    ),
-                    Text(
-                      "Chat",
-                      style: TypographyApp.Body_mid_Mid.copyWith(
+          bottomNavigationBar: Container(
+            padding: EdgeInsetsGeometry.symmetric(
+              horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
+              vertical: 0,
+            ),
+            // height: 60.0,
+            // color: Colors.blue,
+            child: Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
                         color: ThemeApp.Foundation_Main_main_500,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ThemeApp.Foundation_Main_main_500,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                onPressed: () {
-                  Get.bottomSheet(
-                    isDismissible: true,
-                    enableDrag: true,
-                    isScrollControlled: true,
-                    BottomSheetAddOrderWidget(),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      IconApp.badgePercent,
-                      width: 20,
-                      height: 20,
-                      color: ThemeApp.Foundation_Main_yellow_50,
-                    ),
-
-                    Text(
-                      " Make An Offer",
-                      style: TypographyApp.Body_mid_Mid.copyWith(
-                        color: ThemeApp.Foundation_Main_yellow_50,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                  ],
+                    onPressed: () {
+                      Get.bottomSheet(
+                        isDismissible: true,
+                        enableDrag: true,
+                        BottomSheetReviewWidget(),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          IconApp.messages,
+                          width: 20,
+                          height: 20,
+                          color: ThemeApp.Foundation_Main_main_500,
+                        ),
+                        Text(
+                          "Chat",
+                          style: TypographyApp.Body_mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ThemeApp.Foundation_Main_main_500,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.bottomSheet(
+                        isDismissible: true,
+                        enableDrag: true,
+                        isScrollControlled: true,
+                        BottomSheetAddOrderWidget(),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          IconApp.badgePercent,
+                          width: 20,
+                          height: 20,
+                          color: ThemeApp.Foundation_Main_yellow_50,
+                        ),
+
+                        Text(
+                          " Make An Offer",
+                          style: TypographyApp.Body_mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Main_yellow_50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 

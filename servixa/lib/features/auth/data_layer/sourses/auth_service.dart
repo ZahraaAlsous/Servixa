@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -46,7 +47,7 @@ class AuthService {
     }
   }
 
-  Future<UserModel> login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Login IN");
       Response response = await dio.post(
@@ -60,10 +61,14 @@ class AuthService {
           key: "token",
           value: response.data["data"]["token"],
         );
+        await storage.write(
+          key: "user",
+          value: jsonEncode(response.data["data"]["user"]),
+        );
         // return response.data["data"]["user"];
-        return UserModel.fromJson(response.data["data"]["user"]);
+        // return UserModel.fromJson(response.data["data"]["user"]);
       }
-      throw "Login failed: Unexpected response from server";
+      // throw "Login failed: Unexpected response from server";
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {

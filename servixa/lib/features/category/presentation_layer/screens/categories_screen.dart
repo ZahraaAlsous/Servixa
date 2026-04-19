@@ -50,7 +50,7 @@ class CategoriesScreen extends StatelessWidget {
                 CategoryModel category =
                     categoryController.categories[indexCategory];
                 return HomeCardCategoryWidget(
-                  assetName: category.icon,
+                  assetName: category.icon!,
                   categoryName: category.name,
                   CategoryId: category.id,
                   onTap: () {

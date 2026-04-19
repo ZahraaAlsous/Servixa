@@ -73,7 +73,7 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
             onTap: () {
               addAdsController.selectedCategoryAds.value = category;
             },
-            assetName: category.icon,
+            assetName: category.icon!,
             categoryName: category.name,
             CategoryId: category.id,
             // enableSelection: true,

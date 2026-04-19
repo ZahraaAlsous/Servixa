@@ -174,7 +174,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                   searchFilterController
                                           .selectCategoryIcon
                                           .value =
-                                      value.icon;
+                                      value.icon!;
                                   categoryController.getSubCategories(value.id);
                                   log(
                                     'Selected category: ${value.name}, ID: ${value.id}',
@@ -188,7 +188,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                   value: category,
                                   child: Row(
                                     children: [
-                                      SvgPicture.asset(category.icon),
+                                      SvgPicture.asset(category.icon!),
                                       // edit
                                       // design
                                       Text(category.name),

@@ -121,7 +121,7 @@ class AppCardAdsWidget extends StatelessWidget {
                     Icon(Icons.place_outlined),
                     Text(
                       // "Riyadh – Malaz",
-                      ads.place,
+                      ads.place ?? "place",
                       style: TypographyApp.Label_Mid_Regular.copyWith(
                         color: ThemeApp.Foundation_Secendary_grey_300,
                       ),
@@ -229,7 +229,7 @@ class AppCardAdsWidget extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      ads.place,
+                      ads.place ?? "place",
                       style: TypographyApp.Body_mid_Regular.copyWith(
                         color: ThemeApp.Foundation_Secendary_grey_300,
                       ),

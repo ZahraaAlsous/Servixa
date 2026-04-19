@@ -46,7 +46,9 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: authController.isLoggedIn.value
+      appBar:
+          authController.isLoggedIn.value &&
+              authController.currentUser.value != null
           ? AppBarWidget(
               title: Row(
                 children: [
@@ -59,7 +61,7 @@ class HomePage extends StatelessWidget {
                       height: 48.6,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: authController.currentUser.value!.image != null
+                          image: authController.currentUser.value?.image != null
                               ? NetworkImage(
                                   authController.currentUser.value!.image!,
                                 )
@@ -74,10 +76,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          // "Mhamad Alshame",
-                          authController.currentUser.value!.firstName +
-                              " " +
-                              authController.currentUser.value!.lastName,
+                          authController.currentUser.value!.name,
                           style: TypographyApp.Title_Mid_Mid.copyWith(
                             color: ThemeApp.Foundation_Grey_grey_700,
                           ),
@@ -269,7 +268,7 @@ class HomePage extends StatelessWidget {
                     CategoryModel category =
                         categoryController.categories[indexCategory];
                     return HomeCardCategoryWidget(
-                      assetName: category.icon,
+                      assetName: category.icon!,
                       categoryName: category.name,
                       CategoryId: category.id,
                       margin: true,
@@ -308,7 +307,8 @@ class HomePage extends StatelessWidget {
                         ads: ads,
                         widthCard: 0.413,
                         onTap: () {
-                          Get.to(AdsDetailsScreen(adsId: ads.id));
+                          Get.to( () => AdsDetailsScreen(adsId: ads.id));
+                          // Get.to(AdsDetailsScreen(), arguments: ads.id);
                         },
                         isGridView: true,
                       ),
@@ -318,7 +318,7 @@ class HomePage extends StatelessWidget {
               }),
             ),
 
-            SizedBox(height: DimensApp.spaceBetweenSection),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
 
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة

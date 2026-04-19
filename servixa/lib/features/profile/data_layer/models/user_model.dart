@@ -9,6 +9,7 @@ class UserModel {
   String? image;
   // List<BusinessAccountModel>? listBusinessAccount;
   bool has_business_account;
+  String name;
 
   UserModel({
     required this.id,
@@ -19,6 +20,7 @@ class UserModel {
     this.image,
     // this.listBusinessAccount,
     this.has_business_account = false,
+    required this.name
   });
 
     factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class UserModel {
       // listBusinessAccount: (json["business_accounts"] as List<dynamic>?)
       //     ?.map((account) => BusinessAccountModel.fromJson(account))
       //     .toList(),
+      name: json["name"],
       has_business_account: json["has_business_account"],
     );
   }

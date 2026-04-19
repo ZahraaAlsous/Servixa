@@ -37,7 +37,7 @@ class AddAdsController extends GetxController {
       case 1:
         return selectedCategoryAds.value != null;
       case 2:
-        if (selectedCategoryAds.value?.subCategories.isNotEmpty ?? false) {
+        if (selectedCategoryAds.value?.subCategories!.isNotEmpty ?? false) {
           return selectedSubCategoryAds.value != null;
         }
         return true;
@@ -61,7 +61,6 @@ class AddAdsController extends GetxController {
     list.add(image);
   }
 
-  // ✅ دالة لحذف صورة
   void removeImageAt(RxList<File> list, int index) {
     list.removeAt(index);
   }

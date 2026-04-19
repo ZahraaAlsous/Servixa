@@ -203,6 +203,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
+import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class BottomSheetPortfolioWidget extends StatelessWidget {
   const BottomSheetPortfolioWidget({super.key});
@@ -428,6 +429,12 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                           icon: IconApp.business,
                                         ),
                                       ],
+                                    ),
+                                    user: UserModel(
+                                      id: 1,
+                                      firstName: "firstName",
+                                      lastName: "lastName",
+                                      name: "jjj"
                                     ),
                                   ),
                                   widthCard: size.width * 0.367,
