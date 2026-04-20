@@ -24,7 +24,8 @@ class SearchFilterController extends GetxController {
   RxBool EffectiveBudgetFilter = false.obs;
   RxBool EffectiveTypeFilter = false.obs;
   RxBool EffectivePostedFilter = false.obs;
-  RxString selectCategory = "".obs;
+  // RxString selectCategory = "".obs;
+  Rxn<CategoryModel> selectCategory = Rxn<CategoryModel>();
   RxString selectCategoryIcon = "".obs;
   RxString selectSubCategory = "".obs;
   Rx<int?> minPriceFilter = Rx<int?>(null);
@@ -85,7 +86,11 @@ class SearchFilterController extends GetxController {
           ReviewModel(
             id: 1,
             text: "very beatufull",
-            user: UserModel(id: 1, firstName: "Zahraa", lastName: "Alsous",                                       name: "jjj",
+            user: UserModel(
+              id: 1,
+              firstName: "Zahraa",
+              lastName: "Alsous",
+              name: "jjj",
             ),
             date: "6/15/2026",
           ),
@@ -94,6 +99,7 @@ class SearchFilterController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
+          hasChildren: true,
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -113,7 +119,11 @@ class SearchFilterController extends GetxController {
           name: "Plumbing & Electrical",
           icon: "assets/images/Simplification.png",
         ),
-        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
+        user: UserModel(
+          id: 1,
+          firstName: "firstName",
+          lastName: "lastName",
+          name: "jjj",
         ),
       ),
       AdsModel(
@@ -133,6 +143,8 @@ class SearchFilterController extends GetxController {
           id: 1,
           name: "Equipment",
           icon: "assets/images/Simplification.png",
+          hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -182,6 +194,8 @@ class SearchFilterController extends GetxController {
         category: CategoryModel(
           id: 2,
           name: "Interior Design",
+          hasChildren: true,
+
           icon: "assets/images/Simplification.png",
           subCategories: [
             SubCategoryModel(
@@ -196,7 +210,11 @@ class SearchFilterController extends GetxController {
             ),
           ],
         ),
-        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
+        user: UserModel(
+          id: 1,
+          firstName: "firstName",
+          lastName: "lastName",
+          name: "jjj",
         ),
       ),
       AdsModel(
@@ -215,6 +233,8 @@ class SearchFilterController extends GetxController {
         category: CategoryModel(
           id: 1,
           name: "Equipment",
+          hasChildren: true,
+
           icon: "assets/images/Simplification.png",
           subCategories: [
             SubCategoryModel(
@@ -242,7 +262,11 @@ class SearchFilterController extends GetxController {
             ),
           ],
         ),
-        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
+        user: UserModel(
+          id: 1,
+          firstName: "firstName",
+          lastName: "lastName",
+          name: "jjj",
         ),
       ),
       AdsModel(
@@ -262,6 +286,7 @@ class SearchFilterController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
+          hasChildren: true,
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -275,7 +300,11 @@ class SearchFilterController extends GetxController {
             ),
           ],
         ),
-        user: UserModel(id: 1, firstName: "firstName", lastName: "lastName",                                       name: "jjj",
+        user: UserModel(
+          id: 1,
+          firstName: "firstName",
+          lastName: "lastName",
+          name: "jjj",
         ),
       ),
     ]);
@@ -318,13 +347,13 @@ class SearchFilterController extends GetxController {
     // edit
     searchAndFilter(
       name: filterSearch.value.isEmpty ? null : filterSearch.value,
-      categoryName:
-          selectCategory.value.isEmpty || !EffectiveCategoryFilter.value
-          ? null
-          : selectCategory.value,
+      // categoryName:
+      // selectCategory.value.isEmpty || !EffectiveCategoryFilter.value
+      // ? null
+      // : selectCategory.value,
       subCategory:
-          selectCategory.value.isEmpty ||
-              !EffectiveCategoryFilter.value ||
+          // selectCategory.value.isEmpty ||
+          !EffectiveCategoryFilter.value ||
               selectSubCategory.value.isEmpty ||
               !EffectiveSubCategoryFilter.value
           ? null
@@ -375,7 +404,7 @@ class SearchFilterController extends GetxController {
     EffectiveBudgetFilter.value = false;
     EffectiveTypeFilter.value = false;
     EffectivePostedFilter.value = false;
-    selectCategory.value = "";
+    // selectCategory.value = "";
     selectCategoryIcon.value = "";
     adsSearchList.value = List.of(popularAdsList);
     selectedAdType.value = null;

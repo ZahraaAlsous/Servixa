@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -39,7 +40,7 @@ class AppOutlinedButtonWidget extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    textContent,
+                    textContent.tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),

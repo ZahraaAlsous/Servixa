@@ -65,6 +65,8 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
+                    hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -104,10 +106,13 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
+        
         category: CategoryModel(
           id: 1,
           name: "Equipment",
           icon: "assets/images/Simplification.png",
+                    hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -158,6 +163,8 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
+                    hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -195,6 +202,8 @@ class AdsController extends GetxController {
           id: 1,
           name: "Equipment",
           icon: "assets/images/Simplification.png",
+                    hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,
@@ -245,6 +254,8 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
+                    hasChildren: true,
+
           subCategories: [
             SubCategoryModel(
               id: 1,

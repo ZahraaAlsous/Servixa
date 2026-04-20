@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
@@ -41,7 +42,7 @@ class SectionActiveFilterTitleWidget extends StatelessWidget {
         ),
         // Text("Category"),
         Text(
-          FilterName,
+          FilterName.tr(),
           style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
         ),
       ],

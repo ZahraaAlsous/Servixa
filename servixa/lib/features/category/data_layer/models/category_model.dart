@@ -5,6 +5,7 @@ class CategoryModel {
   int id;
   String name;
   String? icon;
+  bool hasChildren;
   // edit
   // إذا مو الكل عندها تصنيفات فرعية فلازم حطها ممكن null هيك يمكن
   List<SubCategoryModel>? subCategories;
@@ -14,6 +15,7 @@ class CategoryModel {
     required this.id,
     required this.name,
     this.icon,
+    required this.hasChildren,
     this.subCategories,
     this.questions,
   });
@@ -23,6 +25,7 @@ class CategoryModel {
       id: json["id"],
       name: json["name"],
       icon: json["icon"] ?? null,
+      hasChildren: json["has_children"],
     );
   }
 }

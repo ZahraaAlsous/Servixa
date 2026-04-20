@@ -50,6 +50,13 @@
   "Business Account": "حساب تجاري",
 
   "hintSearch": "ابحث عن أي عنصر...",
+  "      Filters": "      الفلاتر",
+  "Reset": "إعادة تعيين",
+  "Location": "الموقع",
+  "Add Location": "إضافة موقع",
+  "Category": "الفئة",
+  "Min": "الحد الأدنى",
+  "Max": "الحد الأقصى",
 
   "agreeTermsAndPolicies": "أوافق على ",
   "termsAndPolicies": "الشروط والسياسات",

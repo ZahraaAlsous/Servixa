@@ -50,6 +50,13 @@
   "Business Account": "Business Account",
 
   "hintSearch": "Search any item...",
+  "      Filters": "      Filters",
+  "Reset" : "Reset",
+  "Location" : "Location",
+  "Add Location" : "Add Location",
+  "Category" : "Category",
+  "Min": "Min",
+  "Max": "Max",
 
   "agreeTermsAndPolicies": "I agree with ",
   "termsAndPolicies": "terms & policies",

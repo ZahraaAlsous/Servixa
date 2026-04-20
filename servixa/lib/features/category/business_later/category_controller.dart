@@ -22,6 +22,7 @@ class CategoryController extends GetxController {
         id: 1,
         name: "Equipment",
         icon: "assets/images/Simplification.png",
+        hasChildren: false,
         subCategories: [
           //   SubCategoryModel(
           //     id: 1,
@@ -49,6 +50,8 @@ class CategoryController extends GetxController {
         id: 2,
         name: "Interior Design",
         icon: "assets/images/Simplification.png",
+        hasChildren: true,
+
         subCategories: [
           SubCategoryModel(
             id: 1,

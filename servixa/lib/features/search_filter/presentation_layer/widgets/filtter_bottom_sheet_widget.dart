@@ -1,7 +1,5 @@
-import 'dart:developer';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
@@ -31,7 +29,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return FractionallySizedBox(
-      heightFactor: 0.87,
+      heightFactor: 0.80,
       child: SingleChildScrollView(
         // child: Form(
         //   key: _formKey,
@@ -51,7 +49,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "      Filters",
+                      "      Filters".tr(),
                       style: TypographyApp.Title_larg_Mid.copyWith(
                         color: ThemeApp.Foundation_Secendary_grey_700,
                       ),
@@ -62,7 +60,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                       onPressed: searchFilterController
                           .resetSearchFilterToInitialState,
                       child: Text(
-                        "Reset",
+                        "Reset".tr(),
                         style: TypographyApp.Title_Mid_Mid.copyWith(
                           color: ThemeApp.Foundation_Main_main_500,
                         ),
@@ -83,12 +81,174 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   // edit
                   onPressed: () {},
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
 
+                // Obx(
+                //   () => Row(
+                //     children: [
+                //       Expanded(
+                //         child: Column(
+                //           children: [
+                //             SectionActiveFilterTitleWidget(
+                //               value: searchFilterController
+                //                   .EffectiveCategoryFilter,
+                //               onChanged: (value) {
+                //                 searchFilterController.activeCategoryFilter();
+                //               },
+                //               FilterName: "Category",
+                //             ),
+                //             AppDropdownButtonFormFieldWidget(
+                //               hintText: "All In Classified",
+                //               value:
+                //                   searchFilterController
+                //                       .selectCategory
+                //                       .value
+                //                       .isNotEmpty
+                //                   ? categoryController.categories.firstWhere(
+                //                       (category) =>
+                //                           category.name ==
+                //                           searchFilterController
+                //                               .selectCategory
+                //                               .value,
+                //                       // orElse: () =>
+                //                       //     CategoryModel(id: 0, name: ""),
+                //                     )
+                //                   : null,
+                //               onChanged: (value) {
+                //                 if (value != null && value is CategoryModel) {
+                //                   searchFilterController.selectCategory.value =
+                //                       value.name;
+                //                   // searchFilterController
+                //                   //         .selectCategoryIcon
+                //                   //         .value =
+                //                   //     value.icon!;
+                //                   categoryController.getSubCategories(value.id);
+                //                   log(
+                //                     'Selected category: ${value.name}, ID: ${value.id}',
+                //                   );
+                //                 }
+                //               },
+                //               items: categoryController.categories.map((
+                //                 category,
+                //               ) {
+                //                 return DropdownMenuItem<CategoryModel>(
+                //                   value: category,
+                //                   child: Row(
+                //                     children: [
+                //                       // SvgPicture.asset(category.icon!),
+                //                       // // edit
+                //                       // // design
+                //                       Text(category.name),
+                //                     ],
+                //                   ),
+                //                 );
+                //               }).toList(),
+                //               // prefixIcon: IconApp.category,
+                //               isChanged: Obx(() {
+                //                 if (searchFilterController
+                //                     .selectCategoryIcon
+                //                     .value
+                //                     .isNotEmpty) {
+                //                   return Padding(
+                //                     padding: const EdgeInsets.all(12),
+                //                     child: SvgPicture.asset(
+                //                       searchFilterController
+                //                           .selectCategoryIcon
+                //                           .value,
+                //                       width: 20,
+                //                       height: 20,
+                //                       colorFilter: const ColorFilter.mode(
+                //                         ThemeApp.Foundation_Main_main_500,
+                //                         BlendMode.srcIn,
+                //                       ),
+                //                     ),
+                //                   );
+                //                 }
+                //                 return Padding(
+                //                   padding: const EdgeInsets.all(12),
+                //                   child: SvgPicture.asset(
+                //                     IconApp.category,
+                //                     // size: 20,
+                //                     color: ThemeApp.Foundation_Main_main_500,
+                //                   ),
+                //                 );
+                //               }),
+                //               borderRadio: 16,
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       if (searchFilterController
+                //               .selectCategory
+                //               .value
+                //               .isNotEmpty &&
+                //           categoryController.subCategories.isNotEmpty)
+                //         Expanded(
+                //           child: Column(
+                //             children: [
+                //               SectionActiveFilterTitleWidget(
+                //                 value: searchFilterController
+                //                     .EffectiveSubCategoryFilter,
+                //                 onChanged: (value) {
+                //                   searchFilterController
+                //                       .activeSubCategoryFilter();
+                //                 },
+                //                 FilterName: "Sub Category",
+                //               ),
+                //               Obx(
+                //                 () => AppDropdownButtonFormFieldWidget(
+                //                   hintText: "All In Classified",
+                //                   value:
+                //                       searchFilterController
+                //                           .selectSubCategory
+                //                           .value
+                //                           .isEmpty
+                //                       ? null
+                //                       : searchFilterController
+                //                             .selectSubCategory
+                //                             .value,
+                //                   onChanged: (value) {
+                //                     if (value != null) {
+                //                       searchFilterController
+                //                           .selectSubCategory
+                //                           .value = value
+                //                           .toString();
+                //                       log(
+                //                         'Selected sub category: ${value.toString()}',
+                //                       );
+                //                     }
+                //                   },
+                //                   items: categoryController.subCategories.map((
+                //                     subCategory,
+                //                   ) {
+                //                     return DropdownMenuItem<String>(
+                //                       value: subCategory.name,
+                //                       child: Row(
+                //                         children: [
+                //                           // edit
+                //                           // disen
+                //                           // SvgPicture.asset(subCategory.icon),
+                //                           Text(subCategory.name),
+                //                         ],
+                //                       ),
+                //                     );
+                //                   }).toList(),
+                //                   prefixIcon: IconApp.category,
+                //                   borderRadio: 16,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //     ],
+                //   ),
+                // ),
+                // Text("=============="),
                 Obx(
                   () => Row(
                     children: [
                       Expanded(
+                        // flex: 5,
                         child: Column(
                           children: [
                             SectionActiveFilterTitleWidget(
@@ -99,88 +259,20 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                               },
                               FilterName: "Category",
                             ),
-
-                            // AppDropdownButtonFormFieldWidget(
-                            //   hintText: "All In Classified",
-                            //   value:
-                            //       searchFilterController
-                            //           .selectCategory
-                            //           .value
-                            //           .isNotEmpty
-                            //       ? searchFilterController.selectCategory.value
-                            //       : null,
-                            //   onChanged: (value) {
-                            //     if (value != null && value is CategoryModel) {
-                            //       searchFilterController.selectCategory.value =
-                            //           value.name;
-                            //       // searchFilterController.selectedCategoryId.value = value.id;
-                            //       categoryController.getSubCategories(value.id);
-                            //       log(
-                            //         'Selected category: ${value.name}, ID: ${value.id}',
-                            //       );
-                            //     }
-                            //   },
-                            //   // value: searchFilterController.selectCategory.value,
-                            //   // onChanged: (value) {
-                            //   //   searchFilterController.selectCategory.value =
-                            //   //       value.toString();
-                            //   //   categoryController.getSubCategories(value!.id);
-                            //   //   log(
-                            //   //     searchFilterController.selectCategory.value,
-                            //   //   );
-
-                            //   //   if (value != null && value is CategoryModel) {
-                            //   //   searchFilterController.selectCategory.value =
-                            //   //       value.name;
-                            //   //   categoryController.getSubCategories(value.id);
-                            //   //   log(
-                            //   //     searchFilterController.selectCategory.value,
-                            //   //   );
-                            //   // }
-                            //   // },
-                            //   items: categoryController.categories.map((
-                            //     category,
-                            //   ) {
-                            //     return DropdownMenuItem<CategoryModel>(
-                            //       value: category,
-                            //       child: Text(category.name),
-                            //     );
-                            //   }).toList(),
-
-                            //   prefixIcon: IconApp.category,
-                            //   borderRadio: 16,
-                            // ),
                             AppDropdownButtonFormFieldWidget(
                               hintText: "All In Classified",
-                              value:
+                              // edit
+                              onChanged: (value) {
+                                searchFilterController.selectCategory.value =
+                                    value;
+                              },
+                              isSizeFontSmall:
+                                  searchFilterController.selectCategory.value !=
+                                      null &&
                                   searchFilterController
                                       .selectCategory
-                                      .value
-                                      .isNotEmpty
-                                  ? categoryController.categories.firstWhere(
-                                      (category) =>
-                                          category.name ==
-                                          searchFilterController
-                                              .selectCategory
-                                              .value,
-                                      // orElse: () =>
-                                      //     CategoryModel(id: 0, name: ""),
-                                    )
-                                  : null,
-                              onChanged: (value) {
-                                if (value != null && value is CategoryModel) {
-                                  searchFilterController.selectCategory.value =
-                                      value.name;
-                                  searchFilterController
-                                          .selectCategoryIcon
-                                          .value =
-                                      value.icon!;
-                                  categoryController.getSubCategories(value.id);
-                                  log(
-                                    'Selected category: ${value.name}, ID: ${value.id}',
-                                  );
-                                }
-                              },
+                                      .value!
+                                      .hasChildren,
                               items: categoryController.categories.map((
                                 category,
                               ) {
@@ -188,95 +280,37 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                   value: category,
                                   child: Row(
                                     children: [
-                                      SvgPicture.asset(category.icon!),
-                                      // edit
-                                      // design
-                                      Text(category.name),
+                                      // SvgPicture.asset(category.icon!),
+                                      // // edit
+                                      // // design
+                                      Text(
+                                        category.name,
+                                        // edit
+                                        style: TextStyle(fontSize: 9),
+                                      ),
                                     ],
                                   ),
                                 );
                               }).toList(),
-                              // prefixIcon: IconApp.category,
-                              isChanged: Obx(() {
-                                if (searchFilterController
-                                    .selectCategoryIcon
-                                    .value
-                                    .isNotEmpty) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: SvgPicture.asset(
-                                      searchFilterController
-                                          .selectCategoryIcon
-                                          .value,
-                                      width: 20,
-                                      height: 20,
-                                      colorFilter: const ColorFilter.mode(
-                                        ThemeApp.Foundation_Main_main_500,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: SvgPicture.asset(
-                                    IconApp.category,
-                                    // size: 20,
-                                    color: ThemeApp.Foundation_Main_main_500,
-                                  ),
-                                );
-                              }),
                               borderRadio: 16,
+                              prefixIcon: IconApp.category,
                             ),
                           ],
                         ),
                       ),
-
-                      // if (searchFilterController
-                      //         .selectCategory
-                      //         .value
-                      //         .isNotEmpty &&
-                      //     categoryController.subCategories.value.isNotEmpty)
-                      //   Expanded(
-                      //     child: Column(
-                      //       children: [
-                      //         SectionActiveFilterTitleWidget(
-                      //           value: searchFilterController
-                      //               .EffectiveSubCategoryFilter,
-                      //           onChanged: (value) {
-                      //             searchFilterController
-                      //                 .activeSubCategoryFilter();
-                      //           },
-                      //           FilterName: "Sub Category",
-                      //         ),
-
-                      //         AppDropdownButtonFormFieldWidget(
-                      //           hintText: "All In Classified",
-                      //           onChanged: (value) {
-                      //             searchFilterController.selectCategory.value =
-                      //                 value.toString();
-                      //           },
-                      //           items: categoryController.subCategories.map((
-                      //             subCategory,
-                      //           ) {
-                      //             return DropdownMenuItem<String>(
-                      //               value: subCategory.name,
-                      //               child: Text(subCategory.name),
-                      //             );
-                      //           }).toList(),
-
-                      //           prefixIcon: IconApp.category,
-                      //           borderRadio: 16,
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      if (searchFilterController
+                      if (searchFilterController.selectCategory.value != null &&
+                          searchFilterController
                               .selectCategory
-                              .value
-                              .isNotEmpty &&
-                          categoryController.subCategories.isNotEmpty)
+                              .value!
+                              .hasChildren)
+                        const SizedBox(width: 5),
+                      if (searchFilterController.selectCategory.value != null &&
+                          searchFilterController
+                              .selectCategory
+                              .value!
+                              .hasChildren)
                         Expanded(
+                          // flex: 5,
                           child: Column(
                             children: [
                               SectionActiveFilterTitleWidget(
@@ -288,47 +322,21 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                 },
                                 FilterName: "Sub Category",
                               ),
-                              Obx(
-                                () => AppDropdownButtonFormFieldWidget(
-                                  hintText: "All In Classified",
-                                  value:
-                                      searchFilterController
-                                          .selectSubCategory
-                                          .value
-                                          .isEmpty
-                                      ? null
-                                      : searchFilterController
-                                            .selectSubCategory
-                                            .value,
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      searchFilterController
-                                          .selectSubCategory
-                                          .value = value
-                                          .toString();
-                                      log(
-                                        'Selected sub category: ${value.toString()}',
-                                      );
-                                    }
-                                  },
-                                  items: categoryController.subCategories.map((
-                                    subCategory,
-                                  ) {
-                                    return DropdownMenuItem<String>(
-                                      value: subCategory.name,
-                                      child: Row(
-                                        children: [
-                                          // edit
-                                          // disen
-                                          SvgPicture.asset(subCategory.icon),
-                                          Text(subCategory.name),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                  prefixIcon: IconApp.category,
-                                  borderRadio: 16,
-                                ),
+                              AppDropdownButtonFormFieldWidget(
+                                hintText: "All In Classified",
+                                onChanged: (Value) {},
+                                items: [],
+                                borderRadio: 16,
+                                prefixIcon: IconApp.category,
+                                isSizeFontSmall:
+                                    searchFilterController
+                                            .selectCategory
+                                            .value !=
+                                        null &&
+                                    searchFilterController
+                                        .selectCategory
+                                        .value!
+                                        .hasChildren,
                               ),
                             ],
                           ),
@@ -337,7 +345,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
 
                 SectionActiveFilterTitleWidget(
                   value: searchFilterController.EffectiveBudgetFilter,

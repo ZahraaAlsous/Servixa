@@ -422,6 +422,8 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                       id: 1,
                                       name: "Category",
                                       icon: IconApp.adsFill,
+                                                hasChildren: true,
+
                                       subCategories: [
                                         SubCategoryModel(
                                           id: 1,
