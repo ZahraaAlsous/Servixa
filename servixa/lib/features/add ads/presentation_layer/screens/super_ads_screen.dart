@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -23,9 +24,9 @@ class SuperAdsScreen extends StatefulWidget {
 }
 
 class _SuperAdsScreenState extends State<SuperAdsScreen> {
-  AdsController adsController = Get.put(AdsController());
-  AddAdsController addAdsController = Get.put(AddAdsController());
-  CategoryController categoryController = Get.put(CategoryController());
+ final AdsController adsController = Get.put(AdsController());
+ final AddAdsController addAdsController = Get.put(AddAdsController());
+ final CategoryController categoryController = Get.put(CategoryController());
   int _currentStep = 0;
 
   List<String> _stepTitles = [
@@ -83,7 +84,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              _stepTitles[_currentStep],
+              _stepTitles[_currentStep].tr(),
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -153,7 +154,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
               ),
               child: Text(
-                'Previous',
+                'Previous'.tr(),
                 style: TypographyApp.Body_mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Main_main_500,
                 ),
@@ -163,20 +164,15 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
 
         if (_currentStep > 0) const SizedBox(width: 10),
 
-        // زر التالي/نشر
         Expanded(
           child: ElevatedButton(
             onPressed: () {
               if (addAdsController.validateStepAddAds(_currentStep)) {
-                // التحقق من وجود فروع عند الخطوة الثانية
                 if (_currentStep == 1) {
-                  // الخطوة الثانية (Select the Sub Category)
-                  // if (addAdsController.hasSubCategories) {
                   categoryController.getSubCategories(
                     addAdsController.selectedCategoryAds.value!.id,
                   );
                   if (categoryController.subCategories.value.isNotEmpty) {
-                    // إذا في فروع → انتقل للخطوة الثالثة
                     setState(() {
                       _currentStep = 2;
                     });
@@ -187,7 +183,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                     });
                   }
                 } else {
-                  // باقي الخطوات تتصرف طبيعي
                   setState(() {
                     _currentStep++;
                   });
@@ -202,38 +197,13 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               }
             },
 
-            // onPressed: () {
-            //   if (_currentStep < 4) {
-            //     // انتقال للخطوة التالية
-            //     if (_currentStep == 2) {
-            //       categoryController.getSubCategories(
-            //         addAdsController.selectedCategoryAds.value!.id,
-            //       );
-            //     }
-            //     setState(() {
-            //       // addAdsController.validateStepAddAds(_currentStep);
-            //       // ? (_currentStep == 1 &&
-            //       //           categoryController.subCategories.value != null
-            //       //       ?
-            //       // _currentStep++
-            //       //       : _currentStep += 2)
-            //       // : Get.snackbar("title", "message");
-
-            //       addAdsController.validateStepAddAds(_currentStep)
-            //           ? _currentStep++
-            //           : Get.snackbar("title", "This step is important");
-            //     });
-            //   } else {
-            //     // نشر الإعلان
-            //     _publishAd();
-            //   }
-            // },
+    
             style: ElevatedButton.styleFrom(
               backgroundColor: ThemeApp.Foundation_Main_main_500,
               padding: const EdgeInsets.symmetric(vertical: 15),
             ),
             child: Text(
-              _currentStep == 4 ? 'Submit' : 'Next',
+              _currentStep == 4 ? 'Submit'.tr() : 'Next'.tr(),
               style: TypographyApp.Body_mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Main_main_50,
               ),

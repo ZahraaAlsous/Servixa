@@ -28,4 +28,12 @@ class CategoryModel {
       hasChildren: json["has_children"],
     );
   }
+
+  static List<CategoryModel> listFromJson(Map<String, dynamic> json) {
+    List<CategoryModel> categories = [];
+    for (var item in json["data"]) {
+      categories.add(CategoryModel.fromJson(item));
+    }
+    return categories;
+  }
 }

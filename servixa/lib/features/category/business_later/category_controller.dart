@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
+import 'package:servixa/features/category/data_layer/sourses/category_servic.dart';
 
 class CategoryController extends GetxController {
+  final CategoryServic categoryService = CategoryServic();
+  RxBool isLoading = false.obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<SubCategoryModel> subCategories = <SubCategoryModel>[].obs;
   RxList<CategoryQuestionModel> categoryQuestions =
@@ -13,60 +19,81 @@ class CategoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCategories();
+    getCategories(AppSnackbar.showError);
+    // getCategories();
   }
 
-  void getCategories() {
-    categories.addAll([
-      CategoryModel(
-        id: 1,
-        name: "Equipment",
-        icon: "assets/images/Simplification.png",
-        hasChildren: false,
-        subCategories: [
-          //   SubCategoryModel(
-          //     id: 1,
-          //     name: "Heavy Vehicles",
-          //     icon: "assets/images/Simplification.png",
-          //   ),
-        ],
-        questions: [
-          CategoryQuestionModel(id: 1, question: "question text", type: "text"),
-          CategoryQuestionModel(
-            id: 2,
-            question: "question dropdown",
-            type: "dropdown",
-            options: ["1", "2", "3"],
-          ),
-          CategoryQuestionModel(
-            id: 3,
-            question: "question checkbox",
-            type: "checkbox",
-          ),
-        ],
-      ),
-
-      CategoryModel(
-        id: 2,
-        name: "Interior Design",
-        icon: "assets/images/Simplification.png",
-        hasChildren: true,
-
-        subCategories: [
-          SubCategoryModel(
-            id: 1,
-            name: "Heavy Vehicles",
-            icon: "assets/images/Simplification.png",
-          ),
-          SubCategoryModel(
-            id: 2,
-            name: "Plumbing & Electrical",
-            icon: "assets/images/Simplification.png",
-          ),
-        ],
-      ),
-    ]);
+  Future<void> getCategories(void Function(String e) onError) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Categories IN");
+      isLoading.value = true;
+      categories.value = await categoryService.getCategories();
+      if (categories.isNotEmpty) {
+        log("==============================Controller : Get Categories OK");
+      }
+    } catch (e) {
+      log("==============================Controller : Get Categories ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
   }
+  
+  // void getCategories() {
+  //   categories.addAll([
+  //     CategoryModel(
+  //       id: 1,
+  //       name: "Equipment",
+  //       icon: "assets/images/Simplification.png",
+  //       hasChildren: false,
+  //       subCategories: [
+  //         //   SubCategoryModel(
+  //         //     id: 1,
+  //         //     name: "Heavy Vehicles",
+  //         //     icon: "assets/images/Simplification.png",
+  //         //   ),
+  //       ],
+  //       questions: [
+  //         CategoryQuestionModel(id: 1, question: "question text", type: "text"),
+  //         CategoryQuestionModel(
+  //           id: 2,
+  //           question: "question dropdown",
+  //           type: "dropdown",
+  //           options: ["1", "2", "3"],
+  //         ),
+  //         CategoryQuestionModel(
+  //           id: 3,
+  //           question: "question checkbox",
+  //           type: "checkbox",
+  //         ),
+  //       ],
+  //     ),
+
+  //     CategoryModel(
+  //       id: 2,
+  //       name: "Interior Design",
+  //       icon: "assets/images/Simplification.png",
+  //       hasChildren: true,
+
+  //       subCategories: [
+  //         SubCategoryModel(
+  //           id: 1,
+  //           name: "Heavy Vehicles",
+  //           icon: "assets/images/Simplification.png",
+  //         ),
+  //         SubCategoryModel(
+  //           id: 2,
+  //           name: "Plumbing & Electrical",
+  //           icon: "assets/images/Simplification.png",
+  //         ),
+  //       ],
+  //     ),
+  //   ]);
+  // }
 
   void getSubCategories(int categoryId) {
     CategoryModel category = categories.firstWhere(

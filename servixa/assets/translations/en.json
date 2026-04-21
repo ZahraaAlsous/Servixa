@@ -33,7 +33,6 @@
 
   "titleHome1": "All the Equipment and \n Services ",
   "titleHome2": "You Need",
-  "Categories": "Categories",
   "titleSectionHome1": "Top Tools & Equipment's",
   "titleSectionHome2": "Top Construction Services",
   "titleSectionHome3": "Top Items",
@@ -51,12 +50,21 @@
 
   "hintSearch": "Search any item...",
   "      Filters": "      Filters",
-  "Reset" : "Reset",
-  "Location" : "Location",
-  "Add Location" : "Add Location",
-  "Category" : "Category",
+  "Reset": "Reset",
+  "Location": "Location",
+  "Add Location": "Add Location",
+  "Category": "Category",
   "Min": "Min",
   "Max": "Max",
+
+  "View All ": "View All ",
+  "Categories": "Categories",
+
+  "Select your business account": "Select your business account",
+  "Select the Main Category": "Select the Main Category",
+  "Select the Sub Category": "Select the Sub Category",
+  "Write Your Ad Details": "Write Your Ad Details",
+  "Add The Location": "Add The Location",
 
   "agreeTermsAndPolicies": "I agree with ",
   "termsAndPolicies": "terms & policies",
@@ -68,6 +76,7 @@
   "Alert": "Alert",
   "Edit": "Edit",
   "Change": "Change",
+  "Submit": "Submit",
 
   "Login to enjoy all features": "Login to enjoy all features"
 }

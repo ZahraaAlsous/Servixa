@@ -4,10 +4,9 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
-import 'package:servixa/features/ads/business_later/ads_controller.dart';
 
-class HomeCardCategoryWidget extends StatelessWidget {
-  final String assetName;
+class AppCardCategoryWidget extends StatelessWidget {
+  final String? assetName;
   final String categoryName;
   final int CategoryId;
   final bool? margin;
@@ -17,7 +16,7 @@ class HomeCardCategoryWidget extends StatelessWidget {
   // final bool isThisCardSelect;
 
   AddAdsController addAdsController = Get.put(AddAdsController());
-  HomeCardCategoryWidget({
+  AppCardCategoryWidget({
     super.key,
     required this.assetName,
     required this.categoryName,
@@ -28,35 +27,12 @@ class HomeCardCategoryWidget extends StatelessWidget {
     // this.enableSelection = false,
     // this.isThisCardSelect = false,
   });
-  // Color getBackgroundColor() {
-  //   if (!enableSelection) {
-  //     return ThemeApp.Foundation_Main_main_50; // لون عادي
-  //   }
-
-  //   // إذا كان التحديد مفعلاً، قارن الـ id
-  //   if (CategoryId != null &&
-  //       CategoryId == addAdsController.selectedCategoryAds.value?.id) {
-  //     return Colors.amber; // لون التحديد
-  //   }
-
-  //   return ThemeApp.Foundation_Main_main_50; // لون عادي
-  // }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    //   if (enableSelection) {
-    //     return Obx(() => _buildContent(size));
-    //   } else {
-    //     return _buildContent(size);
-    //   }
-    // }
-
-    // return
-
-    // Widget _buildContent(Size size) {
     return InkWell(
-      highlightColor: Colors.transparent, 
+      highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
@@ -71,14 +47,7 @@ class HomeCardCategoryWidget extends StatelessWidget {
         width: size.width * 0.279,
         height: 100,
         decoration: BoxDecoration(
-          color:
-              // getBackgroundColor(),
-              // enableSelection && isThisCardSelect
-              // ? Colors.amber
-              // :
-              ThemeApp.Foundation_Main_main_50,
-          // color: const Color.fromARGB(255, 235, 144, 26),
-          // borderRadius: BorderRadius.circular(41),
+          color: ThemeApp.Foundation_Main_main_50,
           borderRadius: BorderRadius.circular(41),
         ),
         child: Column(
@@ -87,7 +56,8 @@ class HomeCardCategoryWidget extends StatelessWidget {
             // edit
             // لازم بعدين حطها networq
             // لازم حط عرض و طول أو اعمل شي لل صورة؟
-            Image(image: AssetImage(assetName), width: 34, height: 34),
+            if (assetName != null)
+              Image(image: AssetImage(assetName!), width: 34, height: 34),
             Text(
               categoryName,
               textAlign: TextAlign.center,

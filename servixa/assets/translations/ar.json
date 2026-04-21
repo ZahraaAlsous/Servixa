@@ -33,7 +33,6 @@
 
   "titleHome1": "كل المعدات والخدمات التي ",
   "titleHome2": "تحتاجها",
-  "Categories": "الفئات",
   "titleSectionHome1": "أفضل الأدوات والمعدات",
   "titleSectionHome2": "أفضل خدمات البناء",
   "titleSectionHome3": "أفضل العناصر",
@@ -58,6 +57,15 @@
   "Min": "الحد الأدنى",
   "Max": "الحد الأقصى",
 
+  "View All ": "عرض كل ",
+  "Categories": "الفئات",
+
+  "Select your business account": "اختر حساب أعمالك",
+  "Select the Main Category": "اختر الفئة الرئيسية",
+  "Select the Sub Category": "اختر الفئة الفرعية",
+  "Write Your Ad Details": "أدخل تفاصيل إعلانك",
+  "Add The Location": "إضافة الموقع",
+
   "agreeTermsAndPolicies": "أوافق على ",
   "termsAndPolicies": "الشروط والسياسات",
   "ShowAll": "عرض الكل",
@@ -68,6 +76,7 @@
   "Alert": "تنبيه",
   "Edit": "تعديل",
   "Change": "تغيير",
+  "Submit": "إرسال",
 
   "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
 }

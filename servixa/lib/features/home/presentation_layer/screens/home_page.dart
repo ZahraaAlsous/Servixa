@@ -21,7 +21,7 @@ import 'package:servixa/features/category/presentation_layer/screens/categories_
 import 'package:servixa/features/category/presentation_layer/screens/sub_category_screen.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
-import 'package:servixa/features/home/presentation_layer/widgets/home_card_category_widget.dart';
+import 'package:servixa/common/widgets/app_card_category_widget.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
@@ -254,20 +254,23 @@ class HomePage extends StatelessWidget {
               },
             ),
             //
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
-            SizedBox(
-              // height: size.height * 0.090,
-              // height: 200,
-              height: 84,
-              child: Obx(() {
-                return ListView.builder(
+            const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            Obx(() {
+              if (categoryController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                // height: size.height * 0.090,
+                // height: 200,
+                height: 84,
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categoryController.categories.length,
                   itemBuilder: (context, indexCategory) {
                     CategoryModel category =
                         categoryController.categories[indexCategory];
-                    return HomeCardCategoryWidget(
-                      assetName: category.icon!,
+                    return AppCardCategoryWidget(
+                      assetName: category.icon,
                       categoryName: category.name,
                       CategoryId: category.id,
                       margin: true,
@@ -276,10 +279,10 @@ class HomePage extends StatelessWidget {
                       },
                     );
                   },
-                );
-              }),
-            ),
-            SizedBox(height: DimensApp.spaceBetweenSection),
+                ),
+              );
+            }),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
 
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة
