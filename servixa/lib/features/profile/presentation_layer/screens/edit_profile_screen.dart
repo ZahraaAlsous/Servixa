@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/utils/validators.dart';
+import 'package:servixa/features/profile/business_later/profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final TextEditingController addressDetailsController =
       TextEditingController();
+  final ProfileController profileController = Get.put(ProfileController());
   EditProfileScreen({super.key});
 
   @override
@@ -43,8 +48,8 @@ class EditProfileScreen extends StatelessWidget {
                   hintText: "Ahmad",
                   icon: IconApp.person,
                   widthTextFormField: 0.444,
-                  // controller: firstNameController,
-                  // validator: Validators.validateFirstName,
+                  controller: profileController.firstNameController,
+                  validator: Validators.validateFirstName,
                 ),
                 const SizedBox(width: DimensApp.widthBetweenTextFormField),
                 AppTextFormField(
@@ -52,8 +57,8 @@ class EditProfileScreen extends StatelessWidget {
                   hintText: "Ahmad",
                   icon: IconApp.person,
                   widthTextFormField: 0.444,
-                  // controller: lastNameController,
-                  // validator: Validators.validateLastName,
+                  controller: profileController.lastNameController,
+                  validator: Validators.validateLastName,
                 ),
               ],
             ),
@@ -64,8 +69,11 @@ class EditProfileScreen extends StatelessWidget {
               hintText: "example@gmail.com",
               keyboardType: TextInputType.emailAddress,
               icon: IconApp.email,
-              // controller: emailPhoneController,
-              // validator: Validators.validateEmailOrPhone,
+              controller: profileController.emailController,
+              validator: (value) => Validators.validateEmailRegister(
+                value,
+                profileController.phoneController.text,
+              ),
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             AppTextFormField(
@@ -75,8 +83,11 @@ class EditProfileScreen extends StatelessWidget {
               // edit
               // icon
               icon: IconApp.phone,
-              // controller: emailPhoneController,
-              // validator: Validators.validateEmailOrPhone,
+              controller: profileController.phoneController,
+              validator: (value) => Validators.validatePhoneRegister(
+                value,
+                profileController.emailController.text,
+              ),
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             AppDropdownButtonFormFieldWidget(
@@ -143,25 +154,41 @@ class EditProfileScreen extends StatelessWidget {
               controller: addressDetailsController,
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            SizedBox(
-              width: size.width * 0.93,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+            Obx(() {
+              if (profileController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                width: size.width * 0.93,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    backgroundColor: ThemeApp.Foundation_Main_main_500,
                   ),
-                  backgroundColor: ThemeApp.Foundation_Main_main_500,
-                ),
-                onPressed: () {},
+                  onPressed: () {
+                    profileController.updateProfile(
+                      (isupdate) {
+                        AppSnackbar.showSuccess(
+                          isupdate ? "updare done" : "no update",
+                        );
+                      },
+                      (e) {
+                        AppSnackbar.showError(e);
+                      },
+                    );
+                  },
 
-                child: Text(
-                  "Update",
-                  style: TypographyApp.Body_mid_Mid.copyWith(
-                    color: ThemeApp.Foundation_Main_yellow_50,
+                  child: Text(
+                    "Update",
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_yellow_50,
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
           ],
         ),
       ),
