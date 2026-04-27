@@ -13,9 +13,7 @@ class AuthController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
 
-  // RxBool isPasswordVisible = false.obs;
   RxBool isPasswordVisible = true.obs;
-  // RxBool isConfirmPasswordVisible = false.obs;
   RxBool isAgreeTermsAndPolicies = false.obs;
   RxBool isConfirmPasswordVisible = true.obs;
 
@@ -61,6 +59,41 @@ class AuthController extends GetxController {
     }
   }
 
+  void clearLoginFields() {
+    emailLoginController.clear();
+    passwordLoginController.clear();
+    log("==============================Clear textFormFields Login");
+  }
+
+  void clearRegisterFields() {
+    firstNameController.clear();
+    lastNameController.clear();
+    emailRegisterController.clear();
+    phoneController.clear();
+    passwordRegisterController.clear();
+    confirmPasswordController.clear();
+    otpController.clear();
+    log("==============================Clear textFormFields Register");
+  }
+
+  Future<void> refreshCurrentUser() async {
+    try {
+      String? userJson = await storage.read(key: "user");
+      if (userJson != null) {
+        Map<String, dynamic> userMap = jsonDecode(userJson);
+        UserModel refreshedUser = UserModel.fromJson(userMap);
+        currentUser.value = refreshedUser;
+        log(
+          "==============================Auth Controller: Current user refreshed",
+        );
+      }
+    } catch (e) {
+      log(
+        "==============================Auth Controller: Error refreshing user: $e",
+      );
+    }
+  }
+
   Future<void> register(
     // String first_name,
     // String last_name,
@@ -96,8 +129,6 @@ class AuthController extends GetxController {
         phone: finalPhone,
         password: passwordRegisterController.text,
       );
-      // await authService.register(first_name, last_name, email, password);
-      // await authService.register(first_name, last_name, email, phone, password);
       onSuccess();
       log("==============================Controller : Register OK");
     } catch (e) {
@@ -177,6 +208,32 @@ class AuthController extends GetxController {
       );
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> logout(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      log("==============================Controller : Logout IN");
+      if (await authService.logout()) {
+        isLoggedIn.value = false;
+        await storage.delete(key: "token");
+        await storage.delete(key: "user");
+        currentUser.value = null;
+        clearLoginFields();
+        clearRegisterFields();
+        log("==============================Controller : Logout OK");
+        onSuccess();
+      }
+    } catch (e) {
+      log("==============================Controller : Logout ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
     }
   }
 

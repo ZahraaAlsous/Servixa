@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
@@ -11,6 +13,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
+import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_change_acount_widget.dart';
@@ -47,99 +50,146 @@ class OptionProfileScreen extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(11),
               ),
-              child:
-                  authController.isLoggedIn.value &&
-                      authController.currentUser.value != null
-                  ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.bottomSheet(
-                                  isDismissible: true,
-                                  enableDrag: true,
-                                  isScrollControlled: true,
-                                  BottomSheetViewProfileWidget(),
-                                );
-                              },
-                              child: Container(
-                                width: widthScreen * 0.109,
-                                height: 48.6,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image:
-                                        authController
-                                                .currentUser
-                                                .value
-                                                ?.image !=
-                                            null
-                                        ? NetworkImage(
-                                            authController
-                                                .currentUser
-                                                .value!
-                                                .image!,
-                                          )
-                                        : AssetImage(ImageApp.profileImage),
-                                  ),
+              child: Obx(() {
+                if (authController.isLoggedIn.value &&
+                    authController.currentUser.value != null) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.bottomSheet(
+                                isDismissible: true,
+                                enableDrag: true,
+                                isScrollControlled: true,
+                                BottomSheetViewProfileWidget(),
+                              );
+                            },
+                            child: Container(
+                              width: widthScreen * 0.109,
+                              height: 48.6,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      authController.currentUser.value?.image !=
+                                          null
+                                      ? NetworkImage(
+                                          authController
+                                              .currentUser
+                                              .value!
+                                              .image!,
+                                        )
+                                      : AssetImage(ImageApp.profileImage),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  authController.currentUser.value!.name,
-                                  style: TypographyApp.Title_Mid_Mid.copyWith(
-                                    color: ThemeApp.whiteBackground,
-                                  ),
+                          ),
+                          const SizedBox(width: 5),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                authController.currentUser.value!.firstName +
+                                    " " +
+                                    authController.currentUser.value!.lastName,
+                                style: TypographyApp.Title_Mid_Mid.copyWith(
+                                  color: ThemeApp.whiteBackground,
                                 ),
-                                Row(
-                                  children: [
-                                    // qustion
-                                    // مو من مكتبة الألوان
-                                    // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                                    SvgPicture.asset(
-                                      IconApp.place,
-                                      width: 16,
-                                      height: 16,
-                                      color: ThemeApp.Foundation_Main_yellow_50,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      "Riyadh – Malaz",
-                                      style:
-                                          TypographyApp
-                                              .Label_Mid_Regular.copyWith(
-                                            color: ThemeApp.whiteBackground,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.to(EditProfileScreen());
-                              },
-                              child: Row(
+                              ),
+                              Row(
                                 children: [
+                                  // qustion
+                                  // مو من مكتبة الألوان
+                                  // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
                                   SvgPicture.asset(
-                                    IconApp.edit,
+                                    IconApp.place,
+                                    width: 16,
+                                    height: 16,
                                     color: ThemeApp.Foundation_Main_yellow_50,
                                   ),
+                                  const SizedBox(width: 5),
                                   Text(
-                                    "Edit".tr(),
+                                    "Riyadh – Malaz",
                                     style:
                                         TypographyApp
                                             .Label_Mid_Regular.copyWith(
-                                          color: ThemeApp
-                                              .Foundation_Main_yellow_50,
+                                          color: ThemeApp.whiteBackground,
                                         ),
                                   ),
                                 ],
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(EditProfileScreen());
+                            },
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  IconApp.edit,
+                                  color: ThemeApp.Foundation_Main_yellow_50,
+                                ),
+                                Text(
+                                  "Edit".tr(),
+                                  style:
+                                      TypographyApp.Label_Mid_Regular.copyWith(
+                                        color:
+                                            ThemeApp.Foundation_Main_yellow_50,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  ThemeApp.Foundation_Main_main_500,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const Divider(),
+                      Container(
+                        width: widthScreen * 0.781,
+                        height: 41,
+                        padding: EdgeInsetsGeometry.all(7),
+                        decoration: BoxDecoration(
+                          color: ThemeApp.Foundation_Main_main_100,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          children: [
+                            // note
+                            // هون اسم الحساب؟
+                            Text(
+                              "Business Account".tr(),
+                              style: TypographyApp.Label_Mid_Regular.copyWith(
+                                color: ThemeApp.black,
+                              ),
+                            ),
+                            const Spacer(),
+                            ElevatedButton(
+                              // edit
+                              // where go
+                              onPressed: () {
+                                // edit
+                                // Get.to(CreateBusinessAccountScreen());
+                                Get.bottomSheet(
+                                  isDismissible: true,
+                                  enableDrag: true,
+                                  BottomSheetChangeAcountWidget(),
+                                );
+                              },
+                              child: Text(
+                                "Change".tr(),
+                                style: TypographyApp.Label_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Main_yellow_50,
+                                ),
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -151,76 +201,28 @@ class OptionProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Divider(),
-                        Container(
-                          width: widthScreen * 0.781,
-                          height: 41,
-                          padding: EdgeInsetsGeometry.all(7),
-                          decoration: BoxDecoration(
-                            color: ThemeApp.Foundation_Main_main_100,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Row(
-                            children: [
-                              // note
-                              // هون اسم الحساب؟
-                              Text(
-                                "Business Account".tr(),
-                                style: TypographyApp.Label_Mid_Regular.copyWith(
-                                  color: ThemeApp.black,
-                                ),
-                              ),
-                              const Spacer(),
-                              ElevatedButton(
-                                // edit
-                                // where go
-                                onPressed: () {
-                                  // edit
-                                  // Get.to(CreateBusinessAccountScreen());
-                                  Get.bottomSheet(
-                                    isDismissible: true,
-                                    enableDrag: true,
-                                    BottomSheetChangeAcountWidget(),
-                                  );
-                                },
-                                child: Text(
-                                  "Change".tr(),
-                                  style:
-                                      TypographyApp.Label_Mid_Regular.copyWith(
-                                        color:
-                                            ThemeApp.Foundation_Main_yellow_50,
-                                      ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      ThemeApp.Foundation_Main_main_500,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : ListTile(
-                      title: Text(
-                        "Login to enjoy all features",
-                        style: TypographyApp.Body_mid_Mid.copyWith(
-                          color: ThemeApp.whiteBackground,
-                        ),
                       ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          Get.to(LoginPage());
-                        },
-                        icon: Icon(
-                          Icons.login_rounded,
-                          color: ThemeApp.whiteBackground,
-                        ),
-                      ),
+                    ],
+                  );
+                }
+                return ListTile(
+                  title: Text(
+                    "Login to enjoy all features",
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.whiteBackground,
                     ),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Get.to(LoginPage());
+                    },
+                    icon: Icon(
+                      Icons.login_rounded,
+                      color: ThemeApp.whiteBackground,
+                    ),
+                  ),
+                );
+              }),
             ),
           ),
           Padding(
@@ -320,7 +322,18 @@ class OptionProfileScreen extends StatelessWidget {
             ListTileWidget(
               title: "Logout",
               // edit
-              onTap: () {},
+              onTap: () async {
+                log("******************************Click LOGOUT");
+                await authController.logout(
+                  () {
+                    AppSnackbar.showSuccess("lllll");
+                    Get.offAll(() => HomePage());
+                  },
+                  (e) {
+                    AppSnackbar.showError(e);
+                  },
+                );
+              },
               icon: IconApp.logout,
               isNotLastTileList: false,
               isLogout: true,
@@ -330,6 +343,7 @@ class OptionProfileScreen extends StatelessWidget {
               title: "Login",
               // edit
               onTap: () {
+                log("******************************Click GoLoginPage");
                 Get.to(LoginPage());
               },
               icon: IconApp.logout,

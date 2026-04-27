@@ -29,7 +29,6 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
       body: pages[selectedIndex],

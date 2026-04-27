@@ -57,6 +57,8 @@ dependencies:
   google_maps_flutter: ^2.14.2
   open_filex: ^4.7.0
   geolocator: ^14.0.2
+  # geocoding: ^4.0.0
+  device_info_plus: ^12.4.0
 
 dev_dependencies:
   flutter_test:

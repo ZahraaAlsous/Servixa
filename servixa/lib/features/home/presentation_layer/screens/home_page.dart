@@ -46,111 +46,120 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar:
-          authController.isLoggedIn.value &&
-              authController.currentUser.value != null
-          ? AppBarWidget(
-              title: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Get.to(OptionProfileScreen());
-                    },
-                    child: Container(
-                      width: size.width * 0.109,
-                      height: 48.6,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: authController.currentUser.value?.image != null
-                              ? NetworkImage(
-                                  authController.currentUser.value!.image!,
-                                )
-                              : AssetImage(ImageApp.profileImage),
-                        ),
+      appBar: AppBarWidget(
+        title: Obx(() {
+          if (authController.isLoggedIn.value &&
+              authController.currentUser.value != null) {
+            return Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.to(OptionProfileScreen());
+                  },
+                  child: Container(
+                    width: size.width * 0.109,
+                    height: 48.6,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: authController.currentUser.value?.image != null
+                            ? NetworkImage(
+                                authController.currentUser.value!.image!,
+                              )
+                            : AssetImage(ImageApp.profileImage),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(
-                        () => Text(
-                          authController.currentUser.value!.name,
-                          style: TypographyApp.Title_Mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Grey_grey_700,
+                ),
+                const SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      authController.currentUser.value!.firstName +
+                          " " +
+                          authController.currentUser.value!.lastName,
+                      style: TypographyApp.Title_Mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Grey_grey_700,
+                      ),
+                    ),
+
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // qustion
+                        // مو من مكتبة الألوان
+                        // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                        SvgPicture.asset(
+                          IconApp.place,
+                          width: 16,
+                          height: 16,
+                          color: ThemeApp.colorIconProfileHomeScreen,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          "Riyadh – Malaz",
+                          style: TypographyApp.Label_Mid_Regular.copyWith(
+                            color: ThemeApp.Foundation_Secendary_grey_600,
                           ),
                         ),
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          // qustion
-                          // مو من مكتبة الألوان
-                          // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                          SvgPicture.asset(
-                            IconApp.place,
-                            width: 16,
-                            height: 16,
-                            color: ThemeApp.colorIconProfileHomeScreen,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            "Riyadh – Malaz",
-                            style: TypographyApp.Label_Mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Secendary_grey_600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
+                ),
 
-                  Spacer(),
-                  SvgPicture.asset(
+                Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
                     IconApp.location,
                     width: 34,
                     height: 34,
                     color: ThemeApp.Foundation_Main_main_500,
                   ),
-                ],
+                ),
+              ],
+            );
+          }
+          return Row(
+            children: [
+              InkWell(
+                onTap: () => Get.to(OptionProfileScreen()),
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: ThemeApp.Foundation_Main_main_100,
+                  child: Icon(
+                    Icons.person_outline,
+                    color: ThemeApp.Foundation_Main_main_500,
+                  ),
+                ),
               ),
-            )
-          : AppBarWidget(
-              title: Row(
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () => Get.to(OptionProfileScreen()),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: ThemeApp.Foundation_Main_main_100,
-                      child: Icon(
-                        Icons.person_outline,
-                        color: ThemeApp.Foundation_Main_main_500,
-                      ),
+                  Text(
+                    "Welcome, Guest".tr(),
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
+                      color: ThemeApp.black,
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Welcome, Guest".tr(),
-                        style: TypographyApp.Title_Mid_Mid.copyWith(
-                          color: ThemeApp.black,
-                        ),
-                      ),
-                      Text(
-                        "Login to enjoy all features".tr(),
-                        style: TypographyApp.Label_Mid_Mid.copyWith(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    "Login to enjoy all features".tr(),
+                    style: TypographyApp.Label_Mid_Mid.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
                 ],
               ),
-            ),
+            ],
+          );
+        }),
+      ),
+
+      //  AppBarWidget(
+      //     title:
+
+      //   ),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -172,7 +181,7 @@ class HomePage extends StatelessWidget {
                 Get.to(SearchScreen());
               },
             ),
-            SizedBox(height: DimensApp.spaceBetweenSection),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
             SizedBox(
               height: 145,
               child: CarouselSlider.builder(

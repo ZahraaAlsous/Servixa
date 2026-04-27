@@ -15,15 +15,18 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/profile/business_later/profile_controller.dart';
 
-class EditProfileScreen extends StatelessWidget {
+class EditProfileScreen extends GetView<ProfileController> {
   final TextEditingController addressDetailsController =
       TextEditingController();
   final ProfileController profileController = Get.put(ProfileController());
-  EditProfileScreen({super.key});
+  EditProfileScreen({super.key}) {
+    Get.find<ProfileController>().initialDataEditProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
@@ -169,9 +172,9 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     profileController.updateProfile(
-                      (isupdate) {
+                      (isUpdate) {
                         AppSnackbar.showSuccess(
-                          isupdate ? "updare done" : "no update",
+                          isUpdate ? "update done" : "no Faild update",
                         );
                       },
                       (e) {

@@ -20,7 +20,7 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final AuthController authController = Get.put(AuthController());
+  final AuthController authController = Get.find<AuthController>();
 
   LoginPage({super.key});
 
@@ -121,20 +121,24 @@ class LoginPage extends StatelessWidget {
                       ? const CircularProgressIndicator()
                       : AuthElevatedButtonWidget(
                           text: "Login",
-                          onPressed: authController.isLoading.value ? null :  () {
-                            if (_formKey.currentState!.validate()) {
-                              log("******************************Click LOGIN");
-                              authController.login(
-                                () {
-                                  Get.offAll(SuperHomeScreen());
+                          onPressed: authController.isLoading.value
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    log(
+                                      "******************************Click LOGIN",
+                                    );
+                                    authController.login(
+                                      () {
+                                        Get.offAll(SuperHomeScreen());
+                                      },
+                                      (e) {
+                                        AppSnackbar.showError(e.toString());
+                                      },
+                                    );
+                                  }
+                                  // Get.offAll(page)
                                 },
-                                (e) {
-                                  AppSnackbar.showError(e.toString());
-                                },
-                              );
-                            }
-                            // Get.offAll(page)
-                          },
                         ),
                 ],
               ),

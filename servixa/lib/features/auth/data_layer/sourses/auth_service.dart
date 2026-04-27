@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -121,6 +123,58 @@ class AuthService {
       log(
         "==============================Service THE ERROR IS: " + e.toString(),
       );
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<String?> getDeviceId() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    } else if (Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Device id : ${androidDeviceInfo.id}");
+      return androidDeviceInfo.id; // unique ID on Android
+    }
+    return null;
+  }
+
+  Future<bool> logout() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Logout IN");
+      String? token = await storage.read(key: "token");
+
+      String? deviceId = await getDeviceId();
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/logout",
+        data: {"device_id": deviceId},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log("==============================Service : Logout OK");
+        return response.statusCode == 200;
+      } else {
+        log("==============================Service : Logout FAILED");
+        throw "logout Failed";
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : Logout ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : Logout ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
       throw e.response!.data["message"];
     }
   }
