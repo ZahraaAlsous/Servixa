@@ -1,43 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:servixa/core/const/icon_app.dart';
+import 'package:get/get.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
-  const FirstStepSelectBusinessTypeScreen({super.key});
+  final BusiessAccountController busiessAccountController = Get.put(
+    BusiessAccountController(),
+  );
+  FirstStepSelectBusinessTypeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 32,
-        crossAxisSpacing: 32,
-        childAspectRatio: 182 / 113,
-      ),
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return Container(
-          width: size.width * 0.2976,
-          decoration: BoxDecoration(color: ThemeApp.Foundation_Main_yellow_50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(IconApp.Balconies),
-              Text(
-                "Engineering",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_600,
-                ),
+    return Obx(() {
+      if (busiessAccountController.isLoadingUserTypes.value) {
+       return Center(child: CircularProgressIndicator());
+      }
+    return  GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 32,
+          crossAxisSpacing: 32,
+          childAspectRatio: 182 / 113,
+        ),
+        itemCount: busiessAccountController.userTypesList.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            // edit
+            onTap: () {},
+            child: Container(
+              width: size.width * 0.2976,
+              decoration: BoxDecoration(
+                color: ThemeApp.Foundation_Main_yellow_50,
               ),
-            ],
-          ),
-        );
-      },
-    );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // SvgPicture.asset(IconApp.Balconies),
+                  // SvgPicture.network(
+                  //   busiessAccountController.userTypesList[index].icon!.url,
+                  // ),
+                  Text(
+                    busiessAccountController.userTypesList[index].name,
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    });
   }
 }

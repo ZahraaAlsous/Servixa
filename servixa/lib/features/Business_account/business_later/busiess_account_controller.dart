@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
+import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 import 'package:servixa/features/Business_account/data_layer/sourses/business_account_service.dart';
 
 class BusiessAccountController extends GetxController {
@@ -14,7 +15,9 @@ class BusiessAccountController extends GetxController {
   RxList<File> listImage = <File>[].obs;
   RxList<File> listFile = <File>[].obs;
   RxList<CityModel> citiesList = <CityModel>[].obs;
+  RxList<UserTypeModel> userTypesList = <UserTypeModel>[].obs;
   RxBool isLoading = false.obs;
+  RxBool isLoadingUserTypes = false.obs;
 
   @override
   void onInit() {
@@ -22,6 +25,7 @@ class BusiessAccountController extends GetxController {
     getCities((e) {
       AppSnackbar.showError(e);
     }); // getCategories();
+    getUserTypes();
   }
 
   Future<void> pickFile() async {
@@ -58,6 +62,26 @@ class BusiessAccountController extends GetxController {
       }
     } catch (e) {
       log('Error opening file: $e');
+    }
+  }
+
+  Future<void> getUserTypes() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : getUserTypes IN");
+
+      isLoadingUserTypes.value = true;
+      userTypesList.value = await businessAccountService.getUserTypes();
+      log("==============================Controller : getUserTypes OK");
+    } catch (e) {
+      log("==============================Controller : getUserTypes ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+
+      throw e;
+    } finally {
+      isLoadingUserTypes.value = false;
     }
   }
 
