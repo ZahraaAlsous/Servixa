@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
@@ -7,10 +8,15 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
+import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 
 class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
   final TextEditingController addressDetailsController =
       TextEditingController();
+  final BusiessAccountController busiessAccountController = Get.put(
+    BusiessAccountController(),
+  );
   ThirdStepBusinessAccountContactInformationScreen({super.key});
 
   @override
@@ -25,36 +31,110 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           ),
         ),
         AppDropdownButtonFormFieldWidget(
-          hintText: "City",
-          onChanged: (value) {
-            // addAdsController.typeService = value;
-          },
+          hintText: busiessAccountController.isLoading.value
+              ? "Loading cities..."
+              : "City",
+          onChanged: busiessAccountController.isLoading.value
+              ? null
+              : (value) {
+                  // addAdsController.typeService = value;
+                },
           prefixIcon: IconApp.city,
           borderRadio: 16,
-          validator: Validators.validateReviewAndRequestOrder,
-          items: [
-            DropdownMenuItem<String>(
-              value: "dolar",
-              child: Text(
-                "Dollar \$",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
-                ),
-              ),
-              alignment: Alignment.center,
-            ),
+          // validator: Validators.validateReviewAndRequestOrder,
+          // items: busiessAccountController.isLoading.value
+          //     ? [
+          //         DropdownMenuItem<String>(
+          //           value: null,
+          //           enabled: false,
+          //           child: Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               SizedBox(
+          //                 width: 18,
+          //                 height: 18,
+          //                 child: CircularProgressIndicator(
+          //                   strokeWidth: 2,
+          //                   color: ThemeApp.Foundation_Main_main_500,
+          //                 ),
+          //               ),
+          //               const SizedBox(width: 8),
+          //               Text(
+          //                 "Loading cities...",
+          //                 style: TypographyApp.Body_mid_Regular,
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ]
+          //     : busiessAccountController.citiesList.map((city) {
+          //         return DropdownMenuItem<CityModel>(
+          //           value: city,
+          //           child: Row(
+          //             children: [
+          //               Text(
+          //                 city.name,
+          //                 // edit
+          //                 style: TextStyle(fontSize: 9),
+          //               ),
+          //             ],
+          //           ),
+          //         );
+          //       }).toList(),
 
-            DropdownMenuItem<String>(
-              value: "sp",
-              child: Text(
-                "Sp Syrian pounds",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
+         items: () {
+            if (busiessAccountController.isLoading.value) {
+              return [
+                const DropdownMenuItem<String>(
+                  value: null,
+                  enabled: false,
+                  child: Text("Loading..."),
                 ),
-              ),
-              alignment: Alignment.center,
-            ),
-          ],
+              ];
+            }
+
+            if (busiessAccountController.citiesList.isEmpty) {
+              return [
+                const DropdownMenuItem<String>(
+                  value: null,
+                  enabled: false,
+                  child: Text("No cities available"),
+                ),
+              ];
+            }
+
+            return busiessAccountController.citiesList.map((city) {
+              return DropdownMenuItem<CityModel>(
+                value: city,
+                child: Text(city.name),
+              );
+            }).toList();
+          }(),
+        
+        
+          // items: [
+          //   DropdownMenuItem<String>(
+          //     value: "dolar",
+          //     child: Text(
+          //       "Dollar \$",
+          //       style: TypographyApp.Body_mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_400,
+          //       ),
+          //     ),
+          //     alignment: Alignment.center,
+          //   ),
+
+          //   DropdownMenuItem<String>(
+          //     value: "sp",
+          //     child: Text(
+          //       "Sp Syrian pounds",
+          //       style: TypographyApp.Body_mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_400,
+          //       ),
+          //     ),
+          //     alignment: Alignment.center,
+          //   ),
+          // ],
         ),
 
         const SizedBox(height: 10),
