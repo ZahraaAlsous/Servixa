@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
 import 'package:get/get.dart' hide Trans;
 
@@ -54,19 +53,14 @@ class Validators {
     return null;
   }
 
-  static String? validateFirstName(String? value) {
+  static String? validateText(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "First name is required";
+      return "$message is required";
     }
     return null;
   }
 
-  static String? validateLastName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return "Last name is required";
-    }
-    return null;
-  }
+  
 
   static String? validatePhoneRegister(String? value, String? emailValue) {
     // // if (value == null || value.trim().isEmpty) {
@@ -246,6 +240,40 @@ class Validators {
       return "Price cannot be negative";
     }
 
+    return null;
+  }
+
+  static String? validateNumber(String? value, String message) {
+    if (value == null || value.trim().isEmpty) {
+      return "$message is required";
+    }
+    if (!value.isNum) {
+      return "The $message must be in numbers only.";
+    }
+    return null;
+  }
+
+  static String? validateNameArabic(String? value, String message) {
+    if (value == null || value.trim().isEmpty) {
+      return "$message is required";
+    }
+    final arabicRegex = RegExp(r'^[\u0600-\u06FF\s]+$');
+
+    if (!arabicRegex.hasMatch(value)) {
+      return 'Only Arabic characters are allowed.';
+    }
+    return null;
+  }
+
+  static String? validateNameEnglish(String? value, String message) {
+    if (value == null || value.trim().isEmpty) {
+      return "$message is required";
+    }
+    final englishRegex = RegExp(r'^[a-zA-Z\s]+$');
+
+    if (!englishRegex.hasMatch(value)) {
+      return 'Only English characters are allowed.';
+    }
     return null;
   }
 }

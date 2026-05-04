@@ -70,7 +70,10 @@ class RegisterPage extends StatelessWidget {
                         icon: IconApp.person,
                         widthTextFormField: 0.444,
                         controller: authController.firstNameController,
-                        validator: Validators.validateFirstName,
+                        // edit
+                        // translate
+                        validator: (value) =>
+                            Validators.validateText(value, "First name"),
                       ),
                       const SizedBox(
                         width: DimensApp.widthBetweenTextFormField,
@@ -81,7 +84,7 @@ class RegisterPage extends StatelessWidget {
                         icon: IconApp.person,
                         widthTextFormField: 0.444,
                         controller: authController.lastNameController,
-                        validator: Validators.validateLastName,
+                        validator: (value) => Validators.validateText(value, "Last name"),
                       ),
                     ],
                   ),

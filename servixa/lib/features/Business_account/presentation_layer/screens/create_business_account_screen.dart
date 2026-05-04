@@ -3,16 +3,21 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/Second_step_business_account_details_screen.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/first_step_select_business_type_screen.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/four_step_business_account_document_screen.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/third_step_business_account_contact_information_screen.dart';
 
 class CreateBusinessAccountScreen extends StatelessWidget {
+  final BusiessAccountController busiessAccountController = Get.put(
+    BusiessAccountController(),
+  );
   RxInt _currentStep = 0.obs;
 
   final List<String> _stepTitles = [
@@ -165,51 +170,72 @@ class CreateBusinessAccountScreen extends StatelessWidget {
 
         if (_currentStep > 0) const SizedBox(width: 10),
 
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              // if (addAdsController.validateStepAddAds(_currentStep)) {
-              //   if (_currentStep == 1) {
-              //     // if (addAdsController.hasSubCategories) {
-              //     categoryController.getSubCategories(
-              //       addAdsController.selectedCategoryAds.value!.id,
-              //     );
-              //     if (categoryController.subCategories.value.isNotEmpty) {
-              //       setState(() {
-              //         _currentStep = 2;
-              //       });
-              //     } else {
-              //       setState(() {
-              //         _currentStep = 3;
-              //       });
-              //     }
-              //   } else {
-              // setState(() {
-              _currentStep.value++;
-              // });
-              // }
-              // } else {
-              //   Get.snackbar(
-              //     "Alert",
-              //     "This step is required",
-              //     backgroundColor: ThemeApp.Foundation_Main_main_50,
-              //     colorText: ThemeApp.Foundation_Main_main_500,
-              //   );
-              // }
-              
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ThemeApp.Foundation_Main_main_500,
-              padding: const EdgeInsets.symmetric(vertical: 15),
-            ),
-            child: Text(
-              _currentStep == 3 ? 'Submit' : 'Next',
-              style: TypographyApp.Body_mid_Mid.copyWith(
-                color: ThemeApp.Foundation_Main_main_50,
+        Obx(() {
+          if (busiessAccountController.isLoading.value) {
+            return Center(child: CircleAvatar());
+          }
+          return Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                // // if (addAdsController.validateStepAddAds(_currentStep)) {
+                // //   if (_currentStep == 1) {
+                // //     // if (addAdsController.hasSubCategories) {
+                // //     categoryController.getSubCategories(
+                // //       addAdsController.selectedCategoryAds.value!.id,
+                // //     );
+                // //     if (categoryController.subCategories.value.isNotEmpty) {
+                // //       setState(() {
+                // //         _currentStep = 2;
+                // //       });
+                // //     } else {
+                // //       setState(() {
+                // //         _currentStep = 3;
+                // //       });
+                // //     }
+                // //   } else {
+                // // setState(() {
+                // _currentStep.value++;
+                // // });
+                // // }
+                // // } else {
+                // //   Get.snackbar(
+                // //     "Alert",
+                // //     "This step is required",
+                // //     backgroundColor: ThemeApp.Foundation_Main_main_50,
+                // //     colorText: ThemeApp.Foundation_Main_main_500,
+                // //   );
+                // // }
+
+                if (_currentStep.value < 3) {
+                  _currentStep.value++;
+                } else {
+                  log(
+                    "******************************Click Submit CreateBusinessAccount",
+                  );
+                  busiessAccountController.createBusinessAccount(
+                    () {
+                      Get.back();
+                      AppSnackbar.showSuccess("Account created successfully");
+                    },
+                    (e) {
+                      AppSnackbar.showError(e);
+                    },
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ThemeApp.Foundation_Main_main_500,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+              ),
+              child: Text(
+                _currentStep == 3 ? 'Submit' : 'Next',
+                style: TypographyApp.Body_mid_Mid.copyWith(
+                  color: ThemeApp.Foundation_Main_main_50,
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
       ],
     );
   }

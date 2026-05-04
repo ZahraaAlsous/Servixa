@@ -52,7 +52,7 @@ class EditProfileScreen extends GetView<ProfileController> {
                   icon: IconApp.person,
                   widthTextFormField: 0.444,
                   controller: profileController.firstNameController,
-                  validator: Validators.validateFirstName,
+                  validator: (value) => Validators.validateText(value, "First Name"),
                 ),
                 const SizedBox(width: DimensApp.widthBetweenTextFormField),
                 AppTextFormField(
@@ -61,7 +61,8 @@ class EditProfileScreen extends GetView<ProfileController> {
                   icon: IconApp.person,
                   widthTextFormField: 0.444,
                   controller: profileController.lastNameController,
-                  validator: Validators.validateLastName,
+                  validator: (value) =>
+                      Validators.validateText(value, "Last name"),
                 ),
               ],
             ),

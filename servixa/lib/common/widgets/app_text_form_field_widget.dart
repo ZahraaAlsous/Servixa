@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'dart:ui' as ui;
+
 class AppTextFormField extends StatelessWidget {
   final String? labelText;
   final String hintText;
@@ -21,6 +24,8 @@ class AppTextFormField extends StatelessWidget {
   final int? maxLines;
   final void Function(String)? onChanged;
   final Widget? prefix;
+  final List<TextInputFormatter>? inputFormatters;
+  final ui.TextDirection? textDirection;
 
   const AppTextFormField({
     super.key,
@@ -39,7 +44,9 @@ class AppTextFormField extends StatelessWidget {
     this.minLines,
     this.maxLines,
     this.onChanged,
-    this.prefix
+    this.prefix,
+    this.inputFormatters,
+    this.textDirection,
   });
 
   @override
@@ -52,8 +59,10 @@ class AppTextFormField extends StatelessWidget {
       child: TextFormField(
         minLines: minLines ?? null,
         maxLines: maxLines ?? 1,
+        textDirection: textDirection,
         textInputAction: textInputAction ?? TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.text,
+        inputFormatters: inputFormatters,
         obscureText: obscureText ?? false,
         decoration: InputDecoration(
           hintText: hintText.tr(),
@@ -91,21 +100,23 @@ class AppTextFormField extends StatelessWidget {
             borderSide: const BorderSide(width: 1, color: Colors.red),
           ),
 
-          prefixIcon: prefix ?? (icon != null
-              ? Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    icon!,
-                    width: sizeIconPrefix ?? 20,
-                    height: sizeIconPrefix ?? 20,
-                    colorFilter: ColorFilter.mode(
-                      colorIconPrefix ?? ThemeApp.Foundation_Main_main_500,
-                      BlendMode.srcIn,
-                    ),
-                    fit: BoxFit.contain,
-                  ),
-                )
-              : null),
+          prefixIcon:
+              prefix ??
+              (icon != null
+                  ? Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: SvgPicture.asset(
+                        icon!,
+                        width: sizeIconPrefix ?? 20,
+                        height: sizeIconPrefix ?? 20,
+                        colorFilter: ColorFilter.mode(
+                          colorIconPrefix ?? ThemeApp.Foundation_Main_main_500,
+                          BlendMode.srcIn,
+                        ),
+                        fit: BoxFit.contain,
+                      ),
+                    )
+                  : null),
 
           suffixIcon: suffixIcon,
         ),

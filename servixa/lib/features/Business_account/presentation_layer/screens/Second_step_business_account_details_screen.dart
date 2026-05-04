@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/utils/validators.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
-  final TextEditingController activityController = TextEditingController();
+  final BusiessAccountController busiessAccountController = Get.put(
+    BusiessAccountController(),
+  );
   SecondStepBusinessAccountDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -25,10 +30,11 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
           hintText: "License number..",
           icon: IconApp.Balconies,
           keyboardType: TextInputType.number,
-          // validator: ,
-          // controller: ,
+          validator: (value) =>
+              Validators.validateNumber(value, "License number"),
+          controller: busiessAccountController.licenseNumberController,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           "Business name (Arabic)",
           style: TypographyApp.Title_Mid_Mid.copyWith(
@@ -38,10 +44,15 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
         AppTextFormField(
           hintText: "name..",
           icon: IconApp.business,
-          // validator: ,
-          // controller: ,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[\u0600-\u06FF\s]+')),
+          ],
+          textDirection: TextDirection.rtl,
+          validator: (value) =>
+              Validators.validateNameArabic(value, "Business name (Arabic)"),
+          controller: busiessAccountController.businessNameArController,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
 
         Text(
           "Business name (English)",
@@ -52,10 +63,15 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
         AppTextFormField(
           hintText: "name..",
           icon: IconApp.business,
-          // validator: ,
-          // controller: ,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+          ],
+          textDirection: TextDirection.ltr,
+          validator: (value) =>
+              Validators.validateNameEnglish(value, "Business name (English)"),
+          controller: busiessAccountController.businessNameEnController,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
 
         Text(
           "Activities",
@@ -66,9 +82,10 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
         AppTextAreaWidget(
           hintText: "Description..",
           prefixIcon: IconApp.business,
-          controller: activityController,
+
+          controller: busiessAccountController.activityController,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
 
         Text(
           "Details",
@@ -79,7 +96,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
         AppTextAreaWidget(
           hintText: "Description..",
           prefixIcon: IconApp.business,
-          controller: activityController,
+          controller: busiessAccountController.descriptionController,
         ),
       ],
     );

@@ -1,8 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:file_picker/file_picker.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
@@ -17,7 +20,19 @@ class BusiessAccountController extends GetxController {
   RxList<CityModel> citiesList = <CityModel>[].obs;
   RxList<UserTypeModel> userTypesList = <UserTypeModel>[].obs;
   RxBool isLoading = false.obs;
+  RxBool isLoadingCities = false.obs;
   RxBool isLoadingUserTypes = false.obs;
+  RxInt selectedUserTypeId = 0.obs;
+  TextEditingController licenseNumberController = TextEditingController();
+  TextEditingController businessNameArController = TextEditingController();
+  TextEditingController businessNameEnController = TextEditingController();
+  TextEditingController activityController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController addressDetailsController = TextEditingController();
+  Rx<CityModel?> selectedCity = Rx<CityModel?>(null);
+  RxInt selectedCityId = 0.obs;
+  RxString currentAddress = "Select your location from map".obs;
+  Rx<LatLng?> selectedLatLng = Rx<LatLng?>(null);
 
   @override
   void onInit() {
@@ -87,7 +102,7 @@ class BusiessAccountController extends GetxController {
 
   Future<void> getCities(void Function(String e) onError) async {
     try {
-      isLoading.value = true;
+      isLoadingCities.value = true;
 
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : getCities IN");
       citiesList.value = await businessAccountService.getCities();
@@ -101,7 +116,119 @@ class BusiessAccountController extends GetxController {
       onError(e.toString());
       // throw e;
     } finally {
+      isLoadingCities.value = false;
+    }
+  }
+
+  void selectUserType(UserTypeModel userType) {
+    selectedUserTypeId.value = userType.id;
+    log(
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Controller: Selected User Type: ${userType.name} (ID: ${userType.id})",
+    );
+  }
+
+  bool isSelected(UserTypeModel userType) {
+    return selectedUserTypeId.value == userType.id;
+  }
+
+  void selectCity(CityModel? city) {
+    if (city != null) {
+      selectedCity.value = city;
+      selectedCityId.value = city.id;
+      log("Selected City: ${city.name} (ID: ${city.id})");
+    } else {
+      selectedCity.value = null;
+      selectedCityId.value = 0;
+    }
+  }
+
+  Future<void> updatePosition(LatLng position) async {
+    selectedLatLng.value = position;
+    log(selectedLatLng.toString());
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks[0];
+        currentAddress.value = "${place.street}, ${place.locality}";
+      }
+    } catch (e) {
+      currentAddress.value = "Unknown Location";
+    }
+  }
+
+  Future<void> createBusinessAccount(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      log(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : CreateBusinessAccount IN",
+      );
+
+      isLoading.value = true;
+      await businessAccountService.createBusinessAccount(
+        user_type_id: selectedUserTypeId.value,
+        city_id: selectedCityId.value,
+        business_nameAr: businessNameArController.text,
+        business_nameEn: businessNameEnController.text,
+        license_number: licenseNumberController.text,
+        business_address: addressDetailsController.text,
+        activities: activityController.text,
+        details: descriptionController.text,
+        lat: selectedLatLng.value!.latitude,
+        lng: selectedLatLng.value!.longitude,
+        documents: listFile,
+      );
+      log(
+        "==============================Controller : CreateBusinessAccount OK",
+      );
+      onSuccess();
+      clearData();
+    } catch (e) {
+      log(
+        "==============================Controller : CreateBusinessAccount ERROR",
+      );
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+
+      onError(e.toString());
+    } finally {
       isLoading.value = false;
     }
+  }
+
+  void clearData() {
+    businessNameArController.clear();
+    businessNameEnController.clear();
+    licenseNumberController.clear();
+    activityController.clear();
+    descriptionController.clear();
+    addressDetailsController.clear();
+
+    selectedUserTypeId.value = 0;
+    selectedCityId.value = 0;
+    selectedCity.value = null;
+    selectedLatLng.value = null;
+    currentAddress.value = "Select your location from map";
+    listFile.clear();
+    log(
+      "==============================Controller : CreateBusinessAccount ClearFailed OK",
+    );
+  }
+
+  @override
+  void onClose() {
+    businessNameArController.dispose();
+    businessNameEnController.dispose();
+    licenseNumberController.dispose();
+    activityController.dispose();
+    descriptionController.dispose();
+    addressDetailsController.dispose();
+    super.onClose();
   }
 }

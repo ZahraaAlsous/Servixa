@@ -7,13 +7,10 @@ import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 
 class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
-  final TextEditingController addressDetailsController =
-      TextEditingController();
   final BusiessAccountController busiessAccountController = Get.put(
     BusiessAccountController(),
   );
@@ -34,13 +31,17 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           hintText: busiessAccountController.isLoading.value
               ? "Loading cities..."
               : "City",
+          value: busiessAccountController.selectedCity.value,
           onChanged: busiessAccountController.isLoading.value
               ? null
               : (value) {
-                  // addAdsController.typeService = value;
+                  if (value is CityModel) {
+                    busiessAccountController.selectCity(value);
+                  }
                 },
           prefixIcon: IconApp.city,
           borderRadio: 16,
+
           // validator: Validators.validateReviewAndRequestOrder,
           // items: busiessAccountController.isLoading.value
           //     ? [
@@ -81,8 +82,7 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           //           ),
           //         );
           //       }).toList(),
-
-         items: () {
+          items: () {
             if (busiessAccountController.isLoading.value) {
               return [
                 const DropdownMenuItem<String>(
@@ -110,8 +110,7 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
               );
             }).toList();
           }(),
-        
-        
+
           // items: [
           //   DropdownMenuItem<String>(
           //     value: "dolar",
@@ -148,26 +147,46 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
         AppTextAreaWidget(
           hintText: "Address Detail",
           prefixIcon: IconApp.Balconies,
-          controller: addressDetailsController,
+          controller: busiessAccountController.addressDetailsController,
         ),
         const SizedBox(height: 10),
 
-        Row(
+        // Row(
+        //   children: [
+        //     SvgPicture.asset(
+        //       IconApp.place,
+        //       color: ThemeApp.Foundation_Main_main_500,
+        //     ),
+        //     // edit
+        //     Text(
+        //       "742 Evergreen Terrace, Springfield",
+        //       style: TypographyApp.Body_mid_Regular.copyWith(
+        //         color: ThemeApp.Foundation_Secendary_grey_300,
+        //       ),
+        //     ),
+        //   ],
+        // ),
+
+Row(
           children: [
             SvgPicture.asset(
               IconApp.place,
               color: ThemeApp.Foundation_Main_main_500,
             ),
-            // edit
-            Text(
-              "742 Evergreen Terrace, Springfield",
-              style: TypographyApp.Body_mid_Regular.copyWith(
-                color: ThemeApp.Foundation_Secendary_grey_300,
+            Expanded(
+              child: Obx(
+                () => Text(
+                  busiessAccountController
+                      .currentAddress
+                      .value,
+                  style: TypographyApp.Body_mid_Regular.copyWith(
+                    color: ThemeApp.Foundation_Secendary_grey_300,
+                  ),
+                ),
               ),
             ),
           ],
         ),
-
         const SizedBox(height: 10),
         AppMapWidget(),
       ],
