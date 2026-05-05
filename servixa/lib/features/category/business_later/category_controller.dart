@@ -4,14 +4,13 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/category/data_layer/sourses/category_servic.dart';
 
 class CategoryController extends GetxController {
   final CategoryServic categoryService = CategoryServic();
   RxBool isLoading = false.obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
-  RxList<SubCategoryModel> subCategories = <SubCategoryModel>[].obs;
+  RxList<CategoryModel> subCategories = <CategoryModel>[].obs;
   RxList<CategoryQuestionModel> categoryQuestions =
       <CategoryQuestionModel>[].obs;
   RxString titleCategory = "".obs;
@@ -42,7 +41,7 @@ class CategoryController extends GetxController {
       isLoading.value = false;
     }
   }
-  
+
   // void getCategories() {
   //   categories.addAll([
   //     CategoryModel(
@@ -95,13 +94,22 @@ class CategoryController extends GetxController {
   //   ]);
   // }
 
-  void getSubCategories(int categoryId) {
-    CategoryModel category = categories.firstWhere(
-      (item) => item.id == categoryId,
-    );
+  // void getSubCategories(int categoryId) {
+  //   CategoryModel category = categories.firstWhere(
+  //     (item) => item.id == categoryId,
+  //   );
 
-    titleCategory.value = category.name;
-    subCategories.value = category.subCategories!;
+  //   titleCategory.value = category.name;
+  //   subCategories.value = category.subCategories!;
+  // }
+
+  Future<void> getSubCategories(int categoryId) async {
+    try {
+    
+      subCategories.value = await categoryService.getSubCategories(categoryId);
+    } catch (e) {
+      AppSnackbar.showError(e.toString());
+    }
   }
 
   // void getCategoryQustions(){

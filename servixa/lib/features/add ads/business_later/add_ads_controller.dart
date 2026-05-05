@@ -6,12 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 
 class AddAdsController extends GetxController {
   AuthController authController = Get.put(AuthController());
   Rx<CategoryModel?> selectedCategoryAds = Rx<CategoryModel?>(null);
-  Rx<SubCategoryModel?> selectedSubCategoryAds = Rx<SubCategoryModel?>(null);
+  Rx<CategoryModel?> selectedSubCategoryAds = Rx<CategoryModel?>(null);
   RxList<File> listSelectedMainImage = <File>[].obs;
   RxList<File> listSelectedSubImage = <File>[].obs;
   // var selectedCurrency = Rx<String?>(null);
@@ -37,7 +36,9 @@ class AddAdsController extends GetxController {
       case 1:
         return selectedCategoryAds.value != null;
       case 2:
-        if (selectedCategoryAds.value?.subCategories!.isNotEmpty ?? false) {
+        // if (selectedCategoryAds.value?.subCategories!.isNotEmpty ?? false) {
+        if (selectedCategoryAds.value!.hasChildren) {
+
           return selectedSubCategoryAds.value != null;
         }
         return true;

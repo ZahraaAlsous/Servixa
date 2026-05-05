@@ -1,14 +1,10 @@
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 
 class CategoryModel {
   int id;
   String name;
   String? icon;
   bool hasChildren;
-  // edit
-  // إذا مو الكل عندها تصنيفات فرعية فلازم حطها ممكن null هيك يمكن
-  List<SubCategoryModel>? subCategories;
   List<CategoryQuestionModel>? questions;
 
   CategoryModel({
@@ -16,7 +12,6 @@ class CategoryModel {
     required this.name,
     this.icon,
     required this.hasChildren,
-    this.subCategories,
     this.questions,
   });
 

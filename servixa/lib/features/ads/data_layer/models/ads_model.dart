@@ -1,5 +1,4 @@
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -18,9 +17,8 @@ class AdsModel {
   List<ReviewModel>? listReview;
   String status;
   CategoryModel category;
-  SubCategoryModel? subCategory;
+  // SubCategoryModel? subCategory;
   UserModel user;
-
   // edit
   // categore or sub category ?
   // type coin
@@ -40,7 +38,7 @@ class AdsModel {
     this.listReview,
     required this.status,
     required this.category,
-    this.subCategory,
+    // this.subCategory,
     required this.user,
   });
 

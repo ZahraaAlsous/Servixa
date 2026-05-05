@@ -413,8 +413,8 @@ class HomePage extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
                   childAspectRatio: 0.7,
                 ),
                 itemCount: adsController.adsList.length,

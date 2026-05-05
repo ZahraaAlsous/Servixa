@@ -7,7 +7,6 @@ import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/data_layer/sourses/ad_service.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -65,27 +64,10 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
-                    hasChildren: true,
-
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          hasChildren: true,
         ),
 
-        subCategory: SubCategoryModel(
-          id: 2,
-          name: "Plumbing & Electrical",
-          icon: "assets/images/Simplification.png",
-        ),
+       
         user: UserModel(
           id: 1,
           firstName: "firstName",
@@ -106,20 +88,13 @@ class AdsController extends GetxController {
         typeCoin: "\$",
         typeService: "Rent2",
         status: "accept",
-        
+
         category: CategoryModel(
           id: 1,
           name: "Equipment",
           icon: "assets/images/Simplification.png",
-                    hasChildren: true,
+          hasChildren: true,
 
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
           questions: [
             CategoryQuestionModel(
               id: 1,
@@ -163,20 +138,7 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
-                    hasChildren: true,
-
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          hasChildren: true,
         ),
         user: UserModel(
           id: 1,
@@ -202,15 +164,8 @@ class AdsController extends GetxController {
           id: 1,
           name: "Equipment",
           icon: "assets/images/Simplification.png",
-                    hasChildren: true,
+          hasChildren: true,
 
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
           questions: [
             CategoryQuestionModel(
               id: 1,
@@ -254,20 +209,7 @@ class AdsController extends GetxController {
           id: 2,
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
-                    hasChildren: true,
-
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          hasChildren: true,
         ),
         user: UserModel(
           id: 1,
@@ -305,7 +247,8 @@ class AdsController extends GetxController {
     } catch (e) {
       log("==============================Controller : Ad Details ERROR");
       log(
-        "==============================Controller THE ERROR IS: " + e.toString(),
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
       );
       onError(e.toString());
     } finally {

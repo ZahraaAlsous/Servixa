@@ -6,7 +6,6 @@ import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -100,25 +99,10 @@ class SearchFilterController extends GetxController {
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
           hasChildren: true,
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          
         ),
 
-        subCategory: SubCategoryModel(
-          id: 2,
-          name: "Plumbing & Electrical",
-          icon: "assets/images/Simplification.png",
-        ),
+      
         user: UserModel(
           id: 1,
           firstName: "firstName",
@@ -145,13 +129,7 @@ class SearchFilterController extends GetxController {
           icon: "assets/images/Simplification.png",
           hasChildren: true,
 
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          
           questions: [
             CategoryQuestionModel(
               id: 1,
@@ -197,18 +175,7 @@ class SearchFilterController extends GetxController {
           hasChildren: true,
 
           icon: "assets/images/Simplification.png",
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          
         ),
         user: UserModel(
           id: 1,
@@ -236,13 +203,7 @@ class SearchFilterController extends GetxController {
           hasChildren: true,
 
           icon: "assets/images/Simplification.png",
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          
           questions: [
             CategoryQuestionModel(
               id: 1,
@@ -287,18 +248,7 @@ class SearchFilterController extends GetxController {
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
           hasChildren: true,
-          subCategories: [
-            SubCategoryModel(
-              id: 1,
-              name: "Heavy Vehicles",
-              icon: "assets/images/Simplification.png",
-            ),
-            SubCategoryModel(
-              id: 2,
-              name: "Plumbing & Electrical",
-              icon: "assets/images/Simplification.png",
-            ),
-          ],
+          
         ),
         user: UserModel(
           id: 1,

@@ -7,7 +7,7 @@ import 'package:servixa/features/category/business_later/category_controller.dar
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/common/widgets/app_card_category_widget.dart';
 
 class SubCategoryScreen extends StatefulWidget {
@@ -61,7 +61,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 ),
                 itemCount: categoryController.subCategories.length,
                 itemBuilder: (context, indexSubCategory) {
-                  SubCategoryModel subCategory =
+                  CategoryModel subCategory =
                       categoryController.subCategories[indexSubCategory];
                   return AppCardCategoryWidget(
                     assetName: subCategory.icon,

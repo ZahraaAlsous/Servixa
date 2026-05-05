@@ -24,9 +24,9 @@ class SuperAdsScreen extends StatefulWidget {
 }
 
 class _SuperAdsScreenState extends State<SuperAdsScreen> {
- final AdsController adsController = Get.put(AdsController());
- final AddAdsController addAdsController = Get.put(AddAdsController());
- final CategoryController categoryController = Get.put(CategoryController());
+  final AdsController adsController = Get.put(AdsController());
+  final AddAdsController addAdsController = Get.put(AddAdsController());
+  final CategoryController categoryController = Get.put(CategoryController());
   int _currentStep = 0;
 
   List<String> _stepTitles = [
@@ -169,17 +169,26 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
             onPressed: () {
               if (addAdsController.validateStepAddAds(_currentStep)) {
                 if (_currentStep == 1) {
-                  categoryController.getSubCategories(
-                    addAdsController.selectedCategoryAds.value!.id,
-                  );
-                  if (categoryController.subCategories.value.isNotEmpty) {
+                  // categoryController.getSubCategories(
+                  //   addAdsController.selectedCategoryAds.value!.id,
+                  // );
+                 
+                  // if (categoryController.subCategories.value.isNotEmpty) {
+                  //   setState(() {
+                  //     _currentStep = 2;
+                  //   });
+
+                  // }
+                  if (addAdsController.selectedCategoryAds.value!.hasChildren) {
+                    categoryController.getSubCategories(
+                      addAdsController.selectedCategoryAds.value!.id,
+                    );
                     setState(() {
                       _currentStep = 2;
                     });
                   } else {
-                    // إذا مافي فروع → انتقل للخطوة الرابعة
                     setState(() {
-                      _currentStep = 3; // تخطي خطوة اختيار الفرع
+                      _currentStep = 3;
                     });
                   }
                 } else {
@@ -197,7 +206,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               }
             },
 
-    
             style: ElevatedButton.styleFrom(
               backgroundColor: ThemeApp.Foundation_Main_main_500,
               padding: const EdgeInsets.symmetric(vertical: 15),

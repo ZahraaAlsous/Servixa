@@ -8,7 +8,6 @@
 // import 'package:servixa/core/const/typography_app.dart';
 // import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 // import 'package:servixa/features/category/data_layer/models/category_model.dart';
-// import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 
 // class BottomSheetPortfolioWidget extends StatelessWidget {
 //   const BottomSheetPortfolioWidget({super.key});
@@ -202,7 +201,6 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/sub_category_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class BottomSheetPortfolioWidget extends StatelessWidget {
@@ -424,13 +422,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                       icon: IconApp.adsFill,
                                                 hasChildren: true,
 
-                                      subCategories: [
-                                        SubCategoryModel(
-                                          id: 1,
-                                          name: "Sub Category",
-                                          icon: IconApp.business,
-                                        ),
-                                      ],
+                                      
                                     ),
                                     user: UserModel(
                                       id: 1,
