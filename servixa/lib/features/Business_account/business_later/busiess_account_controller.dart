@@ -1,13 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:file_picker/file_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 import 'package:servixa/features/Business_account/data_layer/sourses/business_account_service.dart';
@@ -15,13 +14,18 @@ import 'package:servixa/features/Business_account/data_layer/sourses/business_ac
 class BusiessAccountController extends GetxController {
   final BusinessAccountService businessAccountService =
       BusinessAccountService();
+  RxInt currentStep = 0.obs;
   RxList<File> listImage = <File>[].obs;
   RxList<File> listFile = <File>[].obs;
   RxList<CityModel> citiesList = <CityModel>[].obs;
   RxList<UserTypeModel> userTypesList = <UserTypeModel>[].obs;
-  RxBool isLoading = false.obs;
+  RxList<BusinessAccountModel> businessAccountsList =
+      <BusinessAccountModel>[].obs;
+  RxBool isLoadingCreateBusinessAccount = false.obs;
   RxBool isLoadingCities = false.obs;
   RxBool isLoadingUserTypes = false.obs;
+  RxBool isLoadingBusinessAccounts = false.obs;
+  RxBool agreeLoadingCitiesAndUserTypes = false.obs;
   RxInt selectedUserTypeId = 0.obs;
   TextEditingController licenseNumberController = TextEditingController();
   TextEditingController businessNameArController = TextEditingController();
@@ -34,14 +38,21 @@ class BusiessAccountController extends GetxController {
   RxString currentAddress = "Select your location from map".obs;
   Rx<LatLng?> selectedLatLng = Rx<LatLng?>(null);
 
-  @override
-  void onInit() {
-    super.onInit();
-    getCities((e) {
-      AppSnackbar.showError(e);
-    }); // getCategories();
-    getUserTypes();
-  }
+  List<GlobalKey<FormState>> formKeys = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+  ];
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // getCities((e) {
+  //   AppSnackbar.showError(e);
+  // }); // getCategories();
+  //   // getUserTypes();
+  // }
 
   Future<void> pickFile() async {
     try {
@@ -168,7 +179,11 @@ class BusiessAccountController extends GetxController {
         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : CreateBusinessAccount IN",
       );
 
-      isLoading.value = true;
+      isLoadingCreateBusinessAccount.value = true;
+      List<File> documents = [];
+      documents.addAll(listFile);
+      documents.addAll(listImage);
+
       await businessAccountService.createBusinessAccount(
         user_type_id: selectedUserTypeId.value,
         city_id: selectedCityId.value,
@@ -180,7 +195,7 @@ class BusiessAccountController extends GetxController {
         details: descriptionController.text,
         lat: selectedLatLng.value!.latitude,
         lng: selectedLatLng.value!.longitude,
-        documents: listFile,
+        documents: documents,
       );
       log(
         "==============================Controller : CreateBusinessAccount OK",
@@ -198,27 +213,68 @@ class BusiessAccountController extends GetxController {
 
       onError(e.toString());
     } finally {
-      isLoading.value = false;
+      isLoadingCreateBusinessAccount.value = false;
     }
   }
 
-  void clearData() {
-    businessNameArController.clear();
-    businessNameEnController.clear();
-    licenseNumberController.clear();
-    activityController.clear();
-    descriptionController.clear();
-    addressDetailsController.clear();
+  Future<void> clearFailedBusinessAccount() async {
+    try {
+      businessNameArController.clear();
+      businessNameEnController.clear();
+      licenseNumberController.clear();
+      activityController.clear();
+      descriptionController.clear();
+      addressDetailsController.clear();
 
-    selectedUserTypeId.value = 0;
-    selectedCityId.value = 0;
-    selectedCity.value = null;
-    selectedLatLng.value = null;
-    currentAddress.value = "Select your location from map";
-    listFile.clear();
-    log(
-      "==============================Controller : CreateBusinessAccount ClearFailed OK",
-    );
+      currentStep = 0.obs;
+
+      selectedUserTypeId.value = 0;
+      selectedCityId.value = 0;
+      selectedCity.value = null;
+      selectedLatLng.value = null;
+      currentAddress.value = "Select your location from map";
+    } catch (e) {
+      log("Error in clearFailedBusinessAccount: $e");
+    }
+  }
+
+  Future<void> clearData() async {
+    try {
+      await clearFailedBusinessAccount();
+      listFile.clear();
+      listImage.clear();
+      // citiesList.clear();
+      userTypesList.clear();
+      for (var key in formKeys) {
+        key.currentState?.reset();
+      }
+
+      log(
+        "==============================Controller : CreateBusinessAccount ClearFailed OK",
+      );
+    } catch (e) {
+      log("===============================Controller : ClearData ERROR: $e");
+    }
+  }
+
+  Future<void> getBusinessAccount() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : GetBusinessAccount IN");
+
+      isLoadingBusinessAccounts.value = true;
+      businessAccountsList.value = await businessAccountService
+          .getBusinessAccount();
+    } catch (e) {
+      log(
+        "==============================Controller : GetBusinessAccount ERROR",
+      );
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+    } finally {
+      isLoadingBusinessAccounts.value = false;
+    }
   }
 
   @override

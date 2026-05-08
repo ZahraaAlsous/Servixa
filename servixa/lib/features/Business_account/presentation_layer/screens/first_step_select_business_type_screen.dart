@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
-  final BusiessAccountController busiessAccountController = Get.put(
+  final BusiessAccountController businessAccountController = Get.put(
     BusiessAccountController(),
   );
   FirstStepSelectBusinessTypeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      businessAccountController.getUserTypes();
+      businessAccountController.getCities((e) => AppSnackbar.showError(e));
+    });
     final size = MediaQuery.of(context).size;
     return Obx(() {
-      if (busiessAccountController.isLoadingUserTypes.value) {
+      if (businessAccountController.isLoadingUserTypes.value) {
         return Center(child: CircularProgressIndicator());
       }
       return GridView.builder(
@@ -26,14 +31,14 @@ class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
           crossAxisSpacing: 32,
           childAspectRatio: 182 / 113,
         ),
-        itemCount: busiessAccountController.userTypesList.length,
+        itemCount: businessAccountController.userTypesList.length,
         itemBuilder: (context, index) {
-          final userType = busiessAccountController.userTypesList[index];
+          final userType = businessAccountController.userTypesList[index];
           return Obx(() {
-            final isSelected = busiessAccountController.isSelected(userType);
+            final isSelected = businessAccountController.isSelected(userType);
 
             return InkWell(
-              onTap: () => busiessAccountController.selectUserType(userType),
+              onTap: () => businessAccountController.selectUserType(userType),
               child: Container(
                 width: size.width * 0.2976,
                 decoration: BoxDecoration(

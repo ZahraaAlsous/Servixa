@@ -178,4 +178,39 @@ class AuthService {
       throw e.response!.data["message"];
     }
   }
+
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : ChangePassword IN");
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/change-password",
+        data: {"old_password": oldPassword, "new_password": newPassword},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log("==============================Service : ChangePassword OK");
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : ChangePassword ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : ChangePassword ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
+      throw e.response!.data["message"];
+    }
+  }
+
 }

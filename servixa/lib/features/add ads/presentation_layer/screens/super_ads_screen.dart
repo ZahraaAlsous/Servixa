@@ -222,18 +222,18 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     );
   }
 
-  void _publishAd() {
-    // منطق نشر الإعلان
-    Get.dialog(
-      AlertDialog(
-        title: const Text('تم النشر'),
-        content: const Text('تم نشر إعلانك بنجاح'),
-        actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('حسناً')),
-        ],
-      ),
-    );
-  }
+  // void _publishAd() {
+  //   // منطق نشر الإعلان
+  //   Get.dialog(
+  //     AlertDialog(
+  //       title: const Text('تم النشر'),
+  //       content: const Text('تم نشر إعلانك بنجاح'),
+  //       actions: [
+  //         TextButton(onPressed: () => Get.back(), child: const Text('حسناً')),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // Widget _buildStepContent() {
   //   switch (_currentStep) {

@@ -60,8 +60,6 @@ class Validators {
     return null;
   }
 
-  
-
   static String? validatePhoneRegister(String? value, String? emailValue) {
     // // if (value == null || value.trim().isEmpty) {
     // //   return "This field is required";
@@ -269,7 +267,7 @@ class Validators {
     if (value == null || value.trim().isEmpty) {
       return "$message is required";
     }
-    final englishRegex = RegExp(r'^[a-zA-Z\s]+$');
+    final englishRegex = RegExp(r'^[a-zA-Z0-9\s]+$');
 
     if (!englishRegex.hasMatch(value)) {
       return 'Only English characters are allowed.';

@@ -10,6 +10,8 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
+import 'package:servixa/features/Business_account/presentation_layer/screens/create_business_account_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
@@ -18,6 +20,7 @@ import 'package:servixa/features/notification/presentation_layer/screens/notific
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_change_acount_widget.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_view_profile_widget.dart';
+import 'package:servixa/features/profile/presentation_layer/widgets/change_password_bottom_sheet.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/list_tile_widget.dart';
 
 class OptionProfileScreen extends StatelessWidget {
@@ -26,6 +29,9 @@ class OptionProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.put(AuthController());
+    // final BusiessAccountController busiessAccountController = Get.put(
+    //   BusiessAccountController(),
+    // );
     // final size = MediaQuery.of(context).size;
     final widthScreen = Get.width;
     return Scaffold(
@@ -178,15 +184,17 @@ class OptionProfileScreen extends StatelessWidget {
                               // where go
                               onPressed: () {
                                 // edit
-                                // Get.to(CreateBusinessAccountScreen());
-                                Get.bottomSheet(
-                                  isDismissible: true,
-                                  enableDrag: true,
-                                  BottomSheetChangeAcountWidget(),
-                                );
+                                Get.to(CreateBusinessAccountScreen());
+                                // busiessAccountController.getBusinessAccount();
+                                // Get.bottomSheet(
+                                //   isDismissible: true,
+                                //   enableDrag: true,
+                                //   BottomSheetChangeAcountWidget(),
+                                // );
                               },
                               child: Text(
-                                "Change".tr(),
+                                // "Change".tr(),
+                                "Add".tr(),
                                 style: TypographyApp.Label_Mid_Regular.copyWith(
                                   color: ThemeApp.Foundation_Main_yellow_50,
                                 ),
@@ -301,7 +309,15 @@ class OptionProfileScreen extends StatelessWidget {
             ListTileWidget(
               title: "Change Password",
               // edit
-              onTap: () {},
+              onTap: () {
+                // Get.to(() => ChangePasswordBottomSheet());
+                Get.bottomSheet(
+                  isDismissible: true,
+                  enableDrag: true,
+                  isScrollControlled: true,
+                  ChangePasswordBottomSheet(),
+                );
+              },
               icon: IconApp.changePassword,
             ),
           ListTileWidget(

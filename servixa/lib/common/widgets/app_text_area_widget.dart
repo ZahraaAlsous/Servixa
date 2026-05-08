@@ -8,12 +8,14 @@ class AppTextAreaWidget extends StatelessWidget {
   String hintText;
   String prefixIcon;
   TextEditingController controller;
+  TextInputAction? textInputAction;
   void Function(String)? onChange;
   AppTextAreaWidget({
     super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.controller,
+    this.textInputAction,
     this.onChange,
   });
 
@@ -22,7 +24,7 @@ class AppTextAreaWidget extends StatelessWidget {
     return TextFormField(
       minLines: 5,
       maxLines: 10,
-      textInputAction: TextInputAction.done,
+      textInputAction: textInputAction ?? TextInputAction.next,
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         // hintText: "Enter Details",

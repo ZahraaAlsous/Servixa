@@ -4,12 +4,17 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
+import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/profile/business_later/profile_controller.dart';
 
 class BottomSheetChangeAcountWidget extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());
-  final AuthController authController= Get.put(AuthController());
+  final AuthController authController = Get.put(AuthController());
+  final BusiessAccountController busiessAccountController = Get.put(
+    BusiessAccountController(),
+  );
 
   BottomSheetChangeAcountWidget({super.key});
 
@@ -210,64 +215,77 @@ class BottomSheetChangeAcountWidget extends StatelessWidget {
   Widget _buildBusinessDropdown() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          hintText: "Select Business Account",
-          hintStyle: TypographyApp.Body_mid_Regular.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_400,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              color: ThemeApp.Foundation_Secendary_grey_300,
+      child: Obx(
+        () => DropdownButtonFormField(
+          decoration: InputDecoration(
+            hintText:
+                busiessAccountController.isLoadingCreateBusinessAccount.value
+                ? "Loading business accounts..."
+                : "Select Business Account",
+            hintStyle: TypographyApp.Body_mid_Regular.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_400,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: ThemeApp.Foundation_Secendary_grey_300,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: ThemeApp.Foundation_Main_main_500),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: ThemeApp.Foundation_Main_main_500),
+          icon: Padding(
+            padding: const EdgeInsets.all(8),
+            child: SvgPicture.asset(
+              IconApp.arrowUp,
+              width: 10,
+              height: 10,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
           ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.red),
+          style: TypographyApp.Body_mid_Regular.copyWith(
+            color: ThemeApp.Foundation_Secendary_grey_700,
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
+          borderRadius: BorderRadius.circular(16),
+          dropdownColor: ThemeApp.whiteBackground,
+          items: busiessAccountController.businessAccountsList.map((
+            businessAccount,
+          ) {
+            return DropdownMenuItem<BusinessAccountModel>(
+              value: businessAccount,
+              child: Text(businessAccount.businessNameEnglish),
+            );
+          }).toList(),
+
+          // const [
+          //   DropdownMenuItem<String>(
+          //     value: "business1",
+          //     child: Text("Al Shamel Contracting"),
+          //   ),
+          //   DropdownMenuItem<String>(
+          //     value: "business2",
+          //     child: Text("Tech Solutions LLC"),
+          //   ),
+          //   DropdownMenuItem<String>(
+          //     value: "business3",
+          //     child: Text("Al Rajhi Trading"),
+          //   ),
+          // ],
+          onChanged:
+              busiessAccountController.isLoadingCreateBusinessAccount.value
+              ? null
+              : (value) {},
         ),
-        icon: Padding(
-          padding: const EdgeInsets.all(8),
-          child: SvgPicture.asset(
-            IconApp.arrowUp,
-            width: 10,
-            height: 10,
-            color: ThemeApp.Foundation_Main_main_500,
-          ),
-        ),
-        style: TypographyApp.Body_mid_Regular.copyWith(
-          color: ThemeApp.Foundation_Secendary_grey_700,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        dropdownColor: ThemeApp.whiteBackground,
-        items: const [
-          DropdownMenuItem<String>(
-            value: "business1",
-            child: Text("Al Shamel Contracting"),
-          ),
-          DropdownMenuItem<String>(
-            value: "business2",
-            child: Text("Tech Solutions LLC"),
-          ),
-          DropdownMenuItem<String>(
-            value: "business3",
-            child: Text("Al Rajhi Trading"),
-          ),
-        ],
-        onChanged: (value) {
-          if (value != null) {
-            print('Selected business: $value');
-          }
-        },
       ),
     );
   }

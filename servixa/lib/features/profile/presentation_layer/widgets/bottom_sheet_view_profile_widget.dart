@@ -1,93 +1,4 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:get/get.dart' hide Trans;
-// import 'package:servixa/core/const/icon_app.dart';
-// import 'package:servixa/core/const/theme_app.dart';
-// import 'package:servixa/core/const/typography_app.dart';
-
-// class BottomSheetViewProfileWidget extends StatelessWidget {
-//   const BottomSheetViewProfileWidget({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final size = MediaQuery.of(context).size;
-
-//     return Container(
-//       height: size.height * 0.7,
-//       decoration: BoxDecoration(
-//         color: ThemeApp.whiteBackground,
-//         borderRadius: const BorderRadius.only(
-//           topLeft: Radius.circular(40),
-//           topRight: Radius.circular(40),
-//         ),
-//       ),
-//       child: Column(
-//         children: [
-//           _buildHeader(),
-//           Divider(
-//             thickness: 8,
-//             color: ThemeApp.Foundation_Secendary_grey_50,
-//             height: 30,
-//           ),
-
-//           SizedBox(
-//             width: size.width * 0.9,
-//             child: ElevatedButton(
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: ThemeApp.Foundation_Main_main_500,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadiusGeometry.circular(16),
-//                 ),
-//               ),
-//               // edit
-//               onPressed: () {},
-//               child: Text(
-//                 "Continue",
-//                 style: TypographyApp.Body_mid_Mid.copyWith(
-//                   color: ThemeApp.Foundation_Main_yellow_50,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildHeader() {
-//     return Padding(
-//       padding: EdgeInsets.all(16),
-//       child: Row(
-//         children: [
-//           SvgPicture.asset(
-//             IconApp.catalogAlt,
-//             width: 25,
-//             height: 25,
-//             color: ThemeApp.Foundation_Main_main_300,
-//           ),
-//           SizedBox(width: 10),
-//           Expanded(
-//             child: Text(
-//               "Chose Account",
-//               style: TypographyApp.Title_larg_Mid.copyWith(
-//                 color: ThemeApp.Foundation_Grey_grey_700,
-//               ),
-//             ),
-//           ),
-//           IconButton(
-//             onPressed: () => Get.back(),
-//             icon: SvgPicture.asset(
-//               IconApp.cancel,
-//               width: 32,
-//               height: 32,
-//               color: ThemeApp.Foundation_Secendary_grey_400,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -144,15 +55,17 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                             color: ThemeApp.Foundation_Secendary_grey_300,
                           ),
                         ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Get.to(CreateBusinessAccountScreen());
-                          },
-                          child: Text(
-                            "Create Business Account",
-                            style: TypographyApp.Label_Mid_Regular,
-                          ),
-                        ),
+                        // OutlinedButton(
+                        //   onPressed: () {
+                        //     log("******************************Click on Create Business Account");
+                        //      Get.to(() => CreateBusinessAccountScreen());
+                        //   },
+                        //   child: Text(
+                        //     "Create Business Account",
+                        //     style: TypographyApp.Label_Mid_Regular,
+                        //   ),
+                        // ),
+                      
                       ],
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 
@@ -65,47 +66,6 @@ class BusinessAccountService {
     }
   }
 
-  // Future<void> createBusinessAccount({
-  //   required int user_type_id,
-  //   required int city_id,
-  //   required String business_nameAr,
-  //   required String business_nameEn,
-  //   required String license_number,
-  //   required String business_address,
-  //   required String activities,
-  //   required String details,
-  //   required double lat,
-  //   required double lng,
-  //   required List<File> documents,
-  // }) async {
-  //   try {
-  //     String? token = await storage.read(key: "token");
-
-  //     Response response = await dio.post(
-  //       "https://services.tamkeen-dev.com/api/v1/business-accounts",
-  //       data: {
-  //         "user_type_id": user_type_id.toString(),
-  //         "city_id": city_id.toString(),
-  //         "business_name[ar]": business_nameAr,
-  //         "business_name[en]": business_nameEn,
-  //         "license_number": license_number,
-  //         "business_address": business_address,
-  //         "activities": activities,
-  //         "details": details,
-  //         "lat": lat,
-  //         "lng": lng,
-  //         "documents[]": documents,
-  //       },
-  //       options: Options(
-  //         headers: {
-  //           'Authorization': 'Bearer $token',
-  //           "Accept": "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //       ),
-  //     );
-  //   } on DioException catch (e) {}
-  // }
   Future<void> createBusinessAccount({
     required int user_type_id,
     required int city_id,
@@ -192,6 +152,30 @@ class BusinessAccountService {
       );
 
       throw e.response!.data["message"];
+    }
+  }
+
+  Future<List<BusinessAccountModel>> getBusinessAccount() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : GetBusinessAccount IN");
+
+      String? token = await storage.read(key: "token");
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/business-accounts/my",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      return BusinessAccountModel.listFromJson(response.data);
+    } catch (e) {
+      log("==============================Service : GetBusinessAccount ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+      throw e;
     }
   }
 }

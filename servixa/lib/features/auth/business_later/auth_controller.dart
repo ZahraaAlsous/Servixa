@@ -11,6 +11,7 @@ class AuthController extends GetxController {
   final storage = FlutterSecureStorage();
   final AuthService authService = AuthService();
   RxBool isLoading = false.obs;
+  RxBool isLoadingChangePassword = false.obs;
   RxBool isLoggedIn = false.obs;
 
   RxBool isPasswordVisible = true.obs;
@@ -27,11 +28,29 @@ class AuthController extends GetxController {
       TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final TextEditingController oldPasswordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmNewPasswordController =
+      TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final Rx<Country?> selectedCountry = Rx<Country?>(Country.parse('SY'));
 
   Rx<UserModel?> currentUser = Rx<UserModel?>(null);
+  var isOldPasswordVisible = true.obs;
+  var isNewPasswordVisible = true.obs;
+  var isConfirmNewPasswordVisible = true.obs;
 
+  void toggleOldPasswordVisibility() {
+    isOldPasswordVisible.toggle();
+  }
+
+  void toggleNewPasswordVisibility() {
+    isNewPasswordVisible.toggle();
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordVisible.toggle();
+  }
   @override
   void onInit() {
     super.onInit();
@@ -44,6 +63,9 @@ class AuthController extends GetxController {
 
   void changeConfirmPasswordVisible() {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  }
+  void changePasswordVisibleall(RxBool x) {
+    x.value = !x.value;
   }
 
   void changeAgreeTermsAndPolicies() {
@@ -237,6 +259,34 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> changePassword(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      isLoadingChangePassword.value = true;
+      await authService.changePassword(
+        oldPasswordController.text,
+        newPasswordController.text,
+      );
+      onSuccess();
+    } catch (e) {
+      log("--------------------------------------error");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    } finally {
+      isLoadingChangePassword.value = false;
+    }
+  }
+
+void clearFailedChangePassword(){
+  oldPasswordController.clear();
+  newPasswordController.clear();
+  confirmNewPasswordController.clear();
+}
   @override
   void onClose() {
     emailLoginController.dispose();
@@ -246,6 +296,9 @@ class AuthController extends GetxController {
     emailRegisterController.dispose();
     passwordRegisterController.dispose();
     confirmPasswordController.dispose();
+    oldPasswordController.dispose();
+    newPasswordController.dispose();
+    confirmNewPasswordController.dispose();
     super.onClose();
   }
 }

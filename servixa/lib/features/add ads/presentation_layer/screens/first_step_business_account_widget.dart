@@ -112,7 +112,6 @@ class FirstStepBusinessAccountWidget extends StatelessWidget {
                 // isSelected: false,
                 onTap: () {
                   addAdsController.selectedBusinessAccount.value = account;
-                  // if (!AddAdsController.isBusinessAccountValid()) {
                   if (!addAdsController.isBusinessAccountValid()) {
                     Get.snackbar("ops", "This account not valid");
                   }

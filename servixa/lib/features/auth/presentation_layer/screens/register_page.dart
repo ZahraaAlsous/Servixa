@@ -167,7 +167,8 @@ class RegisterPage extends StatelessWidget {
 
                   Obx(() {
                     bool isVisible = authController.isPasswordVisible.value;
-                    return AppTextFormField(
+                    return 
+                    AppTextFormField(
                       labelText: "Password",
                       hintText: "P@12&lV4",
                       icon: IconApp.lock,

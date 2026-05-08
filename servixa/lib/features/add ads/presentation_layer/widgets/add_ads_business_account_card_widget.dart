@@ -65,7 +65,7 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      account.typeBusinessAccount,
+                      account.typeBusinessAccount.name,
                       style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                   ],

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:get/get.dart' hide Trans;
 import 'package:image_picker/image_picker.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
+import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
+import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 
@@ -38,7 +40,6 @@ class AddAdsController extends GetxController {
       case 2:
         // if (selectedCategoryAds.value?.subCategories!.isNotEmpty ?? false) {
         if (selectedCategoryAds.value!.hasChildren) {
-
           return selectedSubCategoryAds.value != null;
         }
         return true;
@@ -97,28 +98,31 @@ class AddAdsController extends GetxController {
           id: 1,
           businessNameArabic: "businessNameArabic",
           businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: "typeBusinessAccount",
-          licenseNumber: 12233,
-          city: "city",
+          typeBusinessAccount: UserTypeModel(
+            id: 4,
+            name: "typeBusinessAccount",
+          ),
+          licenseNumber: "12233",
+          city: CityModel(id: 5, name: "city"),
           addressDetail: "addressDetail",
-          location: "location",
+          // location: "location",
           activities: "activities",
           details: "details",
-          doc: [""],
+          documents: [""],
           status: "Accepted",
         ),
         BusinessAccountModel(
           id: 2,
           businessNameArabic: "businessNameArabic",
           businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: "typeBusinessAccount",
-          licenseNumber: 12233,
-          city: "city",
+          typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
+          licenseNumber: "12233",
+          city: CityModel(id: 6, name: "city"),
           addressDetail: "addressDetail",
-          location: "location",
+          // location: "location",
           activities: "activities",
           details: "details",
-          doc: [""],
+          documents: [""],
           status: "Rejected",
         ),
       ];

@@ -3,7 +3,7 @@ class UserTypeModel {
   String name;
   IconModel? icon;
 
-  UserTypeModel({required this.id, required this.name, required this.icon});
+  UserTypeModel({required this.id, required this.name,  this.icon});
   factory UserTypeModel.fromJson(Map<String, dynamic> json) {
     return UserTypeModel(
       id: json["id"],
