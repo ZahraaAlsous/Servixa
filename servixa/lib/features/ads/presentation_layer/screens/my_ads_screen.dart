@@ -38,8 +38,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
           return Center(child: CircularProgressIndicator());
         }
         return GridView.builder(
-          padding: EdgeInsetsGeometry.symmetric(
-            horizontal: size.width * DimensApp.spaceHorizontalScreen,
+          padding: EdgeInsetsGeometry.only(
+            left: size.width * DimensApp.spaceHorizontalScreen,
+            right: size.width * DimensApp.spaceHorizontalScreen,
+          bottom: 60
           ),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

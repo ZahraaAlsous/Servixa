@@ -280,4 +280,30 @@ class AdsController extends GetxController {
       isLoadingMyAdd.value = false;
     }
   }
+
+  Future<void> deleteAd(
+    int adId,
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Delete Ad IN");
+
+      bool isDeleted = await adService.deleteAd(adId);
+      if (isDeleted) {
+        myAdsList.removeWhere((ad) => ad.id == adId);
+        log("==============================Controller : Delete Ad OK");
+        onSuccess();
+      } else {
+        log("==============================Controller : Delete Ad ERROR");
+      }
+    } catch (e) {
+      log("==============================Controller : Delete Ad ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    }
+  }
 }

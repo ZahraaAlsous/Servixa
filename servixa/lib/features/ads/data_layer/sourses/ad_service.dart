@@ -66,4 +66,36 @@ class AdService {
       throw e.response!.data["message"];
     }
   }
+
+  Future<bool> deleteAd(int adId) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Delete Ad IN");
+      String? token = await storage.read(key: "token");
+      Response response = await dio.delete(
+        "https://services.tamkeen-dev.com/api/v1/ads/${adId}",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log("==============================Service : Delete Ad OK");
+        return true;
+      }
+      throw "Delete ad failed: Unexpected response from server";
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : Delete Ad ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+
+      log("==============================Service : Delete Ad ERROR");
+      log("==============================The Error is : $e");
+      throw e.response!.data["message"];
+    }
+  }
+
 }

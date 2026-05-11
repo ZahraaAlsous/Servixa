@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -86,7 +87,11 @@ class AppCardAdsWidget extends StatelessWidget {
                         Spacer(),
                         IconButton(
                           // edit
-                          onPressed: () {},
+                          onPressed: () {
+                            adsController.deleteAd(ads.id, () {
+                              AppSnackbar.showSuccess("Ad removed successfully");
+                            }, (e) => AppSnackbar.showError(e));
+                          },
                           icon: Icon(
                             Icons.delete_rounded,
                             color: ThemeApp.Foundation_Statue_Red,
