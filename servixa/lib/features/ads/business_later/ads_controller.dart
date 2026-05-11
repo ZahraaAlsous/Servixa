@@ -6,7 +6,6 @@ import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/data_layer/sourses/ad_service.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -14,8 +13,10 @@ class AdsController extends GetxController {
   final AdService adService = AdService();
   RxBool showMore = false.obs;
   RxList<AdsModel> adsList = <AdsModel>[].obs;
+  RxList<AdsModel> myAdsList = <AdsModel>[].obs;
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
   RxBool isLoading = false.obs;
+  RxBool isLoadingMyAdd = false.obs;
 
   var selectedImage = Rx<File?>(null);
 
@@ -67,7 +68,6 @@ class AdsController extends GetxController {
           hasChildren: true,
         ),
 
-       
         user: UserModel(
           id: 1,
           firstName: "firstName",
@@ -113,7 +113,6 @@ class AdsController extends GetxController {
           //     type: "checkbox",
           //   ),
           // ],
-       
         ),
         user: UserModel(
           id: 1,
@@ -185,7 +184,6 @@ class AdsController extends GetxController {
           //     type: "checkbox",
           //   ),
           // ],
-      
         ),
         user: UserModel(
           id: 1,
@@ -255,6 +253,31 @@ class AdsController extends GetxController {
       onError(e.toString());
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> getMyAds(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      isLoadingMyAdd.value = true;
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : My Ads IN");
+
+      List<AdsModel> myAds = await adService.getMyAds();
+      myAdsList.clear();
+      myAdsList.addAll(myAds);
+
+      log("==============================Controller : My Ads OK");
+    } catch (e) {
+      log("==============================Controller : My Ads ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    } finally {
+      isLoadingMyAdd.value = false;
     }
   }
 }

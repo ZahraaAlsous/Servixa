@@ -118,12 +118,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (ads.images.isNotEmpty)
+                if (ads.images!.isNotEmpty)
                   Stack(
                     alignment: AlignmentGeometry.bottomCenter,
                     children: [
                       CarouselSlider.builder(
-                        itemCount: ads.images.length,
+                        itemCount: ads.images!.length,
                         itemBuilder:
                             (
                               BuildContext context,
@@ -148,7 +148,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                     ),
                                   ],
                                   image: DecorationImage(
-                                    image: AssetImage(ads.images[itemIndex]),
+                                    image: AssetImage(ads.images![itemIndex]),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -179,7 +179,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: ads.images.asMap().entries.map((entry) {
+                          children: ads.images!.asMap().entries.map((entry) {
                             return Container(
                               // edit
                               // غير قياس

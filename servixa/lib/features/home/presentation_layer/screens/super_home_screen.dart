@@ -85,12 +85,14 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.homeFill,
                   "navigationBarHome",
                   0,
+                  (){}
                 ),
                 _buildNavItem(
                   IconApp.notification,
                   IconApp.notificationFill,
                   "navigationBarNotification",
                   1,
+                  (){}
                 ),
 
                 const SizedBox(width: 60),
@@ -100,13 +102,14 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.adsFill,
                   "navigationBarMyAds",
                   2,
+                  (){}
                 ),
 
                 _buildNavItem(
                   IconApp.orders,
                   IconApp.ordersFill,
                   "navigationBarOrders",
-                  3,
+                  3,(){}
                 ),
               ],
             ),
@@ -115,13 +118,20 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
     );
   }
 
-  Widget _buildNavItem(String icon, String icon_fill, String label, int index) {
+  Widget _buildNavItem(
+    String icon,
+    String icon_fill,
+    String label,
+    int index,
+    void Function()? getData,
+  ) {
     final isSelected = selectedIndex == index;
     final size = MediaQuery.of(context).size;
 
     return Expanded(
       child: GestureDetector(
         onTap: () {
+          getData != null ? getData() : null;
           setState(() {
             selectedIndex = index;
           });

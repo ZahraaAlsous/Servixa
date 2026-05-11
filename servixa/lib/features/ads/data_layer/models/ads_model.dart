@@ -42,21 +42,53 @@ class AdsModel {
     required this.user,
   });
 
+  // factory AdsModel.fromJson(Map<String, dynamic> json) {
+  //   return AdsModel(
+  //     id: json["id"],
+  //     title: json["name"],
+  //     dictation: json["description"] ?? null,
+  //     place: json["address"] ?? null,
+  //     image: json["main_image"],
+  //     images: json["images"],
+  //     favorite: json["is_favorited"],
+  //     price: int.parse(json["price"]),
+  //     typeCoin: json["price_currency"],
+  //     typeService: json["type"],
+  //     status: json["status"],
+  //     category: CategoryModel.fromJson(json["category"]),
+  //     user: UserModel.fromJson(json["user"]),
+  //   );
+  // }
+
   factory AdsModel.fromJson(Map<String, dynamic> json) {
     return AdsModel(
-      id: json["id"],
-      title: json["name"],
-      dictation: json["description"] ?? null,
-      place: json["address"] ?? null,
-      image: json["main_image"],
-      images: json["images"],
-      favorite: json["is_favorited"],
-      price: json["price"],
-      typeCoin: json["price_currency"],
-      typeService: json["type"],
-      status: json["status"],
-      category: CategoryModel.fromJson(json["category"]),
-      user: UserModel.fromJson(json["user"]),
+      id: json["id"] ?? 0,
+      title: json["name"] ?? "",
+      dictation: json["description"], // الـ JSON يستخدم description
+      place: json["address"], // الـ JSON يستخدم address
+      image: json["main_image"] ?? "",
+      // هنا المشكلة: الـ JSON لا يحتوي على images، سنضع قائمة فارغة كافتراض
+      images: json["images"] != null ? List<dynamic>.from(json["images"]) : [],
+      favorite: json["is_favorited"] ?? false,
+      price: json["price"] is String
+          ? int.parse(json["price"])
+          : (json["price"] ?? 0),
+      typeCoin: json["price_currency"] ?? "",
+      typeService: json["type"] ?? "",
+      status: json["status"] ?? "",
+      // التأكد من استدعاء CategoryModel و UserModel بشكل صحيح
+      category: CategoryModel.fromJson(json["category"] ?? {}),
+      user: UserModel.fromJson(json["user"] ?? {}),
+      // listReview لم يتم إسناده في كودك الأصلي
+      listReview: [],
     );
+  }
+
+  static List<AdsModel> listFromJson(Map<String, dynamic> json) {
+    List<AdsModel> ads = [];
+    for (var item in json["data"]) {
+      ads.add(AdsModel.fromJson(item));
+    }
+    return ads;
   }
 }

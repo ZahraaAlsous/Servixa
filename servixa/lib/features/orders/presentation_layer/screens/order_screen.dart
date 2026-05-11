@@ -54,8 +54,8 @@ class OrderScreen extends StatelessWidget {
                       //   ),
                       // ),
                       InkWell(
-                              highlightColor: Colors.transparent, 
-      splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
 
                         onTap: () {
                           orderController.isSelectedMyOrders.value = false;
@@ -103,10 +103,9 @@ class OrderScreen extends StatelessWidget {
                       //     elevation: 0,
                       //   ),
                       // ),
-
                       InkWell(
-                              highlightColor: Colors.transparent, 
-      splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
 
                         onTap: () {
                           orderController.isSelectedMyOrders.value = true;

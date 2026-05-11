@@ -2,15 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 
-class MyAdsScreen extends StatelessWidget {
-  final AdsController adsController = Get.put(AdsController());
+class MyAdsScreen extends StatefulWidget {
   MyAdsScreen({super.key});
+
+  @override
+  State<MyAdsScreen> createState() => _MyAdsScreenState();
+}
+
+class _MyAdsScreenState extends State<MyAdsScreen> {
+  final AdsController adsController = Get.put(AdsController());
+
+  @override
+  void initState() {
+    adsController.getMyAds(() {
+      AppSnackbar.showSuccess("message");
+    }, (e) => AppSnackbar.showError(e));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +34,9 @@ class MyAdsScreen extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
       body: Obx(() {
+        if (adsController.isLoadingMyAdd.value) {
+          return Center(child: CircularProgressIndicator());
+        }
         return GridView.builder(
           padding: EdgeInsetsGeometry.symmetric(
             horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -29,9 +47,9 @@ class MyAdsScreen extends StatelessWidget {
             crossAxisSpacing: 2,
             childAspectRatio: 0.7,
           ),
-          itemCount: adsController.adsList.length,
+          itemCount: adsController.myAdsList.length,
           itemBuilder: (context, indexAds) {
-            AdsModel ads = adsController.adsList[indexAds];
+            AdsModel ads = adsController.myAdsList[indexAds];
             return AppCardAdsWidget(
               ads: ads,
               widthCard: 0.431,

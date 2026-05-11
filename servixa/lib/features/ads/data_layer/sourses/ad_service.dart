@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
 class AdService {
   final Dio dio = Dio();
+  final storage = FlutterSecureStorage();
 
   Future<AdsModel> getAdDetails(int adId) async {
     try {
@@ -29,6 +31,38 @@ class AdService {
         throw "Connection failed: Please check your internet";
       }
       log("==============================Service : Ad Details ERROR");
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<List<AdsModel>> getMyAds() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : My Ads IN");
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/my-ads",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        log("==============================Service : My Ads OK");
+        List<AdsModel> adsList = AdsModel.listFromJson(response.data);
+        return adsList;
+      }
+      throw "Get my ads failed: Unexpected response from server";
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : My Ads ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : My Ads ERROR");
+      log("==============================The Error is : $e");
       throw e.response!.data["message"];
     }
   }

@@ -67,7 +67,7 @@ class AppCardAdsWidget extends StatelessWidget {
                     topRight: Radius.circular(8),
                   ),
                   image: DecorationImage(
-                    image: AssetImage(ads.image),
+                    image: NetworkImage(ads.image),
                     fit: BoxFit.cover,
                   ),
                 ),
