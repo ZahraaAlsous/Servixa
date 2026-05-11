@@ -1,18 +1,24 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'dart:async';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/data_layer/sourses/search_filter_service.dart';
+import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
-enum AdType { buying, selling }
+enum AdType { rent, selling }
 
 class SearchFilterController extends GetxController {
   AdsController adsController = Get.put(AdsController());
+  CategoryController categoryController = Get.put(CategoryController());
+  final SearchFilterService searchFilterService = SearchFilterService();
   Timer? _debounce;
   RxList<AdsModel> adsSearchList = <AdsModel>[].obs;
   RxList<AdsModel> popularAdsList = <AdsModel>[].obs;
@@ -26,7 +32,9 @@ class SearchFilterController extends GetxController {
   // RxString selectCategory = "".obs;
   Rxn<CategoryModel> selectCategory = Rxn<CategoryModel>();
   RxString selectCategoryIcon = "".obs;
-  RxString selectSubCategory = "".obs;
+  // RxString selectSubCategory = "".obs;
+  Rxn<CategoryModel> selectSubCategory = Rxn<CategoryModel>();
+
   Rx<int?> minPriceFilter = Rx<int?>(null);
   Rx<int?> maxPriceFilter = Rx<int?>(null);
   Rx<AdType?> selectedAdType = Rx<AdType?>(null);
@@ -34,12 +42,14 @@ class SearchFilterController extends GetxController {
   late TextEditingController minPriceController;
   late TextEditingController maxPriceController;
   late TextEditingController searchController;
+  RxBool isLoadingAdsFilter = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    getPopularAds();
-    adsSearchList.value = popularAdsList;
+    // getPopularAds();
+    // adsSearchList.value = popularAdsList;
+    adsSearchList.value = adsController.adsList;
     minPriceController = TextEditingController();
     maxPriceController = TextEditingController();
     searchController = TextEditingController();
@@ -99,10 +109,8 @@ class SearchFilterController extends GetxController {
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
           hasChildren: true,
-          
         ),
 
-      
         user: UserModel(
           id: 1,
           firstName: "firstName",
@@ -129,7 +137,6 @@ class SearchFilterController extends GetxController {
           icon: "assets/images/Simplification.png",
           hasChildren: true,
 
-          
           // questions: [
           //   CategoryQuestionModel(
           //     id: 1,
@@ -148,7 +155,6 @@ class SearchFilterController extends GetxController {
           //     type: "checkbox",
           //   ),
           // ],
-      
         ),
         user: UserModel(
           id: 1,
@@ -176,7 +182,6 @@ class SearchFilterController extends GetxController {
           hasChildren: true,
 
           icon: "assets/images/Simplification.png",
-          
         ),
         user: UserModel(
           id: 1,
@@ -204,7 +209,7 @@ class SearchFilterController extends GetxController {
           hasChildren: true,
 
           icon: "assets/images/Simplification.png",
-          
+
           // questions: [
           //   CategoryQuestionModel(
           //     id: 1,
@@ -223,7 +228,6 @@ class SearchFilterController extends GetxController {
           //     type: "checkbox",
           //   ),
           // ],
-      
         ),
         user: UserModel(
           id: 1,
@@ -250,7 +254,6 @@ class SearchFilterController extends GetxController {
           name: "Interior Design",
           icon: "assets/images/Simplification.png",
           hasChildren: true,
-          
         ),
         user: UserModel(
           id: 1,
@@ -267,7 +270,7 @@ class SearchFilterController extends GetxController {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 1000), () {
-      applyFilters();
+      // applyFilters();
     });
   }
 
@@ -295,44 +298,77 @@ class SearchFilterController extends GetxController {
     EffectivePostedFilter.value = !EffectivePostedFilter.value;
   }
 
-  void applyFilters() {
-    // edit
-    searchAndFilter(
-      name: filterSearch.value.isEmpty ? null : filterSearch.value,
-      // categoryName:
-      // selectCategory.value.isEmpty || !EffectiveCategoryFilter.value
-      // ? null
-      // : selectCategory.value,
-      subCategory:
-          // selectCategory.value.isEmpty ||
-          !EffectiveCategoryFilter.value ||
-              selectSubCategory.value.isEmpty ||
-              !EffectiveSubCategoryFilter.value
-          ? null
-          : selectSubCategory.value,
-    );
-  }
+  // void applyFilters() {
+  //   // edit
+  //   searchAndFilter(
+  //     name: filterSearch.value.isEmpty ? null : filterSearch.value,
+  //     // categoryName:
+  //     // selectCategory.value.isEmpty || !EffectiveCategoryFilter.value
+  //     // ? null
+  //     // : selectCategory.value,
+  //     subCategory:
+  //         // selectCategory.value.isEmpty ||
+  //         !EffectiveCategoryFilter.value ||
+  //             selectSubCategory.value.isEmpty ||
+  //             !EffectiveSubCategoryFilter.value
+  //         ? null
+  //         : selectSubCategory.value,
+  //   );
+  // }
 
-  void searchAndFilter({
-    String? name,
-    String? location,
-    String? categoryName,
-    String? subCategory,
-    int? minPrice,
-    int? maxPrice,
-    String? type,
-    String? posted,
-  }) {
-    adsSearchList.value = adsController.adsList;
+  // void searchAndFilter({
+  //   String? name,
+  //   String? location,
+  //   String? categoryName,
+  //   String? subCategory,
+  //   int? minPrice,
+  //   int? maxPrice,
+  //   String? type,
+  //   String? posted,
+  // }) {
+  //   adsSearchList.value = adsController.adsList;
 
-    name != null ? searchResault(name) : adsSearchList;
-    location != null ? adsSearchList : adsSearchList;
-    categoryName != null ? filterByCategory(categoryName) : adsSearchList;
-    subCategory != null ? adsSearchList : adsSearchList;
-    minPrice != null ? adsSearchList : adsSearchList;
-    maxPrice != null ? adsSearchList : adsSearchList;
-    type != null ? adsSearchList : adsSearchList;
-    posted != null ? adsSearchList : adsSearchList;
+  //   name != null ? searchResault(name) : adsSearchList;
+  //   location != null ? adsSearchList : adsSearchList;
+  //   categoryName != null ? filterByCategory(categoryName) : adsSearchList;
+  //   subCategory != null ? adsSearchList : adsSearchList;
+  //   minPrice != null ? adsSearchList : adsSearchList;
+  //   maxPrice != null ? adsSearchList : adsSearchList;
+  //   type != null ? adsSearchList : adsSearchList;
+  //   posted != null ? adsSearchList : adsSearchList;
+  // }
+  Future<void> searchAndFilter(void Function(String e) onError) async {
+    try {
+      log("===============================Controller : AdsFilter IN");
+      isLoadingAdsFilter.value = true;
+      adsSearchList.value = await searchFilterService.getAds(
+        categoryId:
+            EffectiveSubCategoryFilter.value && selectSubCategory.value != null
+            ? selectSubCategory.value!.id
+            : (EffectiveCategoryFilter.value && selectCategory.value != null
+                  ? selectCategory.value!.id
+                  : null),
+        minPrice: EffectiveBudgetFilter.value && minPriceFilter.value != null
+            ? minPriceFilter.value
+            : null,
+        maxPrice: EffectiveBudgetFilter.value && maxPriceFilter.value != null
+            ? maxPriceFilter.value
+            : null,
+        isRent: EffectiveTypeFilter.value && selectedAdType.value != null
+            ? (selectedAdType.value == AdType.rent ? 1 : 0)
+            : null,
+      );
+      log("===============================Controller : AdsFilter OK");
+    } catch (e) {
+      log("===============================Controller : AdsFilter ERROR");
+      log(
+        "===============================Controller : AdsFilter THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    } finally {
+      isLoadingAdsFilter.value = false;
+    }
   }
 
   void searchResault(String? name) {
@@ -357,17 +393,23 @@ class SearchFilterController extends GetxController {
     EffectiveTypeFilter.value = false;
     EffectivePostedFilter.value = false;
     // selectCategory.value = "";
+    selectCategory.value = null;
     selectCategoryIcon.value = "";
-    adsSearchList.value = List.of(popularAdsList);
+    // adsSearchList.value = List.of(popularAdsList);
+    adsSearchList.value = List.of(adsController.adsList);
     selectedAdType.value = null;
-    selectSubCategory.value = "";
+    // selectSubCategory.value = "";
+    selectSubCategory.value = null;
     minPriceFilter.value = null;
     maxPriceFilter.value = null;
     selectPosted.value = "";
+    categoryController.subCategories.clear();
 
     minPriceController.clear();
     maxPriceController.clear();
     searchController.clear();
+
+    Get.back();
   }
 
   bool isDisplayTitleSearchResults() {
@@ -453,6 +495,7 @@ class SearchFilterController extends GetxController {
     minPriceController.dispose();
     maxPriceController.dispose();
     searchController.dispose();
+    categoryController.subCategories.clear();
     super.dispose();
   }
 }

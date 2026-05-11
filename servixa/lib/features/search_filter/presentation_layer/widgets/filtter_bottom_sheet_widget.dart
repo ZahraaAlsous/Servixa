@@ -29,7 +29,8 @@ class FiltterBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return FractionallySizedBox(
-      heightFactor: 0.80,
+      // heightFactor: 0.80,
+      heightFactor: 0.54,
       child: SingleChildScrollView(
         // child: Form(
         //   key: _formKey,
@@ -68,182 +69,21 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SectionActiveFilterTitleWidget(
-                  value: searchFilterController.EffectiveLocationFilter,
-                  onChanged: (value) {
-                    searchFilterController.activeLocationFilter();
-                  },
-                  FilterName: "Location",
-                ),
-                AppOutlinedButtonWidget(
-                  textContent: "Add Location",
-                  icon: IconApp.place,
-                  // edit
-                  onPressed: () {},
-                ),
-                const SizedBox(height: 5),
 
-                // Obx(
-                //   () => Row(
-                //     children: [
-                //       Expanded(
-                //         child: Column(
-                //           children: [
-                //             SectionActiveFilterTitleWidget(
-                //               value: searchFilterController
-                //                   .EffectiveCategoryFilter,
-                //               onChanged: (value) {
-                //                 searchFilterController.activeCategoryFilter();
-                //               },
-                //               FilterName: "Category",
-                //             ),
-                //             AppDropdownButtonFormFieldWidget(
-                //               hintText: "All In Classified",
-                //               value:
-                //                   searchFilterController
-                //                       .selectCategory
-                //                       .value
-                //                       .isNotEmpty
-                //                   ? categoryController.categories.firstWhere(
-                //                       (category) =>
-                //                           category.name ==
-                //                           searchFilterController
-                //                               .selectCategory
-                //                               .value,
-                //                       // orElse: () =>
-                //                       //     CategoryModel(id: 0, name: ""),
-                //                     )
-                //                   : null,
-                //               onChanged: (value) {
-                //                 if (value != null && value is CategoryModel) {
-                //                   searchFilterController.selectCategory.value =
-                //                       value.name;
-                //                   // searchFilterController
-                //                   //         .selectCategoryIcon
-                //                   //         .value =
-                //                   //     value.icon!;
-                //                   categoryController.getSubCategories(value.id);
-                //                   log(
-                //                     'Selected category: ${value.name}, ID: ${value.id}',
-                //                   );
-                //                 }
-                //               },
-                //               items: categoryController.categories.map((
-                //                 category,
-                //               ) {
-                //                 return DropdownMenuItem<CategoryModel>(
-                //                   value: category,
-                //                   child: Row(
-                //                     children: [
-                //                       // SvgPicture.asset(category.icon!),
-                //                       // // edit
-                //                       // // design
-                //                       Text(category.name),
-                //                     ],
-                //                   ),
-                //                 );
-                //               }).toList(),
-                //               // prefixIcon: IconApp.category,
-                //               isChanged: Obx(() {
-                //                 if (searchFilterController
-                //                     .selectCategoryIcon
-                //                     .value
-                //                     .isNotEmpty) {
-                //                   return Padding(
-                //                     padding: const EdgeInsets.all(12),
-                //                     child: SvgPicture.asset(
-                //                       searchFilterController
-                //                           .selectCategoryIcon
-                //                           .value,
-                //                       width: 20,
-                //                       height: 20,
-                //                       colorFilter: const ColorFilter.mode(
-                //                         ThemeApp.Foundation_Main_main_500,
-                //                         BlendMode.srcIn,
-                //                       ),
-                //                     ),
-                //                   );
-                //                 }
-                //                 return Padding(
-                //                   padding: const EdgeInsets.all(12),
-                //                   child: SvgPicture.asset(
-                //                     IconApp.category,
-                //                     // size: 20,
-                //                     color: ThemeApp.Foundation_Main_main_500,
-                //                   ),
-                //                 );
-                //               }),
-                //               borderRadio: 16,
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       if (searchFilterController
-                //               .selectCategory
-                //               .value
-                //               .isNotEmpty &&
-                //           categoryController.subCategories.isNotEmpty)
-                //         Expanded(
-                //           child: Column(
-                //             children: [
-                //               SectionActiveFilterTitleWidget(
-                //                 value: searchFilterController
-                //                     .EffectiveSubCategoryFilter,
-                //                 onChanged: (value) {
-                //                   searchFilterController
-                //                       .activeSubCategoryFilter();
-                //                 },
-                //                 FilterName: "Sub Category",
-                //               ),
-                //               Obx(
-                //                 () => AppDropdownButtonFormFieldWidget(
-                //                   hintText: "All In Classified",
-                //                   value:
-                //                       searchFilterController
-                //                           .selectSubCategory
-                //                           .value
-                //                           .isEmpty
-                //                       ? null
-                //                       : searchFilterController
-                //                             .selectSubCategory
-                //                             .value,
-                //                   onChanged: (value) {
-                //                     if (value != null) {
-                //                       searchFilterController
-                //                           .selectSubCategory
-                //                           .value = value
-                //                           .toString();
-                //                       log(
-                //                         'Selected sub category: ${value.toString()}',
-                //                       );
-                //                     }
-                //                   },
-                //                   items: categoryController.subCategories.map((
-                //                     subCategory,
-                //                   ) {
-                //                     return DropdownMenuItem<String>(
-                //                       value: subCategory.name,
-                //                       child: Row(
-                //                         children: [
-                //                           // edit
-                //                           // disen
-                //                           // SvgPicture.asset(subCategory.icon),
-                //                           Text(subCategory.name),
-                //                         ],
-                //                       ),
-                //                     );
-                //                   }).toList(),
-                //                   prefixIcon: IconApp.category,
-                //                   borderRadio: 16,
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //     ],
-                //   ),
+                // SectionActiveFilterTitleWidget(
+                //   value: searchFilterController.EffectiveLocationFilter,
+                //   onChanged: (value) {
+                //     searchFilterController.activeLocationFilter();
+                //   },
+                //   FilterName: "Location",
                 // ),
-                // Text("=============="),
+                // AppOutlinedButtonWidget(
+                //   textContent: "Add Location",
+                //   icon: IconApp.place,
+                //   // edit
+                //   onPressed: () {},
+                // ),
+                // const SizedBox(height: 5),
                 Obx(
                   () => Row(
                     children: [
@@ -261,10 +101,23 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                             ),
                             AppDropdownButtonFormFieldWidget(
                               hintText: "All In Classified",
+                              value:
+                                  searchFilterController.selectCategory.value,
                               // edit
                               onChanged: (value) {
                                 searchFilterController.selectCategory.value =
                                     value;
+                                if (searchFilterController
+                                    .selectCategory
+                                    .value!
+                                    .hasChildren) {
+                                  categoryController.getSubCategories(
+                                    searchFilterController
+                                        .selectCategory
+                                        .value!
+                                        .id,
+                                  );
+                                }
                               },
                               isSizeFontSmall:
                                   searchFilterController.selectCategory.value !=
@@ -324,8 +177,49 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                               ),
                               AppDropdownButtonFormFieldWidget(
                                 hintText: "All In Classified",
-                                onChanged: (Value) {},
-                                items: [],
+                                value: searchFilterController
+                                    .selectSubCategory
+                                    .value,
+                                onChanged: (Value) {
+                                  searchFilterController
+                                          .selectSubCategory
+                                          .value =
+                                      Value;
+                                },
+                                validator: (value) {
+                                  if (searchFilterController
+                                      .EffectiveCategoryFilter
+                                      .value) {
+                                    if (value == null) {
+                                      return "pleas select sup category";
+                                    }
+                                    if (!searchFilterController
+                                        .EffectiveSubCategoryFilter
+                                        .value) {
+                                      return "pleas active sub category filter";
+                                    }
+                                  }
+                                  return null;
+                                },
+                                items: categoryController.subCategories.map((
+                                  subCategory,
+                                ) {
+                                  return DropdownMenuItem<CategoryModel>(
+                                    value: subCategory,
+                                    child: Row(
+                                      children: [
+                                        // edit
+                                        // disen
+                                        // SvgPicture.asset(subCategory.icon),
+                                        Text(
+                                          subCategory.name,
+                                          // edit
+                                          style: TextStyle(fontSize: 9),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
                                 borderRadio: 16,
                                 prefixIcon: IconApp.category,
                                 isSizeFontSmall:
@@ -417,14 +311,14 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: FiltterRadioWidget(
-                        option: 'Buying',
-                        optionSelected: AdType.buying,
+                        option: 'Rent',
+                        optionSelected: AdType.rent,
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: FiltterRadioWidget(
-                        option: "Selling",
+                        option: "Sell",
                         optionSelected: AdType.selling,
                       ),
                     ),
@@ -432,34 +326,69 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
 
-                SectionActiveFilterTitleWidget(
-                  value: searchFilterController.EffectivePostedFilter,
-                  onChanged: (value) {
-                    searchFilterController.activePostedFilter();
-                  },
-                  FilterName: "Posted Since",
-                ),
-                AppDropdownButtonFormFieldWidget(
-                  hintText: "All in Time ",
-                  onChanged: (value) {
-                    if (value != null) {
-                      searchFilterController.selectPosted.value = value
-                          .toString();
-                    }
-                  },
-                  // edit
-                  items: [],
-                  // edit
-                  prefixIcon: IconApp.clarityDateLine,
-                  borderRadio: 16,
-                ),
-                SizedBox(height: 5),
+                // SectionActiveFilterTitleWidget(
+                //   value: searchFilterController.EffectiveTypeFilter,
+                //   onChanged: (value) {
+                //     searchFilterController.activeTypeFilter();
+                //   },
+                //   FilterName: "Ad Type",
+                // ),
+
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: FiltterRadioWidget(
+                //         option: 'Buying',
+                //         optionSelected: AdType.buying,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 12),
+                //     Expanded(
+                //       child: FiltterRadioWidget(
+                //         option: "Selling",
+                //         optionSelected: AdType.selling,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height: 5),
+
+                // SectionActiveFilterTitleWidget(
+                //   value: searchFilterController.EffectivePostedFilter,
+                //   onChanged: (value) {
+                //     searchFilterController.activePostedFilter();
+                //   },
+                //   FilterName: "Posted Since",
+                // ),
+                // AppDropdownButtonFormFieldWidget(
+                //   hintText: "All in Time ",
+                //   onChanged: (value) {
+                //     if (value != null) {
+                //       searchFilterController.selectPosted.value = value
+                //           .toString();
+                //     }
+                //   },
+                //   // edit
+                //   items: [],
+                //   // edit
+                //   prefixIcon: IconApp.clarityDateLine,
+                //   borderRadio: 16,
+                // ),
+                // SizedBox(height: 5),
                 SizedBox(
                   width: size.width * 0.927,
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        searchFilterController.applyFilters();
+                        // searchFilterController.applyFilters();
+                        searchFilterController.searchAndFilter((e) {
+                          Get.snackbar(
+                            "Error",
+                            e,
+                            backgroundColor: ThemeApp.Foundation_Main_main_400,
+                            colorText: ThemeApp.whiteBackground,
+                          );
+                        });
                         Get.back();
                       }
                     },

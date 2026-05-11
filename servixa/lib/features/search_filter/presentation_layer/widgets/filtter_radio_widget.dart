@@ -34,9 +34,9 @@ class FiltterRadioWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             searchFilterController.selectedAdType.value = optionSelected;
-            if (searchFilterController.EffectiveTypeFilter.value) {
-              searchFilterController.applyFilters();
-            }
+            // if (searchFilterController.EffectiveTypeFilter.value) {
+            //   // searchFilterController.applyFilters();
+            // }
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -56,8 +56,10 @@ class FiltterRadioWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color:
+                          // searchFilterController.selectedAdType.value ==
+                          //     AdType.buying
                           searchFilterController.selectedAdType.value ==
-                              AdType.buying
+                              optionSelected
                           ? ThemeApp.Foundation_Secendary_grey_400
                           : ThemeApp.Foundation_Secendary_grey_300,
                       width:

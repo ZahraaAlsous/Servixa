@@ -49,7 +49,7 @@ class SearchScreen extends StatelessWidget {
                 },
                 onFieldSubmitted: (value) {
                   searchFilterController.filterSearch.value = value;
-                  searchFilterController.applyFilters();
+                  // searchFilterController.applyFilters();
                 },
               ),
             ),
@@ -58,7 +58,7 @@ class SearchScreen extends StatelessWidget {
               () => Text(
                 searchFilterController.isDisplayTitleSearchResults()
                     ? "Searched items"
-                    : "Popular Ads",
+                    : "All Ads",
                 style: TypographyApp.title_Sections.copyWith(
                   color: ThemeApp.Foundation_Main_Color_900,
                 ),
@@ -67,6 +67,17 @@ class SearchScreen extends StatelessWidget {
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Center(
               child: Obx(() {
+                if (searchFilterController.isLoadingAdsFilter.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if(searchFilterController.adsSearchList.isEmpty){
+                  return Text(
+                    "No results found",
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_300,
+                    ),
+                  );
+                }
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
