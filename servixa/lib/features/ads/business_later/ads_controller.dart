@@ -33,194 +33,213 @@ class AdsController extends GetxController {
     // }
   }
 
-  void getAds() {
-    adsList.addAll([
-      AdsModel(
-        id: 1,
-        title: "From Api",
-        place: "Riyadh – Malaz",
-        dictation:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-        image: "assets/images/Rectangle 9772.png",
-        images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-        favorite: false,
-        price: 500,
-        typeCoin: "Sp",
-        typeService: "Rent",
-        status: "accept",
-        listReview: [
-          ReviewModel(
-            id: 1,
-            text: "very beatufull",
-            user: UserModel(
-              id: 1,
-              firstName: "Zahraa",
-              lastName: "Alsous",
-              name: "jjj",
-            ),
-            date: "6/15/2026",
-          ),
-        ],
-        category: CategoryModel(
-          id: 2,
-          name: "Interior Design",
-          icon: "assets/images/Simplification.png",
-          hasChildren: true,
-        ),
+  // void getAds() {
+  //   adsList.addAll([
+  //     AdsModel(
+  //       id: 1,
+  //       title: "From Api",
+  //       place: "Riyadh – Malaz",
+  //       dictation:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
+  //       image: "assets/images/Rectangle 9772.png",
+  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
+  //       favorite: false,
+  //       price: 500,
+  //       typeCoin: "Sp",
+  //       typeService: "Rent",
+  //       status: "accept",
+  //       listReview: [
+  //         ReviewModel(
+  //           id: 1,
+  //           text: "very beatufull",
+  //           user: UserModel(
+  //             id: 1,
+  //             firstName: "Zahraa",
+  //             lastName: "Alsous",
+  //             name: "jjj",
+  //           ),
+  //           date: "6/15/2026",
+  //         ),
+  //       ],
+  //       category: CategoryModel(
+  //         id: 2,
+  //         name: "Interior Design",
+  //         icon: "assets/images/Simplification.png",
+  //         hasChildren: true,
+  //       ),
 
-        user: UserModel(
-          id: 1,
-          firstName: "firstName",
-          lastName: "lastName",
-          name: "jjj",
-        ),
-      ),
-      AdsModel(
-        id: 2,
-        title: "SPR Claw Hammers2",
-        place: "Riyadh – Malaz",
-        dictation:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-        image: "assets/images/Rectangle 9772.png",
-        images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-        favorite: false,
-        price: 500,
-        typeCoin: "\$",
-        typeService: "Rent2",
-        status: "accept",
+  //       user: UserModel(
+  //         id: 1,
+  //         firstName: "firstName",
+  //         lastName: "lastName",
+  //         name: "jjj",
+  //       ),
+  //     ),
+  //     AdsModel(
+  //       id: 2,
+  //       title: "SPR Claw Hammers2",
+  //       place: "Riyadh – Malaz",
+  //       dictation:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
+  //       image: "assets/images/Rectangle 9772.png",
+  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
+  //       favorite: false,
+  //       price: 500,
+  //       typeCoin: "\$",
+  //       typeService: "Rent2",
+  //       status: "accept",
 
-        category: CategoryModel(
-          id: 1,
-          name: "Equipment",
-          icon: "assets/images/Simplification.png",
-          hasChildren: true,
+  //       category: CategoryModel(
+  //         id: 1,
+  //         name: "Equipment",
+  //         icon: "assets/images/Simplification.png",
+  //         hasChildren: true,
 
-          // questions: [
-          //   CategoryQuestionModel(
-          //     id: 1,
-          //     question: "question text",
-          //     type: "text",
-          //   ),
-          //   // CategoryQuestionModel(
-          //   //   id: 2,
-          //   //   question: "question dropdown",
-          //   //   type: "dropdown",
-          //   //   options: ["1", "2", "3"],
-          //   // ),
-          //   CategoryQuestionModel(
-          //     id: 3,
-          //     question: "question checkbox",
-          //     type: "checkbox",
-          //   ),
-          // ],
-        ),
-        user: UserModel(
-          id: 1,
-          firstName: "firstName",
-          lastName: "lastName",
-          name: "jjj",
-        ),
-      ),
-      AdsModel(
-        id: 3,
-        title: "SPR Claw Hammers3",
-        place: "Riyadh – Malaz",
-        dictation:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-        image: "assets/images/Rectangle 9772.png",
-        images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-        favorite: false,
-        price: 500,
-        typeCoin: "\$",
-        typeService: "Rent2",
-        status: "accept",
-        category: CategoryModel(
-          id: 2,
-          name: "Interior Design",
-          icon: "assets/images/Simplification.png",
-          hasChildren: true,
-        ),
-        user: UserModel(
-          id: 1,
-          firstName: "firstName",
-          lastName: "lastName",
-          name: "jjj",
-        ),
-      ),
-      AdsModel(
-        id: 4,
-        title: "SPR Claw Hammers4",
-        place: "Riyadh – Malaz",
-        dictation:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-        image: "assets/images/Rectangle 9772.png",
-        images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-        favorite: false,
-        price: 500,
-        typeCoin: "\$",
-        typeService: "Rent2",
-        status: "accept",
-        category: CategoryModel(
-          id: 1,
-          name: "Equipment",
-          icon: "assets/images/Simplification.png",
-          hasChildren: true,
+  //         // questions: [
+  //         //   CategoryQuestionModel(
+  //         //     id: 1,
+  //         //     question: "question text",
+  //         //     type: "text",
+  //         //   ),
+  //         //   // CategoryQuestionModel(
+  //         //   //   id: 2,
+  //         //   //   question: "question dropdown",
+  //         //   //   type: "dropdown",
+  //         //   //   options: ["1", "2", "3"],
+  //         //   // ),
+  //         //   CategoryQuestionModel(
+  //         //     id: 3,
+  //         //     question: "question checkbox",
+  //         //     type: "checkbox",
+  //         //   ),
+  //         // ],
+  //       ),
+  //       user: UserModel(
+  //         id: 1,
+  //         firstName: "firstName",
+  //         lastName: "lastName",
+  //         name: "jjj",
+  //       ),
+  //     ),
+  //     AdsModel(
+  //       id: 3,
+  //       title: "SPR Claw Hammers3",
+  //       place: "Riyadh – Malaz",
+  //       dictation:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
+  //       image: "assets/images/Rectangle 9772.png",
+  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
+  //       favorite: false,
+  //       price: 500,
+  //       typeCoin: "\$",
+  //       typeService: "Rent2",
+  //       status: "accept",
+  //       category: CategoryModel(
+  //         id: 2,
+  //         name: "Interior Design",
+  //         icon: "assets/images/Simplification.png",
+  //         hasChildren: true,
+  //       ),
+  //       user: UserModel(
+  //         id: 1,
+  //         firstName: "firstName",
+  //         lastName: "lastName",
+  //         name: "jjj",
+  //       ),
+  //     ),
+  //     AdsModel(
+  //       id: 4,
+  //       title: "SPR Claw Hammers4",
+  //       place: "Riyadh – Malaz",
+  //       dictation:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
+  //       image: "assets/images/Rectangle 9772.png",
+  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
+  //       favorite: false,
+  //       price: 500,
+  //       typeCoin: "\$",
+  //       typeService: "Rent2",
+  //       status: "accept",
+  //       category: CategoryModel(
+  //         id: 1,
+  //         name: "Equipment",
+  //         icon: "assets/images/Simplification.png",
+  //         hasChildren: true,
 
-          // questions: [
-          //   CategoryQuestionModel(
-          //     id: 1,
-          //     question: "question text",
-          //     type: "text",
-          //   ),
-          //   CategoryQuestionModel(
-          //     id: 2,
-          //     question: "question dropdown",
-          //     type: "dropdown",
-          //     options: ["1", "2", "3"],
-          //   ),
-          //   CategoryQuestionModel(
-          //     id: 3,
-          //     question: "question checkbox",
-          //     type: "checkbox",
-          //   ),
-          // ],
-        ),
-        user: UserModel(
-          id: 1,
-          firstName: "firstName",
-          lastName: "lastName",
-          name: "jjj",
-        ),
-      ),
-      AdsModel(
-        id: 5,
-        title: "SPR Claw Hammers5",
-        place: "Riyadh – Malaz",
-        dictation:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-        image: "assets/images/Rectangle 9772.png",
-        images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-        favorite: false,
-        price: 500,
-        typeCoin: "\$",
-        typeService: "Rent2",
-        status: "accept",
-        category: CategoryModel(
-          id: 2,
-          name: "Interior Design",
-          icon: "assets/images/Simplification.png",
-          hasChildren: true,
-        ),
-        user: UserModel(
-          id: 1,
-          firstName: "firstName",
-          lastName: "lastName",
-          name: "jjj",
-        ),
-      ),
-    ]);
+  //         // questions: [
+  //         //   CategoryQuestionModel(
+  //         //     id: 1,
+  //         //     question: "question text",
+  //         //     type: "text",
+  //         //   ),
+  //         //   CategoryQuestionModel(
+  //         //     id: 2,
+  //         //     question: "question dropdown",
+  //         //     type: "dropdown",
+  //         //     options: ["1", "2", "3"],
+  //         //   ),
+  //         //   CategoryQuestionModel(
+  //         //     id: 3,
+  //         //     question: "question checkbox",
+  //         //     type: "checkbox",
+  //         //   ),
+  //         // ],
+  //       ),
+  //       user: UserModel(
+  //         id: 1,
+  //         firstName: "firstName",
+  //         lastName: "lastName",
+  //         name: "jjj",
+  //       ),
+  //     ),
+  //     AdsModel(
+  //       id: 5,
+  //       title: "SPR Claw Hammers5",
+  //       place: "Riyadh – Malaz",
+  //       dictation:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
+  //       image: "assets/images/Rectangle 9772.png",
+  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
+  //       favorite: false,
+  //       price: 500,
+  //       typeCoin: "\$",
+  //       typeService: "Rent2",
+  //       status: "accept",
+  //       category: CategoryModel(
+  //         id: 2,
+  //         name: "Interior Design",
+  //         icon: "assets/images/Simplification.png",
+  //         hasChildren: true,
+  //       ),
+  //       user: UserModel(
+  //         id: 1,
+  //         firstName: "firstName",
+  //         lastName: "lastName",
+  //         name: "jjj",
+  //       ),
+  //     ),
+  //   ]);
+  // }
+
+ Future<void> getAds() async {
+    try {
+      isLoading.value = true;
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Ads IN");
+
+      List<AdsModel> ads = await adService.getAds();
+      adsList.clear();
+      adsList.addAll(ads);
+
+      log("==============================Controller : Ads OK");
+    } catch (e) {
+      log("==============================Controller : Ads ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " + e.toString(),
+      );
+    } finally {
+      isLoading.value = false;
+    }
   }
-
   void favorite(int adsId) {
     final index = adsList.indexWhere((item) => item.id == adsId);
     if (index != -1) {

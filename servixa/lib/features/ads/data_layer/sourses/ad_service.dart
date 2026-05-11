@@ -98,4 +98,28 @@ class AdService {
     }
   }
 
+  Future<List<AdsModel>> getAds() async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ads IN");
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/ads",
+      );
+      if (response.statusCode == 200) {
+        log("==============================Service : Ads OK");
+        List<AdsModel> adsList = AdsModel.listFromJson(response.data);
+        return adsList;
+      }
+      log("==============================Service : Ads Failed");
+
+      throw "Get ads failed: Unexpected response from server";
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : Delete Ad ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : Ads ERROR");
+      throw e.response!.data["message"];
+    }
+  }
 }
