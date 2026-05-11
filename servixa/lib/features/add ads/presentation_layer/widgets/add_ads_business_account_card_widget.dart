@@ -14,7 +14,6 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ استخدم Obx هنا عشان يراقب التغييرات
     return Obx(() {
       bool isSelected =
           addAdsController.selectedBusinessAccount.value?.id == account.id;
@@ -57,7 +56,7 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      account.businessNameArabic,
+                      account.businessNameEnglish,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

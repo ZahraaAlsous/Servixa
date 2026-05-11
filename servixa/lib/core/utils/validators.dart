@@ -60,6 +60,28 @@ class Validators {
     return null;
   }
 
+  static String? validateTextDinamckQuestion(
+    String? value,
+    String message,
+    bool isRequired,
+  ) {
+    if (isRequired && (value == null || value.trim().isEmpty)) {
+      return "$message is required";
+    }
+
+    if (!isRequired && (value == null || value.trim().isEmpty)) {
+      return null;
+    }
+
+    if (value != null && value.trim().isNotEmpty) {
+      // if (value.trim().length < 2) {
+      return "Please enter a valid value (at least 2 characters)";
+      // }
+    }
+
+    return null;
+  }
+
   static String? validatePhoneRegister(String? value, String? emailValue) {
     // // if (value == null || value.trim().isEmpty) {
     // //   return "This field is required";
@@ -248,6 +270,38 @@ class Validators {
     if (!value.isNum) {
       return "The $message must be in numbers only.";
     }
+    return null;
+  }
+
+  static String? validateNumberDinamickQuestion(
+    String? value,
+    String message,
+    bool isRequired,
+  ) {
+    if (isRequired && (value == null || value.trim().isEmpty)) {
+      return "$message is required";
+    }
+    if (!isRequired && (value == null || value.trim().isEmpty)) {
+      return null;
+    }
+
+    // if (value != null && value.trim().isNotEmpty && !value.isNum) {
+    //   // if (value.trim().length < 2) {
+    //   return "Please enter a valid value";
+    //   // }
+    // }
+
+    final trimmedValue = value!.trim();
+    final number = double.tryParse(trimmedValue);
+
+    if (number == null) {
+      return "Please enter a valid number";
+    }
+
+    if (number < 0) {
+      return "Please enter a valid number";
+    }
+
     return null;
   }
 

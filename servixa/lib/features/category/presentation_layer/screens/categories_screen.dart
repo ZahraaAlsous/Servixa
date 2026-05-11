@@ -39,7 +39,7 @@ class CategoriesScreen extends StatelessWidget {
             AppSearchTextFormFieldWidget(radio: 16),
             const SizedBox(height: DimensApp.spaceBetweenSection),
             Obx(() {
-              if (categoryController.isLoading.value) {
+              if (categoryController.isLoadingCategory.value) {
                 return const Center(child: CircularProgressIndicator());
               }
               return GridView.builder(

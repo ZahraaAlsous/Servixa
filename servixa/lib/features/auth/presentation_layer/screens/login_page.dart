@@ -117,29 +117,30 @@ class LoginPage extends StatelessWidget {
                   // get.offall
                   // يروح عال home?
                   // لازم laoding و جرب const
-                  authController.isLoading.value
-                      ? const CircularProgressIndicator()
-                      : AuthElevatedButtonWidget(
-                          text: "Login",
-                          onPressed: authController.isLoading.value
-                              ? null
-                              : () {
-                                  if (_formKey.currentState!.validate()) {
-                                    log(
-                                      "******************************Click LOGIN",
-                                    );
-                                    authController.login(
-                                      () {
-                                        Get.offAll(SuperHomeScreen());
-                                      },
-                                      (e) {
-                                        AppSnackbar.showError(e.toString());
-                                      },
-                                    );
-                                  }
-                                  // Get.offAll(page)
-                                },
-                        ),
+                 Obx(() =>  authController.isLoading.value
+                        ? const CircularProgressIndicator()
+                        : AuthElevatedButtonWidget(
+                            text: "Login",
+                            onPressed: authController.isLoading.value
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      log(
+                                        "******************************Click LOGIN",
+                                      );
+                                      authController.login(
+                                        () {
+                                          Get.offAll(SuperHomeScreen());
+                                        },
+                                        (e) {
+                                          AppSnackbar.showError(e.toString());
+                                        },
+                                      );
+                                    }
+                                    // Get.offAll(page)
+                                  },
+                          ),
+                  )
                 ],
               ),
             ),

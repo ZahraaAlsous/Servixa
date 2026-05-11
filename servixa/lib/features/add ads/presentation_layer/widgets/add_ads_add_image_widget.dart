@@ -6,6 +6,7 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/services/image_service.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 
 class AddAdsAddImageWidget extends StatelessWidget {
@@ -118,7 +119,10 @@ class AddAdsAddImageWidget extends StatelessWidget {
               icon: IconApp.camera,
               isRow: list.isEmpty,
               onPressed: () {
-                addAdsController.pickImage(list);
+                // addAdsController.pickImage(list);
+                // addAdsController.pickMultipleSubImages(list);
+                ImageService.pickMultipleSubImages(addAdsController.listSelectedSubImage);
+                // ImageService.pickMultipleSubImages(list);
               },
             ),
           ),

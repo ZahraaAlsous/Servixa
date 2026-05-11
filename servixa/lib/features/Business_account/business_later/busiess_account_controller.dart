@@ -11,7 +11,7 @@ import 'package:servixa/features/Business_account/data_layer/models/city_model.d
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 import 'package:servixa/features/Business_account/data_layer/sourses/business_account_service.dart';
 
-class BusiessAccountController extends GetxController {
+class BusinessAccountController extends GetxController {
   final BusinessAccountService businessAccountService =
       BusinessAccountService();
   RxInt currentStep = 0.obs;
@@ -20,6 +20,8 @@ class BusiessAccountController extends GetxController {
   RxList<CityModel> citiesList = <CityModel>[].obs;
   RxList<UserTypeModel> userTypesList = <UserTypeModel>[].obs;
   RxList<BusinessAccountModel> businessAccountsList =
+      <BusinessAccountModel>[].obs;
+  RxList<BusinessAccountModel> businessAccountsApprovedList =
       <BusinessAccountModel>[].obs;
   RxBool isLoadingCreateBusinessAccount = false.obs;
   RxBool isLoadingCities = false.obs;
@@ -267,6 +269,34 @@ class BusiessAccountController extends GetxController {
     } catch (e) {
       log(
         "==============================Controller : GetBusinessAccount ERROR",
+      );
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+    } finally {
+      isLoadingBusinessAccounts.value = false;
+    }
+  }
+
+  Future<void> getBusinessAccountApproved() async {
+    try {
+      log(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : GetBusinessAccountApproved IN",
+      );
+
+      isLoadingBusinessAccounts.value = true;
+     await getBusinessAccount();
+      businessAccountsApprovedList.value = businessAccountsList
+          .where((account) => account.status == "approved")
+          .toList();
+      log(
+        "==============================Controller : GetBusinessAccountApproved OK",
+      );
+
+    } catch (e) {
+      log(
+        "==============================Controller : GetBusinessAccountApproved ERROR",
       );
       log(
         "==============================Controller THE ERROR IS: " +

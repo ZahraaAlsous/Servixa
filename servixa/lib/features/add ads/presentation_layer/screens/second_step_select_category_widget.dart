@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/common/widgets/app_card_category_widget.dart';
@@ -13,7 +14,7 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (categoryController.isLoading.value) {
+      if (categoryController.isLoadingCategory.value) {
         return Center(child: CircularProgressIndicator());
       }
       return GridView.builder(
@@ -28,17 +29,25 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
         itemCount: categoryController.categories.length,
         itemBuilder: (context, indexCategory) {
           final category = categoryController.categories[indexCategory];
-          return AppCardCategoryWidget(
-            onTap: () {
-              addAdsController.selectedCategoryAds.value = category;
-            },
-            assetName: category.icon,
-            categoryName: category.name,
-            CategoryId: category.id,
-            // enableSelection: true,
-            // isThisCardSelect: category.id == addAdsController.selectedCategoryAds.value?.id,
-            // selectCategoryId: addAdsController.selectedCategoryAds.value?.id,
+
+          return Obx(() {
+            final isSelected = addAdsController.isSelected(
+            category,
+            addAdsController.selectedCategoryAds.value?.id ?? 0,
           );
+            return AppCardCategoryWidget(
+              onTap: () {
+                addAdsController.selectedCategoryAds.value = category;
+              },
+              colorCard: isSelected ? ThemeApp.Foundation_Main_main_200 : null,
+              assetName: category.icon,
+              categoryName: category.name,
+              CategoryId: category.id,
+              // enableSelection: true,
+              // isThisCardSelect: category.id == addAdsController.selectedCategoryAds.value?.id,
+              // selectCategoryId: addAdsController.selectedCategoryAds.value?.id,
+            );
+          });
         },
       );
     });

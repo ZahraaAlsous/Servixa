@@ -95,24 +95,25 @@ class AdsController extends GetxController {
           icon: "assets/images/Simplification.png",
           hasChildren: true,
 
-          questions: [
-            CategoryQuestionModel(
-              id: 1,
-              question: "question text",
-              type: "text",
-            ),
-            CategoryQuestionModel(
-              id: 2,
-              question: "question dropdown",
-              type: "dropdown",
-              options: ["1", "2", "3"],
-            ),
-            CategoryQuestionModel(
-              id: 3,
-              question: "question checkbox",
-              type: "checkbox",
-            ),
-          ],
+          // questions: [
+          //   CategoryQuestionModel(
+          //     id: 1,
+          //     question: "question text",
+          //     type: "text",
+          //   ),
+          //   // CategoryQuestionModel(
+          //   //   id: 2,
+          //   //   question: "question dropdown",
+          //   //   type: "dropdown",
+          //   //   options: ["1", "2", "3"],
+          //   // ),
+          //   CategoryQuestionModel(
+          //     id: 3,
+          //     question: "question checkbox",
+          //     type: "checkbox",
+          //   ),
+          // ],
+       
         ),
         user: UserModel(
           id: 1,
@@ -166,24 +167,25 @@ class AdsController extends GetxController {
           icon: "assets/images/Simplification.png",
           hasChildren: true,
 
-          questions: [
-            CategoryQuestionModel(
-              id: 1,
-              question: "question text",
-              type: "text",
-            ),
-            CategoryQuestionModel(
-              id: 2,
-              question: "question dropdown",
-              type: "dropdown",
-              options: ["1", "2", "3"],
-            ),
-            CategoryQuestionModel(
-              id: 3,
-              question: "question checkbox",
-              type: "checkbox",
-            ),
-          ],
+          // questions: [
+          //   CategoryQuestionModel(
+          //     id: 1,
+          //     question: "question text",
+          //     type: "text",
+          //   ),
+          //   CategoryQuestionModel(
+          //     id: 2,
+          //     question: "question dropdown",
+          //     type: "dropdown",
+          //     options: ["1", "2", "3"],
+          //   ),
+          //   CategoryQuestionModel(
+          //     id: 3,
+          //     question: "question checkbox",
+          //     type: "checkbox",
+          //   ),
+          // ],
+      
         ),
         user: UserModel(
           id: 1,

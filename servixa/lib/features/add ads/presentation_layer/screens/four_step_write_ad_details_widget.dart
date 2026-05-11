@@ -10,9 +10,11 @@ import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_add_image_widget.dart';
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_main_image_widget.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
+import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 
 class FourStepWriteAdDetailsWidget extends StatefulWidget {
@@ -27,420 +29,454 @@ class _FourStepWriteAdDetailsWidgetState
     extends State<FourStepWriteAdDetailsWidget> {
   AdsController adsController = Get.put(AdsController());
   AddAdsController addAdsController = Get.put(AddAdsController());
-  // File? selectedImage; // 👈 لتخزين الصورة المختارة
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController titleController = TextEditingController();
-  TextEditingController slugController = TextEditingController();
+  CategoryController categoryController = Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Ad Title",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
-          ),
-        ),
-        const SizedBox(height: 5),
-
-        AppTextFormField(
-          hintText: "Title..",
-          icon: IconApp.tags,
-          controller: titleController,
-          validator: Validators.validateReviewAndRequestOrder,
-          onChanged: (value) {
-            addAdsController.adTitle = value;
-          },
-        ),
-
-        const SizedBox(height: 16),
-
-        Text(
-          "Ad Slug",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
-          ),
-        ),
-        const SizedBox(height: 5),
-
-        AppTextFormField(
-          hintText: "Slug..",
-          icon: IconApp.solarLinkOutline,
-          controller: slugController,
-          onChanged: (value) {
-            addAdsController.adSlug = value;
-          },
-          validator: Validators.validateReviewAndRequestOrder,
-        ),
-
-        const SizedBox(height: 16),
-
-        Text(
-          "Description",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
-          ),
-        ),
-        const SizedBox(height: 5),
-
-        AppTextAreaWidget(
-          hintText: "Description..",
-          prefixIcon: IconApp.description,
-          onChange: (value) {
-            addAdsController.adDescription = value;
-          },
-          controller: descriptionController,
-        ),
-        const SizedBox(height: 16),
-
-        // Obx(() {
-        //   return
-
-        //   Row(
-        //     children: [
-        //       if (addAdsController.listSelectedImage.isNotEmpty)
-        //         Expanded(
-        //           flex: 2,
-        //           child: SizedBox(
-        //             height: 95,
-        //             child: ListView.builder(
-        //               // shrinkWrap: true,
-        //               // physics: NeverScrollableScrollPhysics(),
-        //               scrollDirection: Axis.horizontal,
-        //               itemCount: addAdsController.listSelectedImage.length,
-        //               itemBuilder: (context, index) {
-        //                 return Container(
-        //                   margin: EdgeInsets.only(right: 12),
-        //                   child: Stack(
-        //                     children: [
-        //                       // ✅ الصورة
-        //                       Container(
-        //                         width: 100,
-        //                         height: 100,
-        //                         decoration: BoxDecoration(
-        //                           shape: BoxShape.rectangle,
-        //                           borderRadius: BorderRadius.circular(12),
-        //                           image: DecorationImage(
-        //                             image: FileImage(
-        //                               addAdsController.listSelectedImage[index],
-        //                             ),
-        //                             fit: BoxFit.cover,
-        //                           ),
-        //                           border: Border.all(
-        //                             color: ThemeApp.Foundation_Main_main_500,
-        //                             width: 2,
-        //                           ),
-        //                           boxShadow: [
-        //                             BoxShadow(
-        //                               color: Colors.black.withOpacity(0.1),
-        //                               blurRadius: 4,
-        //                               offset: Offset(0, 2),
-        //                             ),
-        //                           ],
-        //                         ),
-        //                       ),
-
-        //                       Positioned(
-        //                         top: -5,
-        //                         right: -5,
-        //                         child: GestureDetector(
-        //                           onTap: () {
-        //                             // setState(() {
-        //                             addAdsController.removeImageAt(index);
-        //                             // });
-        //                           },
-        //                           child: Container(
-        //                             width: 24,
-        //                             height: 24,
-        //                             decoration: BoxDecoration(
-        //                               color: Colors.red,
-        //                               shape: BoxShape.circle,
-        //                               border: Border.all(
-        //                                 color: Colors.white,
-        //                                 width: 2,
-        //                               ),
-        //                             ),
-        //                             child: Icon(
-        //                               Icons.close,
-        //                               size: 14,
-        //                               color: Colors.white,
-        //                             ),
-        //                           ),
-        //                         ),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                 );
-        //               },
-        //             ),
-        //           ),
-        //         ),
-
-        //       Expanded(
-        //         flex: 1,
-        //         child: AppOutlinedButtonWidget(
-        //           textContent: "Add Main Picture",
-        //           isRow: addAdsController.listSelectedImage.value.isEmpty,
-        //           onPressed: () {
-        //             _pickImage();
-        //           },
-        //         ),
-        //       ),
-        //     ],
-        //   );
-
-        // }),
-        // Obx((() {
-        //   return AddAdsAddImageWidget(list: addAdsController.listSelectedImage);
-        // })),
-        AddAdsAddImageWidget(
-          list: addAdsController.listSelectedMainImage,
-          buttonContain: "Add Main Picture",
-        ),
-        SizedBox(height: 16),
-        AddAdsAddImageWidget(
-          list: addAdsController.listSelectedSubImage,
-          buttonContain: "Add Sub Picture",
-        ),
-        Text(
-          "price",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
-          ),
-        ),
-        const SizedBox(height: 5),
-
-        AppDropdownButtonFormFieldWidget(
-          hintText: "Fixed",
-          onChanged: (value) {
-            addAdsController.typeCoin = value;
-          },
-          prefixIcon: IconApp.price,
-          borderRadio: 16,
-          validator: Validators.validateReviewAndRequestOrder,
-          items: [
-            DropdownMenuItem<String>(
-              value: "dolar",
-              child: Text(
-                "\$",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
-                ),
-              ),
-              alignment: Alignment.center,
+    return Form(
+      key: addAdsController.formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Ad Title",
+            style: TypographyApp.Title_Mid_Mid.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_600,
             ),
-            DropdownMenuItem<String>(
-              value: "sp",
-              child: Text(
-                "Sp",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
-                ),
-              ),
-              alignment: Alignment.center,
-            ),
-          ],
-        ),
-
-        // Obx(
-        //   () => DropdownButtonFormField<String?>(
-        //     value: addAdsController.selectedCurrency.value,
-        //     items: const [
-        //       // edit
-        //       // from back value
-        //       DropdownMenuItem<String?>(value: "1", child: Text("\$")),
-        //       DropdownMenuItem<String?>(value: "2", child: Text("sp")),
-        //     ],
-        //     onChanged: (String? value) {
-        //       if (value != null) {
-        //         addAdsController.selectedCurrency.value = value;
-        //       }
-        //     },
-        //     decoration: InputDecoration(
-        //       contentPadding: EdgeInsetsGeometry.symmetric(horizontal: 100),
-        //       enabledBorder: OutlineInputBorder(
-        //         borderRadius: BorderRadius.circular(16),
-        //         borderSide: BorderSide(
-        //           color: ThemeApp.Foundation_Secendary_grey_100,
-        //         ),
-        //       ),
-        //       focusedBorder: OutlineInputBorder(
-        //         borderRadius: BorderRadius.circular(16),
-        //         borderSide: BorderSide(
-        //           color: ThemeApp.Foundation_Secendary_grey_100,
-        //         ),
-        //       ),
-        //       errorBorder: OutlineInputBorder(
-        //         borderRadius: BorderRadius.circular(16),
-        //         borderSide: BorderSide(color: Colors.red),
-        //       ),
-        //       hintStyle: TypographyApp.Body_mid_Regular.copyWith(
-        //         color: ThemeApp.Foundation_Secendary_grey_200,
-        //       ),
-        //       hintText: "Fixed",
-        //       prefixIcon: Padding(
-        //         padding: const EdgeInsets.all(12),
-        //         child: SvgPicture.asset(IconApp.price, width: 24, height: 24),
-        //       ),
-        //     ),
-        //     // hint: const Text("Fixed"),
-        //     validator: Validators.validateReviewAndRequestOrder,
-        //   ),
-        // ),
-        Text(
-          "Type",
-          style: TypographyApp.Title_Mid_Mid.copyWith(
-            color: ThemeApp.Foundation_Secendary_grey_600,
           ),
-        ),
-        const SizedBox(height: 5),
+          const SizedBox(height: 5),
 
-        // edit
-        // value from back
-        // AddAdsDropdownButtonFormFieldWidget(
-        //   hintText: "Service Request",
-        //   onChanged: (value) {
-        //     addAdsController.typeCoin = value;
-        //   },
-        //   prefixIcon: IconApp.suggestion,
-        //   borderRadio: 4,
-        //   validator: Validators.validateReviewAndRequestOrder,
-        //   items: const [
-        //     DropdownMenuItem<String>(
-        //       value: "dolar",
-        //       child: Text("\$"),
-        //       alignment: Alignment.center,
-        //     ),
-        //     DropdownMenuItem<String>(
-        //       value: "sp",
-        //       child: Text("Sp"),
-        //       alignment: Alignment.center,
-        //     ),
-        //   ],
-        // ),
-        AppDropdownButtonFormFieldWidget(
-          hintText: "Service Request",
-          onChanged: (value) {
-            addAdsController.typeService = value;
-          },
-          prefixIcon: IconApp.suggestion,
-          borderRadio: 4,
-          validator: Validators.validateReviewAndRequestOrder,
-          items: [
-            DropdownMenuItem<String>(
-              value: "dolar",
-              child: Text(
-                "Dollar \$",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
-                ),
-              ),
-              alignment: Alignment.center,
-            ),
+          AppTextFormField(
+            hintText: "Title..",
+            icon: IconApp.tags,
+            // textInputAction:,
+            controller: addAdsController.titleController,
+            validator: Validators.validateReviewAndRequestOrder,
+            // onChanged: (value) {
+            //   addAdsController.adTitle = value;
+            // },
+          ),
 
-            DropdownMenuItem<String>(
-              value: "sp",
-              child: Text(
-                "Sp Syrian pounds",
-                style: TypographyApp.Body_mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_400,
-                ),
-              ),
-              alignment: Alignment.center,
-            ),
-          ],
-        ),
-        if (addAdsController.selectedCategoryAds.value?.questions != null &&
-            addAdsController.selectedCategoryAds.value!.questions!.isNotEmpty)
-          // Container(
-          //   width: 100,
-          //   height: 100,
-          //   color: Colors.amber,
+          const SizedBox(height: 16),
+
+          // Text(
+          //   "Ad Slug",
+          //   style: TypographyApp.Title_Mid_Mid.copyWith(
+          //     color: ThemeApp.Foundation_Secendary_grey_600,
+          //   ),
           // ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount:
-                addAdsController.selectedCategoryAds.value!.questions!.length,
-            itemBuilder: (context, indexQuestion) {
-              CategoryQuestionModel question = addAdsController
-                  .selectedCategoryAds
-                  .value!
-                  .questions![indexQuestion];
-              if (question.type == "text") {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(question.question),
-                    AppTextFormField(hintText: question.question),
-                  ],
-                );
-              } else if (question.type == "dropdown") {
-                // AddAdsDropdownButtonFormFieldWidget(items: [],)
+          // const SizedBox(height: 5),
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(question.question),
-                    AppDropdownButtonFormFieldWidget(
-                      hintText: question.question,
-                      // edit
-                      onChanged: (value) {},
-                      items:
-                          question.options?.map((option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: Text(
-                                option,
-                                style: TypographyApp.Body_mid_Mid.copyWith(
-                                  color: ThemeApp.Foundation_Secendary_grey_400,
+          // AppTextFormField(
+          //   hintText: "Slug..",
+          //   icon: IconApp.solarLinkOutline,
+          //   controller: slugController,
+          //   onChanged: (value) {
+          //     addAdsController.adSlug = value;
+          //   },
+          //   validator: Validators.validateReviewAndRequestOrder,
+          // ),
+
+          // const SizedBox(height: 16),
+          Text(
+            "Description",
+            style: TypographyApp.Title_Mid_Mid.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_600,
+            ),
+          ),
+          const SizedBox(height: 5),
+
+          AppTextAreaWidget(
+            hintText: "Description..",
+            prefixIcon: IconApp.description,
+            // onChange: (value) {
+            //   addAdsController.adDescription = value;
+            // },
+            controller: addAdsController.descriptionController,
+          ),
+          const SizedBox(height: 16),
+
+          Row(
+            children: [
+              Obx(
+                () => Checkbox(
+                  value: addAdsController.isRent.value,
+                  onChanged: (value) {
+                    // addAdsController.isRent.value = value!;
+                    addAdsController.isRent.value =
+                        !addAdsController.isRent.value;
+                  },
+                ),
+              ),
+              Text(
+                "Is it for rent ?",
+                style: TypographyApp.Title_Mid_Mid.copyWith(
+                  color: ThemeApp.Foundation_Secendary_grey_600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          AddMainImageWidget(title: "Main Picture"),
+
+          SizedBox(height: 16),
+          AddAdsAddImageWidget(
+            list: addAdsController.listSelectedSubImage,
+            buttonContain: "Add Sub Picture",
+          ),
+          const SizedBox(height: 16),
+
+          Text(
+            "Price",
+            style: TypographyApp.Title_Mid_Mid.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_600,
+            ),
+          ),
+          const SizedBox(height: 5),
+
+          AppTextFormField(
+            hintText: "Price..",
+            icon: IconApp.price,
+            keyboardType: TextInputType.number,
+            controller: addAdsController.priceController,
+            validator: (value) => Validators.validateNumber(value, "Price"),
+            // onChanged: (value) {
+            //   addAdsController.price.value = value;
+            // },
+          ),
+
+          const SizedBox(height: 16),
+
+          Text(
+            "price",
+            style: TypographyApp.Title_Mid_Mid.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_600,
+            ),
+          ),
+          const SizedBox(height: 5),
+
+          AppDropdownButtonFormFieldWidget(
+            hintText: "Fixed",
+            value: addAdsController.typeCoin,
+            onChanged: (value) {
+              addAdsController.typeCoin = value;
+            },
+            prefixIcon: IconApp.price,
+            borderRadio: 16,
+            validator: Validators.validateReviewAndRequestOrder,
+            items: [
+              DropdownMenuItem<String>(
+                value: "1",
+                child: Text(
+                  "SYP",
+                  style: TypographyApp.Body_mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Secendary_grey_400,
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+              DropdownMenuItem<String>(
+                value: "2",
+                child: Text(
+                  "USD",
+                  style: TypographyApp.Body_mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Secendary_grey_400,
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          Text(
+            "Type",
+            style: TypographyApp.Title_Mid_Mid.copyWith(
+              color: ThemeApp.Foundation_Secendary_grey_600,
+            ),
+          ),
+          const SizedBox(height: 5),
+          AppDropdownButtonFormFieldWidget(
+            hintText: "Service Request",
+            value: addAdsController.typeService,
+            onChanged: (value) {
+              addAdsController.typeService = value;
+            },
+            prefixIcon: IconApp.suggestion,
+            borderRadio: 4,
+            validator: Validators.validateReviewAndRequestOrder,
+            items: [
+              DropdownMenuItem<String>(
+                value: "1",
+                child: Text(
+                  "service",
+                  style: TypographyApp.Body_mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Secendary_grey_400,
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+
+              DropdownMenuItem<String>(
+                value: "2",
+                child: Text(
+                  "equipment",
+                  style: TypographyApp.Body_mid_Mid.copyWith(
+                    color: ThemeApp.Foundation_Secendary_grey_400,
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // if (addAdsController.selectedCategoryAds.value?.questions != null &&
+          //     addAdsController.selectedCategoryAds.value!.questions!.isNotEmpty)
+          Obx(() {
+            if (categoryController.isLoadingCategoryQuestions.value) {
+              return CircularProgressIndicator();
+            } else {
+              if (categoryController.categoryQuestions.isNotEmpty) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: categoryController.categoryQuestions.length,
+                  itemBuilder: (context, indexQuestion) {
+                    CategoryQuestionModel question =
+                        categoryController.categoryQuestions[indexQuestion];
+                    if (question.type == "text") {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                question.question,
+                                style: TypographyApp.Title_Mid_Mid.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_600,
                                 ),
                               ),
-                              alignment: Alignment.center,
-                            );
-                          }).toList() ??
-                          [],
-                      prefixIcon: IconApp.Status,
-                      borderRadio: 16,
-                    ),
-                  ],
-                );
-              } else if (question.type == "checkbox") {
-                return Row(
-                  children: [
-                    Checkbox(value: true, onChanged: (value) {}),
-                    Text(question.question),
-                  ],
+                              Text(
+                                question.unitOfMeasurement == null
+                                    ? ""
+                                    : "(${question.unitOfMeasurement})",
+                                style: TypographyApp.Title_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_200,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          AppTextFormField(
+                            hintText:
+                                question.metaData.hint ?? question.question,
+                            // icon: IconApp.tags,
+                            // controller: titleController,
+                            initialValue:
+                                addAdsController
+                                    .finalAnswers["custom_fields[${question.id}]"] ??
+                                "",
+                            validator: (value) =>
+                                Validators.validateTextDinamckQuestion(
+                                  value,
+                                  question.question,
+                                  question.metaData.is_required,
+                                ),
+                            onChanged: (value) {
+                              // addAdsController.adTitle = value;
+                              addAdsController.saveSimpleAnswer(
+                                question.id,
+                                value,
+                              );
+                            },
+                          ),
+
+                          const SizedBox(height: 16),
+                        ],
+                      );
+                    } else if (question.type == "number") {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                question.question,
+                                style: TypographyApp.Title_Mid_Mid.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_600,
+                                ),
+                              ),
+                              Text(
+                                question.unitOfMeasurement == null
+                                    ? ""
+                                    : "(${question.unitOfMeasurement})",
+                                style: TypographyApp.Title_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_200,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+
+                          AppTextFormField(
+                            hintText:
+                                question.metaData.hint ?? question.question,
+                            // icon: IconApp.tags,
+                            keyboardType: TextInputType.number,
+                            // controller: titleController,
+                            initialValue:
+                                addAdsController
+                                    .finalAnswers["custom_fields[${question.id}]"] ??
+                                "",
+                            validator: (value) =>
+                                Validators.validateNumberDinamickQuestion(
+                                  value,
+                                  question.question,
+                                  question.metaData.is_required,
+                                ),
+                            onChanged: (value) {
+                              // addAdsController.adTitle = value;
+                              addAdsController.saveSimpleAnswer(
+                                question.id,
+                                value,
+                              );
+                            },
+                          ),
+
+                          const SizedBox(height: 16),
+                        ],
+                      );
+                    } else if (question.type == "dropdown") {
+                      // AddAdsDropdownButtonFormFieldWidget(items: [],)
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                question.question,
+                                style: TypographyApp.Title_Mid_Mid.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_600,
+                                ),
+                              ),
+
+                              Text(
+                                question.unitOfMeasurement == null
+                                    ? ""
+                                    : "(${question.unitOfMeasurement})",
+                                style: TypographyApp.Title_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_200,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          AppDropdownButtonFormFieldWidget(
+                            hintText: question.question,
+                            initialValue:
+                                addAdsController
+                                    .finalAnswers["custom_fields[${question.id}]"] ??
+                                null,
+                            // edit
+                            onChanged: (value) {},
+                            items:
+                                question.options?.map((option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option,
+                                    child: Text(
+                                      option,
+                                      style:
+                                          TypographyApp.Body_mid_Mid.copyWith(
+                                            color: ThemeApp
+                                                .Foundation_Secendary_grey_400,
+                                          ),
+                                    ),
+                                    alignment: Alignment.center,
+                                  );
+                                }).toList() ??
+                                [],
+                            prefixIcon: IconApp.Status,
+                            borderRadio: 16,
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      );
+                    } else if (question.type == "checkbox") {
+                      // 1. تأكد من إنشاء مصفوفة الـ bool لهذا السؤال إذا لم تكن موجودة
+                      addAdsController.initializeCheckboxes(
+                        question.id,
+                        question.metaData.options?.length ?? 0,
+                      );
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                question.question,
+                                style: TypographyApp.Title_Mid_Mid.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_600,
+                                ),
+                              ),
+                              Text(
+                                question.unitOfMeasurement == null
+                                    ? ""
+                                    : "(${question.unitOfMeasurement})",
+                                style: TypographyApp.Title_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_200,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Wrap(
+                            children: List.generate(
+                              question.metaData.options?.length ?? 0,
+                              (indexOption) {
+                                return Obx(() {
+                                  // 2. الوصول للمصفوفة الخاصة بهذا السؤال وللعنصر الخاص بهذا الخيار
+                                  var isChecked =
+                                      addAdsController.checkboxStates[question
+                                          .id]![indexOption];
+
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Checkbox(
+                                        value: isChecked,
+                                        onChanged: (bool? value) {
+                                          // 3. التحديث: عند الضغط، نغير القيمة داخل المصفوفة
+                                          addAdsController
+                                                  .checkboxStates[question
+                                                  .id]![indexOption] =
+                                              value!;
+                                        },
+                                      ),
+                                      Text(
+                                        question.metaData.options![indexOption],
+                                      ),
+                                    ],
+                                  );
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
                 );
               }
-            },
-          ),
+              return SizedBox(); // أو أي Widget افتراضي إذا لم تكن هناك أسئلة
+            }
+          }),
 
-        AppCheckboxTermsPoliciesWidget(),
-      ],
+          AppCheckboxTermsPoliciesWidget(),
+        ],
+      ),
     );
   }
-
-  // Future<void> _pickImage() async {
-  //   try {
-  //     final picker = ImagePicker();
-  //     final pickedFile = await picker.pickImage(
-  //       source: ImageSource.gallery,
-  //       maxWidth: 1024, // ✅ أضفها عشان تتحكم بحجم الصورة
-  //       maxHeight: 1024,
-  //       imageQuality: 85,
-  //     );
-
-  //     if (pickedFile != null) {
-  //       addAdsController.addImage(File(pickedFile.path));
-  //       log('Image selected: ${pickedFile.path}');
-  //     } else {
-  //       log('User cancelled');
-  //     }
-  //   } catch (e) {
-  //     log('Error picking image: $e');
-  //   }
-  // }
 }

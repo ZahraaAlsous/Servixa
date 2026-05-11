@@ -15,8 +15,8 @@ import 'package:servixa/features/Business_account/presentation_layer/screens/fou
 import 'package:servixa/features/Business_account/presentation_layer/screens/third_step_business_account_contact_information_screen.dart';
 
 class CreateBusinessAccountScreen extends StatelessWidget {
-  final BusiessAccountController businessAccountController = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
   );
 
   final List<String> _stepTitles = [

@@ -148,7 +148,7 @@ class EditProfileScreen extends GetView<ProfileController> {
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-            AppMapWidget(),
+            // AppMapWidget(),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
             AppTextAreaWidget(

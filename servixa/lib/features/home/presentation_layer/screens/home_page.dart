@@ -265,7 +265,7 @@ class HomePage extends StatelessWidget {
             //
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
-              if (categoryController.isLoading.value) {
+              if (categoryController.isLoadingCategory.value) {
                 return Center(child: CircularProgressIndicator());
               }
               return SizedBox(

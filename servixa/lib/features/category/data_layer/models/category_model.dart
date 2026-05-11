@@ -21,6 +21,9 @@ class CategoryModel {
       name: json["name"],
       icon: json["icon"] ?? null,
       hasChildren: json["has_children"],
+      questions: json["custom_fields"] != null
+          ? CategoryQuestionModel.listFromJson(json["custom_fields"])
+          : null,
     );
   }
 

@@ -10,8 +10,8 @@ import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
-  final BusiessAccountController businessAccountController = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
   );
   SecondStepBusinessAccountDetailsScreen({super.key});
 

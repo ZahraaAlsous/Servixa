@@ -8,7 +8,9 @@ import 'package:servixa/features/category/data_layer/sourses/category_servic.dar
 
 class CategoryController extends GetxController {
   final CategoryServic categoryService = CategoryServic();
-  RxBool isLoading = false.obs;
+  RxBool isLoadingCategory = false.obs;
+  RxBool isLoadingSubCategory = false.obs;
+  RxBool isLoadingCategoryQuestions = false.obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<CategoryModel> subCategories = <CategoryModel>[].obs;
   RxList<CategoryQuestionModel> categoryQuestions =
@@ -25,7 +27,7 @@ class CategoryController extends GetxController {
   Future<void> getCategories(void Function(String e) onError) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Categories IN");
-      isLoading.value = true;
+      isLoadingCategory.value = true;
       categories.value = await categoryService.getCategories();
       if (categories.isNotEmpty) {
         log("==============================Controller : Get Categories OK");
@@ -38,7 +40,7 @@ class CategoryController extends GetxController {
       );
       onError(e.toString());
     } finally {
-      isLoading.value = false;
+      isLoadingCategory.value = false;
     }
   }
 
@@ -105,13 +107,31 @@ class CategoryController extends GetxController {
 
   Future<void> getSubCategories(int categoryId) async {
     try {
-    
+      isLoadingSubCategory.value = true;
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Sub Categories IN");
       subCategories.value = await categoryService.getSubCategories(categoryId);
     } catch (e) {
       AppSnackbar.showError(e.toString());
+    } finally {
+      isLoadingSubCategory.value = false;
     }
   }
 
-  // void getCategoryQustions(){
-  // }
+  Future<void> getCategoryQuestions(int categoryId) async {
+    try {
+      //  categoryQuestions.clear();
+      isLoadingCategoryQuestions.value = true;
+
+      log(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions IN",
+      );
+      categoryQuestions.value = await categoryService.getCategoryQuestions(
+        categoryId,
+      );
+    } catch (e) {
+      AppSnackbar.showError(e.toString());
+    } finally {
+      isLoadingCategoryQuestions.value = false;
+    }
+  }
 }

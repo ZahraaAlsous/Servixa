@@ -12,8 +12,8 @@ import 'package:servixa/features/profile/business_later/profile_controller.dart'
 class BottomSheetChangeAcountWidget extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());
   final AuthController authController = Get.put(AuthController());
-  final BusiessAccountController busiessAccountController = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController busiessAccountController = Get.put(
+    BusinessAccountController(),
   );
 
   BottomSheetChangeAcountWidget({super.key});

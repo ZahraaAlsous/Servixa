@@ -7,14 +7,14 @@ import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/services/image_service.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/dd.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 
-
 class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
-  BusiessAccountController busiessAccountController = Get.put(
-    BusiessAccountController(),
+  BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
   );
   AddAdsController addAdsController = Get.put(AddAdsController());
   FourStepBusinessAccountDocumentScreen({super.key});
@@ -33,11 +33,11 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
         ),
         Obx(
           () => ListView.builder(
-            itemCount: busiessAccountController.listFile.length,
+            itemCount: businessAccountController.listFile.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, indexFile) {
-              File file = busiessAccountController.listFile[indexFile];
+              File file = businessAccountController.listFile[indexFile];
               String fileName = file.path.split('/').last;
 
               return Container(
@@ -76,7 +76,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                   ),
                   trailing: TextButton(
                     onPressed: () {
-                      busiessAccountController.openFile(file.path);
+                      businessAccountController.openFile(file.path);
                     },
                     child: Text(
                       "View",
@@ -101,7 +101,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
           textContent: "Upload Doc",
           paddingVertical: 5,
           onPressed: () {
-            busiessAccountController.pickFile();
+            businessAccountController.pickFile();
             // () async {
             //   try {
             //     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -121,7 +121,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
           icon: IconApp.pdf,
         ),
         Obx(() {
-          if (busiessAccountController.listImage.isNotEmpty) {
+          if (businessAccountController.listImage.isNotEmpty) {
             return SizedBox(
               height: 95,
               child:
@@ -129,7 +129,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                   //   () =>
                   ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: busiessAccountController.listImage.length,
+                    itemCount: businessAccountController.listImage.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 6.7),
@@ -145,7 +145,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                                 image: DecorationImage(
                                   image: FileImage(
-                                    busiessAccountController.listImage[index],
+                                    businessAccountController.listImage[index],
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -195,7 +195,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   addAdsController.removeImageAt(
-                                    busiessAccountController.listImage,
+                                    businessAccountController.listImage,
                                     index,
                                   );
                                 },
@@ -222,13 +222,18 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
         AppOutlinedButtonWidget(
           textContent: "Upload Image",
           onPressed: () {
-            addAdsController.pickImage(busiessAccountController.listImage);
+            // addAdsController.pickImage(busiessAccountController.listImage);
+            // addAdsController.pickMultipleSubImages(busiessAccountController.listImage);
+            ImageService.pickMultipleSubImages(businessAccountController.listImage);
           },
           icon: IconApp.camera,
         ),
-        ElevatedButton(onPressed: (){
-          Get.to(CurrentLocationPage());
-        }, child: Text("jj"))
+        ElevatedButton(
+          onPressed: () {
+            Get.to(CurrentLocationPage());
+          },
+          child: Text("jj"),
+        ),
       ],
     );
   }

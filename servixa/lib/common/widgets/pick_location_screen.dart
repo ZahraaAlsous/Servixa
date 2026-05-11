@@ -375,19 +375,25 @@ import 'package:servixa/features/Business_account/business_later/busiess_account
 // }
 
 class PickLocationScreen extends StatefulWidget {
+
+   final Function(LatLng) onLocationSelected; // ✅ دالة callback
+final Rx<LatLng?> position; // ✅ المتغير الذي يحمل الموقع المختار
+  const PickLocationScreen({super.key, required this.onLocationSelected, required this.position});
+
   @override
   State<PickLocationScreen> createState() => _PickLocationScreenState();
 }
 
 class _PickLocationScreenState extends State<PickLocationScreen> {
-  final BusiessAccountController businessAccountController = Get.find();
+  final BusinessAccountController businessAccountController = Get.find();
   final TextEditingController searchController = TextEditingController();
   GoogleMapController? mapController;
 
   // تحريك الكاميرا (دالة داخلية للـ UI)
   void _moveCamera(LatLng pos) {
     mapController?.animateCamera(CameraUpdate.newLatLngZoom(pos, 15));
-    businessAccountController.updatePosition(pos);
+    // businessAccountController.updatePosition(pos);
+    widget.onLocationSelected(pos);
   }
 
   @override
@@ -408,7 +414,8 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
             () => GoogleMap(
               initialCameraPosition: CameraPosition(
                 target:
-                    businessAccountController.selectedLatLng.value ??
+                    // businessAccountController.selectedLatLng.value ??
+                    widget.position.value ??
                     const LatLng(33.5138, 36.2765),
                 zoom: 15,
               ),
@@ -416,13 +423,16 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
               onTap: (LatLng latLng) =>
-                  businessAccountController.updatePosition(latLng),
-              markers: businessAccountController.selectedLatLng.value != null
+                  // businessAccountController.updatePosition(latLng),
+                  widget.onLocationSelected(latLng), // ✅ تمرير الموقع المختار للـ callback
+              // markers: businessAccountController.selectedLatLng.value != null
+              markers: widget.position.value != null
                   ? {
                       Marker(
                         markerId: const MarkerId("selected"),
                         position:
-                            businessAccountController.selectedLatLng.value!,
+                            // businessAccountController.selectedLatLng.value!,
+                            widget.position.value!,
                       ),
                     }
                   : {},
@@ -484,4 +494,8 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
       Get.snackbar("Error", "Location not found");
     }
   }
+
+
+
+  
 }

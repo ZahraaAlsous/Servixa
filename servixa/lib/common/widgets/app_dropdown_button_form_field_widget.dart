@@ -14,6 +14,7 @@ class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
   final T? value;
   final Widget? isChanged;
   final bool isSizeFontSmall;
+  final T? initialValue;
 
   const AppDropdownButtonFormFieldWidget({
     super.key,
@@ -26,11 +27,13 @@ class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
     this.value,
     this.isChanged,
     this.isSizeFontSmall = false,
+    this.initialValue
   });
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
+      initialValue: initialValue ?? null,
       value: value,
       // edit 
       // تأكد إذا بالنص أو لا

@@ -11,8 +11,8 @@ import 'package:servixa/features/Business_account/business_later/busiess_account
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 
 class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
-  final BusiessAccountController businessAccountController = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
   );
   ThirdStepBusinessAccountContactInformationScreen({super.key});
 
@@ -112,7 +112,10 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          AppMapWidget(),
+          AppMapWidget(
+            position: businessAccountController.selectedLatLng,
+            onLocationSelected: businessAccountController.updatePosition,
+          ),
         ],
       ),
     );

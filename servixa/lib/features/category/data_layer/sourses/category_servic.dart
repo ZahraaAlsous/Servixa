@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 
 class CategoryServic {
   final Dio dio = Dio();
@@ -68,6 +69,40 @@ class CategoryServic {
       }
       log("==============================Service : Get SubCategories ERROR");
 
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<List<CategoryQuestionModel>> getCategoryQuestions(
+    int categoryId,
+  ) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Get Category Questions IN");
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/categories/$categoryId",
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      if (response.statusCode == 200) {
+        log(
+          "==============================Service : Get Category Questions OK",
+        );
+        return CategoryQuestionModel.listFromJson(
+          response.data["data"]["custom_fields"],
+        );
+      } else {
+        log(
+          "==============================Service : Get Category Questions Failed",
+        );
+
+        throw "Failed to load category questions";
+      }
+    } on DioException catch (e) {
+      log(
+        "==============================Service : Get Category Questions ERROR",
+      );
       log(
         "==============================Service THE ERROR IS: " + e.toString(),
       );

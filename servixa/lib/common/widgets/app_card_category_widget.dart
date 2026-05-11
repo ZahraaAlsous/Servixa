@@ -12,6 +12,7 @@ class AppCardCategoryWidget extends StatelessWidget {
   final bool? margin;
   final void Function()? onTap;
   final TextStyle? typographyApp;
+  final Color? colorCard;
   // final bool enableSelection;
   // final bool isThisCardSelect;
 
@@ -24,6 +25,7 @@ class AppCardCategoryWidget extends StatelessWidget {
     this.typographyApp,
     this.margin,
     this.onTap,
+    this.colorCard,
     // this.enableSelection = false,
     // this.isThisCardSelect = false,
   });
@@ -47,7 +49,7 @@ class AppCardCategoryWidget extends StatelessWidget {
         width: size.width * 0.279,
         height: 100,
         decoration: BoxDecoration(
-          color: ThemeApp.Foundation_Main_main_50,
+          color: colorCard ?? ThemeApp.Foundation_Main_main_50,
           borderRadius: BorderRadius.circular(41),
         ),
         child: Column(

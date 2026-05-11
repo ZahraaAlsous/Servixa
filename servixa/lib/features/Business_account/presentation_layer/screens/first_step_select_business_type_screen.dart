@@ -6,16 +6,16 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
-  final BusiessAccountController businessAccountController = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
   );
   FirstStepSelectBusinessTypeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      businessAccountController.getUserTypes();
       businessAccountController.getCities((e) => AppSnackbar.showError(e));
+      businessAccountController.getUserTypes();
     });
     final size = MediaQuery.of(context).size;
     return Obx(() {

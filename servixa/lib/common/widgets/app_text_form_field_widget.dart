@@ -26,6 +26,7 @@ class AppTextFormField extends StatelessWidget {
   final Widget? prefix;
   final List<TextInputFormatter>? inputFormatters;
   final ui.TextDirection? textDirection;
+  final String? initialValue;
 
   const AppTextFormField({
     super.key,
@@ -47,6 +48,7 @@ class AppTextFormField extends StatelessWidget {
     this.prefix,
     this.inputFormatters,
     this.textDirection,
+    this.initialValue,
   });
 
   @override
@@ -64,6 +66,7 @@ class AppTextFormField extends StatelessWidget {
         keyboardType: keyboardType ?? TextInputType.text,
         inputFormatters: inputFormatters,
         obscureText: obscureText ?? false,
+        initialValue: initialValue ?? null,
         decoration: InputDecoration(
           hintText: hintText.tr(),
           labelText: labelText?.tr(),

@@ -148,7 +148,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -156,10 +155,16 @@ import 'package:servixa/common/widgets/pick_location_screen.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 
 class AppMapWidget extends StatelessWidget {
-  final BusiessAccountController controller = Get.put(
-    BusiessAccountController(),
+  final BusinessAccountController controller = Get.put(
+    BusinessAccountController(),
   );
-  AppMapWidget({super.key});
+  final Rx<LatLng?> position;
+  final Function(LatLng) onLocationSelected; // ✅ دالة callback
+  AppMapWidget({
+    super.key,
+    required this.position,
+    required this.onLocationSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -173,20 +178,22 @@ class AppMapWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: controller.selectedLatLng.value == null
+              // child: controller.selectedLatLng.value == null
+              child: position.value == null
                   ? Center(child: Text("No location selected"))
                   : GoogleMap(
-                    mapToolbarEnabled: false,
+                      mapToolbarEnabled: false,
                       initialCameraPosition: CameraPosition(
-                        target: controller.selectedLatLng.value!,
+                        // target: controller.selectedLatLng.value!,
+                        target: position.value!,
                         zoom: 15,
                       ),
-                      liteModeEnabled:
-                          true,
+                      liteModeEnabled: true,
                       markers: {
                         Marker(
                           markerId: MarkerId("pos"),
-                          position: controller.selectedLatLng.value!,
+                          // position: controller.selectedLatLng.value!,
+                          position: position.value!,
                         ),
                       },
                     ),
@@ -194,7 +201,12 @@ class AppMapWidget extends StatelessWidget {
             SizedBox(
               width: size.width * 0.8465,
               child: OutlinedButton(
-                onPressed: () => Get.to(() => PickLocationScreen()),
+                onPressed: () => Get.to(
+                  () => PickLocationScreen(
+                    onLocationSelected: onLocationSelected,
+                    position: position,
+                  ),
+                ),
                 child: Text("View/Change Location"),
               ),
             ),
