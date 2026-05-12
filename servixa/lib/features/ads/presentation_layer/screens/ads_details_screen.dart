@@ -16,7 +16,10 @@ import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_portfolio_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_review_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/space_between_section_widget.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_answer_model.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:readmore/readmore.dart';
@@ -61,14 +64,14 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     }
   }
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  // final Completer<GoogleMapController> _controller =
+  //     Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    // target: LatLng(37.42796133580664, -122.085749655962),
-    target: LatLng(33.5138, 36.2765),
-    zoom: 14.4746,
-  );
+  // static const CameraPosition _kGooglePlex = CameraPosition(
+  //   // target: LatLng(37.42796133580664, -122.085749655962),
+  //   target: LatLng(33.5138, 36.2765),
+  //   zoom: 14.4746,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +121,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (ads.images!.isNotEmpty)
+                if (ads.images.isNotEmpty)
                   Stack(
                     alignment: AlignmentGeometry.bottomCenter,
                     children: [
                       CarouselSlider.builder(
-                        itemCount: ads.images!.length,
+                        itemCount: ads.images.length,
                         itemBuilder:
                             (
                               BuildContext context,
@@ -148,7 +151,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                     ),
                                   ],
                                   image: DecorationImage(
-                                    image: AssetImage(ads.images![itemIndex]),
+                                    image: NetworkImage(ads.images[itemIndex]),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -413,8 +416,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       //   );
                       // }),
                       ReadMoreText(
-                        // ads.dictation!,
-                        "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,",
+                        ads.dictation!,
+                        // "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,",
                         style: TypographyApp.Title_Mid_Regular.copyWith(
                           color: ThemeApp.Foundation_Secendary_grey_300,
                         ),
@@ -502,300 +505,14 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 //   ),
                 // ),
                 const SpaceBetweenSectionWidget(),
-
-                Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                    vertical: 5,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "About this item",
-                        style: TypographyApp.Title_larg_Mid.copyWith(
-                          color: ThemeApp.Foundation_Main_Color_900,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: DimensApp.spaceBetweenTitleAndDetails,
-                      ),
-                      // edit
-                      // from back
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            IconApp.Balconies,
-                            width: 22,
-                            height: 22,
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          Text(
-                            " Balconies : ",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.black,
-                            ),
-                          ),
-                          Text(
-                            "yes",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          SvgPicture.asset(
-                            IconApp.Bedrooms,
-                            width: 22,
-                            height: 22,
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          Text(
-                            " Bedrooms : ",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.black,
-                            ),
-                          ),
-                          Text(
-                            "yes",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: DimensApp.spaceBetweenTitleAndDetails,
-                      ),
-
-                      // edit
-                      // from back
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            IconApp.Furnitures,
-                            width: 22,
-                            height: 22,
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          Text(
-                            " Furnitures : ",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.black,
-                            ),
-                          ),
-                          Text(
-                            "yes",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          SvgPicture.asset(
-                            IconApp.Status,
-                            width: 22,
-                            height: 22,
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          Text(
-                            " Status : ",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.black,
-                            ),
-                          ),
-                          Text(
-                            "New Launch",
-                            style: TypographyApp.Title_Mid_Regular.copyWith(
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SpaceBetweenSectionWidget(),
-                Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    // horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                    vertical: 5,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Location",
-                        style: TypographyApp.Title_larg_Mid.copyWith(
-                          color: ThemeApp.Foundation_Main_Color_900,
-                        ),
-                      ),
-                      // ElevatedButton(onPressed: (){
-                      //   Get.to(MapSample());
-                      // }, child: Text("data")),
-                      Row(
-                        children: [
-                          SvgPicture.asset(IconApp.place),
-                          // edit
-                          Text(ads.place ?? "place"),
-                        ],
-                      ),
-                      Container(
-                        // width: size.width * 0.9255,
-                        width: widthScreen * 0.9255,
-                        height: 329,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: ThemeApp.whiteBackground,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 4,
-                              spreadRadius: -1,
-                              color: Color.fromRGBO(12, 12, 13, 0.05),
-                            ),
-                            BoxShadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 4,
-                              spreadRadius: -1,
-                              color: Color.fromRGBO(12, 12, 13, 0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              // width: size.width * 0.9255,
-                              width: widthScreen * 0.9255,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-
-                              child: GoogleMap(
-                                // mapType: MapType.hybrid,
-                                initialCameraPosition: _kGooglePlex,
-                                onMapCreated: (GoogleMapController controller) {
-                                  _controller.complete(controller);
-                                },
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                // InkWell(
-                                //   onTap: () {
-                                //     // Get.to(OptionProfileScreen());
-                                //   },
-                                //   child: Container(
-                                //     width: size.width * 0.109,
-                                //     height: 48.6,
-                                //     decoration: BoxDecoration(
-                                //       image: DecorationImage(
-                                //         image: AssetImage(ImageApp.profileImage),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                Expanded(
-                                  flex: 15,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.bottomSheet(
-                                        isDismissible: true,
-                                        enableDrag: true,
-                                        BottomSheetPortfolioWidget(),
-                                      );
-                                    },
-                                    child: CircleAvatar(
-                                      // radius: size.width * 0.100,
-                                      radius: widthScreen * 0.100,
-                                      // radius: 36,
-                                      // edit
-                                      // الصورة ما عم تطلع
-                                      backgroundImage: AssetImage(
-                                        ImageApp.profileImage,
-                                      ),
-                                      // backgroundImage: selectedImage != null
-                                      //     ? FileImage(selectedImage!)
-                                      //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                                      // child: user.img!.isEmpty && selectedImage == null
-                                      //     ? const Icon(Icons.person, size: 60)
-                                      //     : null,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                Expanded(
-                                  flex: 65,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Mhamad Alshame",
-                                        style:
-                                            TypographyApp
-                                                .Title_Mid_Mid.copyWith(
-                                              color: ThemeApp
-                                                  .Foundation_Grey_grey_700,
-                                            ),
-                                      ),
-                                      Row(
-                                        // mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          // qustion
-                                          // مو من مكتبة الألوان
-                                          // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                                          SvgPicture.asset(
-                                            IconApp.place,
-                                            width: 16,
-                                            height: 16,
-                                            color: ThemeApp
-                                                .colorIconProfileHomeScreen,
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            "Riyadh – Malaz",
-                                            style:
-                                                TypographyApp
-                                                    .Label_Mid_Regular.copyWith(
-                                                  color: ThemeApp
-                                                      .Foundation_Secendary_grey_600,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // Spacer(),
-                                Expanded(
-                                  flex: 10,
-                                  child: SvgPicture.asset(
-                                    IconApp.messages,
-                                    width: 29,
-                                    height: 29,
-                                    color: ThemeApp.Foundation_Main_main_500,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 10,
-                                  child: SvgPicture.asset(
-                                    IconApp.phone,
-                                    width: 29,
-                                    height: 29,
-                                    color: ThemeApp.Foundation_Main_main_500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
+                if (ads.categoryQuestionAnswer != null &&
+                    ads.categoryQuestionAnswer!.isNotEmpty)
+                    QuestionDynamicSection(ads: ads),
+           
+                if (ads.categoryQuestionAnswer != null &&
+                    ads.categoryQuestionAnswer!.isNotEmpty)
+                  const SpaceBetweenSectionWidget(),
+                LocationSection(ads: ads),
                 const SpaceBetweenSectionWidget(),
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
@@ -934,8 +651,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(
                     // horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    horizontal:
-                        widthScreen * DimensApp.spaceHorizontalScreen,
+                    horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                     // vertical: 10,
                   ),
                   child: Column(
@@ -1141,6 +857,4 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       log("Error in share: $e");
     }
   }
-
-  // }
 }

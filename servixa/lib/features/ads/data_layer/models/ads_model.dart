@@ -1,4 +1,6 @@
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_answer_model.dart';
+import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -17,11 +19,14 @@ class AdsModel {
   List<ReviewModel>? listReview;
   String status;
   CategoryModel category;
+  List<CategoryQuestionAnswerModel>? categoryQuestionAnswer;
   // SubCategoryModel? subCategory;
   UserModel user;
   // edit
   // categore or sub category ?
   // type coin
+  double? lat;
+  double? lng;
 
   AdsModel({
     required this.id,
@@ -40,6 +45,9 @@ class AdsModel {
     required this.category,
     // this.subCategory,
     required this.user,
+    this.categoryQuestionAnswer,
+    this.lat,
+    this.lng,
   });
 
   // factory AdsModel.fromJson(Map<String, dynamic> json) {
@@ -68,7 +76,11 @@ class AdsModel {
       place: json["address"], // الـ JSON يستخدم address
       image: json["main_image"] ?? "",
       // هنا المشكلة: الـ JSON لا يحتوي على images، سنضع قائمة فارغة كافتراض
-      images: json["images"] != null ? List<dynamic>.from(json["images"]) : [],
+      images: json["images"] != null
+          ? (json["images"] as List)
+                .map((item) => item["url"].toString())
+                .toList()
+          : [],
       favorite: json["is_favorited"] ?? false,
       price: json["price"] is String
           ? int.parse(json["price"])
@@ -76,10 +88,15 @@ class AdsModel {
       typeCoin: json["price_currency"] ?? "",
       typeService: json["type"] ?? "",
       status: json["status"] ?? "",
-      // التأكد من استدعاء CategoryModel و UserModel بشكل صحيح
       category: CategoryModel.fromJson(json["category"] ?? {}),
       user: UserModel.fromJson(json["user"] ?? {}),
-      // listReview لم يتم إسناده في كودك الأصلي
+      categoryQuestionAnswer: json["custom_field_values"] != null
+          ? CategoryQuestionAnswerModel.listFromJson(
+              json["custom_field_values"],
+            )
+          : null,
+          lat: json["lat"] != null ? double.tryParse(json["lat"].toString()) : null,
+          lng: json["lng"] != null ? double.tryParse(json["lng"].toString()) : null,
       listReview: [],
     );
   }

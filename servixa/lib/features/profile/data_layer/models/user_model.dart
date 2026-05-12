@@ -11,7 +11,7 @@ class UserModel {
   String? updatedAt;
   String name;
   String? image;
-  dynamic currentLevel;
+  // dynamic currentLevel;
   bool? hasBusinessAccount;
 
   UserModel({
@@ -27,7 +27,7 @@ class UserModel {
     this.updatedAt,
     required this.name,
     this.image,
-    this.currentLevel,
+    // this.currentLevel,
     this.hasBusinessAccount,
   });
 
@@ -45,7 +45,7 @@ class UserModel {
       updatedAt: json['updated_at'],
       name: json['name'],
       image: json['image'],
-      currentLevel: json['current_level'],
+      // currentLevel: json['current_level'],
       hasBusinessAccount: json['has_business_account'] ?? false,
     );
   }
@@ -64,7 +64,7 @@ class UserModel {
       'updated_at': updatedAt,
       'name': name,
       'image': image,
-      'current_level': currentLevel,
+      // 'current_level': currentLevel,
       'has_business_account': hasBusinessAccount,
     };
   }

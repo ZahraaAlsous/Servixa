@@ -58,7 +58,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
               isGridView: true,
               isMyAdd: true,
               onTap: () {
-                // Get.to(AdsDetailsScreen(adsId: ads.id));
+                Get.to(AdsDetailsScreen(adsId: ads.id));
               },
             );
           },

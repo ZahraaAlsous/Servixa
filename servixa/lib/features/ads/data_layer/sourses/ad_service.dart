@@ -12,8 +12,8 @@ class AdService {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ad Details IN");
       Response response = await dio.get(
-        // "https://services.tamkeen-dev.com/api/v1/ads/${adId}",
-        "https://services.tamkeen-dev.com/api/v1/ads/1",
+        "https://services.tamkeen-dev.com/api/v1/ads/${adId}",
+        // "https://services.tamkeen-dev.com/api/v1/ads/1",
       );
       if (response.statusCode == 200) {
         log("==============================Service : Ad Details OK");
