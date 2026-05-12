@@ -34,12 +34,12 @@ class HomePage extends StatelessWidget {
   HomeController homeController = Get.put(HomeController());
   AdsController adsController = Get.put(AdsController());
   HomePage({super.key});
-  final List<String> carouselImages = [
-    'assets/images/slider.png',
-    'assets/images/slider.png',
-    'assets/images/slider.png',
-    'assets/images/slider.png',
-  ];
+  // final List<String> carouselImages = [
+  //   'assets/images/slider.png',
+  //   'assets/images/slider.png',
+  //   'assets/images/slider.png',
+  //   'assets/images/slider.png',
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -182,51 +182,63 @@ class HomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: DimensApp.spaceBetweenSection),
-            SizedBox(
-              height: 145,
-              child: CarouselSlider.builder(
-                itemCount: carouselImages.length,
-                itemBuilder:
-                    (BuildContext context, int itemIndex, int pageViewIndex) {
-                      return Container(
-                        width: size.width * 0.913,
-                        height: 145,
-                        decoration: BoxDecoration(
-                          color: Colors.amberAccent,
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage(carouselImages[itemIndex]),
-                            fit: BoxFit.cover,
+            Obx(() {
+              if (homeController.isLoadingSlider.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                height: 145,
+                child: CarouselSlider.builder(
+                  // itemCount: carouselImages.length,
+                  itemCount: homeController.sliders.length,
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
+                        return Container(
+                          width: size.width * 0.913,
+                          height: 145,
+                          decoration: BoxDecoration(
+                            color: Colors.amberAccent,
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              // image: AssetImage(carouselImages[itemIndex]),
+                              image: NetworkImage(
+                                homeController.sliders[itemIndex].imageUrl
+                                    .toString(),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      },
+                  options: CarouselOptions(
+                    height: 166,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(
+                      milliseconds: 800,
+                    ),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    onPageChanged: (index, reason) {
+                      homeController.currentCarouselIndex.value = index;
                     },
-                options: CarouselOptions(
-                  height: 166,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
-                  onPageChanged: (index, reason) {
-                    homeController.currentCarouselIndex.value = index;
-                  },
-                  scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 ),
-              ),
-            ),
-
+              );
+            }),
             const SizedBox(height: 10),
             Obx(
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: carouselImages.asMap().entries.map((entry) {
+                // children: carouselImages.asMap().entries.map((entry) {
+                children: homeController.sliders.asMap().entries.map((entry) {
                   return Container(
                     // edit
                     // غير قياس
@@ -302,32 +314,37 @@ class HomePage extends StatelessWidget {
               },
             ),
             SizedBox(height: 16),
-            SizedBox(
-              // note
-              // ليس نفس قياس التصميم
-              height: 236,
-              child: Obx(() {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: adsController.adsList.length,
-                  itemBuilder: (context, indexAds) {
-                    AdsModel ads = adsController.adsList[indexAds];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: AppCardAdsWidget(
-                        ads: ads,
-                        widthCard: 0.413,
-                        onTap: () {
-                          Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                          // Get.to(AdsDetailsScreen(), arguments: ads.id);
-                        },
-                        isGridView: true,
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+            Obx(() {
+              if (adsController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                // note
+                // ليس نفس قياس التصميم
+                height: 236,
+                child: Obx(() {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: adsController.adsList.length,
+                    itemBuilder: (context, indexAds) {
+                      AdsModel ads = adsController.adsList[indexAds];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: AppCardAdsWidget(
+                          ads: ads,
+                          widthCard: 0.413,
+                          onTap: () {
+                            Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                            // Get.to(AdsDetailsScreen(), arguments: ads.id);
+                          },
+                          isGridView: true,
+                        ),
+                      );
+                    },
+                  );
+                }),
+              );
+            }),
 
             const SizedBox(height: DimensApp.spaceBetweenSection),
 
@@ -341,34 +358,39 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
-            SizedBox(
-              // note
-              // ليس نفس قياس التصميم
-              height: 236,
-              child: Obx(() {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: adsController.adsList.length,
-                  itemBuilder: (context, indexAds) {
-                    AdsModel ads = adsController.adsList[indexAds];
+            Obx(() {
+              if (adsController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                // note
+                // ليس نفس قياس التصميم
+                height: 236,
+                child: Obx(() {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: adsController.adsList.length,
+                    itemBuilder: (context, indexAds) {
+                      AdsModel ads = adsController.adsList[indexAds];
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
 
-                      child: AppCardAdsWidget(
-                        ads: ads,
-                        widthCard: 0.367,
-                        isGridView: true,
-                        onTap: () {
-                          Get.to(AdsDetailsScreen(adsId: ads.id));
-                        },
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
-            SizedBox(height: DimensApp.spaceBetweenSection),
+                        child: AppCardAdsWidget(
+                          ads: ads,
+                          widthCard: 0.367,
+                          isGridView: true,
+                          onTap: () {
+                            Get.to(AdsDetailsScreen(adsId: ads.id));
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }),
+              );
+            }),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
 
             // edit
             // الاتنتقال إلى صفحة ال المطلوبة
@@ -380,34 +402,43 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
-            SizedBox(
-              // note
-              // ليس نفس قياس التصميم
-              height: 236,
-              child: Obx(() {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: adsController.adsList.length,
-                  itemBuilder: (context, indexAds) {
-                    AdsModel ads = adsController.adsList[indexAds];
+            Obx(() {
+              if (adsController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox(
+                // note
+                // ليس نفس قياس التصميم
+                height: 236,
+                child: Obx(() {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: adsController.adsList.length,
+                    itemBuilder: (context, indexAds) {
+                      AdsModel ads = adsController.adsList[indexAds];
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: AppCardAdsWidget(
-                        ads: adsController.adsList[indexAds],
-                        widthCard: 0.611,
-                        isGridView: true,
-                        onTap: () {
-                          Get.to(AdsDetailsScreen(adsId: ads.id));
-                        },
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: AppCardAdsWidget(
+                          ads: adsController.adsList[indexAds],
+                          widthCard: 0.611,
+                          isGridView: true,
+                          onTap: () {
+                            Get.to(AdsDetailsScreen(adsId: ads.id));
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }),
+              );
+            }),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
 
             Obx(() {
+              if (adsController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
               return GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
