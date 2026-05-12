@@ -15,6 +15,8 @@ import 'package:servixa/features/Business_account/presentation_layer/screens/cre
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
+import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
+import 'package:servixa/features/favorite_ad/presentation_layer/screens/my_favorite_screen.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
@@ -29,6 +31,7 @@ class OptionProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.put(AuthController());
+    final FavoriteController favoriteController = Get.put(FavoriteController());
     // final BusiessAccountController busiessAccountController = Get.put(
     //   BusiessAccountController(),
     // );
@@ -267,7 +270,12 @@ class OptionProfileScreen extends StatelessWidget {
             ListTileWidget(
               title: "Favorite",
               // edit
-              onTap: () {},
+              onTap: () {
+                favoriteController.getMyFavorite((e){
+                  AppSnackbar.showError(e);
+                });
+                Get.to(()=> MyFavoriteScreen());
+              },
               icon: IconApp.favoriteListTile,
             ),
 

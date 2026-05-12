@@ -9,6 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle:true ,
       title: title,
       flexibleSpace: Container(
         decoration: const BoxDecoration(

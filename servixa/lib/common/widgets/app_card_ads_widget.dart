@@ -7,9 +7,11 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 
 class AppCardAdsWidget extends StatelessWidget {
-  AdsController adsController = Get.put(AdsController());
+  final AdsController adsController = Get.put(AdsController());
+  final FavoriteController favoriteController = Get.put(FavoriteController());
   // String assetName;
   // bool favorit;
   // int adsId;
@@ -89,7 +91,9 @@ class AppCardAdsWidget extends StatelessWidget {
                           // edit
                           onPressed: () {
                             adsController.deleteAd(ads.id, () {
-                              AppSnackbar.showSuccess("Ad removed successfully");
+                              AppSnackbar.showSuccess(
+                                "Ad removed successfully",
+                              );
                             }, (e) => AppSnackbar.showError(e));
                           },
                           icon: Icon(
@@ -145,7 +149,10 @@ class AppCardAdsWidget extends StatelessWidget {
                     Spacer(),
                     IconButton(
                       onPressed: () {
-                        adsController.favorite(ads.id);
+                        // adsController.favorite(ads.id);
+                        favoriteController.addToFavorite(ads.id, (e) {
+                          AppSnackbar.showError(e);
+                        });
                       },
                       icon: SvgPicture.asset(
                         ads.favorite
@@ -252,7 +259,10 @@ class AppCardAdsWidget extends StatelessWidget {
                     Spacer(),
                     IconButton(
                       onPressed: () {
-                        adsController.favorite(ads.id);
+                        // adsController.favorite(ads.id);
+                        favoriteController.addToFavorite(ads.id, (e){
+                          AppSnackbar.showError(e);
+                        });
                       },
                       icon: SvgPicture.asset(
                         ads.favorite

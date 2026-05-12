@@ -240,17 +240,11 @@ class AdsController extends GetxController {
       isLoading.value = false;
     }
   }
-  void favorite(int adsId) {
-    final index = adsList.indexWhere((item) => item.id == adsId);
-    if (index != -1) {
-      adsList[index].favorite = !adsList[index].favorite;
-      adsList.refresh();
-    }
-  }
 
-  void getAdsDetails(int AdsId) {
-    adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
-  }
+
+  // void getAdsDetails(int AdsId) {
+  //   adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
+  // }
 
   Future<void> getAddDetailss(
     int adId,
@@ -269,7 +263,7 @@ class AdsController extends GetxController {
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
-      onError(e.toString());
+      // onError(e.toString());
     } finally {
       isLoading.value = false;
     }

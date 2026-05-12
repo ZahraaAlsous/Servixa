@@ -81,7 +81,7 @@ class AdsModel {
                 .map((item) => item["url"].toString())
                 .toList()
           : [],
-      favorite: json["is_favorited"] ?? false,
+      favorite: json["is_favorited"],
       price: json["price"] is String
           ? int.parse(json["price"])
           : (json["price"] ?? 0),
@@ -95,8 +95,8 @@ class AdsModel {
               json["custom_field_values"],
             )
           : null,
-          lat: json["lat"] != null ? double.tryParse(json["lat"].toString()) : null,
-          lng: json["lng"] != null ? double.tryParse(json["lng"].toString()) : null,
+      lat: json["lat"] != null ? double.tryParse(json["lat"].toString()) : null,
+      lng: json["lng"] != null ? double.tryParse(json["lng"].toString()) : null,
       listReview: [],
     );
   }

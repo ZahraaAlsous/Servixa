@@ -16,7 +16,7 @@ class AppCardCategoryWidget extends StatelessWidget {
   // final bool enableSelection;
   // final bool isThisCardSelect;
 
-  AddAdsController addAdsController = Get.put(AddAdsController());
+  // AddAdsController addAdsController = Get.put(AddAdsController());
   AppCardCategoryWidget({
     super.key,
     required this.assetName,

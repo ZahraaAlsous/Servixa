@@ -11,9 +11,17 @@ class AdService {
   Future<AdsModel> getAdDetails(int adId) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ad Details IN");
+      String? token = await storage.read(key: "token");
+
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads/${adId}",
         // "https://services.tamkeen-dev.com/api/v1/ads/1",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
       );
       if (response.statusCode == 200) {
         log("==============================Service : Ad Details OK");
@@ -101,11 +109,23 @@ class AdService {
   Future<List<AdsModel>> getAds() async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ads IN");
+      String? token = await storage.read(key: "token");
+      // token = token?.trim();
+      log("+++++++++++++++++++++++++++++++++token : $token");
+
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+            'Content-Type': 'application/json',
+          },
+        ),
       );
       if (response.statusCode == 200) {
         log("==============================Service : Ads OK");
+        log(response.data.toString());
         List<AdsModel> adsList = AdsModel.listFromJson(response.data);
         return adsList;
       }

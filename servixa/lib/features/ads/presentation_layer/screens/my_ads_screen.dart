@@ -32,7 +32,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(title: Text("My Ads"),),
       body: Obx(() {
         if (adsController.isLoadingMyAdd.value) {
           return Center(child: CircularProgressIndicator());

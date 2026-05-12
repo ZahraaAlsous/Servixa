@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -416,7 +418,7 @@ class HomePage extends StatelessWidget {
                     itemCount: adsController.adsList.length,
                     itemBuilder: (context, indexAds) {
                       AdsModel ads = adsController.adsList[indexAds];
-
+                      log("++++++++++++++++++++++++++++++++++++++++++++++++++++Ad: ${ads.id}, Is Favorite: ${ads.favorite}");
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: AppCardAdsWidget(

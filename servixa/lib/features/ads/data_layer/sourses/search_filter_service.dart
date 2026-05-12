@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
 class SearchFilterService {
   final Dio dio = Dio();
+  final storage = FlutterSecureStorage();
+
   Future<List<AdsModel>> getAds({
     int? categoryId,
     int? minPrice,
@@ -13,6 +16,8 @@ class SearchFilterService {
   }) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : AdsFilter IN");
+      String? token = await storage.read(key: "token");
+
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads",
         queryParameters: {
@@ -21,6 +26,12 @@ class SearchFilterService {
           if (maxPrice != null) "max_price": maxPrice,
           if (isRent != null) "is_rent": isRent,
         },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
       );
 
       log(categoryId.toString());
