@@ -21,21 +21,21 @@ class FavoriteController extends GetxController {
         final index = adsController.adsList.indexWhere(
           (item) => item.id == adId,
         );
-                final index2 = myFavoriteAdsList.indexWhere((item) => item.id == adId);
+        final index2 = myFavoriteAdsList.indexWhere((item) => item.id == adId);
+        final indexInMyAdList = adsController.myAdsList.indexWhere(
+          (item) => item.id == adId,
+        );
 
-if (index2 != -1) {
+        if (index2 != -1) {
           myFavoriteAdsList.removeWhere((item) => item.id == adId);
           myFavoriteAdsList.refresh();
         }
         if (index != -1) {
           adsController.adsList[index].favorite = index2 != -1 ? false : true;
-              //     !adsController.adsList[index].favorite;
-              // adsController.adsList[index].favorite ? false : true;
+          //     !adsController.adsList[index].favorite;
+          // adsController.adsList[index].favorite ? false : true;
           adsController.adsList.refresh();
         }
-
-
-        
 
         if (adsController.adsDetails.value?.id == adId) {
           // adsController.adsDetails.value?.favorite = true;
@@ -43,7 +43,12 @@ if (index2 != -1) {
           adsController.adsDetails.value!.favorite = index2 != -1
               ? false
               : true;
-          ;
+          if (indexInMyAdList != -1) {
+            adsController.myAdsList[indexInMyAdList].favorite = index2 != -1
+                ? false
+                : true;
+            myFavoriteAdsList.refresh();
+          }
 
           adsController.adsDetails.refresh();
         }

@@ -4,12 +4,14 @@ import 'package:servixa/core/const/theme_app.dart';
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? child;
   final Widget? title;
-  AppBarWidget({super.key, this.child, this.title});
+  final double? toolbarHeight;
+  AppBarWidget({super.key, this.child, this.title, this.toolbarHeight});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      centerTitle:true ,
+      centerTitle: true,
+      toolbarHeight: toolbarHeight ?? kToolbarHeight,
       title: title,
       flexibleSpace: Container(
         decoration: const BoxDecoration(
@@ -25,5 +27,5 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize =>  Size.fromHeight(toolbarHeight ?? kToolbarHeight);
 }

@@ -43,13 +43,16 @@ class AdService {
     }
   }
 
-  Future<List<AdsModel>> getMyAds() async {
+  Future<List<AdsModel>> getMyAds({required int page}) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : My Ads IN");
       String? token = await storage.read(key: "token");
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/my-ads",
+        queryParameters: {
+          "page" : page
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

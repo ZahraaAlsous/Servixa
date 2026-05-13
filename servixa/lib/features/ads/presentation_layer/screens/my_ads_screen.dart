@@ -5,6 +5,7 @@ import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
@@ -24,6 +25,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
     adsController.getMyAds(() {
       AppSnackbar.showSuccess("message");
     }, (e) => AppSnackbar.showError(e));
+    adsController.isSelectedAcceptedMyAd.value = true;
+    adsController.isSelectedPendingMyAd.value = false;
+    adsController.isSelectedRejectedMyAd.value = false;
+
     super.initState();
   }
 
@@ -32,16 +37,141 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(title: Text("My Ads"),),
+      // appBar: AppBarWidget(title: Text("My Ads"),),
+      appBar: AppBarWidget(
+        toolbarHeight: 80,
+        title: Column(
+          children: [
+            Text("My Ads"),
+            Container(
+              height: 48,
+              width: size.width * 0.895,
+              padding: EdgeInsetsGeometry.all(2),
+              decoration: BoxDecoration(
+                color: ThemeApp.whiteBackground,
+                borderRadius: BorderRadius.circular(21),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Obx(
+                      () => InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+
+                        onTap: () {
+                          // orderController.isSelectedMyOrders.value = false;
+                          adsController.isSelectedAcceptedMyAd.value = true;
+                          adsController.isSelectedPendingMyAd.value = false;
+                          adsController.isSelectedRejectedMyAd.value = false;
+                        },
+                        child: Container(
+                          alignment: AlignmentGeometry.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: adsController.isSelectedAcceptedMyAd.value
+                                ? ThemeApp.Foundation_Main_main_500
+                                : ThemeApp.whiteBackground,
+                          ),
+                          child: Text(
+                            "Accepted",
+                            style: TypographyApp.text_button_order.copyWith(
+                              color: !adsController.isSelectedAcceptedMyAd.value
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : ThemeApp.whiteBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Obx(
+                      () => InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+
+                        onTap: () {
+                          adsController.isSelectedPendingMyAd.value = true;
+                          adsController.isSelectedAcceptedMyAd.value = false;
+                          adsController.isSelectedRejectedMyAd.value = false;
+                          // adsc.isSelectedMyOrders.value = true;
+                        },
+                        child: Container(
+                          alignment: AlignmentGeometry.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: adsController.isSelectedPendingMyAd.value
+                                ? ThemeApp.Foundation_Main_main_500
+                                : ThemeApp.whiteBackground,
+                          ),
+                          child: Text(
+                            "Pending",
+                            style: TypographyApp.text_button_order.copyWith(
+                              color: !adsController.isSelectedPendingMyAd.value
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : ThemeApp.whiteBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Obx(
+                      () => InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+
+                        onTap: () {
+                          adsController.isSelectedRejectedMyAd.value = true;
+                          adsController.isSelectedAcceptedMyAd.value = false;
+                          adsController.isSelectedPendingMyAd.value = false;
+                          // adsc.isSelectedMyOrders.value = true;
+                        },
+                        child: Container(
+                          alignment: AlignmentGeometry.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: adsController.isSelectedRejectedMyAd.value
+                                ? ThemeApp.Foundation_Main_main_500
+                                : ThemeApp.whiteBackground,
+                          ),
+                          child: Text(
+                            "Rejected",
+                            style: TypographyApp.text_button_order.copyWith(
+                              color: !adsController.isSelectedRejectedMyAd.value
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : ThemeApp.whiteBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+
       body: Obx(() {
         if (adsController.isLoadingMyAdd.value) {
           return Center(child: CircularProgressIndicator());
         }
+        List<AdsModel> myAdsListFilter =
+            adsController.isSelectedAcceptedMyAd.value
+            ? adsController.acceptedMyAdList
+            : (adsController.isSelectedPendingMyAd.value
+                  ? adsController.pendingMyAdList
+                  : adsController.rejectedMyAdList);
         return GridView.builder(
           padding: EdgeInsetsGeometry.only(
             left: size.width * DimensApp.spaceHorizontalScreen,
             right: size.width * DimensApp.spaceHorizontalScreen,
-          bottom: 60
+            bottom: 60,
           ),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -49,9 +179,9 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
             crossAxisSpacing: 2,
             childAspectRatio: 0.7,
           ),
-          itemCount: adsController.myAdsList.length,
+          itemCount: myAdsListFilter.length,
           itemBuilder: (context, indexAds) {
-            AdsModel ads = adsController.myAdsList[indexAds];
+            AdsModel ads = myAdsListFilter[indexAds];
             return AppCardAdsWidget(
               ads: ads,
               widthCard: 0.431,
