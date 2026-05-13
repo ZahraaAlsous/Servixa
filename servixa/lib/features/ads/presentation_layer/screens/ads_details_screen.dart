@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
@@ -18,12 +19,14 @@ import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_rev
 import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/space_between_section_widget.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
+import 'package:servixa/features/report%20an%20ad/presentation_layer/widgets/bottom_sheet_report_widget.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -39,6 +42,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   AdsController adsController = Get.put(AdsController());
   HomeController homeController = Get.put(HomeController());
   FavoriteController favoriteController = Get.put(FavoriteController());
+  final storage = FlutterSecureStorage();
+  final AuthController authController = Get.put(AuthController());
 
   @override
   void initState() {
@@ -92,18 +97,30 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           actions: [
-            IconButton(
-              onPressed: () {
-                // edit
-                // function from back
-              },
-              icon: SvgPicture.asset(
-                IconApp.report,
-                width: 24,
-                height: 24,
-                color: ThemeApp.Foundation_Main_main_500,
+            if (ads.status == "accepted")
+              IconButton(
+                onPressed: () {
+                  if (authController.isLoggedIn.value &&
+                      authController.currentUser.value != null) {
+                    Get.bottomSheet(
+                      isDismissible: true,
+                      enableDrag: true,
+                      isScrollControlled: true,
+                      BottomSheetReportWidget(adsId: ads.id),
+                    );
+                  } else {
+                    AppSnackbar.showAlert(
+                      "Please login first to report this ad",
+                    );
+                  }
+                },
+                icon: SvgPicture.asset(
+                  IconApp.report,
+                  width: 24,
+                  height: 24,
+                  color: ThemeApp.Foundation_Main_main_500,
+                ),
               ),
-            ),
 
             IconButton(
               onPressed: () {
@@ -119,6 +136,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             ),
           ],
         ),
+
         body:
             // if (adsController.adsDetails.value == null) {
             // return
@@ -274,11 +292,11 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                 //   AppSnackbar.showError(e);
                                 // });
                                 // favoriteController.favoriteAdDetails(ads.id);
-                                favoriteController.addToFavorite(ads.id, (e){
+                                favoriteController.addToFavorite(ads.id, (e) {
                                   AppSnackbar.showError(e);
                                 });
                               },
-                              icon:  Obx(() {
+                              icon: Obx(() {
                                 // ✅ مراقبة التغييرات مباشرة من adsController
                                 final isFavorite =
                                     adsController.adsDetails.value?.favorite ??

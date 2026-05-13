@@ -8,21 +8,20 @@ class AppOutlinedButtonWidget extends StatelessWidget {
   String textContent;
   void Function()? onPressed;
   bool isRow;
-  String icon;
+  String? icon;
   double? paddingVertical;
   AppOutlinedButtonWidget({
     super.key,
     required this.textContent,
     required this.onPressed,
     this.isRow = true,
-    required this.icon,
+    this.icon,
     this.paddingVertical,
   });
 
   @override
   Widget build(BuildContext context) {
-    return 
-    OutlinedButton(
+    return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -34,11 +33,12 @@ class AppOutlinedButtonWidget extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    icon,
-                    color: ThemeApp.Foundation_Main_main_500,
-                  ),
-                  SizedBox(width: 8),
+                  if (icon != null)
+                    SvgPicture.asset(
+                      icon!,
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  if (icon != null) const SizedBox(width: 8),
                   Text(
                     textContent.tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
@@ -49,11 +49,12 @@ class AppOutlinedButtonWidget extends StatelessWidget {
               )
             : Column(
                 children: [
-                  SvgPicture.asset(
-                    // IconApp.camera,
-                    icon,
-                    color: ThemeApp.Foundation_Main_main_500,
-                  ),
+                  if (icon != null)
+                    SvgPicture.asset(
+                      // IconApp.camera,
+                      icon!,
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
                   Text(
                     textContent,
                     textAlign: TextAlign.center,
