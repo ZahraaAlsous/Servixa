@@ -11,6 +11,7 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
+import 'package:servixa/features/auth/presentation_layer/screens/forget_password_screen.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/register_page.dart';
 import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
@@ -112,12 +113,33 @@ class LoginPage extends StatelessWidget {
                     );
                   }),
 
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Get.to(() => ForgetPasswordScreen()),
+                        style: TextButton.styleFrom(
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: Text(
+                          "Forget Password ?",
+                          style: TypographyApp.Body_mid_Regular.copyWith(
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                        ),
+                      ),
+                      // Spacer(), يدفع الزر لليسار
+                    ],
+                  ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
+
                   // edit
                   // get.offall
                   // يروح عال home?
                   // لازم laoding و جرب const
-                 Obx(() =>  authController.isLoading.value
+                  Obx(
+                    () => authController.isLoading.value
                         ? const CircularProgressIndicator()
                         : AuthElevatedButtonWidget(
                             text: "Login",
@@ -140,7 +162,7 @@ class LoginPage extends StatelessWidget {
                                     // Get.offAll(page)
                                   },
                           ),
-                  )
+                  ),
                 ],
               ),
             ),

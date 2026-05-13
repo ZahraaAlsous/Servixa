@@ -11,6 +11,8 @@ class AuthController extends GetxController {
   final storage = FlutterSecureStorage();
   final AuthService authService = AuthService();
   RxBool isLoading = false.obs;
+  RxBool isLoadingForgetPassword = false.obs;
+  RxBool isLoadingResetPassword = false.obs;
   RxBool isLoadingChangePassword = false.obs;
   RxBool isLoggedIn = false.obs;
 
@@ -34,11 +36,19 @@ class AuthController extends GetxController {
       TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final Rx<Country?> selectedCountry = Rx<Country?>(Country.parse('SY'));
+  final TextEditingController emailForgetController = TextEditingController();
+  final TextEditingController codeResetController = TextEditingController();
+  final TextEditingController newPasswordResetController =
+      TextEditingController();
+  final TextEditingController confirmPasswordResetController =
+      TextEditingController();
 
   Rx<UserModel?> currentUser = Rx<UserModel?>(null);
   var isOldPasswordVisible = true.obs;
   var isNewPasswordVisible = true.obs;
   var isConfirmNewPasswordVisible = true.obs;
+  var isNewPasswordForgetVisible = true.obs;
+  var isConfirmNewPasswordForgetVisible = true.obs;
 
   void toggleOldPasswordVisibility() {
     isOldPasswordVisible.toggle();
@@ -51,6 +61,7 @@ class AuthController extends GetxController {
   void toggleConfirmPasswordVisibility() {
     isConfirmPasswordVisible.toggle();
   }
+
   @override
   void onInit() {
     super.onInit();
@@ -64,6 +75,7 @@ class AuthController extends GetxController {
   void changeConfirmPasswordVisible() {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
+
   void changePasswordVisibleall(RxBool x) {
     x.value = !x.value;
   }
@@ -282,11 +294,66 @@ class AuthController extends GetxController {
     }
   }
 
-void clearFailedChangePassword(){
-  oldPasswordController.clear();
-  newPasswordController.clear();
-  confirmNewPasswordController.clear();
-}
+  Future<void> forgetPassword(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: ForgetPassword IN");
+      isLoadingForgetPassword.value = true;
+      bool isSendCode = await authService.forgetPassword(
+        email: emailForgetController.text,
+      );
+      if (isSendCode) {
+        log("==============================Controller: ForgetPassword OK");
+        onSuccess();
+      }
+    } catch (e) {
+      log("==============================Controller: ForgetPassword ERROR");
+      log("==============================The error is: $e");
+
+      onError(e.toString());
+    } finally {
+      isLoadingForgetPassword.value = false;
+    }
+  }
+
+  Future<void> resetPassword(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: ResetPassword OK");
+
+      isLoadingResetPassword.value = true;
+      bool isSuccess = await authService.resetPassword(
+        email: emailForgetController.text,
+        code: codeResetController.text,
+        password: newPasswordResetController.text,
+      );
+      if (isSuccess) {
+        log("==============================Service : ResetPassword OK");
+
+        onSuccess();
+      }
+    } catch (e) {
+      log("==============================Service : ResetPassword ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
+      onError(e.toString());
+    } finally {
+      isLoadingResetPassword.value = false;
+    }
+  }
+
+  void clearFailedChangePassword() {
+    oldPasswordController.clear();
+    newPasswordController.clear();
+    confirmNewPasswordController.clear();
+  }
+
   @override
   void onClose() {
     emailLoginController.dispose();
@@ -299,6 +366,10 @@ void clearFailedChangePassword(){
     oldPasswordController.dispose();
     newPasswordController.dispose();
     confirmNewPasswordController.dispose();
+    emailForgetController.dispose();
+    newPasswordResetController.dispose();
+    codeResetController.dispose();
+    confirmPasswordResetController.dispose();
     super.onClose();
   }
 }

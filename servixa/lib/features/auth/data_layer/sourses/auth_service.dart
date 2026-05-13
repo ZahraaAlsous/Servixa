@@ -213,4 +213,69 @@ class AuthService {
     }
   }
 
+  Future<bool> forgetPassword({required String email}) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: ForgetPassword IN");
+
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/forget-password",
+        data: {"email": email},
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+        ),
+      );
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: ForgetPassword OK");
+
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : ForgetPassword ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : ForgetPassword ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<bool> resetPassword({
+    required String email,
+    required String code,
+    required String password,
+  }) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: ResetPassword OK");
+
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/reset-password",
+        data: {"email": email, "code": code, "password": password},
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+        ),
+      );
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : ResetPassword ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : ResetPassword ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+
+      throw e.response!.data["message"];
+    }
+  }
 }
