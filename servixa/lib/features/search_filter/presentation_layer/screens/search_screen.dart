@@ -13,7 +13,7 @@ import 'package:servixa/features/category/business_later/category_controller.dar
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
 import 'package:servixa/features/search_filter/presentation_layer/widgets/filtter_bottom_sheet_widget.dart';
 
-enum SingingCharacter { lafayette, jefferson }
+// enum SingingCharacter { lafayette, jefferson }
 
 class SearchScreen extends StatelessWidget {
   final SearchFilterController searchFilterController = Get.put(

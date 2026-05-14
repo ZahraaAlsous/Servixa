@@ -9,11 +9,13 @@ class BusinessAccountModel {
   String businessNameEnglish;
   String activities;
   String details;
-  CityModel city;
+  // CityModel city;
   String addressDetail;
   // String location;
   List<String>? documents;
   String status; //Account under review / Accepted / Rejected
+  UserTypeModel? userType;
+  String? approvedAt;
 
   BusinessAccountModel({
     required this.id,
@@ -21,7 +23,7 @@ class BusinessAccountModel {
     required this.businessNameEnglish,
     required this.typeBusinessAccount,
     required this.licenseNumber,
-    required this.city,
+    // required this.city,
     required this.addressDetail,
     // required this.location,
     required this.activities,
@@ -29,7 +31,20 @@ class BusinessAccountModel {
     this.documents,
     // this.image,
     required this.status,
+    this.userType,
+    this.approvedAt
   });
+
+  String getFormattedApprovedDate() {
+    if (approvedAt == null || approvedAt!.isEmpty) return "Not available";
+
+    try {
+      DateTime date = DateTime.parse(approvedAt!);
+      return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return approvedAt!;
+    }
+  }
 
   factory BusinessAccountModel.fromJson(Map<String, dynamic> json) {
     return BusinessAccountModel(
@@ -39,7 +54,7 @@ class BusinessAccountModel {
       businessNameEnglish: json["business_name"],
       typeBusinessAccount: UserTypeModel.fromJson(json["user_type"]),
       licenseNumber: json["license_number"],
-      city: CityModel.fromJson(json["city"]),
+      // city: CityModel.fromJson(json["city"])  ,
       addressDetail: json["business_address"],
       // location: json["location"],
       activities: json["activities"],
@@ -47,6 +62,8 @@ class BusinessAccountModel {
       // documents: List<String>.from(json["documents"]),
       // image: json["image"],
       status: json["status"],
+      userType: json["user_type"] != null ? UserTypeModel.fromJson(json["user_type"]) : null ,
+      approvedAt: json["approved_at"]
     );
   }
 

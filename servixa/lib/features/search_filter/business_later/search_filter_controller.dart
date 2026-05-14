@@ -37,6 +37,7 @@ class SearchFilterController extends GetxController {
 
   Rx<int?> minPriceFilter = Rx<int?>(null);
   Rx<int?> maxPriceFilter = Rx<int?>(null);
+  Rx<int?> userIdFilter = Rx<int?>(null);
   Rx<AdType?> selectedAdType = Rx<AdType?>(null);
   RxString selectPosted = "".obs;
   late TextEditingController minPriceController;
@@ -357,6 +358,7 @@ class SearchFilterController extends GetxController {
         isRent: EffectiveTypeFilter.value && selectedAdType.value != null
             ? (selectedAdType.value == AdType.rent ? 1 : 0)
             : null,
+        userId: userIdFilter.value != null ? userIdFilter.value : null,
       );
       log("===============================Controller : AdsFilter OK");
     } catch (e) {
@@ -402,6 +404,7 @@ class SearchFilterController extends GetxController {
     selectSubCategory.value = null;
     minPriceFilter.value = null;
     maxPriceFilter.value = null;
+    userIdFilter.value = null;
     selectPosted.value = "";
     categoryController.subCategories.clear();
 

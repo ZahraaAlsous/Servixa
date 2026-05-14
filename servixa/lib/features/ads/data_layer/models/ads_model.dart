@@ -1,3 +1,4 @@
+import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_answer_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
@@ -27,6 +28,7 @@ class AdsModel {
   // type coin
   double? lat;
   double? lng;
+  BusinessAccountModel? businessAccount;
 
   AdsModel({
     required this.id,
@@ -48,6 +50,7 @@ class AdsModel {
     this.categoryQuestionAnswer,
     this.lat,
     this.lng,
+    this.businessAccount,
   });
 
   // factory AdsModel.fromJson(Map<String, dynamic> json) {
@@ -97,6 +100,9 @@ class AdsModel {
           : null,
       lat: json["lat"] != null ? double.tryParse(json["lat"].toString()) : null,
       lng: json["lng"] != null ? double.tryParse(json["lng"].toString()) : null,
+      businessAccount: json["business_account"] != null
+          ? BusinessAccountModel.fromJson(json["business_account"])
+          : null,
       listReview: [],
     );
   }

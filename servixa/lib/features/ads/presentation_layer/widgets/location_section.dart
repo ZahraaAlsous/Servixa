@@ -5,18 +5,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_portfolio_widget.dart';
+import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
 
 class LocationSection extends StatelessWidget {
   final AdsModel ads;
   LocationSection({super.key, required this.ads});
-
+  final SearchFilterController searchFilterController = Get.put(
+    SearchFilterController(),
+  );
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -135,10 +140,15 @@ class LocationSection extends StatelessWidget {
                       flex: 15,
                       child: InkWell(
                         onTap: () {
+                          searchFilterController.userIdFilter.value =
+                              ads.user.id;
+                          searchFilterController.searchAndFilter((e) {
+                            AppSnackbar.showError(e);
+                          });
                           Get.bottomSheet(
                             isDismissible: true,
                             enableDrag: true,
-                            BottomSheetPortfolioWidget(),
+                            BottomSheetPortfolioWidget(ad: ads),
                           );
                         },
                         child: CircleAvatar(
@@ -184,7 +194,8 @@ class LocationSection extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                "Riyadh – Malaz",
+                                // "Riyadh – Malaz",
+                                ads.businessAccount != null ? ads.businessAccount!.addressDetail : "Not available",
                                 style: TypographyApp.Label_Mid_Regular.copyWith(
                                   color: ThemeApp.Foundation_Secendary_grey_600,
                                 ),
