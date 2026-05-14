@@ -328,4 +328,11 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateDropDown({String? value, required String type}) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please select $type";
+    }
+    return null;
+  }
 }

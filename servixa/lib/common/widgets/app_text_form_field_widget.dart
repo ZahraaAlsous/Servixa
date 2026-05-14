@@ -87,11 +87,12 @@ class AppTextFormField extends StatelessWidget {
               color: ThemeApp.Foundation_Secendary_grey_100,
             ),
           ),
+          
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: const BorderSide(
               width: 1,
-              color: ThemeApp.Foundation_Secendary_grey_100,
+              color: ThemeApp.Foundation_Main_main_500,
             ),
           ),
           errorBorder: OutlineInputBorder(

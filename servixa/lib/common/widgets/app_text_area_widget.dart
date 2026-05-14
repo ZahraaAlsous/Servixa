@@ -44,7 +44,7 @@ class AppTextAreaWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
             width: 1,
-            color: ThemeApp.Foundation_Secendary_grey_100,
+            color: ThemeApp.Foundation_Main_main_500,
           ),
         ),
         errorBorder: OutlineInputBorder(

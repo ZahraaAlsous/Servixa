@@ -12,9 +12,10 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
+import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
@@ -44,6 +45,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   FavoriteController favoriteController = Get.put(FavoriteController());
   final storage = FlutterSecureStorage();
   final AuthController authController = Get.put(AuthController());
+  final BusinessAccountController businessAccountController = Get.put(BusinessAccountController());
 
   @override
   void initState() {
@@ -834,11 +836,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     ),
                   ),
                   onPressed: () {
+                    businessAccountController.getBusinessAccountApproved();
                     Get.bottomSheet(
                       isDismissible: true,
                       enableDrag: true,
                       isScrollControlled: true,
-                      BottomSheetAddOrderWidget(),
+                      BottomSheetAddOrderWidget(adId: ads.id,),
                     );
                   },
                   child: Row(
