@@ -309,7 +309,7 @@ class OrderScreen extends StatelessWidget {
     return Container(
       height: 231,
       width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 22, horizontal: 34),
+      padding: EdgeInsetsGeometry.symmetric(vertical: 16, horizontal: 34),
       margin: EdgeInsetsGeometry.symmetric(vertical: 10),
 
       decoration: BoxDecoration(
@@ -321,81 +321,93 @@ class OrderScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                "Request Date :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                order.fromDate!,
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
+          _listTile(
+            title: "Request Date :",
+            trailing: order.fromDate ?? "Not valid",
           ),
-          SizedBox(height: 9),
-          Row(
-            children: [
-              Text(
-                "Catalog :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                "kjkjkjkjs",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 9),
-
-          Row(
-            children: [
-              Text(
-                "Name :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                // order.account.businessNameEnglish,
-                "hhhhh",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 9),
-
-          Row(
-            children: [
-              Text(
-                "Phone :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                "kjkjkjkjs",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Request Date :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       order.fromDate ?? "Not valid",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           // SizedBox(height: 9),
+          _listTile(title: "Service :", trailing: order.adName),
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Catalog :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       "kjkjkjkjs",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 9),
+          _listTile(
+            title: "Name :",
+            trailing: order.user.firstName + " " + order.user.lastName,
+          ),
+
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Name :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       // order.account.businessNameEnglish,
+          //       "hhhhh",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 9),
+          if (order.user.phone != null)
+            _listTile(title: "Phone :", trailing: order.user.phone!),
+          if (order.user.phone == null && order.user.email != null)
+            _listTile(title: "Email :", trailing: order.user.email!),
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Phone :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       "kjkjkjkjs",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // // SizedBox(height: 9),
           Divider(
             height: 20,
             thickness: 2,
@@ -455,8 +467,8 @@ class OrderScreen extends StatelessWidget {
     // log(order.details);
 
     return Container(
-      // height: 231,
-      height: 220,
+      height: 231,
+      // height: 220,
       width: size.width * 0.8976,
       padding: const EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 15),
       margin: const EdgeInsetsGeometry.symmetric(vertical: 10),
@@ -464,6 +476,7 @@ class OrderScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(13),
         border: BoxBorder.all(
           width: 1,
+          
           color: order.status == "accepted"
               ? ThemeApp.Foundation_Main_main_500
               : ThemeApp.Foundation_Secendary_grey_100,
@@ -473,6 +486,8 @@ class OrderScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _listTile(title: "Service : ", trailing: order.adName),
+          // if (order.fromDate != null)
+            _listTile(title: "Date : ", trailing: order.fromDate ?? "Not valid"),
           // if (order.fromDate != null && order.toDate != null)
           //   ListTile(
           //     contentPadding: EdgeInsets.zero,
@@ -563,7 +578,7 @@ class OrderScreen extends StatelessWidget {
                     color: ThemeApp.black,
                   ),
                 ),
-            
+
                 // const SizedBox(width: 0.5),
                 Expanded(
                   child: Text(
@@ -624,7 +639,8 @@ class OrderScreen extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       dense: true,
-      visualDensity: VisualDensity.compact,
+      visualDensity: const VisualDensity(vertical: -4),
+      minVerticalPadding: 0,
       title: Text(
         title,
         style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),

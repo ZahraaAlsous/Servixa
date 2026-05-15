@@ -40,6 +40,7 @@
 
 // }
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class OrdersModel {
   int id;
@@ -52,6 +53,7 @@ class OrdersModel {
   // AdsModel ad;
   String adName;
   String status;
+  UserModel user;
 
   OrdersModel({
     required this.id,
@@ -64,6 +66,7 @@ class OrdersModel {
     // required this.ad,
     required this.adName,
     required this.status,
+    required this.user,
   });
 
   factory OrdersModel.fromJson(Map<String, dynamic> json) {
@@ -78,6 +81,7 @@ class OrdersModel {
       // ad: json["ads"][0]["ad"]["name"],
       adName: json["ads"][0]["ad"]["name"],
       status: json["status"],
+      user: UserModel.fromJson(json["user"])
     );
   }
 
