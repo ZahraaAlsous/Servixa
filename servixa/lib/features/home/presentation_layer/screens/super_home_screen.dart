@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -9,6 +10,7 @@ import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
+import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/presentation_layer/screens/order_screen.dart';
 
 class SuperHomeScreen extends StatefulWidget {
@@ -19,6 +21,7 @@ class SuperHomeScreen extends StatefulWidget {
 }
 
 class _SuperHomeScreenState extends State<SuperHomeScreen> {
+  final OrderController orderController = Get.put(OrderController());
   int selectedIndex = 0;
   List<Widget> pages = [
     HomePage(),
@@ -85,14 +88,14 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.homeFill,
                   "navigationBarHome",
                   0,
-                  (){}
+                  () {},
                 ),
                 _buildNavItem(
                   IconApp.notification,
                   IconApp.notificationFill,
                   "navigationBarNotification",
                   1,
-                  (){}
+                  () {},
                 ),
 
                 const SizedBox(width: 60),
@@ -102,14 +105,19 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.adsFill,
                   "navigationBarMyAds",
                   2,
-                  (){}
+                  () {},
                 ),
 
                 _buildNavItem(
                   IconApp.orders,
                   IconApp.ordersFill,
                   "navigationBarOrders",
-                  3,(){}
+                  3,
+                  () {
+                    orderController.getOrders((e) {
+                      AppSnackbar.showError(e);
+                    });
+                  },
                 ),
               ],
             ),
@@ -158,7 +166,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                       ),
                     ),
                   ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 // Expanded(
                 //   child: Column(
                 //     // mainAxisSize: MainAxisSize.min,

@@ -222,4 +222,5 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -58,20 +57,23 @@ class OrderScreen extends StatelessWidget {
                         splashColor: Colors.transparent,
 
                         onTap: () {
-                          orderController.isSelectedMyOrders.value = false;
+                          orderController.isSelectedMyOrders.value = true;
+                          orderController.getOrders((e) {
+                            AppSnackbar.showError(e);
+                          });
                         },
                         child: Container(
                           alignment: AlignmentGeometry.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: !orderController.isSelectedMyOrders.value
+                            color: orderController.isSelectedMyOrders.value
                                 ? ThemeApp.Foundation_Main_main_500
                                 : ThemeApp.whiteBackground,
                           ),
                           child: Text(
                             "Received Orders",
                             style: TypographyApp.text_button_order.copyWith(
-                              color: orderController.isSelectedMyOrders.value
+                              color: !orderController.isSelectedMyOrders.value
                                   ? ThemeApp.Foundation_Main_main_500
                                   : ThemeApp.whiteBackground,
                             ),
@@ -108,20 +110,23 @@ class OrderScreen extends StatelessWidget {
                         splashColor: Colors.transparent,
 
                         onTap: () {
-                          orderController.isSelectedMyOrders.value = true;
+                          orderController.isSelectedMyOrders.value = false;
+                          orderController.getOrders((e) {
+                            AppSnackbar.showError(e);
+                          });
                         },
                         child: Container(
                           alignment: AlignmentGeometry.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: orderController.isSelectedMyOrders.value
+                            color: !orderController.isSelectedMyOrders.value
                                 ? ThemeApp.Foundation_Main_main_500
                                 : ThemeApp.whiteBackground,
                           ),
                           child: Text(
                             "My Orders",
                             style: TypographyApp.text_button_order.copyWith(
-                              color: !orderController.isSelectedMyOrders.value
+                              color: orderController.isSelectedMyOrders.value
                                   ? ThemeApp.Foundation_Main_main_500
                                   : ThemeApp.whiteBackground,
                             ),
@@ -134,7 +139,7 @@ class OrderScreen extends StatelessWidget {
           ),
         ),
       ),
-     
+
       // appBar: AppBar(backgroundColor: ThemeApp.linearBackground),
       backgroundColor: ThemeApp.whiteBackground,
       body:
@@ -261,28 +266,39 @@ class OrderScreen extends StatelessWidget {
               //     ],
               //   ),
               // ),
-              SizedBox(height: 10),
-              SizedBox(
-                height: 500,
-                child: Obx(() {
-                  return ListView.builder(
-                    padding: EdgeInsetsGeometry.symmetric(
-                      horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                    ),
-                    itemCount: orderController.isSelectedMyOrders.value
-                        ? orderController.myOrders.length
-                        : orderController.receivedOrders.length,
-                    itemBuilder: (context, indexOrder) {
-                      return orderController.isSelectedMyOrders.value
-                          ? myOrders(size, orderController.myOrders[indexOrder])
-                          : receivedOrders(
-                              size,
-                              orderController.receivedOrders[indexOrder],
-                            );
-                    },
-                  );
-                }),
-              ),
+              const SizedBox(height: 10),
+              Obx(() {
+                if (orderController.isLoadingOrder.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                return SizedBox(
+                  height: 500,
+                  child: Obx(() {
+                    return ListView.builder(
+                      padding: EdgeInsetsGeometry.symmetric(
+                        horizontal:
+                            size.width * DimensApp.spaceHorizontalScreen,
+                      ),
+                      // itemCount: orderController.isSelectedMyOrders.value
+                      //     ? orderController.myOrders.length
+                      //     : orderController.receivedOrders.length,
+                      itemCount: orderController.myOrders.length,
+                      itemBuilder: (context, indexOrder) {
+                        return !orderController.isSelectedMyOrders.value
+                            ? myOrders(
+                                size,
+                                orderController.myOrders[indexOrder],
+                              )
+                            : receivedOrders(
+                                size,
+                                // orderController.receivedOrders[indexOrder],
+                                orderController.myOrders[indexOrder],
+                              );
+                      },
+                    );
+                  }),
+                );
+              }),
             ],
           ),
       // ),
@@ -315,7 +331,7 @@ class OrderScreen extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                order.requestDate,
+                order.fromDate!,
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Secendary_grey_300,
                 ),
@@ -352,7 +368,8 @@ class OrderScreen extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                order.account.businessNameEnglish,
+                // order.account.businessNameEnglish,
+                "hhhhh",
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Secendary_grey_300,
                 ),
@@ -435,75 +452,138 @@ class OrderScreen extends StatelessWidget {
   }
 
   Widget myOrders(Size size, OrdersModel order) {
-    log(order.details);
+    // log(order.details);
 
     return Container(
-      height: 231,
+      // height: 231,
+      height: 220,
       width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 15),
-      margin: EdgeInsetsGeometry.symmetric(vertical: 10),
+      padding: const EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 15),
+      margin: const EdgeInsetsGeometry.symmetric(vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(13),
         border: BoxBorder.all(
           width: 1,
-          color: ThemeApp.Foundation_Secendary_grey_100,
+          color: order.status == "accepted"
+              ? ThemeApp.Foundation_Main_main_500
+              : ThemeApp.Foundation_Secendary_grey_100,
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                "Request Date :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                order.requestDate,
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 6),
-          Row(
-            children: [
-              Text(
-                "Catalog :",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.black,
-                ),
-              ),
-              Spacer(),
-              Text(
-                "kjkjkjk2js",
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_300,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 6),
+          _listTile(title: "Service : ", trailing: order.adName),
+          // if (order.fromDate != null && order.toDate != null)
+          //   ListTile(
+          //     contentPadding: EdgeInsets.zero,
+          //     dense: true,
+          //     visualDensity: VisualDensity.compact,
+          //     title: Text(
+          //       "Date : ",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     trailing: Text(
+          //       order.fromDate! + " to " + order.toDate!,
+          //       maxLines: 3,
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ),
+          //   ),
 
           // Row(
           //   children: [
-          Text(
-            "Detail :",
-            style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
-          ),
-          Text(
-            order.details,
-            style: TypographyApp.Title_Mid_Mid.copyWith(
-              color: ThemeApp.Foundation_Secendary_grey_300,
+          //     Text(
+          //       "Request Date :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       order.fromDate ?? "nnnnnn",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 6),
+          // _listTile(title: "Catalog :", trailing: "kjkjkjk2js"),
+          _listTile(title: "Status :", trailing: order.status),
+
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Catalog :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.black,
+          //       ),
+          //     ),
+          //     Spacer(),
+          //     Text(
+          //       "kjkjkjk2js",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 6),
+
+          // Row(
+          //   children: [
+          // Row(
+          //   children: [
+          //     Text(
+          //       "Detail :",
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
+          //     ),
+          //     Text(
+          //       order.details ?? "nnnn",
+          //       maxLines: 3,
+          //       style: TypographyApp.Title_Mid_Mid.copyWith(
+          //         color: ThemeApp.Foundation_Secendary_grey_300,
+          //         overflow: TextOverflow.ellipsis
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          const SizedBox(height: 7),
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Detail :",
+                  style: TypographyApp.Title_Mid_Mid.copyWith(
+                    color: ThemeApp.black,
+                  ),
+                ),
+            
+                // const SizedBox(width: 0.5),
+                Expanded(
+                  child: Text(
+                    order.details ?? "nnnn",
+                    textAlign: TextAlign.end,
+                    maxLines: 2,
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_300,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                  ),
+                ),
+              ],
             ),
           ),
 
           // SizedBox(height: 6),
-          Divider(
+          // _listTile(title: "Detail :", trailing: order.details ?? "nnnn"),
+          const Divider(
             // height: 20,
             thickness: 2,
             color: ThemeApp.colorCirclesSliderAndStarAndDivider,
@@ -536,6 +616,26 @@ class OrderScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _listTile({required String title, required String trailing}) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      title: Text(
+        title,
+        style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
+      ),
+      trailing: Text(
+        trailing,
+        maxLines: 3,
+        style: TypographyApp.Title_Mid_Mid.copyWith(
+          color: ThemeApp.Foundation_Secendary_grey_300,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

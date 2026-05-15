@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
@@ -9,7 +11,8 @@ import 'package:servixa/features/orders/data_layer/sourses/order_service.dart';
 class OrderController extends GetxController {
   final orderService = OrderService();
   RxBool isSendOrder = false.obs;
-  RxBool isSelectedMyOrders = true.obs;
+  RxBool isLoadingOrder = false.obs;
+  RxBool isSelectedMyOrders = false.obs;
   RxList<OrdersModel> myOrders = <OrdersModel>[].obs;
   RxList<OrdersModel> receivedOrders = <OrdersModel>[].obs;
   TextEditingController quantityController = TextEditingController();
@@ -23,8 +26,8 @@ class OrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getMyOrders();
-    getReceivedOrders();
+    // getMyOrders();
+    // getReceivedOrders();
   }
 
   Future<void> addOrder(
@@ -60,107 +63,125 @@ class OrderController extends GetxController {
     selectedBusinessAccountId.value = null;
   }
 
-  void getMyOrders() {
-    myOrders.addAll([
-      OrdersModel(
-        id: 1,
-        requestDate: "requestDate",
-        details:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
+  Future<void> getOrders(void Function(String e) onError) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: GetOrders IN");
+      isLoadingOrder.value = true;
+      myOrders.value = await orderService.getOrders(
+        isMyOrders: isSelectedMyOrders.value ? 1 : 0,
+      );
+      log("==============================Controller: GetOrders OK");
+    } catch (e) {
+      log("==============================Controller: GetOrders ERROR");
+      log("==============================The error is : $e");
 
-        account: BusinessAccountModel(
-          id: 1,
-          businessNameArabic: "businessNameArabic",
-          businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
-          licenseNumber: "11111",
-          // city: CityModel(id: 6, name: "city"),
-          addressDetail: "addressDetail",
-          // location: "location",
-          activities: "activities",
-          details:
-              "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
-          documents: [],
-          status: "status",
-        ),
-        status: "status",
-        quantity: 1,
-      ),
-
-      OrdersModel(
-        id: 2,
-        requestDate: "requestDate2",
-        details:
-            "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
-
-        account: BusinessAccountModel(
-          id: 1,
-          businessNameArabic: "businessNameArabic",
-          businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
-          licenseNumber: "11111",
-          // city: CityModel(id: 6, name: "city"),
-          addressDetail: "addressDetail",
-          // location: "location",
-          activities: "activities",
-          details:
-              "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
-          documents: [],
-          status: "status",
-        ),
-        status: "status",
-        quantity: 1,
-      ),
-    ]);
+      onError(e.toString());
+    } finally {
+      isLoadingOrder.value = false;
+    }
   }
 
-  void getReceivedOrders() {
-    receivedOrders.addAll([
-      OrdersModel(
-        id: 3,
-        requestDate: "requestDate3",
-        details: "details3",
-        account: BusinessAccountModel(
-          id: 1,
-          businessNameArabic: "businessNameArabic",
-          businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
-          licenseNumber: "11111",
-          // city: CityModel(id: 6, name: "city"),
-          addressDetail: "addressDetail",
-          // location: "location",
-          activities: "activities",
-          details: "details",
-          documents: [],
-          status: "status",
-        ),
-        status: "status",
-        quantity: 1,
-      ),
+  // void getMyOrders() {
+  //   myOrders.addAll([
+  //     OrdersModel(
+  //       id: 1,
+  //       fromDate: "requestDate",
+  //       details:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
 
-      OrdersModel(
-        id: 4,
-        requestDate: "requestDate4",
-        details: "details4",
-        account: BusinessAccountModel(
-          id: 1,
-          businessNameArabic: "businessNameArabic",
-          businessNameEnglish: "businessNameEnglish",
-          typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
-          licenseNumber: "11111",
-          // city: CityModel(id: 6, name: "city"),
-          addressDetail: "addressDetail",
-          // location: "location",
-          activities: "activities",
-          details: "details",
-          documents: [],
-          status: "status",
-        ),
-        status: "status",
-        quantity: 1,
-      ),
-    ]);
-  }
+  //       account: BusinessAccountModel(
+  //         id: 1,
+  //         businessNameArabic: "businessNameArabic",
+  //         businessNameEnglish: "businessNameEnglish",
+  //         typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
+  //         licenseNumber: "11111",
+  //         // city: CityModel(id: 6, name: "city"),
+  //         addressDetail: "addressDetail",
+  //         // location: "location",
+  //         activities: "activities",
+  //         details:
+  //             "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
+  //         documents: [],
+  //         status: "status",
+  //       ),
+  //       status: "status",
+  //       quantity: 1,
+  //     ),
+
+  //     OrdersModel(
+  //       id: 2,
+  //       fromDate: "requestDate2",
+  //       details:
+  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
+
+  //       account: BusinessAccountModel(
+  //         id: 1,
+  //         businessNameArabic: "businessNameArabic",
+  //         businessNameEnglish: "businessNameEnglish",
+  //         typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
+  //         licenseNumber: "11111",
+  //         // city: CityModel(id: 6, name: "city"),
+  //         addressDetail: "addressDetail",
+  //         // location: "location",
+  //         activities: "activities",
+  //         details:
+  //             "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercia",
+  //         documents: [],
+  //         status: "status",
+  //       ),
+  //       status: "status",
+  //       quantity: 1,
+  //     ),
+  //   ]);
+  // }
+
+  // void getReceivedOrders() {
+  //   receivedOrders.addAll([
+  //     OrdersModel(
+  //       id: 3,
+  //       fromDate: "requestDate3",
+  //       details: "details3",
+  //       // account: BusinessAccountModel(
+  //       //   id: 1,
+  //       //   businessNameArabic: "businessNameArabic",
+  //       //   businessNameEnglish: "businessNameEnglish",
+  //       //   typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
+  //       //   licenseNumber: "11111",
+  //       //   // city: CityModel(id: 6, name: "city"),
+  //       //   addressDetail: "addressDetail",
+  //       //   // location: "location",
+  //       //   activities: "activities",
+  //       //   details: "details",
+  //       //   documents: [],
+  //       //   status: "status",
+  //       // ),
+  //       status: "status",
+  //       quantity: 1,
+  //     ),
+
+  //     OrdersModel(
+  //       id: 4,
+  //       fromDate: "requestDate4",
+  //       details: "details4",
+  //       account: BusinessAccountModel(
+  //         id: 1,
+  //         businessNameArabic: "businessNameArabic",
+  //         businessNameEnglish: "businessNameEnglish",
+  //         typeBusinessAccount: UserTypeModel(id: 5, name: "name"),
+  //         licenseNumber: "11111",
+  //         // city: CityModel(id: 6, name: "city"),
+  //         addressDetail: "addressDetail",
+  //         // location: "location",
+  //         activities: "activities",
+  //         details: "details",
+  //         documents: [],
+  //         status: "status",
+  //       ),
+  //       status: "status",
+  //       quantity: 1,
+  //     ),
+  //   ]);
+  // }
 
   @override
   void dispose() {

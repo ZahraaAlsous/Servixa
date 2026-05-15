@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 
 class OrderService {
   final Dio dio = Dio();
@@ -12,11 +13,11 @@ class OrderService {
     required int quantity,
     required int businessAccountId,
     required String fromDate,
-    required String toDate
+    required String toDate,
   }) async {
     try {
       String? token = await storage.read(key: "token");
-   Response response =    await dio.post(
+      Response response = await dio.post(
         "https://services.tamkeen-dev.com/api/v1/orders",
         data: {
           "ads": [
@@ -26,7 +27,7 @@ class OrderService {
               "quantity": quantity,
               "business_account_id": businessAccountId,
               "from_date": fromDate,
-              "to_date": toDate
+              "to_date": toDate,
             },
           ],
         },
@@ -49,6 +50,40 @@ class OrderService {
         "==============================Service THE ERROR IS: " + e.toString(),
       );
 
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<List<OrdersModel>> getOrders({required int isMyOrders}) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: GetOrders IN");
+
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/orders",
+        queryParameters: {"my_orders": isMyOrders},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      log("==============================Service: GetOrders OK");
+
+
+      return OrdersModel.listFromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : GetOrder ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : GetOrder ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
       throw e.response!.data["message"];
     }
   }
