@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
-import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
-import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
+import 'package:servixa/features/orders/presentation_layer/widgets/my_order_card_widget.dart';
+import 'package:servixa/features/orders/presentation_layer/widgets/received_order_card_widget.dart';
 
 class OrderScreen extends StatelessWidget {
   final OrderController orderController = Get.put(OrderController());
@@ -31,108 +30,66 @@ class OrderScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: Obx(
-                  () =>
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     orderController.isSelectedMyOrders.value = false;
-                      //   },
-                      //   child: Text(
-                      //     "Received Orders",
-                      //     style: TypographyApp.text_button_order.copyWith(
-                      //       color: orderController.isSelectedMyOrders.value
-                      //           ? ThemeApp.Foundation_Main_main_500
-                      //           : ThemeApp.whiteBackground,
-                      //     ),
-                      //   ),
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor:
-                      //         !orderController.isSelectedMyOrders.value
-                      //         ? ThemeApp.Foundation_Main_main_500
-                      //         : ThemeApp.whiteBackground,
-                      //     elevation: 0,
-                      //   ),
-                      // ),
-                      InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
+                  () => InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
 
-                        onTap: () {
-                          orderController.isSelectedMyOrders.value = true;
-                          orderController.getOrders((e) {
-                            AppSnackbar.showError(e);
-                          });
-                        },
-                        child: Container(
-                          alignment: AlignmentGeometry.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: orderController.isSelectedMyOrders.value
-                                ? ThemeApp.Foundation_Main_main_500
-                                : ThemeApp.whiteBackground,
-                          ),
-                          child: Text(
-                            "Received Orders",
-                            style: TypographyApp.text_button_order.copyWith(
-                              color: !orderController.isSelectedMyOrders.value
-                                  ? ThemeApp.Foundation_Main_main_500
-                                  : ThemeApp.whiteBackground,
-                            ),
-                          ),
+                    onTap: () {
+                      orderController.isSelectedMyOrders.value = true;
+                      orderController.getOrders((e) {
+                        AppSnackbar.showError(e);
+                      });
+                    },
+                    child: Container(
+                      alignment: AlignmentGeometry.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: orderController.isSelectedMyOrders.value
+                            ? ThemeApp.Foundation_Main_main_500
+                            : ThemeApp.whiteBackground,
+                      ),
+                      child: Text(
+                        "Received Orders",
+                        style: TypographyApp.text_button_order.copyWith(
+                          color: !orderController.isSelectedMyOrders.value
+                              ? ThemeApp.Foundation_Main_main_500
+                              : ThemeApp.whiteBackground,
                         ),
                       ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 child: Obx(
-                  () =>
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     orderController.isSelectedMyOrders.value = true;
-                      //   },
-                      //   child: Text(
-                      //     "My Orders",
-                      //     style: TypographyApp.text_button_order.copyWith(
-                      //       color: !orderController.isSelectedMyOrders.value
-                      //           ? ThemeApp.Foundation_Main_main_500
-                      //           : ThemeApp.whiteBackground,
-                      //     ),
-                      //   ),
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor:
-                      //         orderController.isSelectedMyOrders.value
-                      //         ? ThemeApp.Foundation_Main_main_500
-                      //         : ThemeApp.whiteBackground,
-                      //     elevation: 0,
-                      //   ),
-                      // ),
-                      InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
+                  () => InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
 
-                        onTap: () {
-                          orderController.isSelectedMyOrders.value = false;
-                          orderController.getOrders((e) {
-                            AppSnackbar.showError(e);
-                          });
-                        },
-                        child: Container(
-                          alignment: AlignmentGeometry.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: !orderController.isSelectedMyOrders.value
-                                ? ThemeApp.Foundation_Main_main_500
-                                : ThemeApp.whiteBackground,
-                          ),
-                          child: Text(
-                            "My Orders",
-                            style: TypographyApp.text_button_order.copyWith(
-                              color: orderController.isSelectedMyOrders.value
-                                  ? ThemeApp.Foundation_Main_main_500
-                                  : ThemeApp.whiteBackground,
-                            ),
-                          ),
+                    onTap: () {
+                      orderController.isSelectedMyOrders.value = false;
+                      orderController.getOrders((e) {
+                        AppSnackbar.showError(e);
+                      });
+                    },
+                    child: Container(
+                      alignment: AlignmentGeometry.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: !orderController.isSelectedMyOrders.value
+                            ? ThemeApp.Foundation_Main_main_500
+                            : ThemeApp.whiteBackground,
+                      ),
+                      child: Text(
+                        "My Orders",
+                        style: TypographyApp.text_button_order.copyWith(
+                          color: orderController.isSelectedMyOrders.value
+                              ? ThemeApp.Foundation_Main_main_500
+                              : ThemeApp.whiteBackground,
                         ),
                       ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -140,519 +97,41 @@ class OrderScreen extends StatelessWidget {
         ),
       ),
 
-      // appBar: AppBar(backgroundColor: ThemeApp.linearBackground),
       backgroundColor: ThemeApp.whiteBackground,
-      body:
-          // Container(
-          //   decoration: BoxDecoration(
-          //     gradient: LinearGradient(
-          //       begin: Alignment.topCenter,
-          //       end: Alignment.bottomCenter,
-          //       colors: [ThemeApp.linearBackground, ThemeApp.whiteBackground],
-          //       stops: [0.0, 0.1],
-          //     ),
-          //   ),
-          //   child:
-          Column(
-            children: [
-              // Container(
-              //   height: 48,
-              //   width: size.width * 0.895,
-              //   padding: EdgeInsetsGeometry.all(2),
-              //   decoration: BoxDecoration(
-              //     color: ThemeApp.whiteBackground,
-              //     borderRadius: BorderRadius.circular(21),
-              //   ),
-              //   child:
-
-              //   Row(
-              //     children: [
-              //       Expanded(
-              //         child: Obx(
-              //           () =>
-              //               // ElevatedButton(
-              //               //   onPressed: () {
-              //               //     orderController.isSelectedMyOrders.value = false;
-              //               //   },
-              //               //   child: Text(
-              //               //     "Received Orders",
-              //               //     style: TypographyApp.text_button_order.copyWith(
-              //               //       color: orderController.isSelectedMyOrders.value
-              //               //           ? ThemeApp.Foundation_Main_main_500
-              //               //           : ThemeApp.whiteBackground,
-              //               //     ),
-              //               //   ),
-              //               //   style: ElevatedButton.styleFrom(
-              //               //     backgroundColor:
-              //               //         !orderController.isSelectedMyOrders.value
-              //               //         ? ThemeApp.Foundation_Main_main_500
-              //               //         : ThemeApp.whiteBackground,
-              //               //     elevation: 0,
-              //               //   ),
-              //               // ),
-              //               InkWell(
-              //                 onTap: () {
-              //                   orderController.isSelectedMyOrders.value = false;
-              //                 },
-              //                 child: Container(
-              //                   alignment: AlignmentGeometry.center,
-              //                   decoration: BoxDecoration(
-              //                     borderRadius: BorderRadius.circular(16),
-              //                     color: !orderController.isSelectedMyOrders.value
-              //                         ? ThemeApp.Foundation_Main_main_500
-              //                         : ThemeApp.whiteBackground,
-              //                   ),
-              //                   child: Text(
-              //                     "Received Orders",
-              //                     style: TypographyApp.text_button_order.copyWith(
-              //                       color:
-              //                           orderController.isSelectedMyOrders.value
-              //                           ? ThemeApp.Foundation_Main_main_500
-              //                           : ThemeApp.whiteBackground,
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: Obx(
-              //           () =>
-              //               // ElevatedButton(
-              //               //   onPressed: () {
-              //               //     orderController.isSelectedMyOrders.value = true;
-              //               //   },
-              //               //   child: Text(
-              //               //     "My Orders",
-              //               //     style: TypographyApp.text_button_order.copyWith(
-              //               //       color: !orderController.isSelectedMyOrders.value
-              //               //           ? ThemeApp.Foundation_Main_main_500
-              //               //           : ThemeApp.whiteBackground,
-              //               //     ),
-              //               //   ),
-              //               //   style: ElevatedButton.styleFrom(
-              //               //     backgroundColor:
-              //               //         orderController.isSelectedMyOrders.value
-              //               //         ? ThemeApp.Foundation_Main_main_500
-              //               //         : ThemeApp.whiteBackground,
-              //               //     elevation: 0,
-              //               //   ),
-              //               // ),
-              //               InkWell(
-              //                 onTap: () {
-              //                   orderController.isSelectedMyOrders.value = true;
-              //                 },
-              //                 child: Container(
-              //                   alignment: AlignmentGeometry.center,
-              //                   decoration: BoxDecoration(
-              //                     borderRadius: BorderRadius.circular(16),
-              //                     color: orderController.isSelectedMyOrders.value
-              //                         ? ThemeApp.Foundation_Main_main_500
-              //                         : ThemeApp.whiteBackground,
-              //                   ),
-              //                   child: Text(
-              //                     "My Orders",
-              //                     style: TypographyApp.text_button_order.copyWith(
-              //                       color:
-              //                           !orderController.isSelectedMyOrders.value
-              //                           ? ThemeApp.Foundation_Main_main_500
-              //                           : ThemeApp.whiteBackground,
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              const SizedBox(height: 10),
-              Obx(() {
-                if (orderController.isLoadingOrder.value) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                return SizedBox(
-                  height: 500,
-                  child: Obx(() {
-                    return ListView.builder(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal:
-                            size.width * DimensApp.spaceHorizontalScreen,
-                      ),
-                      // itemCount: orderController.isSelectedMyOrders.value
-                      //     ? orderController.myOrders.length
-                      //     : orderController.receivedOrders.length,
-                      itemCount: orderController.myOrders.length,
-                      itemBuilder: (context, indexOrder) {
-                        return !orderController.isSelectedMyOrders.value
-                            ? myOrders(
-                                size,
-                                orderController.myOrders[indexOrder],
-                              )
-                            : receivedOrders(
-                                size,
-                                // orderController.receivedOrders[indexOrder],
-                                orderController.myOrders[indexOrder],
-                              );
-                      },
-                    );
-                  }),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          Obx(() {
+            if (orderController.isLoadingOrder.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return SizedBox(
+              height: 500,
+              child: Obx(() {
+                return ListView.builder(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                  ),
+                  // itemCount: orderController.isSelectedMyOrders.value
+                  //     ? orderController.myOrders.length
+                  //     : orderController.receivedOrders.length,
+                  itemCount: orderController.myOrders.length,
+                  itemBuilder: (context, indexOrder) {
+                    return !orderController.isSelectedMyOrders.value
+                        ? MyOrderCardWidget(
+                            order: orderController.myOrders[indexOrder],
+                          )
+                        : ReceivedOrderCardWidget(
+                            order: orderController.myOrders[indexOrder],
+                          );
+                  },
                 );
               }),
-            ],
-          ),
+            );
+          }),
+        ],
+      ),
       // ),
-    );
-  }
-
-  Widget receivedOrders(Size size, OrdersModel order) {
-    return Container(
-      height: 231,
-      width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 16, horizontal: 34),
-      margin: EdgeInsetsGeometry.symmetric(vertical: 10),
-
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13),
-        border: BoxBorder.all(
-          width: 1,
-          color: ThemeApp.Foundation_Secendary_grey_100,
-        ),
-      ),
-      child: Column(
-        children: [
-          _listTile(
-            title: "Request Date :",
-            trailing: order.fromDate ?? "Not valid",
-          ),
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Request Date :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       order.fromDate ?? "Not valid",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 9),
-          _listTile(title: "Service :", trailing: order.adName),
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Catalog :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       "kjkjkjkjs",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 9),
-          _listTile(
-            title: "Name :",
-            trailing: order.user.firstName + " " + order.user.lastName,
-          ),
-
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Name :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       // order.account.businessNameEnglish,
-          //       "hhhhh",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 9),
-          if (order.user.phone != null)
-            _listTile(title: "Phone :", trailing: order.user.phone!),
-          if (order.user.phone == null && order.user.email != null)
-            _listTile(title: "Email :", trailing: order.user.email!),
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Phone :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       "kjkjkjkjs",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // // SizedBox(height: 9),
-          Divider(
-            height: 20,
-            thickness: 2,
-            color: ThemeApp.colorCirclesSliderAndStarAndDivider,
-          ),
-
-          // SizedBox(height: 9),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Accept",
-                    style: TypographyApp.Label_Mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Main_yellow_50,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-
-                    backgroundColor: ThemeApp.Foundation_Statue_Green,
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Decline",
-                    style: TypographyApp.Label_Mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Statue_Red,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    side: BorderSide(
-                      color: ThemeApp.Foundation_Statue_Red,
-                      width: 1,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget myOrders(Size size, OrdersModel order) {
-    // log(order.details);
-
-    return Container(
-      height: 231,
-      // height: 220,
-      width: size.width * 0.8976,
-      padding: const EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 15),
-      margin: const EdgeInsetsGeometry.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13),
-        border: BoxBorder.all(
-          width: 1,
-          
-          color: order.status == "accepted"
-              ? ThemeApp.Foundation_Main_main_500
-              : ThemeApp.Foundation_Secendary_grey_100,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _listTile(title: "Service : ", trailing: order.adName),
-          // if (order.fromDate != null)
-            _listTile(title: "Date : ", trailing: order.fromDate ?? "Not valid"),
-          // if (order.fromDate != null && order.toDate != null)
-          //   ListTile(
-          //     contentPadding: EdgeInsets.zero,
-          //     dense: true,
-          //     visualDensity: VisualDensity.compact,
-          //     title: Text(
-          //       "Date : ",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     trailing: Text(
-          //       order.fromDate! + " to " + order.toDate!,
-          //       maxLines: 3,
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //         overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ),
-          //   ),
-
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Request Date :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       order.fromDate ?? "nnnnnn",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(height: 6),
-          // _listTile(title: "Catalog :", trailing: "kjkjkjk2js"),
-          _listTile(title: "Status :", trailing: order.status),
-
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Catalog :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.black,
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Text(
-          //       "kjkjkjk2js",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 6),
-
-          // Row(
-          //   children: [
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Detail :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
-          //     ),
-          //     Text(
-          //       order.details ?? "nnnn",
-          //       maxLines: 3,
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //         overflow: TextOverflow.ellipsis
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          const SizedBox(height: 7),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Detail :",
-                  style: TypographyApp.Title_Mid_Mid.copyWith(
-                    color: ThemeApp.black,
-                  ),
-                ),
-
-                // const SizedBox(width: 0.5),
-                Expanded(
-                  child: Text(
-                    order.details ?? "nnnn",
-                    textAlign: TextAlign.end,
-                    maxLines: 2,
-                    style: TypographyApp.Title_Mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Secendary_grey_300,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: true,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // SizedBox(height: 6),
-          // _listTile(title: "Detail :", trailing: order.details ?? "nnnn"),
-          const Divider(
-            // height: 20,
-            thickness: 2,
-            color: ThemeApp.colorCirclesSliderAndStarAndDivider,
-          ),
-
-          // SizedBox(height: 9),
-          Center(
-            child: SizedBox(
-              width: size.width * 0.739,
-              height: 29,
-              child: OutlinedButton.icon(
-                onPressed: () {},
-                label: Text(
-                  "Decline",
-                  style: TypographyApp.Label_Mid_Mid.copyWith(
-                    color: ThemeApp.Foundation_Statue_Red,
-                  ),
-                ),
-                icon: SvgPicture.asset(IconApp.delete),
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  side: BorderSide(
-                    color: ThemeApp.Foundation_Statue_Red,
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _listTile({required String title, required String trailing}) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      visualDensity: const VisualDensity(vertical: -4),
-      minVerticalPadding: 0,
-      title: Text(
-        title,
-        style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
-      ),
-      trailing: Text(
-        trailing,
-        maxLines: 3,
-        style: TypographyApp.Title_Mid_Mid.copyWith(
-          color: ThemeApp.Foundation_Secendary_grey_300,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
     );
   }
 }
