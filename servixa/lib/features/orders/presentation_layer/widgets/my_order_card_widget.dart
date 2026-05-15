@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/list_tile_order_widget.dart';
 
 class MyOrderCardWidget extends StatelessWidget {
   final OrdersModel order;
+  final OrderController orderController = Get.put(OrderController());
   MyOrderCardWidget({super.key, required this.order});
 
   @override
@@ -94,29 +98,42 @@ class MyOrderCardWidget extends StatelessWidget {
           ),
 
           Center(
-            child: SizedBox(
-              width: size.width * 0.739,
-              height: 29,
-              child: OutlinedButton.icon(
-                onPressed: () {},
-                label: Text(
-                  "Decline",
-                  style: TypographyApp.Label_Mid_Mid.copyWith(
-                    color: ThemeApp.Foundation_Statue_Red,
+            child: Obx(() {
+              if (orderController.isDeletingOrders[order.id] == true) {
+                return CircularProgressIndicator();
+              }
+              return SizedBox(
+                width: size.width * 0.739,
+                height: 29,
+                child: OutlinedButton.icon(
+                  onPressed: () => orderController.deleteOrder(
+                    order.id,
+                    () {
+                      AppSnackbar.showSuccess("The order was deleted");
+                    },
+                    (e) {
+                      AppSnackbar.showError(e);
+                    },
+                  ),
+                  label: Text(
+                    "Decline",
+                    style: TypographyApp.Label_Mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Statue_Red,
+                    ),
+                  ),
+                  icon: SvgPicture.asset(IconApp.delete),
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    side: BorderSide(
+                      color: ThemeApp.Foundation_Statue_Red,
+                      width: 1,
+                    ),
                   ),
                 ),
-                icon: SvgPicture.asset(IconApp.delete),
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  side: BorderSide(
-                    color: ThemeApp.Foundation_Statue_Red,
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
+              );
+            }),
           ),
         ],
       ),

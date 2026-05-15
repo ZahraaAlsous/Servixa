@@ -72,7 +72,6 @@ class OrderService {
       );
       log("==============================Service: GetOrders OK");
 
-
       return OrdersModel.listFromJson(response.data);
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout ||
@@ -81,6 +80,38 @@ class OrderService {
         throw "Connection failed: Please check your internet";
       }
       log("==============================Service : GetOrder ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<bool> deleteOrder({required int orderId}) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: DeleteOrder IN");
+
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.delete(
+        "https://services.tamkeen-dev.com/api/v1/orders/$orderId",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      log("==============================Service : DeleteOrder OK");
+
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : DeleteOrder ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : DeleteOrder ERROR");
       log(
         "==============================Service THE ERROR IS: " + e.toString(),
       );
