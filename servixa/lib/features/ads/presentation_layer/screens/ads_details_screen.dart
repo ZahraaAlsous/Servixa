@@ -558,6 +558,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   if (ads.categoryQuestionAnswer != null &&
                       ads.categoryQuestionAnswer!.isNotEmpty)
                     const SpaceBetweenSectionWidget(),
+                    if(ads.lat !=null && ads.lng != null)
                   LocationSection(ads: ads),
                   const SpaceBetweenSectionWidget(),
                   Padding(

@@ -117,6 +117,9 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                         .value!
                                         .id,
                                   );
+                                }else{
+                                searchFilterController.selectSubCategory.value = null;
+                                searchFilterController.EffectiveSubCategoryFilter.value = false;
                                 }
                               },
                               isSizeFontSmall:

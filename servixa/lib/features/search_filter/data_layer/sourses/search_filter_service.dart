@@ -13,7 +13,8 @@ class SearchFilterService {
     int? minPrice,
     int? maxPrice,
     int? isRent,
-    int? userId
+    int? userId,
+    String? search
   }) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : AdsFilter IN");
@@ -27,6 +28,7 @@ class SearchFilterService {
           if (maxPrice != null) "max_price": maxPrice,
           if (isRent != null) "is_rent": isRent,
           if (userId != null) "user_id": userId,
+          if (search != null) "search": search,
         },
         options: Options(
           headers: {

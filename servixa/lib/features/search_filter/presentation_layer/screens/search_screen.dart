@@ -9,6 +9,7 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
 import 'package:servixa/features/search_filter/presentation_layer/widgets/filtter_bottom_sheet_widget.dart';
@@ -92,6 +93,9 @@ class SearchScreen extends StatelessWidget {
                         widthCard: 0.9139,
                         isGridView: false,
                         isSearchCard: true,
+                        onTap: () {
+                          Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                        },
                       ),
                     );
                   },
