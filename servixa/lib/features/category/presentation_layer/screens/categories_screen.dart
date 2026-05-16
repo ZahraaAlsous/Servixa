@@ -19,7 +19,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    categoryController.getCategories(AppSnackbar.showError);
+    // categoryController.getCategories(AppSnackbar.showError);
     return Scaffold(
       appBar: AppBarWidget(),
       backgroundColor: ThemeApp.whiteBackground,
