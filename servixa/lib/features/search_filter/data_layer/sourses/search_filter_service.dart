@@ -14,7 +14,9 @@ class SearchFilterService {
     int? maxPrice,
     int? isRent,
     int? userId,
-    String? search
+    String? search,
+    String? sortBy,
+    String? sortDirection,
   }) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : AdsFilter IN");
@@ -29,6 +31,8 @@ class SearchFilterService {
           if (isRent != null) "is_rent": isRent,
           if (userId != null) "user_id": userId,
           if (search != null) "search": search,
+          if (sortBy != null) "sort_by": sortBy,
+          if (sortDirection != null) "sort_direction": sortDirection,
         },
         options: Options(
           headers: {

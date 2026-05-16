@@ -19,8 +19,8 @@ class ReceivedOrderCardWidget extends StatelessWidget {
     return Container(
       height: 231,
       width: size.width * 0.8976,
-      padding: EdgeInsetsGeometry.symmetric(vertical: 16, horizontal: 34),
-      margin: EdgeInsetsGeometry.symmetric(vertical: 10),
+      padding: const EdgeInsetsGeometry.symmetric(vertical: 16, horizontal: 30),
+      margin: const EdgeInsetsGeometry.symmetric(vertical: 10),
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(13),
@@ -55,7 +55,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
           // SizedBox(height: 9),
           Obx(() {
             if (orderController.isUpdatingOrders[order.id] == true) {
-              return Center(child: CircularProgressIndicator(),);
+              return Center(child: CircularProgressIndicator());
             }
             if (order.status == "rejected") {
               return Text(

@@ -8,6 +8,7 @@ import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
@@ -19,6 +20,9 @@ import 'package:servixa/features/search_filter/presentation_layer/widgets/filtte
 class SearchScreen extends StatelessWidget {
   final SearchFilterController searchFilterController = Get.put(
     SearchFilterController(),
+  );
+  final AdsController adsController = Get.put(
+    AdsController(),
   );
   final CategoryController categoryController = Get.put(CategoryController());
 
@@ -69,6 +73,9 @@ class SearchScreen extends StatelessWidget {
             Center(
               child: Obx(() {
                 if (searchFilterController.isLoadingAdsFilter.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (adsController.isLoading.value) {
                   return Center(child: CircularProgressIndicator());
                 }
                 if(searchFilterController.adsSearchList.isEmpty){

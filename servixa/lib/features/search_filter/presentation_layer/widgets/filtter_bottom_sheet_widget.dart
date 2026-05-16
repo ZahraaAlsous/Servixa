@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -30,7 +29,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return FractionallySizedBox(
       // heightFactor: 0.80,
-      heightFactor: 0.54,
+      heightFactor: 0.695,
       child: SingleChildScrollView(
         // child: Form(
         //   key: _formKey,
@@ -117,9 +116,15 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                         .value!
                                         .id,
                                   );
-                                }else{
-                                searchFilterController.selectSubCategory.value = null;
-                                searchFilterController.EffectiveSubCategoryFilter.value = false;
+                                } else {
+                                  searchFilterController
+                                          .selectSubCategory
+                                          .value =
+                                      null;
+                                  searchFilterController
+                                          .EffectiveSubCategoryFilter
+                                          .value =
+                                      false;
                                 }
                               },
                               isSizeFontSmall:
@@ -274,7 +279,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                       ),
                     ),
                     // Expanded(child: s),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: AppTextFormField(
                         hintText: "Max",
@@ -300,7 +305,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
 
                 SectionActiveFilterTitleWidget(
                   value: searchFilterController.EffectiveTypeFilter,
@@ -327,7 +332,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
 
                 // SectionActiveFilterTitleWidget(
                 //   value: searchFilterController.EffectiveTypeFilter,
@@ -378,6 +383,55 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                 //   borderRadio: 16,
                 // ),
                 // SizedBox(height: 5),
+                // Obx(
+                //   ()=>
+                SectionActiveFilterTitleWidget(
+                  value: searchFilterController.EffectiveSortFilter,
+                  onChanged: (value) {
+                    searchFilterController.activeSortFilter();
+                  },
+                  FilterName: "Sort",
+                  isSort: true,
+                  ascOrDesc: searchFilterController.ascOrDesc,
+                  onPressed: () {
+                    searchFilterController.changeStatusSort();
+                  },
+                ),
+                // ),
+                AppDropdownButtonFormFieldWidget(
+                  hintText: "Sort",
+                  value: searchFilterController.sortSelected.value,
+                  onChanged: (value) {
+                    searchFilterController.sortSelected.value = value;
+                  },
+                  prefixIcon: IconApp.price,
+                  borderRadio: 16,
+                  validator: Validators.validateReviewAndRequestOrder,
+                  items: [
+                    DropdownMenuItem<String>(
+                      value: "price",
+                      child: Text(
+                        "Price",
+                        style: TypographyApp.Body_mid_Mid.copyWith(
+                          color: ThemeApp.Foundation_Secendary_grey_400,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                    ),
+                    DropdownMenuItem<String>(
+                      value: "created_at",
+                      child: Text(
+                        "Created at",
+                        style: TypographyApp.Body_mid_Mid.copyWith(
+                          color: ThemeApp.Foundation_Secendary_grey_400,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+
                 SizedBox(
                   width: size.width * 0.927,
                   child: ElevatedButton(

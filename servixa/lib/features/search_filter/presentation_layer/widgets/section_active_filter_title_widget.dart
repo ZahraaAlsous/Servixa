@@ -8,11 +8,17 @@ class SectionActiveFilterTitleWidget extends StatelessWidget {
   final RxBool value;
   final void Function(bool?)? onChanged;
   final String FilterName;
+  final bool? isSort;
+  final void Function()? onPressed;
+  final RxString? ascOrDesc;
   const SectionActiveFilterTitleWidget({
     super.key,
     required this.value,
     required this.onChanged,
     required this.FilterName,
+    this.isSort = false,
+    this.onPressed,
+    this.ascOrDesc,
   });
 
   @override
@@ -45,6 +51,24 @@ class SectionActiveFilterTitleWidget extends StatelessWidget {
           FilterName.tr(),
           style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
         ),
+        if (isSort!) Spacer(),
+        if (isSort!)
+          // IconButton(
+          //   onPressed: onPressed,
+          //   icon: 
+            Obx(
+              () =>
+                  IconButton(
+                    onPressed: onPressed,
+                    icon:
+                  Icon(
+                    ascOrDesc!.value == "asc"
+                        ? Icons.arrow_upward
+                        : Icons.arrow_downward,
+                  ),
+            ),
+            ),
+          // ),
       ],
     );
   }

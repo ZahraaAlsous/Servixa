@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'dart:async';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/search_filter/data_layer/sourses/search_filter_service.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
-import 'package:servixa/features/profile/data_layer/models/user_model.dart';
-import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
 enum AdType { rent, selling }
 
@@ -30,6 +26,7 @@ class SearchFilterController extends GetxController {
   RxBool EffectiveBudgetFilter = false.obs;
   RxBool EffectiveTypeFilter = false.obs;
   RxBool EffectivePostedFilter = false.obs;
+  RxBool EffectiveSortFilter = false.obs;
   // RxString selectCategory = "".obs;
   Rxn<CategoryModel> selectCategory = Rxn<CategoryModel>();
   RxString selectCategoryIcon = "".obs;
@@ -39,6 +36,8 @@ class SearchFilterController extends GetxController {
   Rx<int?> minPriceFilter = Rx<int?>(null);
   Rx<int?> maxPriceFilter = Rx<int?>(null);
   Rx<int?> userIdFilter = Rx<int?>(null);
+  Rx<String?> sortSelected = Rx<String?>(null);
+  RxString ascOrDesc = "asc".obs;
   Rx<AdType?> selectedAdType = Rx<AdType?>(null);
   RxString selectPosted = "".obs;
   late TextEditingController minPriceController;
@@ -56,7 +55,6 @@ class SearchFilterController extends GetxController {
     maxPriceController = TextEditingController();
     searchController = TextEditingController();
 
-    // استمع للتغييرات في Rx variables وقم بتحديث الـ Controllers
     ever(minPriceFilter, (value) {
       if (value != null) {
         minPriceController.text = value.toString();
@@ -78,202 +76,15 @@ class SearchFilterController extends GetxController {
     });
   }
 
-  // void getPopularAds() {
-  //   popularAdsList.addAll([
-  //     AdsModel(
-  //       id: 1,
-  //       title: "SPR Claw Hammers1",
-  //       place: "Riyadh – Malaz",
-  //       dictation:
-  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-  //       image: "assets/images/Rectangle 9772.png",
-  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-  //       favorite: false,
-  //       price: 500,
-  //       typeCoin: "Sp",
-  //       typeService: "Rent",
-  //       status: "accept",
-  //       listReview: [
-  //         ReviewModel(
-  //           id: 1,
-  //           text: "very beatufull",
-  //           user: UserModel(
-  //             id: 1,
-  //             firstName: "Zahraa",
-  //             lastName: "Alsous",
-  //             name: "jjj",
-  //           ),
-  //           date: "6/15/2026",
-  //         ),
-  //       ],
-  //       category: CategoryModel(
-  //         id: 2,
-  //         name: "Interior Design",
-  //         icon: "assets/images/Simplification.png",
-  //         hasChildren: true,
-  //       ),
-
-  //       user: UserModel(
-  //         id: 1,
-  //         firstName: "firstName",
-  //         lastName: "lastName",
-  //         name: "jjj",
-  //       ),
-  //     ),
-  //     AdsModel(
-  //       id: 2,
-  //       title: "SPR Claw Hammers2",
-  //       place: "Riyadh – Malaz",
-  //       dictation:
-  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-  //       image: "assets/images/Rectangle 9772.png",
-  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-  //       favorite: false,
-  //       price: 500,
-  //       typeCoin: "\$",
-  //       typeService: "Rent2",
-  //       status: "accept",
-  //       category: CategoryModel(
-  //         id: 1,
-  //         name: "Equipment",
-  //         icon: "assets/images/Simplification.png",
-  //         hasChildren: true,
-
-  //         // questions: [
-  //         //   CategoryQuestionModel(
-  //         //     id: 1,
-  //         //     question: "question text",
-  //         //     type: "text",
-  //         //   ),
-  //         //   CategoryQuestionModel(
-  //         //     id: 2,
-  //         //     question: "question dropdown",
-  //         //     type: "dropdown",
-  //         //     options: ["1", "2", "3"],
-  //         //   ),
-  //         //   CategoryQuestionModel(
-  //         //     id: 3,
-  //         //     question: "question checkbox",
-  //         //     type: "checkbox",
-  //         //   ),
-  //         // ],
-  //       ),
-  //       user: UserModel(
-  //         id: 1,
-  //         firstName: "firstName",
-  //         lastName: "lastName",
-  //         name: "jjj",
-  //       ),
-  //     ),
-  //     AdsModel(
-  //       id: 3,
-  //       title: "SPR Claw Hammers3",
-  //       place: "Riyadh – Malaz",
-  //       dictation:
-  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-  //       image: "assets/images/Rectangle 9772.png",
-  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-  //       favorite: false,
-  //       price: 500,
-  //       typeCoin: "\$",
-  //       typeService: "Rent2",
-  //       status: "accept",
-  //       category: CategoryModel(
-  //         id: 2,
-  //         name: "Interior Design",
-  //         hasChildren: true,
-
-  //         icon: "assets/images/Simplification.png",
-  //       ),
-  //       user: UserModel(
-  //         id: 1,
-  //         firstName: "firstName",
-  //         lastName: "lastName",
-  //         name: "jjj",
-  //       ),
-  //     ),
-  //     AdsModel(
-  //       id: 4,
-  //       title: "SPR Claw Hammers4",
-  //       place: "Riyadh – Malaz",
-  //       dictation:
-  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-  //       image: "assets/images/Rectangle 9772.png",
-  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-  //       favorite: false,
-  //       price: 500,
-  //       typeCoin: "\$",
-  //       typeService: "Rent2",
-  //       status: "accept",
-  //       category: CategoryModel(
-  //         id: 1,
-  //         name: "Equipment",
-  //         hasChildren: true,
-
-  //         icon: "assets/images/Simplification.png",
-
-  //         // questions: [
-  //         //   CategoryQuestionModel(
-  //         //     id: 1,
-  //         //     question: "question text",
-  //         //     type: "text",
-  //         //   ),
-  //         //   CategoryQuestionModel(
-  //         //     id: 2,
-  //         //     question: "question dropdown",
-  //         //     type: "dropdown",
-  //         //     options: ["1", "2", "3"],
-  //         //   ),
-  //         //   CategoryQuestionModel(
-  //         //     id: 3,
-  //         //     question: "question checkbox",
-  //         //     type: "checkbox",
-  //         //   ),
-  //         // ],
-  //       ),
-  //       user: UserModel(
-  //         id: 1,
-  //         firstName: "firstName",
-  //         lastName: "lastName",
-  //         name: "jjj",
-  //       ),
-  //     ),
-  //     AdsModel(
-  //       id: 5,
-  //       title: "SPR Claw Hammers5",
-  //       place: "Riyadh – Malaz",
-  //       dictation:
-  //           "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence",
-  //       image: "assets/images/Rectangle 9772.png",
-  //       images: [ImageApp.slidAds, ImageApp.slidAds, ImageApp.slidAds],
-  //       favorite: false,
-  //       price: 500,
-  //       typeCoin: "\$",
-  //       typeService: "Rent2",
-  //       status: "accept",
-  //       category: CategoryModel(
-  //         id: 2,
-  //         name: "Interior Design",
-  //         icon: "assets/images/Simplification.png",
-  //         hasChildren: true,
-  //       ),
-  //       user: UserModel(
-  //         id: 1,
-  //         firstName: "firstName",
-  //         lastName: "lastName",
-  //         name: "jjj",
-  //       ),
-  //     ),
-  //   ]);
-  // }
-
   void onSearchChanged(String query) {
     filterSearch.value = query;
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 1000), () {
       // applyFilters();
-      searchAndFilter((e){AppSnackbar.showError(e);});
+      searchAndFilter((e) {
+        AppSnackbar.showError(e);
+      });
     });
   }
 
@@ -299,6 +110,15 @@ class SearchFilterController extends GetxController {
 
   void activePostedFilter() {
     EffectivePostedFilter.value = !EffectivePostedFilter.value;
+  }
+
+  void activeSortFilter() {
+    EffectiveSortFilter.value = !EffectiveSortFilter.value;
+  }
+
+  void changeStatusSort() {
+    ascOrDesc.value = ascOrDesc.value == "asc" ? "desc" : "asc";
+    log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ascOrDesc");
   }
 
   // void applyFilters() {
@@ -361,7 +181,13 @@ class SearchFilterController extends GetxController {
             ? (selectedAdType.value == AdType.rent ? 1 : 0)
             : null,
         userId: userIdFilter.value != null ? userIdFilter.value : null,
-        search: filterSearch.value != null ? filterSearch.value : null
+        search: filterSearch.value != null ? filterSearch.value : null,
+        sortBy: EffectiveSortFilter.value && sortSelected.value != null
+            ? sortSelected.value
+            : null,
+        sortDirection: EffectiveSortFilter.value && sortSelected.value != null
+            ? ascOrDesc.value
+            : null,
       );
       log("===============================Controller : AdsFilter OK");
     } catch (e) {
@@ -376,18 +202,17 @@ class SearchFilterController extends GetxController {
     }
   }
 
-  void searchResault(String? name) {
-    adsSearchList.value = adsController.adsList
-        // .where((item) => item.title == name)
-        .where((item) => item.title.toLowerCase().contains(name!.toLowerCase()))
-        .toList();
-  }
+  // void searchResault(String? name) {
+  //   adsSearchList.value = adsController.adsList
+  //       .where((item) => item.title.toLowerCase().contains(name!.toLowerCase()))
+  //       .toList();
+  // }
 
-  void filterByCategory(String? categoryName) {
-    adsSearchList.value = adsSearchList
-        .where((item) => item.category.name == categoryName)
-        .toList();
-  }
+  // void filterByCategory(String? categoryName) {
+  //   adsSearchList.value = adsSearchList
+  //       .where((item) => item.category.name == categoryName)
+  //       .toList();
+  // }
 
   void resetSearchFilterToInitialState() {
     filterSearch.value = "";
@@ -397,6 +222,7 @@ class SearchFilterController extends GetxController {
     EffectiveBudgetFilter.value = false;
     EffectiveTypeFilter.value = false;
     EffectivePostedFilter.value = false;
+    EffectiveSortFilter.value = false;
     // selectCategory.value = "";
     selectCategory.value = null;
     selectCategoryIcon.value = "";
@@ -425,7 +251,8 @@ class SearchFilterController extends GetxController {
         EffectiveSubCategoryFilter.value ||
         EffectiveBudgetFilter.value ||
         EffectiveTypeFilter.value ||
-        EffectivePostedFilter.value;
+        EffectivePostedFilter.value ||
+        EffectiveSortFilter.value;
   }
 
   // RxInt numberOfEffectiveFilters() {
@@ -451,7 +278,6 @@ class SearchFilterController extends GetxController {
   //   return num.obs;
   // }
 
-  // استبدل الدالة الموجودة بهذه
   int numberOfEffectiveFilters() {
     int count = 0;
 
@@ -461,6 +287,7 @@ class SearchFilterController extends GetxController {
     if (EffectiveBudgetFilter.value) count++;
     if (EffectiveTypeFilter.value) count++;
     if (EffectivePostedFilter.value) count++;
+    if (EffectiveSortFilter.value) count++;
 
     // if (filterSearch.value.isNotEmpty) count++;
     // if (selectCategory.value.isNotEmpty && EffectiveCategoryFilter.value)
