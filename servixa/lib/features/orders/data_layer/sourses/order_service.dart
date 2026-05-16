@@ -118,4 +118,42 @@ class OrderService {
       throw e.response!.data["message"];
     }
   }
+
+  Future<bool> updateStatusOrder({
+    required int orderId,
+    required int status,
+  }) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: UpdateStatusOrder IN");
+
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.post(
+        "https://services.tamkeen-dev.com/api/v1/orders/$orderId",
+        data: {"status": status},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      log("==============================Service : UpdateStatusOrder OK");
+
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log(
+          "==============================Service : UpdateStatusOrder ERROR_Net",
+        );
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : UpdateStatusOrder ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
+      throw e.response!.data["message"];
+    }
+  }
 }

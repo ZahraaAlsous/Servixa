@@ -6,6 +6,7 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
+import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/my_order_card_widget.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/received_order_card_widget.dart';
 
@@ -112,18 +113,23 @@ class OrderScreen extends StatelessWidget {
                   padding: EdgeInsetsGeometry.symmetric(
                     horizontal: size.width * DimensApp.spaceHorizontalScreen,
                   ),
-                  // itemCount: orderController.isSelectedMyOrders.value
-                  //     ? orderController.myOrders.length
-                  //     : orderController.receivedOrders.length,
-                  itemCount: orderController.myOrders.length,
+                  itemCount: !orderController.isSelectedMyOrders.value
+                      ? orderController.myOrders.length
+                      : orderController.receivedOrders.length,
+                  // itemCount: orderController.myOrders.length,
                   itemBuilder: (context, indexOrder) {
+                    OrdersModel order = !orderController.isSelectedMyOrders.value
+                        ? orderController.myOrders[indexOrder]
+                        : orderController.receivedOrders[indexOrder];
+                    if (orderController.isSelectedMyOrders.value) {
+                      orderController.getButtonTextByStatus(
+                        order.status,
+                        order.id,
+                      );
+                    }
                     return !orderController.isSelectedMyOrders.value
-                        ? MyOrderCardWidget(
-                            order: orderController.myOrders[indexOrder],
-                          )
-                        : ReceivedOrderCardWidget(
-                            order: orderController.myOrders[indexOrder],
-                          );
+                        ? MyOrderCardWidget(order: order)
+                        : ReceivedOrderCardWidget(order: order);
                   },
                 );
               }),
