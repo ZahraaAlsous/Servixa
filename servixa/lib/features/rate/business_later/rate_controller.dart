@@ -4,6 +4,7 @@ import 'package:servixa/features/rate/data_layer/sourses/rate_service.dart';
 
 class RateController extends GetxController {
   final RateService rateService = RateService();
+  RxBool isAddRateNow = false.obs;
   final TextEditingController commentController = TextEditingController();
   RxInt rate = 0.obs;
   Future<void> addRate(
@@ -12,6 +13,7 @@ class RateController extends GetxController {
     void Function(String e) onError,
   ) async {
     try {
+      isAddRateNow.value = true;
       bool canRate = await rateService.addRate(
         adId: adId,
         rate: rate.value,
@@ -24,6 +26,8 @@ class RateController extends GetxController {
       }
     } catch (e) {
       onError(e.toString());
+    } finally {
+      isAddRateNow.value = false;
     }
   }
 

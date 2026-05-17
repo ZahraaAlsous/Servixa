@@ -111,68 +111,73 @@ class BottomSheetReviewWidget extends StatelessWidget {
                   validate: Validators.validateNotRequiredButInput,
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            color: ThemeApp.Foundation_Main_main_500,
+                Obx(() {
+                  if (rateController.isAddRateNow.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        onPressed: () {
-                          Get.back();
-                          rateController.cleanRateFailed();
-                        },
-                        child: Text(
-                          "Cancel",
-                          style: TypographyApp.Body_mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Main_main_500,
+                          onPressed: () {
+                            Get.back();
+                            rateController.cleanRateFailed();
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TypographyApp.Body_mid_Mid.copyWith(
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeApp.Foundation_Main_main_500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ThemeApp.Foundation_Main_main_500,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
                           ),
-                        ),
 
-                        onPressed: () {
-                          if (_formKey.currentState!.validate() &&
-                              rateController.validateStars(() {
-                                AppSnackbar.showAlert("select star");
-                              })) {
-                            rateController.addRate(
-                              adId,
-                              (message) {
-                                Get.back();
-                                AppSnackbar.showSuccess(message);
-                                rateController.cleanRateFailed();
-                              },
-                              (e) {
-                                AppSnackbar.showError(e);
-                              },
-                            );
-                          }
-                        },
-                        child: Text(
-                          "Submit",
-                          style: TypographyApp.Body_mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Main_yellow_50,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                rateController.validateStars(() {
+                                  AppSnackbar.showAlert("select star");
+                                })) {
+                              rateController.addRate(
+                                adId,
+                                (message) {
+                                  Get.back();
+                                  AppSnackbar.showSuccess(message);
+                                  rateController.cleanRateFailed();
+                                },
+                                (e) {
+                                  AppSnackbar.showError(e);
+                                },
+                              );
+                            }
+                          },
+                          child: Text(
+                            "Submit",
+                            style: TypographyApp.Body_mid_Mid.copyWith(
+                              color: ThemeApp.Foundation_Main_yellow_50,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ],
             ),
           ),

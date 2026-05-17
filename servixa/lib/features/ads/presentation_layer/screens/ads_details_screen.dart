@@ -18,7 +18,7 @@ import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
-import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_review_widget.dart';
+import 'package:servixa/features/rate/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/space_between_section_widget.dart';
