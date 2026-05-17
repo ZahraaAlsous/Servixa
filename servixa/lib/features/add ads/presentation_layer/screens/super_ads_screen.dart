@@ -321,7 +321,20 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   //     addAdsController.selectedSubCategoryAds.value!.parentId !=
                   //         null) {
                   if (hasChildren || hasSubCategoryParent) {
-                    addAdsController.prepareForNewCategory();
+                    if ((addAdsController.oldCategoryId !=
+                                addAdsController.selectedCategoryAdsId.value &&
+                            addAdsController.oldSupCategoryId !=
+                                addAdsController
+                                    .selectedSubCategoryAdsId
+                                    .value) ||
+                        (addAdsController.oldCategoryId ==
+                                addAdsController.selectedCategoryAdsId.value &&
+                            addAdsController.oldSupCategoryId !=
+                                addAdsController
+                                    .selectedSubCategoryAdsId
+                                    .value)) {
+                      addAdsController.prepareForNewCategory();
+                    }
                     categoryController.getSubCategories(
                       // addAdsController.selectedCategoryAds.value!.id,
                       addAdsController.selectedCategoryAdsId.value!,
@@ -330,7 +343,20 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       _currentStep = 2;
                     });
                   } else {
-                    addAdsController.prepareForNewCategory();
+                    if ((addAdsController.oldCategoryId !=
+                                addAdsController.selectedCategoryAdsId.value &&
+                            addAdsController.oldSupCategoryId !=
+                                addAdsController
+                                    .selectedSubCategoryAdsId
+                                    .value) ||
+                        (addAdsController.oldCategoryId ==
+                                addAdsController.selectedCategoryAdsId.value &&
+                            addAdsController.oldSupCategoryId !=
+                                addAdsController
+                                    .selectedSubCategoryAdsId
+                                    .value)) {
+                      addAdsController.prepareForNewCategory();
+                    }
                     addAdsController.selectedSubCategoryAds.value = null;
                     addAdsController.selectedSubCategoryAdsId.value = null;
                     // addAdsController.cleanAnswerOldQuestion;

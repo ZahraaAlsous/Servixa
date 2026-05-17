@@ -203,7 +203,7 @@ class AddAdsController extends GetxController {
       //       }
       if (ad != null) {
         onSuccess();
-        adsController.pendingMyAdList.insert(0,ad);
+        adsController.pendingMyAdList.insert(0, ad);
       }
     } catch (e) {
       log(e.toString());
@@ -320,20 +320,28 @@ class AddAdsController extends GetxController {
   RxList<String> existingSubImagesUrls = <String>[].obs;
   RxBool isEditOperation = false.obs;
   Rx<int?> adIdEdit = Rx<int?>(null);
+  int? oldCategoryId;
+  int? oldSupCategoryId;
+
   void initialFailedEditAd(AdsModel ad) {
     // selectedBusinessAccount.value = ad.businessAccount!;
     isEditOperation.value = true;
     adIdEdit.value = ad.id;
     selectedBusinessAccountId.value = ad.businessAccountId!;
+    oldCategoryId = ad.category!.parentId != null
+        ? ad.category!.parentId
+        : ad.category!.id;
     selectedCategoryAdsId.value = ad.category!.parentId != null
         ? ad.category!.parentId
         : ad.category!.id;
+
     selectedSubCategoryAds.value = ad.category!.parentId != null
         ? ad.category
         : null;
     selectedSubCategoryAdsId.value = ad.category!.parentId != null
         ? ad.category!.id
         : null;
+    oldSupCategoryId = ad.category!.parentId != null ? ad.category!.id : null;
     titleController.text = ad.title;
     descriptionController.text = ad.dictation!;
     isRent.value = ad.isRent!;
