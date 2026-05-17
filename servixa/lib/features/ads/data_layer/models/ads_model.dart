@@ -1,7 +1,6 @@
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_answer_model.dart';
-import 'package:servixa/features/category/data_layer/models/category_question_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
@@ -19,7 +18,7 @@ class AdsModel {
   String typeService;
   List<ReviewModel>? listReview;
   String status;
-  CategoryModel category;
+  CategoryModel? category;
   List<CategoryQuestionAnswerModel>? categoryQuestionAnswer;
   // SubCategoryModel? subCategory;
   UserModel user;
@@ -46,7 +45,7 @@ class AdsModel {
     required this.typeService,
     this.listReview,
     required this.status,
-    required this.category,
+     this.category,
     // this.subCategory,
     required this.user,
     this.categoryQuestionAnswer,
@@ -79,7 +78,7 @@ class AdsModel {
     return AdsModel(
       id: json["id"] ?? 0,
       title: json["name"] ?? "",
-      dictation: json["description"], // الـ JSON يستخدم description
+      dictation: json["description"],
       place: json["address"], // الـ JSON يستخدم address
       image: json["main_image"] ?? "",
       // هنا المشكلة: الـ JSON لا يحتوي على images، سنضع قائمة فارغة كافتراض
@@ -95,7 +94,12 @@ class AdsModel {
       typeCoin: json["price_currency"] ?? "",
       typeService: json["type"] ?? "",
       status: json["status"] ?? "",
-      category: CategoryModel.fromJson(json["category"] ?? {}),
+      // category: CategoryModel.fromJson(json["category"] ?? {}),
+      category: json["category"] != null
+          ? CategoryModel.fromJson(
+              json["category"],
+            )
+          : null,
       user: UserModel.fromJson(json["user"] ?? {}),
       categoryQuestionAnswer: json["custom_field_values"] != null
           ? CategoryQuestionAnswerModel.listFromJson(
@@ -109,7 +113,9 @@ class AdsModel {
           : null,
       listReview: [],
       isRent: json["is_rent"],
-      businessAccountId: json["business_account_id"]
+      businessAccountId: json["business_account_id"] != null
+          ? int.tryParse(json["business_account_id"].toString())
+          : null
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/add%20ads/data_layer/sourses/add_ad_service.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
@@ -21,6 +22,7 @@ class AddAdsController extends GetxController {
   );
   final AddAdService addAdService = AddAdService();
   CategoryController categoryController = Get.put(CategoryController());
+  final AdsController adsController = Get.put(AdsController());
   RxBool isCreate = false.obs;
   final formKey = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
@@ -174,7 +176,7 @@ class AddAdsController extends GetxController {
     try {
       log(">>>>>>>>>>..>>>>>>>>>>>>>>>>>>");
       isCreate.value = true;
-      await addAdService.createAd(
+      AdsModel? ad = await addAdService.createAd(
         // business_account_id: selectedBusinessAccount.value!.id,
         business_account_id: selectedBusinessAccountId.value!,
         name: titleController.text,
@@ -195,7 +197,14 @@ class AddAdsController extends GetxController {
         price_currency: typeCoin!,
         address: addressDetailsController.text,
       );
-      onSuccess();
+      //       if (isCreateSuccess) {
+      //               onSuccess();
+      // adsController.pendingMyAdList.add(element)
+      //       }
+      if (ad != null) {
+        onSuccess();
+        adsController.pendingMyAdList.insert(0,ad);
+      }
     } catch (e) {
       log(e.toString());
       onError(e.toString());
@@ -307,7 +316,7 @@ class AddAdsController extends GetxController {
 
   // ==================================
   // Rx<AdsModel?> adEdit = Rx<AdsModel?>(null);
-  RxString existingMainImageUrl = "".obs; 
+  RxString existingMainImageUrl = "".obs;
   RxList<String> existingSubImagesUrls = <String>[].obs;
   RxBool isEditOperation = false.obs;
   Rx<int?> adIdEdit = Rx<int?>(null);
@@ -316,14 +325,14 @@ class AddAdsController extends GetxController {
     isEditOperation.value = true;
     adIdEdit.value = ad.id;
     selectedBusinessAccountId.value = ad.businessAccountId!;
-    selectedCategoryAdsId.value = ad.category.parentId != null
-        ? ad.category.parentId
-        : ad.category.id;
-    selectedSubCategoryAds.value = ad.category.parentId != null
+    selectedCategoryAdsId.value = ad.category!.parentId != null
+        ? ad.category!.parentId
+        : ad.category!.id;
+    selectedSubCategoryAds.value = ad.category!.parentId != null
         ? ad.category
         : null;
-    selectedSubCategoryAdsId.value = ad.category.parentId != null
-        ? ad.category.id
+    selectedSubCategoryAdsId.value = ad.category!.parentId != null
+        ? ad.category!.id
         : null;
     titleController.text = ad.title;
     descriptionController.text = ad.dictation!;
@@ -344,7 +353,6 @@ class AddAdsController extends GetxController {
       _updateAddressFromLatLng(position);
     }
     _initializeDynamicQuestions(ad);
-
   }
 
   void _initializeDynamicQuestions(AdsModel ad) {
@@ -416,7 +424,6 @@ class AddAdsController extends GetxController {
           finalAnswers["custom_fields[$questionId]"] = numberValue;
         }
       }
-
     } catch (e) {
       log(" Error initializing dynamic questions: $e");
     }
@@ -494,7 +501,6 @@ class AddAdsController extends GetxController {
     finalAnswers.clear();
 
     checkboxStates.clear();
-
   }
 
   Map<String, dynamic> getFinalAnswersForSubmit() {

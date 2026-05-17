@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
 class AddAdService {
   Dio dio = Dio();
   final storage = FlutterSecureStorage();
 
-  Future<bool> createAd({
+  Future<AdsModel?> createAd({
     required int business_account_id,
     required String name,
     required String description,
@@ -76,7 +77,8 @@ class AddAdService {
       );
       if (response.statusCode == 200) {
         log("=======================service : ok");
-        return true;
+        // return true;
+        return AdsModel.fromJson(response.data["data"]);
       }
       log("Response: ${response.data}");
       throw response.data["message"] ?? "Unknown error";
