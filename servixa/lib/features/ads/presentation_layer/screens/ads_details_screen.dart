@@ -17,7 +17,12 @@ import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dar
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/details_bottom_navigation_bar_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/rate_section.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/review_section.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
+import 'package:servixa/features/rate/business_later/rate_controller.dart';
+import 'package:servixa/features/rate/data_layer/models/rate_model.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
@@ -30,7 +35,6 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
 import 'package:servixa/features/report%20an%20ad/presentation_layer/widgets/bottom_sheet_report_widget.dart';
-import 'package:servixa/features/review/data_layer/models/review_model.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
@@ -50,8 +54,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   final BusinessAccountController businessAccountController = Get.put(
     BusinessAccountController(),
   );
-    final AddAdsController addAdsController = Get.put(AddAdsController());
-
+  final AddAdsController addAdsController = Get.put(AddAdsController());
+  final RateController rateController = Get.put(RateController());
 
   @override
   void initState() {
@@ -59,21 +63,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       adsController.getAddDetailss(widget.adsId, (e) {
         AppSnackbar.showError(e);
       });
+      rateController.getRateReview(widget.adsId, (e) {
+        AppSnackbar.showError(e);
+      });
     });
 
     super.initState();
-  }
-
-  Widget _getStarColor(int starIndex, double rating) {
-    double starNumber = starIndex + 1.0;
-    double difference = starNumber - rating;
-    if (difference <= 0) {
-      return SvgPicture.asset(IconApp.starFill);
-    } else if (difference < 1) {
-      return Icon(Icons.star_half, color: ThemeApp.Foundation_Main_main_500);
-    } else {
-      return SvgPicture.asset(IconApp.starNotFill);
-    }
   }
 
   // final Completer<GoogleMapController> _controller =
@@ -603,363 +598,237 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     ),
                   ),
                   const SpaceBetweenSectionWidget(),
+                  RateSection(),
+
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      // horizontal:   size.width * DimensApp.spaceHorizontalScreen,
                       horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                       vertical: 5,
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // edit
-                              // value from back
-                              Text(
-                                "4.0",
-                                style: TypographyApp.H3_Bold.copyWith(
-                                  color: ThemeApp.Foundation_Main_main_500,
-                                ),
-                              ),
-                              // edit
-                              // from back
-                              RatingBarIndicator(
-                                unratedColor: ThemeApp.Foundation_Main_main_500,
-                                // edit
-                                // value from back
-                                rating: 4,
-                                itemBuilder: (context, index) =>
-                                    // edit
-                                    // value from back
-                                    _getStarColor(index, 4.0),
-
-                                itemCount: 5,
-                                itemSize: 20,
-                                direction: Axis.horizontal,
-                              ),
-                              // edit
-                              // value number from back
-                              Text(
-                                "Reviews 345.22",
-                                style: TypographyApp.Title_Mid_Mid.copyWith(
-                                  color: ThemeApp.gray_scale_Most_Dark,
-                                ),
-                              ),
-                            ],
-                          ),
-                          flex: 35,
-                        ),
-                        SizedBox(width: 6),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              RateStarWidget(
-                                percent: 33,
-                                numberStar: 5,
-                                // widthBarPercentage: size.width * 0.437,
-                                widthBarPercentage: widthScreen * 0.437,
-                              ),
-                              RateStarWidget(
-                                percent: 48,
-                                numberStar: 4,
-                                // widthBarPercentage: size.width * 0.437,
-                                widthBarPercentage: widthScreen * 0.437,
-                              ),
-                              RateStarWidget(
-                                percent: 28,
-                                numberStar: 3,
-                                // widthBarPercentage: size.width * 0.437,
-                                widthBarPercentage: widthScreen * 0.437,
-                              ),
-                              RateStarWidget(
-                                percent: 12,
-                                numberStar: 2,
-                                // widthBarPercentage: size.width * 0.437,
-                                widthBarPercentage: widthScreen * 0.437,
-                              ),
-                              RateStarWidget(
-                                percent: 10,
-                                numberStar: 1,
-                                // widthBarPercentage: size.width * 0.437,
-                                widthBarPercentage: widthScreen * 0.437,
-                              ),
-                            ],
-                          ),
-                          flex: 65,
-                        ),
-                      ],
+                    child: AppTitleSectionWidget(
+                      data: "Top Reviews",
+                      typographyAppButton: TypographyApp.Body_mid_Mid,
+                      typographyAppTitle: TypographyApp.Title_larg_Mid,
+                      // edit
+                      // شو لبصفحة يلي بروح عليها
+                      onPressed: () {},
                     ),
                   ),
-                  AppTitleSectionWidget(
-                    data: "Top Reviews",
-                    typographyAppButton: TypographyApp.Body_mid_Mid,
-                    typographyAppTitle: TypographyApp.Title_larg_Mid,
-                    // edit
-                    // شو لبصفحة يلي بروح عليها
-                    onPressed: () {},
-                  ),
-                  Padding(
-                    padding: EdgeInsetsGeometry.symmetric(
-                      // horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                      horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                      // vertical: 10,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ads.listReview != null && ads.listReview!.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: ads.listReview!.length,
-                                itemBuilder: (context, indexReview) {
-                                  ReviewModel review =
-                                      ads.listReview![indexReview];
-                                  return Container(
-                                    padding: EdgeInsetsGeometry.all(5),
-                                    // width: size.width * 0.9255,
-                                    width: widthScreen * 0.9255,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: BoxBorder.all(
-                                        width: 1,
-                                        color: ThemeApp
-                                            .Foundation_Secendary_Color_Light_hover,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: widthScreen * 0.109,
-                                              height: 48.6,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                    review.user.image != null
-                                                        ? review.user.image!
-                                                        : ImageApp.profileImage,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  review.user.firstName +
-                                                      " " +
-                                                      review.user.lastName,
-                                                ),
-                                                Text(review.date),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            // edit
-                                            Text("4"),
-                                            SvgPicture.asset(IconApp.starFill),
-                                          ],
-                                        ),
-                                        Text(review.text),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              )
-                            : Center(
-                                child: Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Text(
-                                    "No reviews yet",
-                                    style:
-                                        TypographyApp.Body_mid_Regular.copyWith(
-                                          color: ThemeApp
-                                              .Foundation_Secendary_grey_400,
-                                        ),
-                                  ),
-                                ),
-                              ),
-                      ],
-                    ),
-                  ),
+                  ReviewSection(),
                 ],
               ),
             ),
         bottomNavigationBar: ads.user.id == authController.currentUser.value!.id
-            ? Container(
+            ? Padding(
                 padding: EdgeInsetsGeometry.symmetric(
                   horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                   vertical: 0,
                 ),
-                // height: 60.0,
-                // color: Colors.blue,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        onPressed: () {
-                          addAdsController.initialFailedEditAd(ads);
-                          Get.to(SuperAdsScreen());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconApp.messages,
-                              width: 20,
-                              height: 20,
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                            Text(
-                              "Edit",
-                              style: TypographyApp.Body_mid_Mid.copyWith(
-                                color: ThemeApp.Foundation_Main_main_500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeApp.Foundation_Main_main_500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        onPressed: () {
-                          businessAccountController
-                              .getBusinessAccountApproved();
-                          Get.bottomSheet(
-                            isDismissible: true,
-                            enableDrag: true,
-                            isScrollControlled: true,
-                            BottomSheetAddOrderWidget(adId: ads.id),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconApp.badgePercent,
-                              width: 20,
-                              height: 20,
-                              color: ThemeApp.Foundation_Main_yellow_50,
-                            ),
+                child: DetailsBottomNavigationBarWidget(
+                  textButtonOutBorder: "Edit",
+                  textButtonElevetedBorder: " Delete",
+                  onPressedButtonOutBorder: () {
+                    addAdsController.initialFailedEditAd(ads);
+                    Get.to(SuperAdsScreen());
+                  },
+                  onPressedButtonElevetedBorder: () {
+                    // businessAccountController.getBusinessAccountApproved();
+                    // Get.bottomSheet(
+                    //   isDismissible: true,
+                    //   enableDrag: true,
+                    //   isScrollControlled: true,
+                    //   BottomSheetAddOrderWidget(adId: ads.id),
+                    // );
+                    adsController.deleteAd(ads.id, () {
+                      Get.back();
+                      AppSnackbar.showSuccess("Ad removed successfully");
 
-                            Text(
-                              " Make An Offer",
-                              style: TypographyApp.Body_mid_Mid.copyWith(
-                                color: ThemeApp.Foundation_Main_yellow_50,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                    }, (e) => AppSnackbar.showError(e));
+                  },
                 ),
+
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: OutlinedButton(
+                //         style: OutlinedButton.styleFrom(
+                //           side: BorderSide(
+                //             color: ThemeApp.Foundation_Main_main_500,
+                //           ),
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(16),
+                //           ),
+                //         ),
+                //         onPressed: () {
+                //           addAdsController.initialFailedEditAd(ads);
+                //           Get.to(SuperAdsScreen());
+                //         },
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             SvgPicture.asset(
+                //               IconApp.messages,
+                //               width: 20,
+                //               height: 20,
+                //               color: ThemeApp.Foundation_Main_main_500,
+                //             ),
+                //             Text(
+                //               "Edit",
+                //               style: TypographyApp.Body_mid_Mid.copyWith(
+                //                 color: ThemeApp.Foundation_Main_main_500,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     Expanded(
+                //       child: ElevatedButton(
+                //         style: ElevatedButton.styleFrom(
+                //           backgroundColor: ThemeApp.Foundation_Main_main_500,
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(16),
+                //           ),
+                //         ),
+                //         onPressed: () {
+                //           businessAccountController
+                //               .getBusinessAccountApproved();
+                //           Get.bottomSheet(
+                //             isDismissible: true,
+                //             enableDrag: true,
+                //             isScrollControlled: true,
+                //             BottomSheetAddOrderWidget(adId: ads.id),
+                //           );
+                //         },
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             SvgPicture.asset(
+                //               IconApp.badgePercent,
+                //               width: 20,
+                //               height: 20,
+                //               color: ThemeApp.Foundation_Main_yellow_50,
+                //             ),
+
+                //             Text(
+                //               " Make An Offer",
+                //               style: TypographyApp.Body_mid_Mid.copyWith(
+                //                 color: ThemeApp.Foundation_Main_yellow_50,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               )
-            : Container(
+            : Padding(
                 padding: EdgeInsetsGeometry.symmetric(
                   horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
                   vertical: 0,
                 ),
-                // height: 60.0,
-                // color: Colors.blue,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        onPressed: () {
-                          Get.bottomSheet(
-                            isDismissible: true,
-                            enableDrag: true,
-                            BottomSheetReviewWidget(adId: ads.id,),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconApp.messages,
-                              width: 20,
-                              height: 20,
-                              color: ThemeApp.Foundation_Main_main_500,
-                            ),
-                            Text(
-                              "Chat",
-                              style: TypographyApp.Body_mid_Mid.copyWith(
-                                color: ThemeApp.Foundation_Main_main_500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeApp.Foundation_Main_main_500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        onPressed: () {
-                          businessAccountController
-                              .getBusinessAccountApproved();
-                          Get.bottomSheet(
-                            isDismissible: true,
-                            enableDrag: true,
-                            isScrollControlled: true,
-                            BottomSheetAddOrderWidget(adId: ads.id),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconApp.badgePercent,
-                              width: 20,
-                              height: 20,
-                              color: ThemeApp.Foundation_Main_yellow_50,
-                            ),
-
-                            Text(
-                              " Make An Offer",
-                              style: TypographyApp.Body_mid_Mid.copyWith(
-                                color: ThemeApp.Foundation_Main_yellow_50,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                child: DetailsBottomNavigationBarWidget(
+                  textButtonOutBorder: "Chat",
+                  textButtonElevetedBorder: " Make An Offer",
+                  onPressedButtonOutBorder: () {
+                    Get.bottomSheet(
+                      isDismissible: true,
+                      enableDrag: true,
+                      BottomSheetReviewWidget(adId: ads.id),
+                    );
+                  },
+                  onPressedButtonElevetedBorder: () {
+                    businessAccountController.getBusinessAccountApproved();
+                    Get.bottomSheet(
+                      isDismissible: true,
+                      enableDrag: true,
+                      isScrollControlled: true,
+                      BottomSheetAddOrderWidget(adId: ads.id),
+                    );
+                  },
                 ),
+
+                //  Row(
+                //   children: [
+                //     Expanded(
+                //       child: OutlinedButton(
+                //         style: OutlinedButton.styleFrom(
+                //           side: BorderSide(
+                //             color: ThemeApp.Foundation_Main_main_500,
+                //           ),
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(16),
+                //           ),
+                //         ),
+                //         onPressed: () {
+                //           Get.bottomSheet(
+                //             isDismissible: true,
+                //             enableDrag: true,
+                //             BottomSheetReviewWidget(adId: ads.id),
+                //           );
+                //         },
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             SvgPicture.asset(
+                //               IconApp.messages,
+                //               width: 20,
+                //               height: 20,
+                //               color: ThemeApp.Foundation_Main_main_500,
+                //             ),
+                //             Text(
+                //               "Chat",
+                //               style: TypographyApp.Body_mid_Mid.copyWith(
+                //                 color: ThemeApp.Foundation_Main_main_500,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     Expanded(
+                //       child: ElevatedButton(
+                //         style: ElevatedButton.styleFrom(
+                //           backgroundColor: ThemeApp.Foundation_Main_main_500,
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(16),
+                //           ),
+                //         ),
+                //         onPressed: () {
+                //           businessAccountController
+                //               .getBusinessAccountApproved();
+                //           Get.bottomSheet(
+                //             isDismissible: true,
+                //             enableDrag: true,
+                //             isScrollControlled: true,
+                //             BottomSheetAddOrderWidget(adId: ads.id),
+                //           );
+                //         },
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             SvgPicture.asset(
+                //               IconApp.badgePercent,
+                //               width: 20,
+                //               height: 20,
+                //               color: ThemeApp.Foundation_Main_yellow_50,
+                //             ),
+
+                //             Text(
+                //               " Make An Offer",
+                //               style: TypographyApp.Body_mid_Mid.copyWith(
+                //                 color: ThemeApp.Foundation_Main_yellow_50,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ),
 
         // );

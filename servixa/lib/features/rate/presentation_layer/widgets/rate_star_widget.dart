@@ -35,24 +35,36 @@ class RateStarWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Text(
-            "${percent}%",
-            style: TypographyApp.Label_Mid_Mid.copyWith(
-              color: ThemeApp.gray_scale_Most_Dark,
+          Expanded(
+            flex: 15,
+            child: Text(
+              "${percent}%",
+              textAlign: TextAlign.end,
+              style: TypographyApp.Label_Mid_Mid.copyWith(
+                color: ThemeApp.gray_scale_Most_Dark,
+              ),
             ),
           ),
-          const SizedBox(width: 10),
-          _percentageBar(percent / 100),
-          SvgPicture.asset(
-            IconApp.starFill,
-            width: 17,
-            height: 17,
-            color: ThemeApp.Foundation_Main_main_500,
+          const SizedBox(width: 5),
+          Expanded(
+            flex: 75,
+            child: _percentageBar(percent / 100)),
+          Expanded(
+            flex: 10,
+            child: SvgPicture.asset(
+              IconApp.starFill,
+              width: 17,
+              height: 17,
+              color: ThemeApp.Foundation_Main_main_500,
+            ),
           ),
-          Text(
-            numberStar.toString(),
-            style: TypographyApp.Label_Mid_Mid.copyWith(
-              color: ThemeApp.gray_scale_Most_Dark,
+          Expanded(
+            flex: 10,
+            child: Text(
+              numberStar.toString(),
+              style: TypographyApp.Label_Mid_Mid.copyWith(
+                color: ThemeApp.gray_scale_Most_Dark,
+              ),
             ),
           ),
         ],

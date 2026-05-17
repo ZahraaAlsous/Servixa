@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/features/rate/data_layer/models/review_rate_model.dart';
 
 class RateService {
   final Dio dio = Dio();
@@ -44,6 +45,31 @@ class RateService {
       if (e.response!.statusCode == 422) {
         throw "You must have an order for this service and the order status must be \"accepted\".";
       }
+
+      throw e.response!.data["message"];
+    }
+  }
+
+  Future<ReviewRateModel> getRateReview({required int adId}) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : GetRateReview IN");
+
+      Response response = await dio.get(
+        "https://services.tamkeen-dev.com/api/v1/ratings/$adId",
+      );
+      log("==============================Service : GetRateReview OK");
+
+      return ReviewRateModel.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : GetRateReview ERROR_Net");
+        throw "Connection failed: Please check your internet";
+      }
+      log("==============================Service : GetRateReview ERROR");
+      log(
+        "==============================Service THE ERROR IS: " + e.toString(),
+      );
 
       throw e.response!.data["message"];
     }

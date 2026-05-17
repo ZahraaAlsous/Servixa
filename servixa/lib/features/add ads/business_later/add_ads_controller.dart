@@ -345,7 +345,7 @@ class AddAdsController extends GetxController {
     typeCoin = ad.typeCoin == "USD" ? "2" : "1";
     typeService = ad.typeService == "service" ? "1" : "2";
 
-    addressDetailsController.text = ad.place!;
+    addressDetailsController.text = ad.place ?? "";
     if (ad.lat != null && ad.lng != null) {
       final position = LatLng(ad.lat!, ad.lng!);
       selectedLatLng.value = position;

@@ -137,6 +137,7 @@ class AppCardAdsWidget extends StatelessWidget {
                       ads.place ?? "place",
                       style: TypographyApp.Label_Mid_Regular.copyWith(
                         color: ThemeApp.Foundation_Secendary_grey_300,
+                        overflow: TextOverflow.ellipsis
                       ),
                     ),
                   ],

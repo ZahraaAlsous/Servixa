@@ -16,7 +16,7 @@ class AdsModel {
   bool favorite;
   List<dynamic> images;
   String typeService;
-  List<ReviewModel>? listReview;
+  // List<ReviewModel>? listReview;
   String status;
   CategoryModel? category;
   List<CategoryQuestionAnswerModel>? categoryQuestionAnswer;
@@ -43,7 +43,7 @@ class AdsModel {
     required this.typeCoin,
     this.dictation,
     required this.typeService,
-    this.listReview,
+    // this.listReview,
     required this.status,
      this.category,
     // this.subCategory,
@@ -111,7 +111,7 @@ class AdsModel {
       businessAccount: json["business_account"] != null
           ? BusinessAccountModel.fromJson(json["business_account"])
           : null,
-      listReview: [],
+      // listReview: [],
       isRent: json["is_rent"],
       businessAccountId: json["business_account_id"] != null
           ? int.tryParse(json["business_account_id"].toString())
