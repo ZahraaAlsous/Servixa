@@ -20,6 +20,8 @@ class AdService {
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
+            'Content-Type': 'application/json',
+            'Accept-Language': 'en',
           },
         ),
       );
@@ -50,9 +52,7 @@ class AdService {
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/my-ads",
-        queryParameters: {
-          "page" : page
-        },
+        queryParameters: {"page": page},
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -123,6 +123,7 @@ class AdService {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
             'Content-Type': 'application/json',
+            'Accept-Language': 'en',
           },
         ),
       );

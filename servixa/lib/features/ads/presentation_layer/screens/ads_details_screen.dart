@@ -305,7 +305,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                 });
                               },
                               icon: Obx(() {
-                                // ✅ مراقبة التغييرات مباشرة من adsController
                                 final isFavorite =
                                     adsController.adsDetails.value?.favorite ??
                                     false;
