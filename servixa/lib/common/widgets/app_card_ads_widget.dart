@@ -5,12 +5,15 @@ import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 
 class AppCardAdsWidget extends StatelessWidget {
   final AdsController adsController = Get.put(AdsController());
+  final AddAdsController addAdsController = Get.put(AddAdsController());
   final FavoriteController favoriteController = Get.put(FavoriteController());
   // String assetName;
   // bool favorit;
@@ -79,8 +82,10 @@ class AppCardAdsWidget extends StatelessWidget {
                   ? Row(
                       children: [
                         IconButton(
-                          // edit
-                          onPressed: () {},
+                          onPressed: () {
+                            addAdsController.initialFailedEditAd(ads);
+                            Get.to(SuperAdsScreen());
+                          },
                           icon: SvgPicture.asset(
                             IconApp.edit,
                             color: ThemeApp.Foundation_Main_main_500,
@@ -88,7 +93,6 @@ class AppCardAdsWidget extends StatelessWidget {
                         ),
                         Spacer(),
                         IconButton(
-                          // edit
                           onPressed: () {
                             adsController.deleteAd(ads.id, () {
                               AppSnackbar.showSuccess(

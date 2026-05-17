@@ -5,6 +5,7 @@ class CategoryModel {
   String name;
   String? icon;
   bool hasChildren;
+  int? parentId;
   List<CategoryQuestionModel>? questions;
 
   CategoryModel({
@@ -12,6 +13,7 @@ class CategoryModel {
     required this.name,
     this.icon,
     required this.hasChildren,
+    this.parentId,
     this.questions,
   });
 
@@ -21,6 +23,7 @@ class CategoryModel {
       name: json["name"],
       icon: json["icon"] ?? null,
       hasChildren: json["has_children"],
+      parentId: json["parent_id"],
       questions: json["custom_fields"] != null
           ? CategoryQuestionModel.listFromJson(json["custom_fields"])
           : null,

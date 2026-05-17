@@ -33,10 +33,12 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
           return Obx(() {
             final isSelected = addAdsController.isSelected(
             category,
-            addAdsController.selectedCategoryAds.value?.id ?? 0,
+            // addAdsController.selectedCategoryAds.value?.id ?? 0,
+            addAdsController.selectedCategoryAdsId.value ?? 0,
           );
             return AppCardCategoryWidget(
               onTap: () {
+                addAdsController.selectedCategoryAdsId.value = category.id;
                 addAdsController.selectedCategoryAds.value = category;
               },
               colorCard: isSelected ? ThemeApp.Foundation_Main_main_200 : null,

@@ -16,7 +16,8 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       bool isSelected =
-          addAdsController.selectedBusinessAccount.value?.id == account.id;
+          // addAdsController.selectedBusinessAccount.value?.id == account.id;
+          addAdsController.selectedBusinessAccountId.value == account.id;
 
       return GestureDetector(
         onTap: onTap,

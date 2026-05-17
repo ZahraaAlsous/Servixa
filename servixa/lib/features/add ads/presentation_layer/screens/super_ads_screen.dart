@@ -195,11 +195,13 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
           child: ElevatedButton(
             onPressed: () {
               if (_currentStep == 4) {
-                if (categoryController.categoryQuestions.isEmpty) {
-                  addAdsController.checkboxStates.clear();
-                  addAdsController.finalAnswers.clear();
+                if (categoryController.categoryQuestions.isEmpty &&
+                    addAdsController.finalAnswers.isNotEmpty) {
+                  // addAdsController.checkboxStates.clear();
+                  // addAdsController.finalAnswers.clear();
+                  // addAdsController.collectCheckboxAnswers();
                 }
-                if(categoryController.categoryQuestions.isNotEmpty){
+                if (categoryController.categoryQuestions.isNotEmpty) {
                   addAdsController.collectCheckboxAnswers();
                 }
                 if (!addAdsController.formKey2.currentState!.validate()) {
@@ -214,16 +216,35 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   );
                   return;
                 } else {
-                  addAdsController.createAd(
-                    () {
-                      Get.back();
-                      AppSnackbar.showSuccess("Ad created successfully");
-                      addAdsController.cleanCleanAd();
-                    },
-                    (error) {
-                      AppSnackbar.showError(error);
-                    },
-                  );
+                  if (categoryController.categoryQuestions.isEmpty) {
+                    addAdsController.finalAnswers.clear();
+                    addAdsController.resetCheckboxes();
+                  }
+                  addAdsController.isEditOperation.value
+                      ? addAdsController.updateAd(
+                          addAdsController.adIdEdit.value!,
+                          () {
+                            Get.back();
+                            AppSnackbar.showSuccess("success update");
+                            addAdsController.cleanCleanAd();
+                            log(
+                              "==============================Controller: UpdateAd OK",
+                            );
+                          },
+                          (e) {
+                            AppSnackbar.showError(e);
+                          },
+                        )
+                      : addAdsController.createAd(
+                          () {
+                            Get.back();
+                            AppSnackbar.showSuccess("Ad created successfully");
+                            addAdsController.cleanCleanAd();
+                          },
+                          (error) {
+                            AppSnackbar.showError(error);
+                          },
+                        );
                   return;
                 }
               }
@@ -234,7 +255,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   return;
                 }
 
-                if (addAdsController.selectedMainImage.value == null) {
+                if (addAdsController.selectedMainImage.value == null &&
+                    addAdsController.existingMainImageUrl.value.isEmpty) {
                   Get.snackbar(
                     "Alert",
                     "Please select a main image",
@@ -244,8 +266,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   return;
                 }
 
-                if (addAdsController.listSelectedSubImage == null ||
-                    addAdsController.listSelectedSubImage.isEmpty) {
+                if (addAdsController.listSelectedSubImage.isEmpty &&
+                    addAdsController.existingSubImagesUrls.isEmpty) {
                   Get.snackbar(
                     "Alert",
                     "Please add at least one sub image",
@@ -276,18 +298,45 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
 
               if (addAdsController.validateStepAddAds(_currentStep)) {
                 if (_currentStep == 1) {
-                  addAdsController.selectedSubCategoryAds.value = null;
+                  // addAdsController.selectedSubCategoryAds.value = null;
+                  final bool hasCategory =
+                      addAdsController.selectedCategoryAds.value != null;
+                  final bool hasChildren =
+                      hasCategory &&
+                      addAdsController.selectedCategoryAds.value!.hasChildren;
+                  final bool hasSubCategory =
+                      addAdsController.selectedSubCategoryAds.value != null;
+                  final bool hasSubCategoryParent =
+                      !hasCategory &&
+                      hasSubCategory &&
+                      addAdsController.selectedSubCategoryAds.value!.parentId !=
+                          null;
 
-                  if (addAdsController.selectedCategoryAds.value!.hasChildren) {
+                  // if ((addAdsController
+                  //         .selectedCategoryAds
+                  //         .value != null && addAdsController
+                  //         .selectedCategoryAds
+                  //         .value!
+                  //         .hasChildren) ||
+                  //     addAdsController.selectedSubCategoryAds.value!.parentId !=
+                  //         null) {
+                  if (hasChildren || hasSubCategoryParent) {
+                    addAdsController.prepareForNewCategory();
                     categoryController.getSubCategories(
-                      addAdsController.selectedCategoryAds.value!.id,
+                      // addAdsController.selectedCategoryAds.value!.id,
+                      addAdsController.selectedCategoryAdsId.value!,
                     );
                     setState(() {
                       _currentStep = 2;
                     });
                   } else {
+                    addAdsController.prepareForNewCategory();
+                    addAdsController.selectedSubCategoryAds.value = null;
+                    addAdsController.selectedSubCategoryAdsId.value = null;
+                    // addAdsController.cleanAnswerOldQuestion;
                     categoryController.getCategoryQuestions(
-                      addAdsController.selectedCategoryAds.value!.id,
+                      // addAdsController.selectedCategoryAds.value!.id,
+                      addAdsController.selectedCategoryAdsId.value!,
                     );
                     setState(() {
                       _currentStep = 3;
@@ -295,6 +344,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   }
                 } else if (_currentStep == 2) {
                   if (addAdsController.selectedSubCategoryAds.value != null) {
+                    // addAdsController.cleanAnswerOldQuestion;
                     categoryController.getCategoryQuestions(
                       addAdsController.selectedSubCategoryAds.value!.id,
                     );

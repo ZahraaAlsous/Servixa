@@ -4,6 +4,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/common/widgets/app_card_category_widget.dart';
+
 class ThirdStepSupCategoryWidget extends StatelessWidget {
   ThirdStepSupCategoryWidget({super.key});
 
@@ -31,7 +32,8 @@ class ThirdStepSupCategoryWidget extends StatelessWidget {
           return Obx(() {
             final isSelected = addAdsController.isSelected(
               subCategory,
-              addAdsController.selectedSubCategoryAds.value?.id ?? 0,
+              // addAdsController.selectedSubCategoryAds.value?.id ?? 0,
+              addAdsController.selectedSubCategoryAdsId.value ?? 0,
             );
             return AppCardCategoryWidget(
               assetName: subCategory.icon,
@@ -44,6 +46,7 @@ class ThirdStepSupCategoryWidget extends StatelessWidget {
               // selectCategoryId: addAdsController.selectedSubCategoryAds.value?.id,
               onTap: () {
                 addAdsController.selectedSubCategoryAds.value = subCategory;
+                addAdsController.selectedSubCategoryAdsId.value = subCategory.id;
               },
             );
           });

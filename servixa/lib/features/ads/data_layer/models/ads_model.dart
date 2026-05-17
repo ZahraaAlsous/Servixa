@@ -29,6 +29,8 @@ class AdsModel {
   double? lat;
   double? lng;
   BusinessAccountModel? businessAccount;
+  int? businessAccountId;
+  bool? isRent;
 
   AdsModel({
     required this.id,
@@ -51,6 +53,8 @@ class AdsModel {
     this.lat,
     this.lng,
     this.businessAccount,
+    this.isRent,
+    this.businessAccountId
   });
 
   // factory AdsModel.fromJson(Map<String, dynamic> json) {
@@ -104,6 +108,8 @@ class AdsModel {
           ? BusinessAccountModel.fromJson(json["business_account"])
           : null,
       listReview: [],
+      isRent: json["is_rent"],
+      businessAccountId: json["business_account_id"]
     );
   }
 

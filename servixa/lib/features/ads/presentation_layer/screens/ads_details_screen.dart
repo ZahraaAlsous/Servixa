@@ -13,6 +13,8 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
+import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
+import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
@@ -45,7 +47,11 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   FavoriteController favoriteController = Get.put(FavoriteController());
   final storage = FlutterSecureStorage();
   final AuthController authController = Get.put(AuthController());
-  final BusinessAccountController businessAccountController = Get.put(BusinessAccountController());
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
+  );
+    final AddAdsController addAdsController = Get.put(AddAdsController());
+
 
   @override
   void initState() {
@@ -558,8 +564,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   if (ads.categoryQuestionAnswer != null &&
                       ads.categoryQuestionAnswer!.isNotEmpty)
                     const SpaceBetweenSectionWidget(),
-                    if(ads.lat !=null && ads.lng != null)
-                  LocationSection(ads: ads),
+                  if (ads.lat != null && ads.lng != null)
+                    LocationSection(ads: ads),
                   const SpaceBetweenSectionWidget(),
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(
@@ -784,90 +790,178 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 ],
               ),
             ),
-        bottomNavigationBar: Container(
-          padding: EdgeInsetsGeometry.symmetric(
-            horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-            vertical: 0,
-          ),
-          // height: 60.0,
-          // color: Colors.blue,
-          child: Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  onPressed: () {
-                    Get.bottomSheet(
-                      isDismissible: true,
-                      enableDrag: true,
-                      BottomSheetReviewWidget(),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        IconApp.messages,
-                        width: 20,
-                        height: 20,
-                        color: ThemeApp.Foundation_Main_main_500,
-                      ),
-                      Text(
-                        "Chat",
-                        style: TypographyApp.Body_mid_Mid.copyWith(
-                          color: ThemeApp.Foundation_Main_main_500,
+        bottomNavigationBar: ads.user.id == authController.currentUser.value!.id
+            ? Container(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
+                  vertical: 0,
+                ),
+                // height: 60.0,
+                // color: Colors.blue,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () {
+                          addAdsController.initialFailedEditAd(ads);
+                          Get.to(SuperAdsScreen());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconApp.messages,
+                              width: 20,
+                              height: 20,
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
+                            Text(
+                              "Edit",
+                              style: TypographyApp.Body_mid_Mid.copyWith(
+                                color: ThemeApp.Foundation_Main_main_500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ThemeApp.Foundation_Main_main_500,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
                     ),
-                  ),
-                  onPressed: () {
-                    businessAccountController.getBusinessAccountApproved();
-                    Get.bottomSheet(
-                      isDismissible: true,
-                      enableDrag: true,
-                      isScrollControlled: true,
-                      BottomSheetAddOrderWidget(adId: ads.id,),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        IconApp.badgePercent,
-                        width: 20,
-                        height: 20,
-                        color: ThemeApp.Foundation_Main_yellow_50,
-                      ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ThemeApp.Foundation_Main_main_500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () {
+                          businessAccountController
+                              .getBusinessAccountApproved();
+                          Get.bottomSheet(
+                            isDismissible: true,
+                            enableDrag: true,
+                            isScrollControlled: true,
+                            BottomSheetAddOrderWidget(adId: ads.id),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconApp.badgePercent,
+                              width: 20,
+                              height: 20,
+                              color: ThemeApp.Foundation_Main_yellow_50,
+                            ),
 
-                      Text(
-                        " Make An Offer",
-                        style: TypographyApp.Body_mid_Mid.copyWith(
-                          color: ThemeApp.Foundation_Main_yellow_50,
+                            Text(
+                              " Make An Offer",
+                              style: TypographyApp.Body_mid_Mid.copyWith(
+                                color: ThemeApp.Foundation_Main_yellow_50,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
+                  vertical: 0,
+                ),
+                // height: 60.0,
+                // color: Colors.blue,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.bottomSheet(
+                            isDismissible: true,
+                            enableDrag: true,
+                            BottomSheetReviewWidget(),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconApp.messages,
+                              width: 20,
+                              height: 20,
+                              color: ThemeApp.Foundation_Main_main_500,
+                            ),
+                            Text(
+                              "Chat",
+                              style: TypographyApp.Body_mid_Mid.copyWith(
+                                color: ThemeApp.Foundation_Main_main_500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ThemeApp.Foundation_Main_main_500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () {
+                          businessAccountController
+                              .getBusinessAccountApproved();
+                          Get.bottomSheet(
+                            isDismissible: true,
+                            enableDrag: true,
+                            isScrollControlled: true,
+                            BottomSheetAddOrderWidget(adId: ads.id),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconApp.badgePercent,
+                              width: 20,
+                              height: 20,
+                              color: ThemeApp.Foundation_Main_yellow_50,
+                            ),
+
+                            Text(
+                              " Make An Offer",
+                              style: TypographyApp.Body_mid_Mid.copyWith(
+                                color: ThemeApp.Foundation_Main_yellow_50,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
 
         // );
       );

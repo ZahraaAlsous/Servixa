@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/widgets/add_ads_business_account_card_widget.dart';
@@ -31,9 +32,17 @@ class FirstStepBusinessAccountWidget extends StatelessWidget {
                 account: account,
                 // isSelected: controller.selectedBusinessAccount.value?.id == account.id,
                 // isSelected: false,
-                onTap: () {
-                  addAdsController.selectedBusinessAccount.value = account;
-                },
+                onTap: addAdsController.isEditOperation.value
+                    ? () {
+                        AppSnackbar.showAlert(
+                          "You cannot update your business account",
+                        );
+                      }
+                    : () {
+                        // addAdsController.selectedBusinessAccount.value = account;
+                        addAdsController.selectedBusinessAccountId.value =
+                            account.id;
+                      },
               );
             },
           );
