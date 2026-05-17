@@ -232,6 +232,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                     hintText: "Enter Details",
                     prefixIcon: IconApp.details,
                     controller: orderController.detailsController,
+                    validate: Validators.validateReviewAndRequestOrder,
                   ),
                   const SizedBox(height: 10),
 

@@ -897,7 +897,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                           Get.bottomSheet(
                             isDismissible: true,
                             enableDrag: true,
-                            BottomSheetReviewWidget(),
+                            BottomSheetReviewWidget(adId: ads.id,),
                           );
                         },
                         child: Row(

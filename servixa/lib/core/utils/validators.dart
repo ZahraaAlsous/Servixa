@@ -335,4 +335,18 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateNotRequiredButInput(String? value) {
+    // الحقل فارغ أو null → مقبول (لأنه اختياري)
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+
+    // إذا أدخل المستخدم شيئاً، يجب ألا يكون مجرد مسافات
+    if (value.trim().isEmpty) {
+      return "Please enter a valid value (spaces only are not allowed)";
+    }
+
+    return null;
+  }
 }

@@ -93,6 +93,7 @@ class _FourStepWriteAdDetailsWidgetState
             //   addAdsController.adDescription = value;
             // },
             controller: addAdsController.descriptionController,
+            validate: Validators.validateReviewAndRequestOrder,
           ),
           const SizedBox(height: 16),
 

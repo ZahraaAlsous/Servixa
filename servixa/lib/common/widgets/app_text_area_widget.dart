@@ -10,6 +10,7 @@ class AppTextAreaWidget extends StatelessWidget {
   TextEditingController controller;
   TextInputAction? textInputAction;
   void Function(String)? onChange;
+  String? Function(String?) validate;
   AppTextAreaWidget({
     super.key,
     required this.hintText,
@@ -17,6 +18,7 @@ class AppTextAreaWidget extends StatelessWidget {
     required this.controller,
     this.textInputAction,
     this.onChange,
+    required this.validate,
   });
 
   @override
@@ -97,7 +99,8 @@ class AppTextAreaWidget extends StatelessWidget {
       onChanged: onChange,
       // note
       // تأكل إذا حقل الرأي و حقل تفاصيل الطلب مطلوب أو لا
-      validator: Validators.validateReviewAndRequestOrder,
+      // validator: Validators.validateReviewAndRequestOrder,
+      validator: validate,
     );
   }
 }

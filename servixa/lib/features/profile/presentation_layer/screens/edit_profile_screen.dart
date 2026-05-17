@@ -156,6 +156,8 @@ class EditProfileScreen extends GetView<ProfileController> {
               // edit
               prefixIcon: IconApp.Balconies,
               controller: addressDetailsController,
+                          validate: Validators.validateReviewAndRequestOrder,
+
             ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             Obx(() {

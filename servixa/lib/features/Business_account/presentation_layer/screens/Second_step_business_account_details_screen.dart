@@ -88,6 +88,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
             hintText: "Description..",
             prefixIcon: IconApp.business,
             controller: businessAccountController.activityController,
+            validate: Validators.validateReviewAndRequestOrder,
           ),
           const SizedBox(height: 10),
 
@@ -102,6 +103,8 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
             prefixIcon: IconApp.business,
             controller: businessAccountController.descriptionController,
             textInputAction: TextInputAction.done,
+                        validate: Validators.validateReviewAndRequestOrder,
+
           ),
         ],
       ),

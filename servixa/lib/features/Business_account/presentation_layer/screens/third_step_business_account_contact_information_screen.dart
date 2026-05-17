@@ -7,6 +7,7 @@ import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 
@@ -75,6 +76,7 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
             hintText: "Address Detail",
             prefixIcon: IconApp.Balconies,
             controller: businessAccountController.addressDetailsController,
+            validate: Validators.validateReviewAndRequestOrder,
           ),
           const SizedBox(height: 10),
 

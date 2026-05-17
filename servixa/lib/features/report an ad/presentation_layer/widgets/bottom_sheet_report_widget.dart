@@ -9,6 +9,7 @@ import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/features/report%20an%20ad/business_layer/report_controller.dart';
 
 class BottomSheetReportWidget extends StatelessWidget {
@@ -59,6 +60,7 @@ class BottomSheetReportWidget extends StatelessWidget {
                         hintText: "Please explain the reason for reporting...",
                         prefixIcon: IconApp.report,
                         controller: reportController.textReportController,
+                        validate: Validators.validateReviewAndRequestOrder,
                       ),
                       const SizedBox(height: 30),
                       Obx(() {
