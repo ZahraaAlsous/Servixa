@@ -8,6 +8,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
@@ -22,6 +23,7 @@ class SuperHomeScreen extends StatefulWidget {
 
 class _SuperHomeScreenState extends State<SuperHomeScreen> {
   final OrderController orderController = Get.put(OrderController());
+  final AuthController authController = Get.put(AuthController());
   int selectedIndex = 0;
   List<Widget> pages = [
     HomePage(),
@@ -38,14 +40,24 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(
-            SuperAdsScreen(),
-            // edit
-            // بالتصميم حاطط dissolve
-            transition: Transition.fade,
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeOut,
-          );
+          if (authController.currentUser.value == null) {
+            AppSnackbar.showAlert(
+              "You must have an account and log in to the app through it in order to create an ad.",
+            );
+          } else if (!authController.currentUser.value!.hasBusinessAccount!) {
+            AppSnackbar.showAlert(
+              "You must have a business account and it must be accepted in order to add an advertisement.",
+            );
+          } else {
+            Get.to(
+              SuperAdsScreen(),
+              // edit
+              // بالتصميم حاطط dissolve
+              transition: Transition.fade,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeOut,
+            );
+          }
         },
         backgroundColor: ThemeApp.Foundation_Main_main_500,
         shape: const CircleBorder(),
@@ -88,14 +100,22 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.homeFill,
                   "navigationBarHome",
                   0,
-                  () {},
+                  () {
+                    setState(() {
+                      selectedIndex = 0;
+                    });
+                  },
                 ),
                 _buildNavItem(
                   IconApp.notification,
                   IconApp.notificationFill,
                   "navigationBarNotification",
                   1,
-                  () {},
+                  () {
+                    setState(() {
+                      selectedIndex = 1;
+                    });
+                  },
                 ),
 
                 const SizedBox(width: 60),
@@ -105,7 +125,24 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.adsFill,
                   "navigationBarMyAds",
                   2,
-                  () {},
+                  () {
+                    if (authController.currentUser.value == null) {
+                      AppSnackbar.showAlert(
+                        "You must have an account and log in to the app through it in order to view your Ad.",
+                      );
+                    } else if (!authController
+                        .currentUser
+                        .value!
+                        .hasBusinessAccount!) {
+                      AppSnackbar.showAlert(
+                        "You must have a business account and it must be accepted in order to view your Ad.",
+                      );
+                    } else {
+                      setState(() {
+                        selectedIndex = 2;
+                      });
+                    }
+                  },
                 ),
 
                 _buildNavItem(
@@ -113,10 +150,31 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
                   IconApp.ordersFill,
                   "navigationBarOrders",
                   3,
+                  // () {
+                  //   orderController.getOrders((e) {
+                  //     AppSnackbar.showError(e);
+                  //   });
+                  // },
                   () {
-                    orderController.getOrders((e) {
-                      AppSnackbar.showError(e);
-                    });
+                    if (authController.currentUser.value == null) {
+                      AppSnackbar.showAlert(
+                        "You must have an account and log in to the app through it in order to view order.",
+                      );
+                    } else if (!authController
+                        .currentUser
+                        .value!
+                        .hasBusinessAccount!) {
+                      AppSnackbar.showAlert(
+                        "You must have a business account and it must be accepted in order to view order.",
+                      );
+                    } else {
+                      orderController.getOrders((e) {
+                        AppSnackbar.showError(e);
+                      });
+                      setState(() {
+                        selectedIndex = 3;
+                      });
+                    }
                   },
                 ),
               ],
@@ -138,12 +196,14 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
 
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          getData != null ? getData() : null;
-          setState(() {
-            selectedIndex = index;
-          });
-        },
+        onTap: getData,
+        //  () {
+        //   getData != null ? getData() : null;
+
+        //   setState(() {
+        //     selectedIndex = index;
+        //   });
+        // },
         child:
             // Container(
             //   color: Colors.transparent,

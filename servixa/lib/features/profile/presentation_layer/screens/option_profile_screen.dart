@@ -18,6 +18,7 @@ import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 import 'package:servixa/features/favorite_ad/presentation_layer/screens/my_favorite_screen.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
+import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_change_acount_widget.dart';
@@ -350,8 +351,8 @@ class OptionProfileScreen extends StatelessWidget {
                 log("******************************Click LOGOUT");
                 await authController.logout(
                   () {
-                    AppSnackbar.showSuccess("lllll");
-                    Get.offAll(() => HomePage());
+                    AppSnackbar.showSuccess("Logout Success");
+                    Get.offAll(() => SuperHomeScreen());
                   },
                   (e) {
                     AppSnackbar.showError(e);

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -10,7 +9,6 @@ import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -22,7 +20,6 @@ import 'package:servixa/features/ads/presentation_layer/widgets/rate_section.dar
 import 'package:servixa/features/ads/presentation_layer/widgets/review_section.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/rate/business_later/rate_controller.dart';
-import 'package:servixa/features/rate/data_layer/models/rate_model.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/bottom_sheet_review_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/location_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/question_dynamic_section.dart';
@@ -33,7 +30,6 @@ import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
-import 'package:servixa/features/rate/presentation_layer/widgets/rate_star_widget.dart';
 import 'package:servixa/features/report%20an%20ad/presentation_layer/widgets/bottom_sheet_report_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -90,9 +86,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       }
 
       if (adsController.adsDetails.value == null) {
-        return Scaffold(
-          body: const Center(child: Text("لا توجد بيانات متاحة")),
-        );
+        return Scaffold(body: const Center(child: Text("No data available")));
       }
       AdsModel ads = adsController.adsDetails.value!;
       return Scaffold(
@@ -103,17 +97,20 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             if (ads.status == "accepted")
               IconButton(
                 onPressed: () {
-                  if (authController.isLoggedIn.value &&
-                      authController.currentUser.value != null) {
+                  if (!authController.isLoggedIn.value ||
+                      authController.currentUser.value == null) {
+                    AppSnackbar.showAlert(
+                      "Please login first to report this ad",
+                    );
+                  } else if (ads.user.id ==
+                      authController.currentUser.value!.id) {
+                    AppSnackbar.showAlert("You cannot report your own ad");
+                  } else {
                     Get.bottomSheet(
                       isDismissible: true,
                       enableDrag: true,
                       isScrollControlled: true,
                       BottomSheetReportWidget(adsId: ads.id),
-                    );
-                  } else {
-                    AppSnackbar.showAlert(
-                      "Please login first to report this ad",
                     );
                   }
                 },
@@ -618,7 +615,9 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 ],
               ),
             ),
-        bottomNavigationBar: ads.user.id == authController.currentUser.value!.id
+        bottomNavigationBar:
+            authController.currentUser.value != null &&
+                ads.user.id == authController.currentUser.value!.id
             ? Padding(
                 padding: EdgeInsetsGeometry.symmetric(
                   horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
@@ -644,7 +643,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     adsController.deleteAd(ads.id, () {
                       Get.back();
                       AppSnackbar.showSuccess("Ad removed successfully");
-
                     }, (e) => AppSnackbar.showError(e));
                   },
                 ),
@@ -737,20 +735,46 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   textButtonElevetedBorder: " Make An Offer",
                   iconButtonElevetedBorder: IconApp.badgePercent,
                   onPressedButtonOutBorder: () {
-                    Get.bottomSheet(
-                      isDismissible: true,
-                      enableDrag: true,
-                      BottomSheetReviewWidget(adId: ads.id),
-                    );
+                    if (authController.currentUser.value == null) {
+                      AppSnackbar.showAlert(
+                        "You must have an account and log in to the app through it in order to create an review.",
+                      );
+                    } else if (!authController
+                        .currentUser
+                        .value!
+                        .hasBusinessAccount!) {
+                      AppSnackbar.showAlert(
+                        "You must have a business account and it must be accepted in order to create an review.",
+                      );
+                    } else {
+                      Get.bottomSheet(
+                        isDismissible: true,
+                        enableDrag: true,
+                        BottomSheetReviewWidget(adId: ads.id),
+                      );
+                    }
                   },
                   onPressedButtonElevetedBorder: () {
-                    businessAccountController.getBusinessAccountApproved();
-                    Get.bottomSheet(
-                      isDismissible: true,
-                      enableDrag: true,
-                      isScrollControlled: true,
-                      BottomSheetAddOrderWidget(adId: ads.id),
-                    );
+                    if (authController.currentUser.value == null) {
+                      AppSnackbar.showAlert(
+                        "You must have an account and log in to the app through it in order to create an order.",
+                      );
+                    } else if (!authController
+                        .currentUser
+                        .value!
+                        .hasBusinessAccount!) {
+                      AppSnackbar.showAlert(
+                        "You must have a business account and it must be accepted in order to create an order.",
+                      );
+                    } else {
+                      businessAccountController.getBusinessAccountApproved();
+                      Get.bottomSheet(
+                        isDismissible: true,
+                        enableDrag: true,
+                        isScrollControlled: true,
+                        BottomSheetAddOrderWidget(adId: ads.id),
+                      );
+                    }
                   },
                 ),
 

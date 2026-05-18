@@ -77,7 +77,7 @@ class MyOrderCardWidget extends StatelessWidget {
                 // const SizedBox(width: 0.5),
                 Expanded(
                   child: Text(
-                    order.details ?? "nnnn",
+                    order.details ?? "No order details were entered.",
                     textAlign: TextAlign.end,
                     maxLines: 2,
                     style: TypographyApp.Title_Mid_Mid.copyWith(
