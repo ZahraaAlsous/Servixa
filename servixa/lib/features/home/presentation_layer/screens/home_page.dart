@@ -12,6 +12,7 @@ import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
+import 'package:servixa/core/services/url_launcher_service%20.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
@@ -28,6 +29,7 @@ import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
@@ -195,19 +197,24 @@ class HomePage extends StatelessWidget {
                   itemCount: homeController.sliders.length,
                   itemBuilder:
                       (BuildContext context, int itemIndex, int pageViewIndex) {
-                        return Container(
-                          width: size.width * 0.913,
-                          height: 145,
-                          decoration: BoxDecoration(
-                            color: Colors.amberAccent,
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              // image: AssetImage(carouselImages[itemIndex]),
-                              image: NetworkImage(
-                                homeController.sliders[itemIndex].imageUrl
-                                    .toString(),
+                        return InkWell(
+                          onTap: () => UrlLauncherService.openUrl(
+                            Uri.parse(homeController.sliders[itemIndex].url),
+                          ),
+                          child: Container(
+                            width: size.width * 0.913,
+                            height: 145,
+                            decoration: BoxDecoration(
+                              color: Colors.amberAccent,
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                // image: AssetImage(carouselImages[itemIndex]),
+                                image: NetworkImage(
+                                  homeController.sliders[itemIndex].imageUrl
+                                      .toString(),
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
                             ),
                           ),
                         );
@@ -418,7 +425,9 @@ class HomePage extends StatelessWidget {
                     itemCount: adsController.adsList.length,
                     itemBuilder: (context, indexAds) {
                       AdsModel ads = adsController.adsList[indexAds];
-                      log("++++++++++++++++++++++++++++++++++++++++++++++++++++Ad: ${ads.id}, Is Favorite: ${ads.favorite}");
+                      log(
+                        "++++++++++++++++++++++++++++++++++++++++++++++++++++Ad: ${ads.id}, Is Favorite: ${ads.favorite}",
+                      );
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: AppCardAdsWidget(
@@ -469,4 +478,10 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+  // Future<void> _launchUrl(Uri url) async {
+  //   if (!await launchUrl(url)) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
 }
