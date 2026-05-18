@@ -50,6 +50,7 @@ class OrderController extends GetxController {
   void cleanFailed() {
     detailsController.clear();
     quantityController.clear();
+    fromDateController.clear();
     // businessAccount.value = null;
     selectedBusinessAccountId.value = null;
   }
@@ -199,6 +200,7 @@ class OrderController extends GetxController {
   void dispose() {
     detailsController.dispose();
     quantityController.dispose();
+    fromDateController.dispose();
     super.dispose();
   }
 }

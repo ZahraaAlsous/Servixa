@@ -114,7 +114,6 @@ class AddAdService {
 
       FormData formData = FormData();
 
-      // 2. إضافة الحقول النصية
       if (name != null) formData.fields.add(MapEntry("name", name));
       if (description != null)
         formData.fields.add(MapEntry("description", description));
@@ -130,16 +129,13 @@ class AddAdService {
       if (lng != null) formData.fields.add(MapEntry("lng", lng.toString()));
       if (address != null) formData.fields.add(MapEntry("address", address));
 
-      // 3. إضافة الأسئلة الديناميكية
       if (dynamicQuestions != null) {
         dynamicQuestions.forEach((key, value) {
           formData.fields.add(MapEntry(key, value.toString()));
         });
       }
 
-      // 4. معالجة الصورة الرئيسية
       if (main_image != null) {
-        // ✅ إذا تم اختيار صورة جديدة
         formData.files.add(
           MapEntry(
             "main_image",
@@ -150,18 +146,12 @@ class AddAdService {
             ),
           ),
         );
-        log("✅ New main image will be uploaded");
       } else if (existing_main_image_url != null &&
           existing_main_image_url.isNotEmpty) {
-        // ✅ إذا كانت الصورة الموجودة لم تتغير
         formData.fields.add(
           MapEntry("existing_main_image", existing_main_image_url),
         );
-        log("✅ Existing main image will be kept: $existing_main_image_url");
       }
-
-      // 5. معالجة الصور الفرعية
-      // 5a. الصور الجديدة
       if (other_images != null && other_images.isNotEmpty) {
         for (int i = 0; i < other_images.length; i++) {
           formData.files.add(
@@ -175,25 +165,15 @@ class AddAdService {
             ),
           );
         }
-        log("✅ ${other_images.length} new sub images will be uploaded");
       }
 
-      // 5b. الصور الموجودة (التي لم تتغير)
       if (existing_sub_images_urls != null &&
           existing_sub_images_urls.isNotEmpty) {
         for (String url in existing_sub_images_urls) {
           formData.fields.add(MapEntry("existing_sub_images[]", url));
         }
-        log(
-          "✅ ${existing_sub_images_urls.length} existing sub images will be kept",
-        );
       }
 
-      // ✅ طباعة البيانات للتأكد
-      log("📤 FormData fields count: ${formData.fields.length}");
-      log("📤 FormData files count: ${formData.files.length}");
-
-      // ✅ استخدام PUT أو POST مع _method
       Response response = await dio.post(
         "https://services.tamkeen-dev.com/api/v1/ads/$adId", // ✅ أضف adId في الـ URL
         data: formData,

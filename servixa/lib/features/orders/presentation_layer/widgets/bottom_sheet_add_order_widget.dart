@@ -11,7 +11,6 @@ import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/core/utils/validators.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
-import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
 
 class BottomSheetAddOrderWidget extends StatelessWidget {
@@ -22,7 +21,6 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
     BusinessAccountController(),
   );
   final OrderController orderController = Get.put(OrderController());
-  // final TextEditingController dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
         return true;
       },
       child: FractionallySizedBox(
-        heightFactor: 0.72,
+        heightFactor: 0.86,
         child: Container(
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
@@ -90,108 +88,131 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   // const SizedBox(height: 20),
                   // Expanded(
                   //   flex: 1,
-                  //  child: Text(
-                  //     "Need By Date",
-                  //     style: TypographyApp.Title_Mid_Mid.copyWith(
-                  //       fontWeight: FontWeight.w600,
-                  //     ),
-                  //   ),
-                  // ),
+                  //  child:
+                  Text(
+                    "Need By Date",
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
 
-                  // // const SizedBox(height: 8),
+                  // ),
+                  const SizedBox(height: 5),
                   // Expanded(
                   //   flex: 2,
-                  //   child: TextFormField(
-                  //     controller: dateController,
-                  //     readOnly: true,
-                  //     textAlign: TextAlign.center,
-                  //     decoration: InputDecoration(
-                  //       hint: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           // note
-                  //           // فيها مشكلة من ال figma
-                  //           // SvgPicture.asset(
-                  //           //   IconApp.clarityDateLine,
-                  //           //   width: 18,
-                  //           //   height: 18,
-                  //           //   color: ThemeApp.Foundation_Main_main_500,
-                  //           // ),
-                  //           Icon(
-                  //             Icons.calendar_month_outlined,
-                  //             size: 18,
-                  //             color: ThemeApp.Foundation_Main_main_500,
-                  //           ),
-                  //           Text(
-                  //             " Select date",
-                  //             style: TypographyApp.Body_mid_Regular.copyWith(
-                  //               color: ThemeApp.Foundation_Secendary_grey_200,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       enabledBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         borderSide: BorderSide(
-                  //           width: 1,
-                  //           color: ThemeApp.Foundation_Secendary_grey_100,
-                  //         ),
-                  //       ),
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         borderSide: BorderSide(
-                  //           width: 1,
-                  //           color: ThemeApp.Foundation_Secendary_grey_100,
-                  //         ),
-                  //       ),
+                  //   child:
+                  TextFormField(
+                    controller: orderController.fromDateController,
+                    readOnly: true,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hint: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // note
+                          // فيها مشكلة من ال figma
+                          // SvgPicture.asset(
+                          //   IconApp.clarityDateLine,
+                          //   width: 18,
+                          //   height: 18,
+                          //   color: ThemeApp.Foundation_Main_main_500,
+                          // ),
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            size: 18,
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
+                          Text(
+                            " Select date",
+                            style: TypographyApp.Body_mid_Regular.copyWith(
+                              color: ThemeApp.Foundation_Secendary_grey_200,
+                            ),
+                          ),
+                        ],
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: ThemeApp.Foundation_Secendary_grey_100,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: ThemeApp.Foundation_Secendary_grey_100,
+                        ),
+                      ),
 
-                  //       errorBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         borderSide: const BorderSide(width: 1, color: Colors.red),
-                  //       ),
-                  //       focusedErrorBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         borderSide: BorderSide(width: 1, color: Colors.red),
-                  //       ),
-                  //     ),
-                  //     onTap: () async {
-                  //       DateTime? pickedDate = await showDatePicker(
-                  //         context: context,
-                  //         initialDate: DateTime.now(),
-                  //         firstDate: DateTime.now(),
-                  //         lastDate: DateTime(2100),
-                  //         builder: (BuildContext context, Widget? child) {
-                  //           return Theme(
-                  //             data: Theme.of(context).copyWith(
-                  //               colorScheme: ColorScheme.light(
-                  //                 primary: ThemeApp.Foundation_Main_main_500,
-                  //                 onPrimary: ThemeApp.Foundation_Main_main_50,
-                  //                 surface: ThemeApp.whiteBackground,
-                  //                 onSurface: ThemeApp.Foundation_Main_main_500,
-                  //               ),
-                  //               dialogBackgroundColor: ThemeApp.whiteBackground,
-                  //             ),
-                  //             child: child!,
-                  //           );
-                  //         },
-                  //       );
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.red,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(width: 1, color: Colors.red),
+                      ),
+                    ),
+                    onTap: () async {
+                      final DateTime tomorrow = DateTime.now().add(
+                        const Duration(days: 1),
+                      );
+                      final DateTime tomorrowDate = DateTime(
+                        tomorrow.year,
+                        tomorrow.month,
+                        tomorrow.day,
+                      );
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        // initialDate: DateTime.now(),
+                        // firstDate: DateTime.now(),
+                        initialDate: tomorrowDate,
+                        firstDate: tomorrowDate,
+                        lastDate: DateTime(2100),
+                        builder: (BuildContext context, Widget? child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: ThemeApp.Foundation_Main_main_500,
+                                onPrimary: ThemeApp.Foundation_Main_main_50,
+                                surface: ThemeApp.whiteBackground,
+                                onSurface: ThemeApp.Foundation_Main_main_500,
+                              ),
+                              dialogBackgroundColor: ThemeApp.whiteBackground,
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
 
-                  //       if (pickedDate != null) {
-                  //         // ✅ تنسيق التاريخ وعرضه في الحقل
-                  //         dateController.text =
-                  //             "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-                  //       }
-                  //     },
+                      // if (pickedDate != null) {
+                      //   orderController.fromDateController.text =
+                      //       // "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+                      //       "${pickedDate.year}/${pickedDate.month}/${pickedDate.day}";
+                      // }
+                      if (pickedDate != null) {
+                        final String year = pickedDate.year.toString();
+                        final String month = pickedDate.month
+                            .toString()
+                            .padLeft(2, '0');
+                        final String day = pickedDate.day.toString().padLeft(
+                          2,
+                          '0',
+                        ); // 1 → 01
 
-                  //     validator: Validators.validateDate,
-                  //     // (value) {
-                  //     //   if (value == null || value.isEmpty) {
-                  //     //     return "Please select a date";
-                  //     //   }
-                  //     //   return null;
-                  //     // },
-                  //   ),
+                        orderController.fromDateController.text =
+                            "$year-$month-$day";
+                      }
+                    },
+
+                    // validator: Validators.validateDate,
+                  ),
                   // ),
+                  const SizedBox(height: 10),
                   Text(
                     "Business Account",
                     style: TypographyApp.Title_Mid_Mid.copyWith(
@@ -232,14 +253,14 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                     hintText: "Enter Details",
                     prefixIcon: IconApp.details,
                     controller: orderController.detailsController,
-                    validate: Validators.validateReviewAndRequestOrder,
+                    validate: Validators.validateNotRequiredButInput,
                   ),
                   const SizedBox(height: 10),
 
                   // const SizedBox(height: 20),
                   Obx(() {
-                    if (orderController.isSelectedMyOrders.value) {
-                      Center(child: CircularProgressIndicator());
+                    if (orderController.isSendOrder.value) {
+                      return Center(child: CircularProgressIndicator());
                     }
                     return Row(
                       children: [
@@ -328,9 +349,9 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
             : null,
         validator: (value) =>
             Validators.validateDropDown(type: "account", value: value),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-          hintText:
-              businessAccountController.isLoadingBusinessAccounts.value
+          hintText: businessAccountController.isLoadingBusinessAccounts.value
               ? "Loading business accounts..."
               : "Select Business Account",
           hintStyle: TypographyApp.Body_mid_Regular.copyWith(
@@ -353,6 +374,19 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 12,
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(12),
+            child: SvgPicture.asset(
+              IconApp.business,
+              width: 20,
+              height: 20,
+              colorFilter: ColorFilter.mode(
+                ThemeApp.Foundation_Main_main_500,
+                BlendMode.srcIn,
+              ),
+              fit: BoxFit.contain,
+            ),
           ),
         ),
         icon: Padding(
