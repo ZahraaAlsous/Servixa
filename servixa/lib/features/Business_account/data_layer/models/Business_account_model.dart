@@ -1,4 +1,3 @@
-import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 
 class BusinessAccountModel {
@@ -16,6 +15,7 @@ class BusinessAccountModel {
   String status; //Account under review / Accepted / Rejected
   UserTypeModel? userType;
   String? approvedAt;
+  String? rejectReason;
 
   BusinessAccountModel({
     required this.id,
@@ -32,7 +32,8 @@ class BusinessAccountModel {
     // this.image,
     required this.status,
     this.userType,
-    this.approvedAt
+    this.approvedAt,
+    this.rejectReason,
   });
 
   String getFormattedApprovedDate() {
@@ -43,6 +44,17 @@ class BusinessAccountModel {
       return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
     } catch (e) {
       return approvedAt!;
+    }
+  }
+
+  static String formatDate(String? dateString) {
+    if (dateString == null || dateString.isEmpty) return '';
+
+    try {
+      DateTime dateTime = DateTime.parse(dateString);
+      return "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return dateString;
     }
   }
 
@@ -62,8 +74,12 @@ class BusinessAccountModel {
       // documents: List<String>.from(json["documents"]),
       // image: json["image"],
       status: json["status"],
-      userType: json["user_type"] != null ? UserTypeModel.fromJson(json["user_type"]) : null ,
-      approvedAt: json["approved_at"]
+      userType: json["user_type"] != null
+          ? UserTypeModel.fromJson(json["user_type"])
+          : null,
+      approvedAt: formatDate(json["approved_at"]),
+      // approvedAt: json["approved_at"],
+      rejectReason: json["reject_reason"],
     );
   }
 

@@ -30,6 +30,10 @@ class UserModel {
     // this.currentLevel,
     this.hasBusinessAccount,
   });
+  static String formatDate(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+    return "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -41,7 +45,7 @@ class UserModel {
       emailVerifiedAt: json['email_verified_at'],
       phoneVerifiedAt: json['phone_verified_at'],
       isActive: json['is_active'],
-      createdAt: json['created_at'],
+      createdAt: formatDate(json['created_at']),
       updatedAt: json['updated_at'],
       name: json['name'],
       image: json['image'],

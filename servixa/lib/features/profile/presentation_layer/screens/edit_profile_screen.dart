@@ -93,72 +93,73 @@ class EditProfileScreen extends GetView<ProfileController> {
                 profileController.emailController.text,
               ),
             ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            AppDropdownButtonFormFieldWidget(
-              hintText: "City",
-              // edit
-              onChanged: (value) {
-                // addAdsController.typeService = value;
-              },
-              // edit
-              prefixIcon: IconApp.city,
-              borderRadio: 16,
-              // edit
-              // validator: Validators.validateReviewAndRequestOrder,
-              // edit
-              items: [
-                DropdownMenuItem<String>(
-                  value: "dolar",
-                  child: Text(
-                    "Dollar \$",
-                    style: TypographyApp.Body_mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Secendary_grey_400,
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                ),
+            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+            // AppDropdownButtonFormFieldWidget(
+            //   hintText: "City",
+            //   // edit
+            //   onChanged: (value) {
+            //     // addAdsController.typeService = value;
+            //   },
+            //   // edit
+            //   prefixIcon: IconApp.city,
+            //   borderRadio: 16,
+            //   // edit
+            //   // validator: Validators.validateReviewAndRequestOrder,
+            //   // edit
+            //   items: [
+            //     DropdownMenuItem<String>(
+            //       value: "dolar",
+            //       child: Text(
+            //         "Dollar \$",
+            //         style: TypographyApp.Body_mid_Mid.copyWith(
+            //           color: ThemeApp.Foundation_Secendary_grey_400,
+            //         ),
+            //       ),
+            //       alignment: Alignment.center,
+            //     ),
 
-                DropdownMenuItem<String>(
-                  value: "sp",
-                  child: Text(
-                    "Sp Syrian pounds",
-                    style: TypographyApp.Body_mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Secendary_grey_400,
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                ),
-              ],
-            ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            Row(
-              children: [
-                SvgPicture.asset(
-                  IconApp.place,
-                  color: ThemeApp.Foundation_Main_main_500,
-                ),
-                // edit
-                Text(
-                  "742 Evergreen Terrace, Springfield",
-                  style: TypographyApp.Body_mid_Regular.copyWith(
-                    color: ThemeApp.Foundation_Secendary_grey_300,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
+            //     DropdownMenuItem<String>(
+            //       value: "sp",
+            //       child: Text(
+            //         "Sp Syrian pounds",
+            //         style: TypographyApp.Body_mid_Mid.copyWith(
+            //           color: ThemeApp.Foundation_Secendary_grey_400,
+            //         ),
+            //       ),
+            //       alignment: Alignment.center,
+            //     ),
+            //   ],
+            // ),
+           
+            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+            // Row(
+            //   children: [
+            //     SvgPicture.asset(
+            //       IconApp.place,
+            //       color: ThemeApp.Foundation_Main_main_500,
+            //     ),
+            //     // edit
+            //     Text(
+            //       "742 Evergreen Terrace, Springfield",
+            //       style: TypographyApp.Body_mid_Regular.copyWith(
+            //         color: ThemeApp.Foundation_Secendary_grey_300,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
             // AppMapWidget(),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
+            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-            AppTextAreaWidget(
-              hintText: "Address Detail",
-              // edit
-              prefixIcon: IconApp.Balconies,
-              controller: addressDetailsController,
-                          validate: Validators.validateReviewAndRequestOrder,
+            // AppTextAreaWidget(
+            //   hintText: "Address Detail",
+            //   // edit
+            //   prefixIcon: IconApp.Balconies,
+            //   controller: addressDetailsController,
+            //               validate: Validators.validateReviewAndRequestOrder,
 
-            ),
+            // ),
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             Obx(() {
               if (profileController.isLoading.value) {

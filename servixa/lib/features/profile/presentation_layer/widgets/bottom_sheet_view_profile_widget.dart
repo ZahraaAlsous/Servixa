@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -6,18 +5,20 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/Business_account/presentation_layer/screens/create_business_account_screen.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
 
 class BottomSheetViewProfileWidget extends StatelessWidget {
-  const BottomSheetViewProfileWidget({super.key});
+  final AuthController authController = Get.put(AuthController());
+  BottomSheetViewProfileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return FractionallySizedBox(
-      heightFactor: 0.9,
+      // heightFactor: 0.9,
+      heightFactor: 0.65,
       child: Container(
         // height: size.height * 0.7,
         decoration: const BoxDecoration(
@@ -44,17 +45,22 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ahmad Mohammad",
+                          // "Ahmad Mohammad",
+                          authController.currentUser.value!.firstName +
+                              " " +
+                              authController.currentUser.value!.lastName,
                           style: TypographyApp.Title_Mid_Mid.copyWith(
                             color: ThemeApp.black,
                           ),
                         ),
                         Text(
-                          "Membership Expire Date : 2026/5/5",
+                          // "Membership Expire Date : 2026/5/5",
+                          "Membership Expire Date : ${authController.currentUser.value!.createdAt}",
                           style: TypographyApp.Label_Mid_Mid.copyWith(
                             color: ThemeApp.Foundation_Secendary_grey_300,
                           ),
                         ),
+
                         // OutlinedButton(
                         //   onPressed: () {
                         //     log("******************************Click on Create Business Account");
@@ -65,7 +71,6 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                         //     style: TypographyApp.Label_Mid_Regular,
                         //   ),
                         // ),
-                      
                       ],
                     ),
                   ),
@@ -104,35 +109,45 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                 color: ThemeApp.black,
               ),
             ),
-            _buildListTile("Arabic Name : ", IconApp.person, "احمد محمد"),
-            _buildListTile("English Name : ", IconApp.person, "Ahmad Mohammad"),
-            // edit
-            // icon
-            _buildListTile("City :", IconApp.city, "Newyork , USA"),
-            // edit
-            // icon
+            // _buildListTile("Arabic Name : ", IconApp.person, "احمد محمد"),
             _buildListTile(
-              "Address :",
+              // "English Name : ",
+              "Name : ",
               IconApp.person,
-              "Building 15 , Sreet gold 12",
+              authController.currentUser.value!.firstName +
+                  " " +
+                  authController.currentUser.value!.lastName,
             ),
+            // edit
+            // icon
+            // _buildListTile("City :", IconApp.city, "Newyork , USA"),
+            // edit
+            // icon
+            // _buildListTile(
+            //   "Address :",
+            //   IconApp.person,
+            //   "Building 15 , Sreet gold 12",
+            // ),
             const Divider(
               thickness: 8,
               color: ThemeApp.Foundation_Secendary_grey_50,
               height: 30,
             ),
-            _buildListTileContactInfo(
-              "Email :",
-              IconApp.email,
-              "Ahmad@gmail.com",
-            ),
+            if (authController.currentUser.value!.email != null)
+              _buildListTileContactInfo(
+                "Email :",
+                IconApp.email,
+                // "Ahmad@gmail.com",
+                authController.currentUser.value!.email!,
+              ),
             // edit
             // icon
-            _buildListTileContactInfo(
-              "Phone Number :",
-              IconApp.phone,
-              "+966 4523656",
-            ),
+            if (authController.currentUser.value!.phone != null)
+              _buildListTileContactInfo(
+                "Phone Number :",
+                IconApp.phone,
+                authController.currentUser.value!.phone!,
+              ),
           ],
         ),
       ),

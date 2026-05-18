@@ -10,18 +10,16 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/create_business_account_screen.dart';
+import 'package:servixa/features/Business_account/presentation_layer/screens/view_business_account_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/auth/presentation_layer/screens/login_page.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 import 'package:servixa/features/favorite_ad/presentation_layer/screens/my_favorite_screen.dart';
-import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/edit_profile_screen.dart';
-import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_change_acount_widget.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_view_profile_widget.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/change_password_bottom_sheet.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/list_tile_widget.dart';
@@ -96,41 +94,41 @@ class OptionProfileScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 5),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                authController.currentUser.value!.firstName +
-                                    " " +
-                                    authController.currentUser.value!.lastName,
-                                style: TypographyApp.Title_Mid_Mid.copyWith(
-                                  color: ThemeApp.whiteBackground,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  // qustion
-                                  // مو من مكتبة الألوان
-                                  // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                                  SvgPicture.asset(
-                                    IconApp.place,
-                                    width: 16,
-                                    height: 16,
-                                    color: ThemeApp.Foundation_Main_yellow_50,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    "Riyadh – Malaz",
-                                    style:
-                                        TypographyApp
-                                            .Label_Mid_Regular.copyWith(
-                                          color: ThemeApp.whiteBackground,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          Text(
+                            authController.currentUser.value!.firstName +
+                                " " +
+                                authController.currentUser.value!.lastName,
+                            style: TypographyApp.Title_Mid_Mid.copyWith(
+                              color: ThemeApp.whiteBackground,
+                            ),
                           ),
+                          // Row(
+                          //   children: [
+                          //     // qustion
+                          //     // مو من مكتبة الألوان
+                          //     // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
+                          //     SvgPicture.asset(
+                          //       IconApp.place,
+                          //       width: 16,
+                          //       height: 16,
+                          //       color: ThemeApp.Foundation_Main_yellow_50,
+                          //     ),
+                          // const SizedBox(width: 5),
+                          // Text(
+                          //   "Riyadh – Malaz",
+                          //   style:
+                          //       TypographyApp
+                          //           .Label_Mid_Regular.copyWith(
+                          //         color: ThemeApp.whiteBackground,
+                          //       ),
+                          // ),
+                          // ],
+                          // ),
+                          //   ],
+                          // ),
                           const Spacer(),
                           ElevatedButton(
                             onPressed: () {
@@ -183,6 +181,26 @@ class OptionProfileScreen extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.to(ViewBusinessAccountScreen());
+                              },
+                              child: Text(
+                                // "Change".tr(),
+                                "View".tr(),
+                                style: TypographyApp.Label_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Main_yellow_50,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    ThemeApp.Foundation_Main_main_500,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(9),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 5),
                             ElevatedButton(
                               // edit
                               // where go
@@ -272,10 +290,10 @@ class OptionProfileScreen extends StatelessWidget {
               title: "Favorite",
               // edit
               onTap: () {
-                favoriteController.getMyFavorite((e){
+                favoriteController.getMyFavorite((e) {
                   AppSnackbar.showError(e);
                 });
-                Get.to(()=> MyFavoriteScreen());
+                Get.to(() => MyFavoriteScreen());
               },
               icon: IconApp.favoriteListTile,
             ),
