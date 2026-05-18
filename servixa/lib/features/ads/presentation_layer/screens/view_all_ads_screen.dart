@@ -11,6 +11,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class ViewAllAdsScreen extends StatelessWidget {
   ViewAllAdsScreen({super.key});
@@ -60,6 +61,10 @@ class ViewAllAdsScreen extends StatelessWidget {
                     child: AppSearchTextFormFieldWidget(
                       widthTextForm: size.width * 0.809,
                       radio: 16,
+                      readOnly: true,
+                      onTap: () {
+                        Get.to(() => SearchScreen());
+                      },
                     ),
                   ),
                   IconButton(

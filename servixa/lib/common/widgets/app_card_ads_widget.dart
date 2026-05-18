@@ -79,34 +79,34 @@ class AppCardAdsWidget extends StatelessWidget {
                 ),
               ),
               isMyAdd
-                  ? Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            addAdsController.initialFailedEditAd(ads);
-                            Get.to(SuperAdsScreen());
-                          },
-                          icon: SvgPicture.asset(
-                            IconApp.edit,
-                            color: ThemeApp.Foundation_Main_main_500,
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            adsController.deleteAd(ads.id, () {
-                              AppSnackbar.showSuccess(
-                                "Ad removed successfully",
-                              );
-                            }, (e) => AppSnackbar.showError(e));
-                          },
-                          icon: Icon(
-                            Icons.delete_rounded,
-                            color: ThemeApp.Foundation_Statue_Red,
-                          ),
-                        ),
-                      ],
+                  ?
+                    // Row(
+                    //     children: [
+                    //       IconButton(
+                    //         onPressed: () {
+                    //           addAdsController.initialFailedEditAd(ads);
+                    //           Get.to(SuperAdsScreen());
+                    //         },
+                    //         icon: SvgPicture.asset(
+                    //           IconApp.edit,
+                    //           color: ThemeApp.Foundation_Main_main_500,
+                    //         ),
+                    //       ),
+                    //       Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        adsController.deleteAd(ads.id, () {
+                          AppSnackbar.showSuccess("Ad removed successfully");
+                        }, (e) => AppSnackbar.showError(e));
+                      },
+                      icon: Icon(
+                        Icons.delete_rounded,
+                        color: ThemeApp.Foundation_Statue_Red,
+                      ),
                     )
+                  // ,
+                  //   ],
+                  // )
                   : SizedBox(),
             ],
           ),
@@ -132,12 +132,14 @@ class AppCardAdsWidget extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.place_outlined),
-                    Text(
-                      // "Riyadh – Malaz",
-                      ads.place ?? "place",
-                      style: TypographyApp.Label_Mid_Regular.copyWith(
-                        color: ThemeApp.Foundation_Secendary_grey_300,
-                        overflow: TextOverflow.ellipsis
+                    Expanded(
+                      child: Text(
+                        // "Riyadh – Malaz",
+                        ads.place ?? "place",
+                        style: TypographyApp.Label_Mid_Regular.copyWith(
+                          color: ThemeApp.Foundation_Secendary_grey_300,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ],
@@ -224,7 +226,7 @@ class AppCardAdsWidget extends StatelessWidget {
               ),
             ),
           ),
-       const   SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +267,7 @@ class AppCardAdsWidget extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         // adsController.favorite(ads.id);
-                        favoriteController.addToFavorite(ads.id, (e){
+                        favoriteController.addToFavorite(ads.id, (e) {
                           AppSnackbar.showError(e);
                         });
                       },
