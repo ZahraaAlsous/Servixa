@@ -625,8 +625,10 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   vertical: 0,
                 ),
                 child: DetailsBottomNavigationBarWidget(
-                  textButtonOutBorder: "Edit",
+                  textButtonOutBorder: " Edit",
+                  iconButtonOutBorder: IconApp.edit,
                   textButtonElevetedBorder: " Delete",
+                  iconButtonElevetedBorder: IconApp.delete,
                   onPressedButtonOutBorder: () {
                     addAdsController.initialFailedEditAd(ads);
                     Get.to(SuperAdsScreen());
@@ -731,7 +733,9 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 ),
                 child: DetailsBottomNavigationBarWidget(
                   textButtonOutBorder: "Chat",
+                  iconButtonOutBorder: IconApp.messages,
                   textButtonElevetedBorder: " Make An Offer",
+                  iconButtonElevetedBorder: IconApp.badgePercent,
                   onPressedButtonOutBorder: () {
                     Get.bottomSheet(
                       isDismissible: true,

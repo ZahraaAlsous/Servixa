@@ -17,12 +17,16 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
   String textButtonOutBorder;
   String textButtonElevetedBorder;
   void Function()? onPressedButtonElevetedBorder;
+  String iconButtonOutBorder;
+  String iconButtonElevetedBorder;
   DetailsBottomNavigationBarWidget({
     super.key,
     required this.textButtonOutBorder,
     required this.textButtonElevetedBorder,
     required this.onPressedButtonOutBorder,
     required this.onPressedButtonElevetedBorder,
+    required this.iconButtonOutBorder,
+    required this.iconButtonElevetedBorder,
   });
   final RateController rateController = Get.put(RateController());
 
@@ -45,7 +49,8 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  IconApp.messages,
+                  // IconApp.messages,
+                  iconButtonOutBorder,
                   width: 20,
                   height: 20,
                   color: ThemeApp.Foundation_Main_main_500,
@@ -74,7 +79,8 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  IconApp.badgePercent,
+                  // IconApp.badgePercent,
+                  iconButtonElevetedBorder,
                   width: 20,
                   height: 20,
                   color: ThemeApp.Foundation_Main_yellow_50,
