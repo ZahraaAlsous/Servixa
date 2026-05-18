@@ -469,7 +469,7 @@ class AddAdsController extends GetxController {
       isCreate.value = true;
       final answersToSend = getFinalAnswersForSubmit();
       log("+++++++++++++++++++++++++++++++++ $answersToSend");
-      await addAdService.updateAd(
+      adsController.adsDetails.value = await addAdService.updateAd(
         // business_account_id: selectedBusinessAccount.value!.id,
         adId: adId,
         name: titleController.text,
@@ -490,6 +490,8 @@ class AddAdsController extends GetxController {
         price_currency: typeCoin!,
         address: addressDetailsController.text,
       );
+      adsController.adsDetails.refresh();
+      reFreshListAfterUpdateAd(adId);
       onSuccess();
     } catch (e) {
       // log(e.toString());
@@ -521,6 +523,46 @@ class AddAdsController extends GetxController {
     }
 
     return result;
+  }
+
+  void reFreshListAfterUpdateAd(int adId) {
+    final indexPending = adsController.pendingMyAdList.indexWhere(
+      (item) => item.id == adId,
+    );
+    final indexAccept = adsController.acceptedMyAdList.indexWhere(
+      (item) => item.id == adId,
+    );
+    final indexReject = adsController.rejectedMyAdList.indexWhere(
+      (item) => item.id == adId,
+    );
+    final indexMyAd = adsController.myAdsList.indexWhere(
+      (item) => item.id == adId,
+    );
+
+    if (indexPending != -1) {
+      adsController.pendingMyAdList[indexPending] =
+          adsController.adsDetails.value!;
+    }
+    if (indexAccept != -1) {
+      adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
+      adsController.adsList.removeWhere((item) => item.id == adId);
+
+      adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+    }
+
+    if (indexReject != -1) {
+      adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
+      adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+    }
+    if (indexMyAd != -1) {
+      adsController.pendingMyAdList[indexPending] =
+          adsController.adsDetails.value!;
+    }
+    adsController.pendingMyAdList.refresh();
+    adsController.acceptedMyAdList.refresh();
+    adsController.adsList.refresh();
+    adsController.rejectedMyAdList.refresh();
+    adsController.myAdsList.refresh();
   }
 
   @override
