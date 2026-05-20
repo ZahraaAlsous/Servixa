@@ -3,10 +3,10 @@ class DimensApp {
   static const double widthBetweenTextFormField = 12;
   // note
   // غيرت المسافة عن التصميم
-  static const double spaceBetweenTitleAndDetails = 16;
+  static const double spaceBetweenTitleAndDetails = 8;
   // note
   // غيرت المسافة عن التصميم
-  static const double spaceBetweenSection = 24;
+  static const double spaceBetweenSection = 16;
   static const double gapBetweenCategoryCard = 0.023;
 
   // note
