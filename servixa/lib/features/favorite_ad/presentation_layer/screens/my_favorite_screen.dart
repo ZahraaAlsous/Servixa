@@ -4,6 +4,7 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
+import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 
@@ -13,11 +14,18 @@ class MyFavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(title: Text("My Favorite"),),
+      appBar: AppBarWidget(
+        title: Text(
+          "My Favorite",
+          style: TypographyApp.Title_larg_Mid.copyWith(
+            color: ThemeApp.Foundation_Main_main_500,
+          ),
+        ),
+      ),
       body: Obx(() {
         if (favoriteController.isLoadingFavorite.value) {
           return Center(child: CircularProgressIndicator());
@@ -26,7 +34,7 @@ class MyFavoriteScreen extends StatelessWidget {
         //   return const Center(child: Text("لا توجد إعلانات في المفضلة"));
         // }
         return Obx(
-          ()=> GridView.builder(
+          () => GridView.builder(
             padding: EdgeInsetsGeometry.only(
               left: size.width * DimensApp.spaceHorizontalScreen,
               right: size.width * DimensApp.spaceHorizontalScreen,

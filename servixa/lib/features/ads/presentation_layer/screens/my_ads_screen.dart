@@ -42,11 +42,16 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
         toolbarHeight: 80,
         title: Column(
           children: [
-            Text("My Ads"),
+            Text(
+              "My Ads",
+              style: TypographyApp.Title_larg_Mid.copyWith(
+                color: ThemeApp.Foundation_Main_main_500,
+              ),
+            ),
             Container(
               height: 48,
               width: size.width * 0.895,
-              padding: EdgeInsetsGeometry.all(2),
+              padding: const EdgeInsetsGeometry.all(2),
               decoration: BoxDecoration(
                 color: ThemeApp.whiteBackground,
                 borderRadius: BorderRadius.circular(21),
