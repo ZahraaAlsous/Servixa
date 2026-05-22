@@ -48,6 +48,28 @@
   "Logout": "Logout",
   "Business Account": "Business Account",
 
+  "Select a Business Profile Type": "Select a Business Profile Type",
+  "Enter The Business Details": "Enter The Business Details",
+  "Enter Contact Information": "Enter Contact Information",
+  "Upload Supporting Document": "Upload Supporting Document",
+  "License number": "License number",
+  "License number..": "License number..",
+  "Business name (Arabic)": "Business name (Arabic)",
+  "name..": "name..",
+  "Business name (English)": "Business name (English)",
+  "Activities": "Activities",
+  "Activities..": "Activities..",
+  "Details": "Details",
+  "City": "City",
+  "Address Detail": "Address Detail",
+  "Description..": "Description..",
+  "No location selected": "No location selected",
+  "Select your location from map": "Select your location from map",
+  "Supporting Documents": "Supporting Documents",
+  "Upload Doc":"Upload Doc",
+  "Upload Image":"Upload Image",
+  "Max Size " : "Max Size ",
+
   "hintSearch": "Search any item...",
   "      Filters": "      Filters",
   "Reset": "Reset",
@@ -77,6 +99,9 @@
   "Edit": "Edit",
   "Change": "Change",
   "Submit": "Submit",
+  "View": "View",
+  "Add": "Add",
+  "Loading...": "Loading...",
 
   "Login to enjoy all features": "Login to enjoy all features"
 }

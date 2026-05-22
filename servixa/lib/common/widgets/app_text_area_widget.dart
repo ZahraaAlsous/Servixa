@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -30,7 +31,7 @@ class AppTextAreaWidget extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         // hintText: "Enter Details",
-        hintText: hintText,
+        hintText: hintText.tr(),
         hintStyle: TypographyApp.Body_mid_Regular.copyWith(
           color: ThemeApp.Foundation_Secendary_grey_200,
         ),

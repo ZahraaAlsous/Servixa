@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -87,7 +88,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Obx(
                 () => Text(
-                  _stepTitles[businessAccountController.currentStep.value],
+                  _stepTitles[businessAccountController.currentStep.value].tr(),
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -178,7 +179,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                 side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
               ),
               child: Text(
-                'Previous',
+                'Previous'.tr(),
                 style: TypographyApp.Body_mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Main_main_500,
                 ),
@@ -255,7 +256,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
             ),
             child: Text(
-              businessAccountController.currentStep == 3 ? 'Submit' : 'Next',
+              businessAccountController.currentStep == 3 ? 'Submit'.tr() : 'Next'.tr(),
               style: TypographyApp.Body_mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Main_main_50,
               ),

@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -26,7 +26,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Supporting Documents",
+          "Supporting Documents".tr(),
           style: TypographyApp.Title_Mid_Mid.copyWith(
             color: ThemeApp.Foundation_Secendary_grey_600,
           ),
@@ -69,7 +69,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   subtitle: Text(
-                    "Max Size ${(file.lengthSync() / (1024 * 1024)).toStringAsFixed(2)} MB",
+                    "Max Size ".tr()+ "${(file.lengthSync() / (1024 * 1024)).toStringAsFixed(2)}"+ " MB",
                     style: TypographyApp.Label_Mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Secendary_grey_300,
                     ),
@@ -79,7 +79,7 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                       businessAccountController.openFile(file.path);
                     },
                     child: Text(
-                      "View",
+                      "View".tr(),
                       style: TypographyApp.Body_mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_main_500,
                       ),
@@ -102,21 +102,6 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
           paddingVertical: 5,
           onPressed: () {
             businessAccountController.pickFile();
-            // () async {
-            //   try {
-            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-            //       allowMultiple: true,
-            //       type: FileType.custom,
-            //       allowedExtensions: ['pdf', 'doc'],
-            //     );
-            //     if (result != null) {
-            //       List<File> files = result.paths
-            //           .map((path) => File(path!))
-            //           .toList();
-            //     }
-            //   } catch (e) {
-            //     log("error: $e");
-            //   }
           },
           icon: IconApp.pdf,
         ),
@@ -228,12 +213,12 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
           },
           icon: IconApp.camera,
         ),
-        ElevatedButton(
-          onPressed: () {
-            Get.to(CurrentLocationPage());
-          },
-          child: Text("jj"),
-        ),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     Get.to(CurrentLocationPage());
+        //   },
+        //   child: Text("jj"),
+        // ),
       ],
     );
   }

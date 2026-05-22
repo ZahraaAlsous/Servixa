@@ -48,6 +48,28 @@
   "Logout": "تسجيل الخروج",
   "Business Account": "حساب تجاري",
 
+  "Select a Business Profile Type": "حدد نوع ملف تعريف الأعمال",
+  "Enter The Business Details": "أدخل تفاصيل العمل",
+  "Enter Contact Information": "أدخل معلومات الاتصال",
+  "Upload Supporting Document": "قم بتحميل المستندات الداعمة",
+  "License number": "رقم الترخيص",
+  "License number..": "رقم الترخيص..",
+  "Business name (Arabic)": "اسم الشركة (بالغة العربية)",
+  "name..": "اسم..",
+  "Business name (English)": "اسم الشركة (باللغة الإنجليزية)",
+  "Activities": "أنشطة",
+  "Activities..": "أنشطة..",
+  "Details": "تفاصيل",
+  "City": "مدينة",
+  "Address Detail": "تفاصيل العنوان",
+  "Description..":"وصف..",
+  "No location selected": "لم يتم تحديد موقع",
+  "Select your location from map": "حدد موقعك من الخريطة",
+  "Supporting Documents": "المستندات الداعمة",
+  "Upload Doc":"تحميل المستند",
+  "Upload Image": "تحميل صورة",
+  "Max Size " :"أقصى حجم ",
+
   "hintSearch": "ابحث عن أي عنصر...",
   "      Filters": "      الفلاتر",
   "Reset": "إعادة تعيين",
@@ -77,6 +99,9 @@
   "Edit": "تعديل",
   "Change": "تغيير",
   "Submit": "إرسال",
+  "View": "عرض",
+  "Add": "إضافة",
+  "Loading...": "تحميل...",
 
   "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
 }

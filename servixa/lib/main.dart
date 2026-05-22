@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:servixa/giocodingtestScreen.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();

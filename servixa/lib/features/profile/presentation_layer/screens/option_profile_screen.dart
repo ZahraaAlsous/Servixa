@@ -200,7 +200,7 @@ class OptionProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 5),
+                       const     SizedBox(width: 5),
                             ElevatedButton(
                               // edit
                               // where go

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -56,7 +57,7 @@ class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
       isExpanded: true,
       isDense: true,
       decoration: InputDecoration(
-        hintText: hintText,
+        hintText: hintText.tr(),
         // hintStyle:   TypographyApp.Body_mid_Regular.copyWith(
         //   color: ThemeApp.Foundation_Secendary_grey_200,
         // ),
