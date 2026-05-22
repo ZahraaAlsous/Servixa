@@ -78,4 +78,7 @@ class IconApp {
   static const String view = "assets/icons/view-alt-fill.svg";
   static const String pdf = "assets/icons/pdf.svg";
   static const String locationPrefix = "assets/icons/locationPrefix.svg";
+  static const String trueIcon = "assets/icons/true.svg";
+  static const String phoneProfile = "assets/icons/phone_profile.svg";
+  static const String bookNumber = "assets/icons/book_number.svg";
 }

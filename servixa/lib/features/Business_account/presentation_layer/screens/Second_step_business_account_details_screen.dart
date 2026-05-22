@@ -32,7 +32,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
           ),
           AppTextFormField(
             hintText: "License number..",
-            icon: IconApp.Balconies,
+            icon: IconApp.bookNumber,
             keyboardType: TextInputType.number,
             validator: (value) =>
                 Validators.validateNumber(value, "License number"),
@@ -88,7 +88,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
           ),
           AppTextAreaWidget(
             hintText: "Activities..",
-            prefixIcon: IconApp.business,
+            prefixIcon: IconApp.description,
             controller: businessAccountController.activityController,
             validate: Validators.validateReviewAndRequestOrder,
           ),
@@ -102,7 +102,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
           ),
           AppTextAreaWidget(
             hintText: "Description..",
-            prefixIcon: IconApp.business,
+            prefixIcon: IconApp.description,
             controller: businessAccountController.descriptionController,
             textInputAction: TextInputAction.done,
                         validate: Validators.validateReviewAndRequestOrder,

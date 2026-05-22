@@ -145,7 +145,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
             if (authController.currentUser.value!.phone != null)
               _buildListTileContactInfo(
                 "Phone Number :",
-                IconApp.phone,
+                IconApp.phoneProfile,
                 authController.currentUser.value!.phone!,
               ),
           ],
@@ -225,8 +225,8 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
               color: ThemeApp.Foundation_Secendary_grey_300,
             ),
           ),
-          // edit
-          Icon(Icons.done),
+          SizedBox(width: 5),
+          SvgPicture.asset(IconApp.trueIcon),
         ],
       ),
     );

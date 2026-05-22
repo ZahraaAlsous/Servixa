@@ -75,7 +75,7 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
 
           AppTextAreaWidget(
             hintText: "Address Detail",
-            prefixIcon: IconApp.Balconies,
+            prefixIcon: IconApp.locationPrefix,
             controller: businessAccountController.addressDetailsController,
             validate: Validators.validateReviewAndRequestOrder,
           ),
