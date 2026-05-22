@@ -66,9 +66,9 @@
   "No location selected": "No location selected",
   "Select your location from map": "Select your location from map",
   "Supporting Documents": "Supporting Documents",
-  "Upload Doc":"Upload Doc",
-  "Upload Image":"Upload Image",
-  "Max Size " : "Max Size ",
+  "Upload Doc": "Upload Doc",
+  "Upload Image": "Upload Image",
+  "Max Size ": "Max Size ",
 
   "hintSearch": "Search any item...",
   "      Filters": "      Filters",
@@ -87,6 +87,9 @@
   "Select the Sub Category": "Select the Sub Category",
   "Write Your Ad Details": "Write Your Ad Details",
   "Add The Location": "Add The Location",
+
+  "Nothing Here Yet": "Nothing Here Yet",
+  "No content is available right now. Please try again later.": "No content is available right now. Please try again later.",
 
   "agreeTermsAndPolicies": "I agree with ",
   "termsAndPolicies": "terms & policies",

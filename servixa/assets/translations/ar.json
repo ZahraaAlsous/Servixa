@@ -62,13 +62,13 @@
   "Details": "تفاصيل",
   "City": "مدينة",
   "Address Detail": "تفاصيل العنوان",
-  "Description..":"وصف..",
+  "Description..": "وصف..",
   "No location selected": "لم يتم تحديد موقع",
   "Select your location from map": "حدد موقعك من الخريطة",
   "Supporting Documents": "المستندات الداعمة",
-  "Upload Doc":"تحميل المستند",
+  "Upload Doc": "تحميل المستند",
   "Upload Image": "تحميل صورة",
-  "Max Size " :"أقصى حجم ",
+  "Max Size ": "أقصى حجم ",
 
   "hintSearch": "ابحث عن أي عنصر...",
   "      Filters": "      الفلاتر",
@@ -87,6 +87,9 @@
   "Select the Sub Category": "اختر الفئة الفرعية",
   "Write Your Ad Details": "أدخل تفاصيل إعلانك",
   "Add The Location": "إضافة الموقع",
+
+  "Nothing Here Yet": "لا يوجد شيء هنا بعد",
+  "No content is available right now. Please try again later.": "لا يوجد محتوى متاح حاليًا. يرجى المحاولة لاحقًا.",
 
   "agreeTermsAndPolicies": "أوافق على ",
   "termsAndPolicies": "الشروط والسياسات",

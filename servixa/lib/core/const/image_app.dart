@@ -6,4 +6,5 @@ class ImageApp {
   static const String profileImageRounded = "assets/images/Simplification.png";
   static const String bording1 = "assets/images/bording1.png";
   static const String bording2 = "assets/images/bording2.png";
+  static const String nothing = "assets/images/nothing.png";
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -62,6 +63,9 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
             Obx(() {
               if (adsController.isLoading.value) {
                 return Center(child: CircularProgressIndicator());
+              }
+              if (adsController.adsCategory.isEmpty) {
+                return Expanded(child: AppNothingWidget());
               }
               return Expanded(
                 child: GridView.builder(
