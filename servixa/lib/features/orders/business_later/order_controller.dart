@@ -18,7 +18,7 @@ class OrderController extends GetxController {
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
   Rx<int?> selectedBusinessAccountId = Rx<int?>(null);
-  RxMap<int, String> buttonTexts = <int, String>{}.obs;
+  // RxMap<int, String> buttonTexts = <int, String>{}.obs;
   RxMap<int, bool> isUpdatingOrders = <int, bool>{}.obs;
 
   Future<void> addOrder(
@@ -61,9 +61,9 @@ class OrderController extends GetxController {
       isLoadingOrder.value = true;
       if (isSelectedMyOrders.value) {
         receivedOrders.value = await orderService.getOrders(isMyOrders: 1);
-        for (var order in receivedOrders) {
-          getButtonTextByStatus(order.status, order.id);
-        }
+        // for (var order in receivedOrders) {
+        //   getButtonTextByStatus(order.status, order.id);
+        // }
       } else {
         myOrders.value = await orderService.getOrders(isMyOrders: 0);
       }
@@ -102,7 +102,8 @@ class OrderController extends GetxController {
 
   Future<void> updateStatusOrder(
     int orderId,
-    String status,
+    // String status,
+    int status,
     void Function(String status) onSuccess,
     void Function(String e) onError,
   ) async {
@@ -111,15 +112,19 @@ class OrderController extends GetxController {
       isUpdatingOrders[orderId] = true;
       bool isUpdated = await orderService.updateStatusOrder(
         orderId: orderId,
-        status: sendNumStatus(status),
+        // status: sendNumStatus(status),
+        status: status,
       );
       if (isUpdated) {
         log("==============================Controller : UpdateStatusOrder OK");
 
-        String newStatus = numStatus(sendNumStatus(status));
-        updateStatusOrderLocal(orderId, newStatus);
-        getButtonTextByStatus(status, orderId);
-        onSuccess(newStatus);
+        // String newStatus = numStatus(sendNumStatus(status));
+        // updateStatusOrderLocal(orderId, newStatus);
+        // getButtonTextByStatus(status, orderId);
+        // onSuccess(newStatus);
+
+        updateStatusOrderLocal(orderId, status == 2 ? "accepted" : "rejected");
+        onSuccess(status == 2 ? "Accepted" : "Rejected");
       }
     } catch (e) {
       log("==============================Controller : UpdateStatusOrder ERROR");
@@ -142,59 +147,59 @@ class OrderController extends GetxController {
     }
   }
 
-  int sendNumStatus(String status) {
-    switch (status) {
-      case "pending":
-        return 2;
-      case "accepted":
-        return 3;
-      case "completed":
-        return 4;
-      case "rejected":
-        return 5;
-      default:
-        return 1;
-    }
-  }
+  // int sendNumStatus(String status) {
+  //   switch (status) {
+  //     case "pending":
+  //       return 2;
+  //     case "accepted":
+  //       return 3;
+  //     case "completed":
+  //       return 4;
+  //     case "rejected":
+  //       return 5;
+  //     default:
+  //       return 1;
+  //   }
+  // }
 
-  String numStatus(int statusNum) {
-    switch (statusNum) {
-      case 1:
-        return "pending";
-      case 2:
-        return "accepted";
-      case 3:
-        return "completed";
-      case 4:
-        return "cancelled";
-      case 5:
-        return "rejected";
-      default:
-        return "pending";
-    }
-  }
+  // String numStatus(int statusNum) {
+  //   switch (statusNum) {
+  //     case 1:
+  //       return "pending";
+  //     case 2:
+  //       return "accepted";
+  //     case 3:
+  //       return "completed";
+  //     case 4:
+  //       return "cancelled";
+  //     case 5:
+  //       return "rejected";
+  //     default:
+  //       return "pending";
+  //   }
+  // }
 
-  void getButtonTextByStatus(String status, int orderId) {
-    switch (status) {
-      case 'pending':
-        buttonTexts[orderId] = "Accept";
-        break;
-      case 'accepted':
-        buttonTexts[orderId] = "Completed";
-        break;
-      case 'completed':
-        buttonTexts[orderId] = "Cancelled";
-        break;
-      case 'rejected':
-        buttonTexts[orderId] = "Rejected";
-        break;
-      case 'cancelled':
-        buttonTexts[orderId] = "Cancelled";
-        break;
-      default:
-        buttonTexts[orderId] = "Pending";
-    }
-  }
+  // void getButtonTextByStatus(String status, int orderId) {
+  //   switch (status) {
+  //     case 'pending':
+  //       buttonTexts[orderId] = "Accept";
+  //       break;
+  //     case 'accepted':
+  //       buttonTexts[orderId] = "Completed";
+  //       break;
+  //     case 'completed':
+  //       buttonTexts[orderId] = "Cancelled";
+  //       break;
+  //     case 'rejected':
+  //       buttonTexts[orderId] = "Rejected";
+  //       break;
+  //     case 'cancelled':
+  //       buttonTexts[orderId] = "Cancelled";
+  //       break;
+  //     default:
+  //       buttonTexts[orderId] = "Pending";
+  //   }
+  // }
 
   @override
   void dispose() {

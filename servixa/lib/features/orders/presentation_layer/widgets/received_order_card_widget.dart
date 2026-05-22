@@ -66,14 +66,22 @@ class ReceivedOrderCardWidget extends StatelessWidget {
               );
             }
 
-            if (order.status == "cancelled") {
+            if (order.status == "accepted") {
               return Text(
-                "You have cancelled this request.",
+                "You have accepted this request.",
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Main_main_500,
                 ),
               );
             }
+            // if (order.status == "cancelled") {
+            //   return Text(
+            //     "You have cancelled this request.",
+            //     style: TypographyApp.Title_Mid_Mid.copyWith(
+            //       color: ThemeApp.Foundation_Main_main_500,
+            //     ),
+            //   );
+            // }
             return Row(
               children: [
                 Expanded(
@@ -81,7 +89,8 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                     onPressed: () {
                       orderController.updateStatusOrder(
                         order.id,
-                        order.status,
+                        // order.status,
+                        2,
                         (status) {
                           AppSnackbar.showSuccess(
                             " The status tranform to $status",
@@ -93,8 +102,8 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      // "Accept",
-                      orderController.buttonTexts[order.id]!,
+                      "Accept",
+                      // orderController.buttonTexts[order.id]!,
                       style: TypographyApp.Label_Mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_yellow_50,
                       ),
@@ -114,7 +123,8 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                     onPressed: () {
                       orderController.updateStatusOrder(
                         order.id,
-                        "rejected",
+                        5,
+                        // "rejected",
                         (status) {
                           AppSnackbar.showSuccess(
                             " The status tranform to $status",

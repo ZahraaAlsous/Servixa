@@ -121,12 +121,12 @@ class OrderScreen extends StatelessWidget {
                     OrdersModel order = !orderController.isSelectedMyOrders.value
                         ? orderController.myOrders[indexOrder]
                         : orderController.receivedOrders[indexOrder];
-                    if (orderController.isSelectedMyOrders.value) {
-                      orderController.getButtonTextByStatus(
-                        order.status,
-                        order.id,
-                      );
-                    }
+                    // if (orderController.isSelectedMyOrders.value) {
+                    //   orderController.getButtonTextByStatus(
+                    //     order.status,
+                    //     order.id,
+                    //   );
+                    // }
                     return !orderController.isSelectedMyOrders.value
                         ? MyOrderCardWidget(order: order)
                         : ReceivedOrderCardWidget(order: order);
