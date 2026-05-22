@@ -64,7 +64,7 @@ class SearchScreen extends StatelessWidget {
                 searchFilterController.isDisplayTitleSearchResults()
                     ? "Searched items"
                     : "All Ads",
-                style: TypographyApp.title_Sections.copyWith(
+                style: TypographyApp.title_top_home.copyWith(
                   color: ThemeApp.Foundation_Main_Color_900,
                 ),
               ),

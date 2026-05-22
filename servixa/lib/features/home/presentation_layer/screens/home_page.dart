@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
               child: AppRichTextWidget(
                 firstText: "titleHome1".tr(),
                 secondText: "titleHome2".tr(),
-                typographyApp: TypographyApp.title_Sections,
+                typographyApp: TypographyApp.title_top_home,
                 maxLines: 2,
               ),
             ),

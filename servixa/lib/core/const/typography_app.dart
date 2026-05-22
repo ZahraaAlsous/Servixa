@@ -75,6 +75,12 @@ class TypographyApp {
     height: 1.4,
     letterSpacing: 0,
   );
+  static final TextStyle title_top_home = GoogleFonts.poppins(
+    fontWeight: FontWeight.w500,
+    fontSize: 22,
+    height: 1.4,
+    letterSpacing: 0,
+  );
 
   static final TextStyle text_button_home_page = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
