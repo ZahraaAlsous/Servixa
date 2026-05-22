@@ -3,16 +3,13 @@ import 'dart:io';
 
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/features/ads/data_layer/sourses/ad_service.dart';
-import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/profile/data_layer/models/user_model.dart';
-import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
 class AdsController extends GetxController {
   final AdService adService = AdService();
   RxBool showMore = false.obs;
   RxList<AdsModel> adsList = <AdsModel>[].obs;
+  RxList<AdsModel> adsCategory = <AdsModel>[].obs;
   RxList<AdsModel> myAdsList = <AdsModel>[].obs;
   RxList<AdsModel> acceptedMyAdList = <AdsModel>[].obs;
   RxList<AdsModel> pendingMyAdList = <AdsModel>[].obs;
@@ -39,14 +36,14 @@ class AdsController extends GetxController {
     // }
   }
 
-  Future<void> getAds() async {
+  Future<void> getAds({int? categoryId}) async {
     try {
       isLoading.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Ads IN");
 
-      List<AdsModel> ads = await adService.getAds();
-      adsList.clear();
-      adsList.addAll(ads);
+      List<AdsModel> ads = await adService.getAds(categoryId: categoryId);
+      categoryId == null ? adsList.clear() : adsCategory.clear();
+      categoryId == null ? adsList.addAll(ads) : adsCategory.addAll(ads);
 
       log("==============================Controller : Ads OK");
     } catch (e) {

@@ -7,8 +7,10 @@ import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/view_all_ads_screen.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/presentation_layer/screens/all_ads_of_category_screen.dart';
 import 'package:servixa/features/category/presentation_layer/screens/sub_category_screen.dart';
 import 'package:servixa/common/widgets/app_card_category_widget.dart';
 
@@ -36,8 +38,8 @@ class CategoriesScreen extends StatelessWidget {
               typographyApp: TypographyApp.Title_larg_Mid,
             ),
             const SizedBox(height: DimensApp.spaceBetweenSection),
-            AppSearchTextFormFieldWidget(radio: 16),
-            const SizedBox(height: DimensApp.spaceBetweenSection),
+            // AppSearchTextFormFieldWidget(radio: 16),
+            // const SizedBox(height: DimensApp.spaceBetweenSection),
             Obx(() {
               if (categoryController.isLoadingCategory.value) {
                 return const Center(child: CircularProgressIndicator());
@@ -60,7 +62,11 @@ class CategoriesScreen extends StatelessWidget {
                     categoryName: category.name,
                     CategoryId: category.id,
                     onTap: () {
-                      Get.to(SubCategoryScreen(categoryId: category.id));
+                      category.hasChildren
+                          ? Get.to(SubCategoryScreen(category: category))
+                          : Get.to(
+                              AllAdsOfCategoryScreen(category: category),
+                            );
                     },
                   );
                 },

@@ -109,7 +109,7 @@ class AdService {
     }
   }
 
-  Future<List<AdsModel>> getAds() async {
+  Future<List<AdsModel>> getAds({int? categoryId}) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ads IN");
       String? token = await storage.read(key: "token");
@@ -118,6 +118,8 @@ class AdService {
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads",
+        queryParameters: {if (categoryId != null) "category_id": categoryId},
+
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

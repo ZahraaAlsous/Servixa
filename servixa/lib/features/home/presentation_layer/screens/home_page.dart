@@ -12,6 +12,7 @@ import 'package:servixa/features/ads/presentation_layer/screens/ads_details_scre
 import 'package:servixa/features/ads/presentation_layer/screens/view_all_ads_screen.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
+import 'package:servixa/features/category/presentation_layer/screens/all_ads_of_category_screen.dart';
 import 'package:servixa/features/category/presentation_layer/screens/categories_screen.dart';
 import 'package:servixa/features/category/presentation_layer/screens/sub_category_screen.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
@@ -95,7 +96,11 @@ class HomePage extends StatelessWidget {
                       CategoryId: category.id,
                       margin: true,
                       onTap: () {
-                        Get.to(SubCategoryScreen(categoryId: category.id));
+                        category.hasChildren
+                            ? Get.to(SubCategoryScreen(category: category))
+                            : Get.to(
+                                AllAdsOfCategoryScreen(category: category),
+                              );
                       },
                     );
                   },
