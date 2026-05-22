@@ -160,6 +160,15 @@ class SearchFilterController extends GetxController {
   //   type != null ? adsSearchList : adsSearchList;
   //   posted != null ? adsSearchList : adsSearchList;
   // }
+
+  bool checkIfSelectedOnceFilter() {
+    return EffectiveCategoryFilter.value ||
+        EffectiveSubCategoryFilter.value ||
+        EffectiveBudgetFilter.value ||
+        EffectiveTypeFilter.value ||
+        EffectiveSortFilter.value;
+  }
+
   Future<void> searchAndFilter(void Function(String e) onError) async {
     try {
       log("===============================Controller : AdsFilter IN");

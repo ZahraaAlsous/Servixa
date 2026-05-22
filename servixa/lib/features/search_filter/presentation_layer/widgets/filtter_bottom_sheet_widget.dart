@@ -406,7 +406,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   },
                   prefixIcon: IconApp.price,
                   borderRadio: 16,
-                  validator: Validators.validateReviewAndRequestOrder,
+                  // validator: Validators.validateReviewAndRequestOrder,
                   items: [
                     DropdownMenuItem<String>(
                       value: "price",
@@ -438,15 +438,19 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // searchFilterController.applyFilters();
-                        searchFilterController.searchAndFilter((e) {
-                          Get.snackbar(
-                            "Error",
-                            e,
-                            backgroundColor: ThemeApp.Foundation_Main_main_400,
-                            colorText: ThemeApp.whiteBackground,
-                          );
-                        });
-                        Get.back();
+                        if (searchFilterController
+                            .checkIfSelectedOnceFilter()) {
+                          searchFilterController.searchAndFilter((e) {
+                            Get.snackbar(
+                              "Error",
+                              e,
+                              backgroundColor:
+                                  ThemeApp.Foundation_Main_main_400,
+                              colorText: ThemeApp.whiteBackground,
+                            );
+                          });
+                          Get.back();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
