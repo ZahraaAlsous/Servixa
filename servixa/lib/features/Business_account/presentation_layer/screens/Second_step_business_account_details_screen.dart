@@ -32,7 +32,8 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
           ),
           AppTextFormField(
             hintText: "License number..",
-            icon: IconApp.bookNumber,
+            // icon: IconApp.bookNumber,
+            icon: IconApp.favorite,
             keyboardType: TextInputType.number,
             validator: (value) =>
                 Validators.validateNumber(value, "License number"),
