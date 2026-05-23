@@ -25,9 +25,9 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
     adsController.getMyAds(() {
       AppSnackbar.showSuccess("message");
     }, (e) => AppSnackbar.showError(e));
-    adsController.isSelectedAcceptedMyAd.value = true;
-    adsController.isSelectedPendingMyAd.value = false;
-    adsController.isSelectedRejectedMyAd.value = false;
+    // adsController.isSelectedAcceptedMyAd.value = false;
+    // adsController.isSelectedPendingMyAd.value = true;
+    // adsController.isSelectedRejectedMyAd.value = false;
 
     super.initState();
   }

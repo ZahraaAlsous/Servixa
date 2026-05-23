@@ -17,8 +17,8 @@ class AdsController extends GetxController {
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
   RxBool isLoading = false.obs;
   RxBool isLoadingMyAdd = false.obs;
-  RxBool isSelectedPendingMyAd = false.obs;
-  RxBool isSelectedAcceptedMyAd = true.obs;
+  RxBool isSelectedPendingMyAd = true.obs;
+  RxBool isSelectedAcceptedMyAd = false.obs;
   RxBool isSelectedRejectedMyAd = false.obs;
 
   var selectedImage = Rx<File?>(null);

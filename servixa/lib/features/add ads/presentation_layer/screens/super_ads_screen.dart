@@ -18,6 +18,8 @@ import 'package:servixa/features/add%20ads/presentation_layer/screens/four_step_
 import 'package:servixa/features/add%20ads/presentation_layer/screens/second_step_select_category_widget.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/third_step_sup_category_widget.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
+import 'package:servixa/features/home/business_later/home_controller.dart';
+import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SuperAdsScreen extends StatefulWidget {
   SuperAdsScreen({super.key});
@@ -30,6 +32,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   final AdsController adsController = Get.put(AdsController());
   final AddAdsController addAdsController = Get.put(AddAdsController());
   final CategoryController categoryController = Get.put(CategoryController());
+  final HomeController homeController = Get.put(HomeController());
   int _currentStep = 0;
 
   final List<String> _stepTitles = [
@@ -246,7 +249,19 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                         )
                       : addAdsController.createAd(
                           () {
-                            Get.back();
+                            // Get.back();
+                            homeController.selectedIndex.value = 2;
+                            // Get.offAll(() => SuperHomeScreen());
+                            Get.offAll(
+                              () => SuperHomeScreen(),
+                              arguments: {'selectedIndex': 2},
+                            );
+
+                            
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              homeController.selectedIndex.refresh();
+                            });
+
                             AppSnackbar.showSuccess("Ad created successfully");
                             addAdsController.cleanCleanAd();
                           },

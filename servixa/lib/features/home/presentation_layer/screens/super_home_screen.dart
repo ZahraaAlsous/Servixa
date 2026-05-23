@@ -9,6 +9,7 @@ import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
+import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
@@ -24,8 +25,8 @@ class SuperHomeScreen extends StatefulWidget {
 class _SuperHomeScreenState extends State<SuperHomeScreen> {
   final OrderController orderController = Get.put(OrderController());
   final AuthController authController = Get.put(AuthController());
-  int selectedIndex = 0;
-  List<Widget> pages = [
+  final HomeController homeController = Get.put(HomeController());
+  final List<Widget> pages = [
     HomePage(),
     NotificationScreen(),
     MyAdsScreen(),
@@ -33,10 +34,21 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final args = Get.arguments;
+      if (args is Map && args.containsKey('selectedIndex')) {
+        homeController.selectedIndex.value = args['selectedIndex'];
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: pages[selectedIndex],
+      body: Obx(() => pages[homeController.selectedIndex.value]),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -74,112 +86,114 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      bottomNavigationBar: BottomAppBar(
-        color: ThemeApp.whiteBackground,
-        // height: size.height * 0.074,
-        height: 60,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 6,
-        padding: EdgeInsets.zero,
-        // edit
-        // حاسة مو مثل يلي بالتصميم
-        elevation: 10,
-        shadowColor: Color(0x40000000),
+      bottomNavigationBar: Obx(
+        () => BottomAppBar(
+          color: ThemeApp.whiteBackground,
+          // height: size.height * 0.074,
+          height: 60,
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 6,
+          padding: EdgeInsets.zero,
+          // edit
+          // حاسة مو مثل يلي بالتصميم
+          elevation: 10,
+          shadowColor: Color(0x40000000),
 
-        child:
-            // SizedBox(
-            //   height: size.height * 0.074,
-            //   child:
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-              // crossAxisAlignment: CrossAxisAlignment
-              //     .stretch,
-              children: [
-                _buildNavItem(
-                  IconApp.home,
-                  IconApp.homeFill,
-                  "navigationBarHome",
-                  0,
-                  () {
-                    setState(() {
-                      selectedIndex = 0;
-                    });
-                  },
-                ),
-                _buildNavItem(
-                  IconApp.notification,
-                  IconApp.notificationFill,
-                  "navigationBarNotification",
-                  1,
-                  () {
-                    setState(() {
-                      selectedIndex = 1;
-                    });
-                  },
-                ),
-
-                const SizedBox(width: 60),
-
-                _buildNavItem(
-                  IconApp.ads,
-                  IconApp.adsFill,
-                  "navigationBarMyAds",
-                  2,
-                  () {
-                    if (authController.currentUser.value == null) {
-                      AppSnackbar.showAlert(
-                        "You must have an account and log in to the app through it in order to view your Ad.",
-                      );
-                    } else if (!authController
-                        .currentUser
-                        .value!
-                        .hasBusinessAccount!) {
-                      AppSnackbar.showAlert(
-                        "You must have a business account and it must be accepted in order to view your Ad.",
-                      );
-                    } else {
+          child:
+              // SizedBox(
+              //   height: size.height * 0.074,
+              //   child:
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                // crossAxisAlignment: CrossAxisAlignment
+                //     .stretch,
+                children: [
+                  _buildNavItem(
+                    IconApp.home,
+                    IconApp.homeFill,
+                    "navigationBarHome",
+                    0,
+                    () {
                       setState(() {
-                        selectedIndex = 2;
+                        homeController.selectedIndex.value = 0;
                       });
-                    }
-                  },
-                ),
-
-                _buildNavItem(
-                  IconApp.orders,
-                  IconApp.ordersFill,
-                  "navigationBarOrders",
-                  3,
-                  // () {
-                  //   orderController.getOrders((e) {
-                  //     AppSnackbar.showError(e);
-                  //   });
-                  // },
-                  () {
-                    if (authController.currentUser.value == null) {
-                      AppSnackbar.showAlert(
-                        "You must have an account and log in to the app through it in order to view order.",
-                      );
-                    } else if (!authController
-                        .currentUser
-                        .value!
-                        .hasBusinessAccount!) {
-                      AppSnackbar.showAlert(
-                        "You must have a business account and it must be accepted in order to view order.",
-                      );
-                    } else {
-                      orderController.getOrders((e) {
-                        AppSnackbar.showError(e);
-                      });
+                    },
+                  ),
+                  _buildNavItem(
+                    IconApp.notification,
+                    IconApp.notificationFill,
+                    "navigationBarNotification",
+                    1,
+                    () {
                       setState(() {
-                        selectedIndex = 3;
+                        homeController.selectedIndex.value = 1;
                       });
-                    }
-                  },
-                ),
-              ],
-            ),
-        // ),
+                    },
+                  ),
+
+                  const SizedBox(width: 60),
+
+                  _buildNavItem(
+                    IconApp.ads,
+                    IconApp.adsFill,
+                    "navigationBarMyAds",
+                    2,
+                    () {
+                      if (authController.currentUser.value == null) {
+                        AppSnackbar.showAlert(
+                          "You must have an account and log in to the app through it in order to view your Ad.",
+                        );
+                      } else if (!authController
+                          .currentUser
+                          .value!
+                          .hasBusinessAccount!) {
+                        AppSnackbar.showAlert(
+                          "You must have a business account and it must be accepted in order to view your Ad.",
+                        );
+                      } else {
+                        setState(() {
+                          homeController.selectedIndex.value = 2;
+                        });
+                      }
+                    },
+                  ),
+
+                  _buildNavItem(
+                    IconApp.orders,
+                    IconApp.ordersFill,
+                    "navigationBarOrders",
+                    3,
+                    // () {
+                    //   orderController.getOrders((e) {
+                    //     AppSnackbar.showError(e);
+                    //   });
+                    // },
+                    () {
+                      if (authController.currentUser.value == null) {
+                        AppSnackbar.showAlert(
+                          "You must have an account and log in to the app through it in order to view order.",
+                        );
+                      } else if (!authController
+                          .currentUser
+                          .value!
+                          .hasBusinessAccount!) {
+                        AppSnackbar.showAlert(
+                          "You must have a business account and it must be accepted in order to view order.",
+                        );
+                      } else {
+                        orderController.getOrders((e) {
+                          AppSnackbar.showError(e);
+                        });
+                        setState(() {
+                          homeController.selectedIndex.value = 3;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+          // ),
+        ),
       ),
     );
   }
@@ -191,7 +205,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
     int index,
     void Function()? getData,
   ) {
-    final isSelected = selectedIndex == index;
+    final isSelected = homeController.selectedIndex == index;
     final size = MediaQuery.of(context).size;
 
     return Expanded(

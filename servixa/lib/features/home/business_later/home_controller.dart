@@ -5,6 +5,8 @@ import 'package:servixa/features/home/data_layer/models/image_slider_model.dart'
 import 'package:servixa/features/home/data_layer/sourses/home_service.dart';
 
 class HomeController extends GetxController {
+  // int selectedIndex = 0;
+  RxInt selectedIndex = 0.obs;
   final HomeService homeService = HomeService();
   RxBool isLoadingSlider = false.obs;
   RxInt currentCarouselIndex = 0.obs;
