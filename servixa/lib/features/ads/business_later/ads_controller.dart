@@ -109,66 +109,48 @@ class AdsController extends GetxController {
   //   }
   // }
 
-  Future<void> acceptMyAds() async {
-    acceptedMyAdList.value = await myAdsList
-        .where((item) => item.status == "accepted")
-        .toList();
-  }
+  // Future<void> getMyAds(
+  //   void Function() onSuccess,
+  //   void Function(String e) onError,
+  // ) async {
+  //   try {
+  //     int curenPage = 1;
+  //     List<AdsModel> adsPage = [];
+  //     List<AdsModel> allMyAd = [];
+  //     do {
+  //       log(
+  //         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : My Ads Page $curenPage IN",
+  //       );
+  //       curenPage == 1
+  //           ? isLoadingMyAdd.value = true
+  //           : isLoadingMyAdd.value = false;
 
-  Future<void> pendingMyAds() async {
-    pendingMyAdList.value = await myAdsList
-        .where((item) => item.status == "pending")
-        .toList();
-  }
+  //       adsPage.clear();
+  //       adsPage = await adService.getMyAds(page: curenPage);
+  //       curenPage++;
+  //       allMyAd.addAll(adsPage);
+  //       log(
+  //         "==============================Controller : My Ads Page $curenPage OK",
+  //       );
+  //     } while (adsPage.length == 15);
+  //     myAdsList.clear();
+  //     myAdsList.addAll(allMyAd);
+  //     await acceptMyAds();
+  //     await pendingMyAds();
+  //     await rejectedMyAds();
 
-  Future<void> rejectedMyAds() async {
-    rejectedMyAdList.value = await myAdsList
-        .where((item) => item.status == "rejected")
-        .toList();
-  }
-
-  Future<void> getMyAds(
-    void Function() onSuccess,
-    void Function(String e) onError,
-  ) async {
-    try {
-      int curenPage = 1;
-      List<AdsModel> adsPage = [];
-      List<AdsModel> allMyAd = [];
-      do {
-        log(
-          ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : My Ads Page $curenPage IN",
-        );
-        curenPage == 1
-            ? isLoadingMyAdd.value = true
-            : isLoadingMyAdd.value = false;
-
-        adsPage.clear();
-        adsPage = await adService.getMyAds(page: curenPage);
-        curenPage++;
-        allMyAd.addAll(adsPage);
-        log(
-          "==============================Controller : My Ads Page $curenPage OK",
-        );
-      } while (adsPage.length == 15);
-      myAdsList.clear();
-      myAdsList.addAll(allMyAd);
-      await acceptMyAds();
-      await pendingMyAds();
-      await rejectedMyAds();
-
-      log("==============================Controller : My Ads OK");
-    } catch (e) {
-      log("==============================Controller : My Ads ERROR");
-      log(
-        "==============================Controller THE ERROR IS: " +
-            e.toString(),
-      );
-      onError(e.toString());
-    } finally {
-      isLoadingMyAdd.value = false;
-    }
-  }
+  //     log("==============================Controller : My Ads OK");
+  //   } catch (e) {
+  //     log("==============================Controller : My Ads ERROR");
+  //     log(
+  //       "==============================Controller THE ERROR IS: " +
+  //           e.toString(),
+  //     );
+  //     onError(e.toString());
+  //   } finally {
+  //     isLoadingMyAdd.value = false;
+  //   }
+  // }
 
   Future<void> deleteAd(
     int adId,
@@ -197,5 +179,100 @@ class AdsController extends GetxController {
       );
       onError(e.toString());
     }
+  }
+
+  Future<void> getMyAds(
+    void Function() onSuccess,
+    void Function(String e) onError,
+  ) async {
+    try {
+      isLoadingMyAdd.value = true;
+
+      List<AdsModel> adsPage = await adService.getMyAds(page: 1);
+      myAdsList.value = adsPage;
+      await _filterAdsByStatus();
+
+      log(
+        "==============================Controller : My Ads Page 1 OK - ${adsPage.length} ads",
+      );
+
+      if (adsPage.length == 15) {
+        _loadRemainingPages();
+      }
+
+      // onSuccess();
+    } catch (e) {
+      log("==============================Controller : My Ads Page 1 ERROR");
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
+      onError(e.toString());
+    } finally {
+      isLoadingMyAdd.value = false;
+    }
+  }
+
+  Future<void> _loadRemainingPages() async {
+    int currentPage = 2;
+    bool hasMore = true;
+
+    while (hasMore) {
+      try {
+        isLoadingMyAdd.value = true;
+        List<AdsModel> adsPage = await adService.getMyAds(page: currentPage);
+
+        if (adsPage.isNotEmpty) {
+          myAdsList.addAll(adsPage);
+          await _filterAdsByStatus();
+
+          log(
+            "==============================Controller : My Ads Page $currentPage OK - ${adsPage.length} ads",
+          );
+          currentPage++;
+
+          if (adsPage.length < 15) {
+            hasMore = false;
+          }
+        } else {
+          hasMore = false;
+        }
+      } catch (e) {
+        log(
+          "==============================Controller : My Ads page $currentPage ERROR",
+        );
+        log(
+          "==============================Controller THE ERROR IS: " +
+              e.toString(),
+        );
+        hasMore = false;
+      } finally {
+        isLoadingMyAdd.value = false;
+      }
+    }
+  }
+
+  Future<void> _filterAdsByStatus() async {
+    acceptMyAds();
+    pendingMyAds();
+    rejectedMyAds();
+  }
+
+  Future<void> acceptMyAds() async {
+    acceptedMyAdList.value = myAdsList
+        .where((item) => item.status == "accepted")
+        .toList();
+  }
+
+  Future<void> pendingMyAds() async {
+    pendingMyAdList.value = myAdsList
+        .where((item) => item.status == "pending")
+        .toList();
+  }
+
+  Future<void> rejectedMyAds() async {
+    rejectedMyAdList.value = myAdsList
+        .where((item) => item.status == "rejected")
+        .toList();
   }
 }

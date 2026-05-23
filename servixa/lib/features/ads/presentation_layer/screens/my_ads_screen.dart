@@ -163,7 +163,13 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       ),
 
       body: Obx(() {
-        if (adsController.isLoadingMyAdd.value) {
+        if (adsController.isLoadingMyAdd.value &&
+            ((adsController.isSelectedAcceptedMyAd.value &&
+                    adsController.acceptedMyAdList.isEmpty) ||
+                (adsController.isSelectedPendingMyAd.value &&
+                    adsController.pendingMyAdList.isEmpty) ||
+                (adsController.isSelectedRejectedMyAd.value &&
+                    adsController.rejectedMyAdList.isEmpty))) {
           return Center(child: CircularProgressIndicator());
         }
         List<AdsModel> myAdsListFilter =
