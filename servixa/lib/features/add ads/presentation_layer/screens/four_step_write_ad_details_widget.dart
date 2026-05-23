@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
@@ -237,7 +235,7 @@ class _FourStepWriteAdDetailsWidgetState
           //     addAdsController.selectedCategoryAds.value!.questions!.isNotEmpty)
           Obx(() {
             if (categoryController.isLoadingCategoryQuestions.value) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else {
               if (categoryController.categoryQuestions.isNotEmpty) {
                 return ListView.builder(
@@ -406,7 +404,6 @@ class _FourStepWriteAdDetailsWidgetState
                         ],
                       );
                     } else if (question.type == "checkbox") {
-                      // 1. تأكد من إنشاء مصفوفة الـ bool لهذا السؤال إذا لم تكن موجودة
                       addAdsController.initializeCheckboxes(
                         question.id,
                         question.metaData.options?.length ?? 0,
@@ -438,7 +435,6 @@ class _FourStepWriteAdDetailsWidgetState
                               question.metaData.options?.length ?? 0,
                               (indexOption) {
                                 return Obx(() {
-                                  // 2. الوصول للمصفوفة الخاصة بهذا السؤال وللعنصر الخاص بهذا الخيار
                                   var isChecked =
                                       addAdsController.checkboxStates[question
                                           .id]![indexOption];
@@ -449,7 +445,6 @@ class _FourStepWriteAdDetailsWidgetState
                                       Checkbox(
                                         value: isChecked,
                                         onChanged: (bool? value) {
-                                          // 3. التحديث: عند الضغط، نغير القيمة داخل المصفوفة
                                           addAdsController
                                                   .checkboxStates[question
                                                   .id]![indexOption] =
@@ -471,7 +466,7 @@ class _FourStepWriteAdDetailsWidgetState
                   },
                 );
               }
-              return SizedBox(); // أو أي Widget افتراضي إذا لم تكن هناك أسئلة
+              return SizedBox();
             }
           }),
 

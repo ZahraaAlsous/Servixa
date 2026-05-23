@@ -32,7 +32,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   final CategoryController categoryController = Get.put(CategoryController());
   int _currentStep = 0;
 
-  List<String> _stepTitles = [
+  final List<String> _stepTitles = [
     "Select your business account",
     "Select the Main Category",
     "Select the Sub Category",
@@ -40,14 +40,14 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     "Add The Location",
   ];
 
-  List<String> _stepIcon = [
+  final List<String> _stepIcon = [
     IconApp.business,
     IconApp.category,
     IconApp.SubCategory,
     IconApp.searchPaper,
     IconApp.SubCategory,
   ];
-  List<Widget> _pages = [
+  final List<Widget> _pages = [
     FirstStepBusinessAccountWidget(),
     SecondStepSelectCategoryWidget(),
     ThirdStepSupCategoryWidget(),
@@ -118,12 +118,21 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
   }
 
   Widget _buildStepIndicator(Size size) {
+    int numStep =
+        addAdsController.selectedCategoryAds.value != null &&
+                addAdsController.selectedCategoryAds.value!.hasChildren ||
+            addAdsController.selectedSubCategoryAds.value != null
+        ? 5
+        : 4;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        // children: List.generate(5, (index) {
-        children: List.generate(5, (index) {
+        children: List.generate(numStep, (index) {
+          log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~index: $index + step: $_currentStep",
+          );
+          numStep == 4 && index >= 2 ? index++ : index;
           return _buildStepCircle(
             index: index,
             isActive: index <= _currentStep,
