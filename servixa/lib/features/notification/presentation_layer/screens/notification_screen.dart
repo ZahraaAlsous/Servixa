@@ -17,7 +17,7 @@ class NotificationScreen extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
       body: ListView.builder(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
+        padding: EdgeInsetsGeometry.only(left: 8, right: 8, bottom: 60),
         itemCount: notificationController.notifications.length,
         itemBuilder: (context, indexNotification) {
           return NotificationCardWidget(

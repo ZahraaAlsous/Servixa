@@ -31,7 +31,7 @@ class FiveStepAddLocationPage extends StatelessWidget {
 
           AppTextAreaWidget(
             hintText: "Address Detail",
-            prefixIcon: IconApp.Balconies,
+            prefixIcon: IconApp.locationPrefix,
             controller: addAdsController.addressDetailsController,
             validate: Validators.validateReviewAndRequestOrder,
           ),
