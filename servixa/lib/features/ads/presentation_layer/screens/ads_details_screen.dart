@@ -177,7 +177,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                     ],
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        ads.images[itemIndex],
+                                        ads.images[itemIndex].url,
                                       ),
                                       fit: BoxFit.cover,
                                     ),

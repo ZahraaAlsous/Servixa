@@ -1,8 +1,8 @@
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
+import 'package:servixa/features/ads/data_layer/models/image_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/data_layer/models/category_question_answer_model.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
-import 'package:servixa/features/review/data_layer/models/review_model.dart';
 
 class AdsModel {
   int id;
@@ -14,7 +14,8 @@ class AdsModel {
   String typeCoin;
   String image;
   bool favorite;
-  List<dynamic> images;
+  // List<dynamic> images;
+  List<ImageModel> images;
   String typeService;
   // List<ReviewModel>? listReview;
   String status;
@@ -45,7 +46,7 @@ class AdsModel {
     required this.typeService,
     // this.listReview,
     required this.status,
-     this.category,
+    this.category,
     // this.subCategory,
     required this.user,
     this.categoryQuestionAnswer,
@@ -53,7 +54,7 @@ class AdsModel {
     this.lng,
     this.businessAccount,
     this.isRent,
-    this.businessAccountId
+    this.businessAccountId,
   });
 
   // factory AdsModel.fromJson(Map<String, dynamic> json) {
@@ -81,11 +82,13 @@ class AdsModel {
       dictation: json["description"],
       place: json["address"], // الـ JSON يستخدم address
       image: json["main_image"] ?? "",
-      // هنا المشكلة: الـ JSON لا يحتوي على images، سنضع قائمة فارغة كافتراض
+      // images: json["images"] != null
+      //     ? (json["images"] as List)
+      //           .map((item) => item["url"].toString())
+      //           .toList()
+      //     : [],
       images: json["images"] != null
-          ? (json["images"] as List)
-                .map((item) => item["url"].toString())
-                .toList()
+          ? ImageModel.listFromJson(json["images"])
           : [],
       favorite: json["is_favorited"],
       price: json["price"] is String
@@ -96,9 +99,7 @@ class AdsModel {
       status: json["status"] ?? "",
       // category: CategoryModel.fromJson(json["category"] ?? {}),
       category: json["category"] != null
-          ? CategoryModel.fromJson(
-              json["category"],
-            )
+          ? CategoryModel.fromJson(json["category"])
           : null,
       user: UserModel.fromJson(json["user"] ?? {}),
       categoryQuestionAnswer: json["custom_field_values"] != null
@@ -115,7 +116,7 @@ class AdsModel {
       isRent: json["is_rent"],
       businessAccountId: json["business_account_id"] != null
           ? int.tryParse(json["business_account_id"].toString())
-          : null
+          : null,
     );
   }
 

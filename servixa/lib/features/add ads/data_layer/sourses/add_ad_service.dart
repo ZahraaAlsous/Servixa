@@ -175,7 +175,7 @@ class AddAdService {
   //     }
 
   //     Response response = await dio.post(
-  //       "https://services.tamkeen-dev.com/api/v1/ads/$adId", 
+  //       "https://services.tamkeen-dev.com/api/v1/ads/$adId",
   //       data: formData,
   //       options: Options(
   //         headers: {
@@ -307,7 +307,7 @@ class AddAdService {
       }
 
       Response response = await dio.post(
-        "https://services.tamkeen-dev.com/api/v1/ads/$adId", 
+        "https://services.tamkeen-dev.com/api/v1/ads/$adId",
         data: formData,
         options: Options(
           headers: {
@@ -356,4 +356,7 @@ class AddAdService {
     }
   }
 
+  // Future<bool> deleteImage({required int adId, required int imageId}) async {
+  //   try {} catch (e) {}
+  // }
 }
