@@ -628,8 +628,9 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   iconButtonOutBorder: IconApp.edit,
                   textButtonElevetedBorder: " Delete",
                   iconButtonElevetedBorder: IconApp.delete,
-                  onPressedButtonOutBorder: () {
-                    addAdsController.initialFailedEditAd(ads);
+                  onPressedButtonOutBorder: () async {
+                    businessAccountController.getBusinessAccountApproved();
+                    await addAdsController.initialFailedEditAd(ads);
                     Get.to(SuperAdsScreen());
                   },
                   onPressedButtonElevetedBorder: () {

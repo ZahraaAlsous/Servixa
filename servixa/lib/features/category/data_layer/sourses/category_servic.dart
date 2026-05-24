@@ -138,6 +138,16 @@ class CategoryServic {
         throw "Failed to load category questions";
       }
     } on DioException catch (e) {
+       if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log(
+          "==============================Service : Get SubCategories ERROR_Net",
+        );
+        log(
+          "==============================Service THE ERROR IS: " + e.toString(),
+        );
+        throw "Connection failed: Please check your internet";
+      }
       log(
         "==============================Service : Get Category Questions ERROR",
       );

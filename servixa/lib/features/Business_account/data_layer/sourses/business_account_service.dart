@@ -197,12 +197,19 @@ class BusinessAccountService {
         ),
       );
       return BusinessAccountModel.listFromJson(response.data);
-    } catch (e) {
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log(
+          "==============================Service : GetBusinessAccount ERROR_Net",
+        );
+        throw "Connection failed: Please check your internet";
+      }
       log("==============================Service : GetBusinessAccount ERROR");
       log(
         "==============================Service THE ERROR IS: " + e.toString(),
       );
-      throw e;
+      throw e.response!.data["message"];
     }
   }
 }

@@ -311,6 +311,7 @@ class AddAdsController extends GetxController {
     existingSubImagesUrls.clear();
     isEditOperation.value = false;
     adIdEdit.value = null;
+    oldAnswers.clear();
     // checkboxStates.clear();
   }
 
@@ -323,7 +324,7 @@ class AddAdsController extends GetxController {
   int? oldCategoryId;
   int? oldSupCategoryId;
 
-  void initialFailedEditAd(AdsModel ad) {
+  Future<void> initialFailedEditAd(AdsModel ad) async {
     // selectedBusinessAccount.value = ad.businessAccount!;
     isEditOperation.value = true;
     adIdEdit.value = ad.id;
@@ -360,15 +361,24 @@ class AddAdsController extends GetxController {
 
       _updateAddressFromLatLng(position);
     }
-    _initializeDynamicQuestions(ad);
+
+    final int categoryIdForQuestions =
+        selectedSubCategoryAdsId.value ?? selectedCategoryAdsId.value!;
+    log("📝 Loading questions for category: $categoryIdForQuestions");
+
+    await categoryController.getCategoryQuestions(categoryIdForQuestions);
+    await _initializeDynamicQuestions(ad);
+    log("*************************************initialize ad done");
   }
 
-  void _initializeDynamicQuestions(AdsModel ad) {
+  Future<dynamic> _initializeDynamicQuestions(AdsModel ad) async {
     try {
       if (ad.categoryQuestionAnswer == null ||
           ad.categoryQuestionAnswer!.isEmpty) {
+        log("####################################Null");
         return;
       }
+      log("####################################NotNull");
 
       finalAnswers.clear();
       checkboxStates.clear();
@@ -380,6 +390,7 @@ class AddAdsController extends GetxController {
         );
 
         if (question == null) {
+          log("###########################qustion null");
           continue;
         }
 
@@ -484,12 +495,15 @@ class AddAdsController extends GetxController {
         main_image: selectedMainImage.value,
         type: typeService!,
         other_images: listSelectedSubImage,
-        dynamicQuestions: answersToSend.isEmpty ? null : answersToSend,
+        // dynamicQuestions: answersToSend.isEmpty ? null : answersToSend,
+        dynamicQuestions: answersToSend,
         lat: selectedLatLng.value!.latitude,
         lng: selectedLatLng.value!.longitude,
         price_currency: typeCoin!,
         address: addressDetailsController.text,
       );
+      adsController.adsDetails.value!.category =
+          selectedSubCategoryAds.value ?? selectedCategoryAds.value;
       adsController.adsDetails.refresh();
       reFreshListAfterUpdateAd(adId);
       onSuccess();
@@ -506,11 +520,21 @@ class AddAdsController extends GetxController {
   Map<String, dynamic> oldAnswers = {};
 
   void prepareForNewCategory() {
-    oldAnswers = Map.from(finalAnswers);
+    log(" Preparing for new category - Saving old answers");
+    log(" Old finalAnswers before save: ${finalAnswers.keys}");
+
+    if (finalAnswers.isNotEmpty) {
+      oldAnswers = Map.from(finalAnswers);
+      log(" Old answers saved: ${oldAnswers.keys}");
+    } else {
+      log(" No old answers to save");
+    }
 
     finalAnswers.clear();
 
     checkboxStates.clear();
+
+    log(" Prepared for new category. Old answers count: ${oldAnswers.length}");
   }
 
   Map<String, dynamic> getFinalAnswersForSubmit() {
@@ -520,6 +544,7 @@ class AddAdsController extends GetxController {
 
     for (var key in oldAnswers.keys) {
       result[key] = "";
+      log("##################### ${oldAnswers.keys}");
     }
 
     return result;
@@ -567,10 +592,10 @@ class AddAdsController extends GetxController {
 
   @override
   void onClose() {
-    titleController.dispose();
-    descriptionController.dispose();
-    priceController.dispose();
-    addressDetailsController.dispose();
+    // titleController.dispose();
+    // descriptionController.dispose();
+    // priceController.dispose();
+    // addressDetailsController.dispose();
 
     super.onClose();
   }

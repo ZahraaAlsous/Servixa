@@ -257,7 +257,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                               arguments: {'selectedIndex': 2},
                             );
 
-                            
                             Future.delayed(Duration(milliseconds: 100), () {
                               homeController.selectedIndex.refresh();
                             });
@@ -276,6 +275,16 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               if (_currentStep == 3) {
                 if (!addAdsController.formKey.currentState!.validate()) {
                   // addAdsController.collectCheckboxAnswers();
+                  return;
+                }
+
+                if (categoryController.isLoadingCategoryQuestions.value) {
+                   Get.snackbar(
+                    "Alert",
+                    "Please wait a moment while the classification questions are uploaded, if available.",
+                    backgroundColor: ThemeApp.Foundation_Main_main_50,
+                    colorText: ThemeApp.Foundation_Main_main_500,
+                  );
                   return;
                 }
 
@@ -335,6 +344,11 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       hasSubCategory &&
                       addAdsController.selectedSubCategoryAds.value!.parentId !=
                           null;
+                  final bool isCategoryChanged =
+                      addAdsController.oldCategoryId !=
+                          addAdsController.selectedCategoryAdsId.value ||
+                      addAdsController.oldSupCategoryId !=
+                          addAdsController.selectedSubCategoryAdsId.value;
 
                   // if ((addAdsController
                   //         .selectedCategoryAds
@@ -345,18 +359,19 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   //     addAdsController.selectedSubCategoryAds.value!.parentId !=
                   //         null) {
                   if (hasChildren || hasSubCategoryParent) {
-                    if ((addAdsController.oldCategoryId !=
-                                addAdsController.selectedCategoryAdsId.value &&
-                            addAdsController.oldSupCategoryId !=
-                                addAdsController
-                                    .selectedSubCategoryAdsId
-                                    .value) ||
-                        (addAdsController.oldCategoryId ==
-                                addAdsController.selectedCategoryAdsId.value &&
-                            addAdsController.oldSupCategoryId !=
-                                addAdsController
-                                    .selectedSubCategoryAdsId
-                                    .value)) {
+                    // if ((addAdsController.oldCategoryId !=
+                    //             addAdsController.selectedCategoryAdsId.value &&
+                    //         addAdsController.oldSupCategoryId !=
+                    //             addAdsController
+                    //                 .selectedSubCategoryAdsId
+                    //                 .value) ||
+                    //     (addAdsController.oldCategoryId ==
+                    //             addAdsController.selectedCategoryAdsId.value &&
+                    //         addAdsController.oldSupCategoryId !=
+                    //             addAdsController
+                    //                 .selectedSubCategoryAdsId
+                    //                 .value))
+                    if (isCategoryChanged) {
                       addAdsController.prepareForNewCategory();
                     }
                     categoryController.getSubCategories(
@@ -367,18 +382,20 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       _currentStep = 2;
                     });
                   } else {
-                    if ((addAdsController.oldCategoryId !=
-                                addAdsController.selectedCategoryAdsId.value &&
-                            addAdsController.oldSupCategoryId !=
-                                addAdsController
-                                    .selectedSubCategoryAdsId
-                                    .value) ||
-                        (addAdsController.oldCategoryId ==
-                                addAdsController.selectedCategoryAdsId.value &&
-                            addAdsController.oldSupCategoryId !=
-                                addAdsController
-                                    .selectedSubCategoryAdsId
-                                    .value)) {
+                    // if ((addAdsController.oldCategoryId !=
+                    //             addAdsController.selectedCategoryAdsId.value &&
+                    //         addAdsController.oldSupCategoryId !=
+                    //             addAdsController
+                    //                 .selectedSubCategoryAdsId
+                    //                 .value) ||
+                    //     (addAdsController.oldCategoryId ==
+                    //             addAdsController.selectedCategoryAdsId.value &&
+                    //         addAdsController.oldSupCategoryId !=
+                    //             addAdsController
+                    //                 .selectedSubCategoryAdsId
+                    //                 .value))
+
+                    if (isCategoryChanged) {
                       addAdsController.prepareForNewCategory();
                     }
                     addAdsController.selectedSubCategoryAds.value = null;

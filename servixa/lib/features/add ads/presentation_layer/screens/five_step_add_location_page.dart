@@ -21,6 +21,7 @@ class FiveStepAddLocationPage extends StatelessWidget {
     return Form(
       key: addAdsController.formKey2,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Address Detail",
