@@ -6,6 +6,7 @@ import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
@@ -26,6 +27,9 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
   final OrderController orderController = Get.put(OrderController());
   final AuthController authController = Get.put(AuthController());
   final HomeController homeController = Get.put(HomeController());
+  final BusinessAccountController businessAccountController = Get.put(
+    BusinessAccountController(),
+  );
   final List<Widget> pages = [
     HomePage(),
     NotificationScreen(),
@@ -61,6 +65,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
               "You must have a business account and it must be accepted in order to add an advertisement.",
             );
           } else {
+            businessAccountController.getBusinessAccountApproved();
             Get.to(
               SuperAdsScreen(),
               // edit

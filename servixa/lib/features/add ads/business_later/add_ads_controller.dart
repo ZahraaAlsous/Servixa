@@ -54,12 +54,12 @@ class AddAdsController extends GetxController {
   Map<String, dynamic> finalAnswers = {};
   var checkboxStates = <int, RxList<bool>>{}.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // getBusinessAccounts();
-    businessAccountController.getBusinessAccountApproved();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // getBusinessAccounts();
+  //   businessAccountController.getBusinessAccountApproved();
+  // }
 
   bool validateStepAddAds(int step) {
     switch (step) {

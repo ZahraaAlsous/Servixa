@@ -3,7 +3,7 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-void main() async  {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
@@ -13,8 +13,7 @@ void main() async  {
       supportedLocales: [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
-      child: 
-      MyApp(),
+      child: MyApp(),
     ),
   );
 }

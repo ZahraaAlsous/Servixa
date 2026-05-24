@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
@@ -13,9 +15,16 @@ class BusinessAccountService {
   Future<List<UserTypeModel>> getUserTypes() async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : getUserTypes IN");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/user-types",
+        options: Options(headers: {'Accept-Language': currentLang}),
       );
       if (response.statusCode == 200) {
         log("==============================Service : getUserTypes OK");
@@ -41,9 +50,20 @@ class BusinessAccountService {
   Future<List<CityModel>> getCities() async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : GetCities IN");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/cities",
-        options: Options(headers: {"Accept": "application/json"}),
+        options: Options(
+          headers: {
+            "Accept": "application/json",
+            'Accept-Language': currentLang,
+          },
+        ),
       );
       if (response.statusCode == 200) {
         log("==============================Service : GetCities OK");
@@ -160,12 +180,19 @@ class BusinessAccountService {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : GetBusinessAccount IN");
 
       String? token = await storage.read(key: "token");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/business-accounts/my",
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
+            'Accept-Language': currentLang,
           },
         ),
       );

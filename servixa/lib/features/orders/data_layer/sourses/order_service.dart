@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
 
@@ -59,6 +61,12 @@ class OrderService {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service: GetOrders IN");
 
       String? token = await storage.read(key: "token");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/orders",
@@ -67,6 +75,7 @@ class OrderService {
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
+            'Accept-Language': currentLang,
           },
         ),
       );

@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
@@ -12,6 +14,12 @@ class AdService {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ad Details IN");
       String? token = await storage.read(key: "token");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads/${adId}",
@@ -21,7 +29,7 @@ class AdService {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
             'Content-Type': 'application/json',
-            'Accept-Language': 'en',
+            'Accept-Language': currentLang,
           },
         ),
       );
@@ -49,6 +57,12 @@ class AdService {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : My Ads IN");
       String? token = await storage.read(key: "token");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/my-ads",
@@ -57,6 +71,7 @@ class AdService {
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
+            'Accept-Language': currentLang,
           },
         ),
       );
@@ -113,8 +128,12 @@ class AdService {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Ads IN");
       String? token = await storage.read(key: "token");
-      // token = token?.trim();
-      log("+++++++++++++++++++++++++++++++++token : $token");
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
 
       Response response = await dio.get(
         "https://services.tamkeen-dev.com/api/v1/ads",
@@ -125,7 +144,7 @@ class AdService {
             'Authorization': 'Bearer $token',
             "Accept": "application/json",
             'Content-Type': 'application/json',
-            'Accept-Language': 'en',
+            'Accept-Language': currentLang,
           },
         ),
       );
