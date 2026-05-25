@@ -117,7 +117,10 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
                   ),
                 ),
                 controller: authController.newPasswordController,
-                validator: Validators.validatePassword,
+                validator: (value) => Validators.validateChangePassword(
+                  value,
+                  authController.oldPasswordController.text,
+                ),
               );
             }),
 

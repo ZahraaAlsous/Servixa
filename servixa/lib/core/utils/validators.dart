@@ -53,6 +53,32 @@ class Validators {
     return null;
   }
 
+  static String? validateChangePassword(String? value, String oldPassword) {
+    if (value == null || value.trim().isEmpty) {
+      return "Password is required";
+    }
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return "Password must contain at least one uppercase letter";
+    }
+
+    if (!value.contains(RegExp(r'[0-9]'))) {
+      return "Password must contain at least one number";
+    }
+
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return "Password must contain at least one special character";
+    }
+    if (value.length < 8) {
+      return "Password must be at least 8 characters";
+    }
+
+    if (value.trim() == oldPassword.trim()) {
+      return "The password matches the previous password.";
+    }
+
+    return null;
+  }
+
   static String? validateText(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
       return "$message is required";

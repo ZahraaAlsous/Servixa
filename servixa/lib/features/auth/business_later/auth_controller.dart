@@ -352,6 +352,12 @@ class AuthController extends GetxController {
     oldPasswordController.clear();
     newPasswordController.clear();
     confirmNewPasswordController.clear();
+    isPasswordVisible.value = true;
+    isOldPasswordVisible.value = true;
+    isNewPasswordVisible.value = true;
+    isConfirmNewPasswordVisible.value = true;
+    isNewPasswordForgetVisible.value = true;
+    isConfirmNewPasswordForgetVisible.value = true;
   }
 
   @override
