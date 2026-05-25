@@ -4,6 +4,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -86,11 +87,14 @@ class SearchScreen extends StatelessWidget {
                   );
                 }
                 if (searchFilterController.adsSearchList.isEmpty) {
-                  return Text(
-                    "No results found",
-                    style: TypographyApp.Body_mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Secendary_grey_300,
-                    ),
+                  // return Text(
+                  //   "No results found",
+                  //   style: TypographyApp.Body_mid_Mid.copyWith(
+                  //     color: ThemeApp.Foundation_Secendary_grey_300,
+                  //   ),
+                  // );
+                  return Expanded(
+                    child: AppNothingWidget(message: "No results found."),
                   );
                 }
                 return ListView.builder(

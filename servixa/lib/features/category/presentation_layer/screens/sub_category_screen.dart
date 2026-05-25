@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
@@ -63,6 +64,9 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       message: "Loading sup categories...",
                       showLogo: true,
                     );
+                  }
+                  if (categoryController.subCategories.isEmpty) {
+                    return Expanded(child: AppNothingWidget());
                   }
                   return Expanded(
                     child: GridView.builder(

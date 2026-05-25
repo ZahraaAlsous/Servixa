@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
@@ -88,7 +89,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       }
 
       if (adsController.adsDetails.value == null) {
-        return Scaffold(body: const Center(child: Text("No data available")));
+        // return Scaffold(body: const Center(child: Text("No data available")));
+        return Scaffold(body: AppNothingWidget());
       }
       AdsModel ads = adsController.adsDetails.value!;
       return Scaffold(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -176,6 +177,18 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
             message: "Loading ads...",
             showLogo: true,
           );
+        }
+        if (adsController.isSelectedAcceptedMyAd.value &&
+            adsController.acceptedMyAdList.isEmpty) {
+          return Expanded(child: AppNothingWidget());
+        }
+        if (adsController.isSelectedPendingMyAd.value &&
+            adsController.pendingMyAdList.isEmpty) {
+          return Expanded(child: AppNothingWidget());
+        }
+        if (adsController.isSelectedRejectedMyAd.value &&
+            adsController.rejectedMyAdList.isEmpty) {
+          return Expanded(child: AppNothingWidget());
         }
         List<AdsModel> myAdsListFilter =
             adsController.isSelectedAcceptedMyAd.value

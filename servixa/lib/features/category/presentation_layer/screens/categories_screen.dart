@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -48,6 +49,9 @@ class CategoriesScreen extends StatelessWidget {
                   message: "Loading categories...",
                   showLogo: true,
                 );
+              }
+              if (categoryController.categories.isEmpty) {
+                return Expanded(child: AppNothingWidget());
               }
               return GridView.builder(
                 shrinkWrap: true,

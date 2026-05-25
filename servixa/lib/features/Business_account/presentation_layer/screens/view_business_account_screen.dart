@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -51,7 +52,7 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
           );
         }
         if (businessAccountController.businessAccountsList.isEmpty) {
-          return Center(child: Text("data"));
+          return Expanded(child: AppNothingWidget());
         }
         return ListView.builder(
           padding: EdgeInsetsGeometry.symmetric(

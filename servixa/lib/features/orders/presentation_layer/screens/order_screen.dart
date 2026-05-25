@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -110,6 +111,12 @@ class OrderScreen extends StatelessWidget {
                 message: "Loading orders...",
                 showLogo: true,
               );
+            }
+            if (orderController.myOrders.isEmpty && !orderController.isSelectedMyOrders.value) {
+              return Expanded(child: AppNothingWidget());
+            }
+            if (orderController.receivedOrders.isEmpty && orderController.isSelectedMyOrders.value) {
+              return Expanded(child: AppNothingWidget());
             }
             return SizedBox(
               height: 500,

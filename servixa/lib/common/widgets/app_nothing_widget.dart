@@ -5,7 +5,8 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 
 class AppNothingWidget extends StatelessWidget {
-  const AppNothingWidget({super.key});
+  final String? message;
+   AppNothingWidget({super.key, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class AppNothingWidget extends StatelessWidget {
       children: [
         const Image(image: AssetImage(ImageApp.nothing)),
         Text(
-          "Nothing Here Yet".tr(),
+         message?? "Nothing Here Yet".tr(),
           style: TypographyApp.Title_larg_Mid.copyWith(
             color: ThemeApp.Foundation_Main_main_500,
           ),
