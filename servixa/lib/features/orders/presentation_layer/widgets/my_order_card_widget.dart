@@ -99,46 +99,60 @@ class MyOrderCardWidget extends StatelessWidget {
           ),
 
           Center(
-            child: Obx(() {
-              if (orderController.isDeletingOrders[order.id] == true) {
-                // return CircularProgressIndicator();
-                return LoadingAnimationWidget(
-                  message: "Wait please...",
-                  loaderColor: ThemeApp.Foundation_Statue_Red,
-                );
-              }
-              return SizedBox(
-                width: size.width * 0.739,
-                height: 29,
-                child: OutlinedButton.icon(
-                  onPressed: () => orderController.deleteOrder(
-                    order.id,
-                    () {
-                      AppSnackbar.showSuccess("The order was deleted");
-                    },
-                    (e) {
-                      AppSnackbar.showError(e);
-                    },
-                  ),
-                  label: Text(
-                    "Decline",
-                    style: TypographyApp.Label_Mid_Mid.copyWith(
+            child: order.status == "accepted"
+                ? Text(
+                    "Your request has been accepted.",
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  )
+                : order.status == "rejected"
+                ? Text(
+                    "Your order was rejected.",
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Statue_Red,
                     ),
-                  ),
-                  icon: SvgPicture.asset(IconApp.delete),
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    side: BorderSide(
-                      color: ThemeApp.Foundation_Statue_Red,
-                      width: 1,
-                    ),
-                  ),
-                ),
-              );
-            }),
+                  )
+                : Obx(() {
+                    if (orderController.isDeletingOrders[order.id] == true) {
+                      // return CircularProgressIndicator();
+                      return LoadingAnimationWidget(
+                        message: "Wait please...",
+                        loaderColor: ThemeApp.Foundation_Statue_Red,
+                      );
+                    }
+                    return SizedBox(
+                      width: size.width * 0.739,
+                      height: 29,
+                      child: OutlinedButton.icon(
+                        onPressed: () => orderController.deleteOrder(
+                          order.id,
+                          () {
+                            AppSnackbar.showSuccess("The order was deleted");
+                          },
+                          (e) {
+                            AppSnackbar.showError(e);
+                          },
+                        ),
+                        label: Text(
+                          "Decline",
+                          style: TypographyApp.Label_Mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Statue_Red,
+                          ),
+                        ),
+                        icon: SvgPicture.asset(IconApp.delete),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          side: BorderSide(
+                            color: ThemeApp.Foundation_Statue_Red,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
           ),
         ],
       ),
