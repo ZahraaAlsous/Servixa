@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -110,7 +111,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
 
               Obx(
                 () => addAdsController.isCreate.value
-                    ? CircularProgressIndicator()
+                    // ? CircularProgressIndicator()
+                    ? LoadingAnimationWidget(message: "Wait please...",)
                     : _buildNavigationButtons(),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -57,7 +58,11 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 // SizedBox(height: DimensApp.spaceBetweenSection),
                 Obx(() {
                   if (categoryController.isLoadingSubCategory.value) {
-                    return Center(child: CircularProgressIndicator());
+                    // return Center(child: CircularProgressIndicator());
+                    return LoadingAnimationWidget(
+                      message: "Loading sup categories...",
+                      showLogo: true,
+                    );
                   }
                   return Expanded(
                     child: GridView.builder(
@@ -80,7 +85,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                           typographyApp: TypographyApp.Label_Mid_Mid,
                           onTap: () {
                             Get.to(
-                              () => AllAdsOfCategoryScreen(category: subCategory),
+                              () =>
+                                  AllAdsOfCategoryScreen(category: subCategory),
                             );
                           },
                         );

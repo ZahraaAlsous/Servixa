@@ -6,6 +6,7 @@ import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -62,7 +63,8 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
         
             Obx(() {
               if (adsController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading ads...", showLogo: true,);
               }
               if (adsController.adsCategory.isEmpty) {
                 return Expanded(child: AppNothingWidget());

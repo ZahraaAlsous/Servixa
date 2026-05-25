@@ -215,7 +215,6 @@ class AddMainImageWidget extends StatelessWidget {
             height: 200,
             width: double.infinity,
             fit: BoxFit.cover,
-            // معالجة حالة التحميل
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
               return Container(
@@ -224,7 +223,6 @@ class AddMainImageWidget extends StatelessWidget {
                 child: const Center(child: CircularProgressIndicator()),
               );
             },
-            // معالجة حدوث خطأ في تحميل الصورة
             errorBuilder: (context, error, stackTrace) => Container(
               height: 200,
               color: Colors.grey.shade200,

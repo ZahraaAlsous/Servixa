@@ -4,6 +4,7 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -42,7 +43,11 @@ class CategoriesScreen extends StatelessWidget {
             // const SizedBox(height: DimensApp.spaceBetweenSection),
             Obx(() {
               if (categoryController.isLoadingCategory.value) {
-                return const Center(child: CircularProgressIndicator());
+                // return const Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(
+                  message: "Loading categories...",
+                  showLogo: true,
+                );
               }
               return GridView.builder(
                 shrinkWrap: true,
@@ -64,9 +69,7 @@ class CategoriesScreen extends StatelessWidget {
                     onTap: () {
                       category.hasChildren
                           ? Get.to(SubCategoryScreen(category: category))
-                          : Get.to(
-                              AllAdsOfCategoryScreen(category: category),
-                            );
+                          : Get.to(AllAdsOfCategoryScreen(category: category));
                     },
                   );
                 },

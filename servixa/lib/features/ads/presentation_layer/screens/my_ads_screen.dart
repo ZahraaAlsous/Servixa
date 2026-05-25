@@ -3,6 +3,7 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -170,7 +171,11 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                     adsController.pendingMyAdList.isEmpty) ||
                 (adsController.isSelectedRejectedMyAd.value &&
                     adsController.rejectedMyAdList.isEmpty))) {
-          return Center(child: CircularProgressIndicator());
+          // return Center(child: CircularProgressIndicator());
+          return LoadingAnimationWidget(
+            message: "Loading ads...",
+            showLogo: true,
+          );
         }
         List<AdsModel> myAdsListFilter =
             adsController.isSelectedAcceptedMyAd.value

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -57,7 +58,8 @@ class ForgetPasswordScreen extends StatelessWidget {
 
               Obx(() {
                 if (authController.isLoadingForgetPassword.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  // return const Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(message: "wait please...",);
                 }
                 return SizedBox(
                   width: double.infinity,

@@ -4,6 +4,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/common/widgets/app_card_category_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 
 class SecondStepSelectCategoryWidget extends StatelessWidget {
   SecondStepSelectCategoryWidget({super.key});
@@ -15,7 +16,8 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (categoryController.isLoadingCategory.value) {
-        return Center(child: CircularProgressIndicator());
+        // return Center(child: CircularProgressIndicator());
+        return LoadingAnimationWidget(message: "Loading categories...");
       }
       return GridView.builder(
         shrinkWrap: true,
@@ -32,10 +34,10 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
 
           return Obx(() {
             final isSelected = addAdsController.isSelected(
-            category,
-            // addAdsController.selectedCategoryAds.value?.id ?? 0,
-            addAdsController.selectedCategoryAdsId.value ?? 0,
-          );
+              category,
+              // addAdsController.selectedCategoryAds.value?.id ?? 0,
+              addAdsController.selectedCategoryAdsId.value ?? 0,
+            );
             return AppCardCategoryWidget(
               onTap: () {
                 addAdsController.selectedCategoryAdsId.value = category.id;

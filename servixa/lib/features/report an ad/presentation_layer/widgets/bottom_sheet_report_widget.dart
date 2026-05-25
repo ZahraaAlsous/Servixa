@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -65,7 +66,10 @@ class BottomSheetReportWidget extends StatelessWidget {
                       const SizedBox(height: 30),
                       Obx(() {
                         if (reportController.isSendReport.value) {
-                          return Center(child: CircularProgressIndicator());
+                          // return Center(child: CircularProgressIndicator());
+                          return LoadingAnimationWidget(
+                            message: "Wait please...",
+                          );
                         }
                         return _buildActionButtons();
                       }),
@@ -160,16 +164,7 @@ class BottomSheetReportWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: reportController.isSendReport.value
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : Text(
+            child: Text(
                     "Submit Report",
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       color: Colors.white,

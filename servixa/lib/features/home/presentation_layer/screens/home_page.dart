@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -76,7 +77,8 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               if (categoryController.isLoadingCategory.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading categories...");
               }
               return SizedBox(
                 // height: size.height * 0.090,
@@ -119,7 +121,8 @@ class HomePage extends StatelessWidget {
             SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               if (adsController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading ads...");
               }
               return SizedBox(
                 // note
@@ -164,7 +167,8 @@ class HomePage extends StatelessWidget {
 
             Obx(() {
               if (adsController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading ads...");
               }
               return SizedBox(
                 // note
@@ -209,7 +213,8 @@ class HomePage extends StatelessWidget {
 
             Obx(() {
               if (adsController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading ads...");
               }
               return SizedBox(
                 // note
@@ -244,7 +249,8 @@ class HomePage extends StatelessWidget {
 
             Obx(() {
               if (adsController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Loading ads...");
               }
               return GridView.builder(
                 padding: EdgeInsetsGeometry.only(

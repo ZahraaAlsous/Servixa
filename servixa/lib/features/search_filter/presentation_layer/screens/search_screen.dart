@@ -5,6 +5,7 @@ import 'package:get/state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -21,9 +22,7 @@ class SearchScreen extends StatelessWidget {
   final SearchFilterController searchFilterController = Get.put(
     SearchFilterController(),
   );
-  final AdsController adsController = Get.put(
-    AdsController(),
-  );
+  final AdsController adsController = Get.put(AdsController());
   final CategoryController categoryController = Get.put(CategoryController());
 
   SearchScreen({super.key});
@@ -73,12 +72,20 @@ class SearchScreen extends StatelessWidget {
             Center(
               child: Obx(() {
                 if (searchFilterController.isLoadingAdsFilter.value) {
-                  return Center(child: CircularProgressIndicator());
+                  // return Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(
+                    message: "Loading ads...",
+                    showLogo: true,
+                  );
                 }
                 if (adsController.isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
+                  // return Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(
+                    message: "Loading ads...",
+                    showLogo: true,
+                  );
                 }
-                if(searchFilterController.adsSearchList.isEmpty){
+                if (searchFilterController.adsSearchList.isEmpty) {
                   return Text(
                     "No results found",
                     style: TypographyApp.Body_mid_Mid.copyWith(

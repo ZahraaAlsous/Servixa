@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/services/url_launcher_service%20.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
@@ -16,7 +17,8 @@ class SlidersHomeWidget extends StatelessWidget {
 
     return Obx(() {
       if (homeController.isLoadingSlider.value) {
-        return Center(child: CircularProgressIndicator());
+        // return Center(child: CircularProgressIndicator());
+        return LoadingAnimationWidget(showText: false,);
       }
       return SizedBox(
         height: 145,

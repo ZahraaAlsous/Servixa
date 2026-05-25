@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -82,7 +83,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     final widthScreen = Get.width;
     return Obx(() {
       if (adsController.isLoading.value) {
-        return Scaffold(body: const Center(child: CircularProgressIndicator()));
+        // return Scaffold(body: const Center(child: CircularProgressIndicator()));
+        return Scaffold(body: LoadingAnimationWidget(message: "Loading ad details...", showLogo: true,));
       }
 
       if (adsController.adsDetails.value == null) {

@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -113,7 +114,8 @@ class BottomSheetReviewWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 Obx(() {
                   if (rateController.isAddRateNow.value) {
-                    return Center(child: CircularProgressIndicator());
+                    // return Center(child: CircularProgressIndicator());
+                    return LoadingAnimationWidget(message: "Wait please...");
                   }
                   return Row(
                     children: [

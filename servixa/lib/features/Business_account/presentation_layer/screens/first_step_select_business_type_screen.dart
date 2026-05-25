@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
@@ -20,7 +21,8 @@ class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Obx(() {
       if (businessAccountController.isLoadingUserTypes.value) {
-        return Center(child: CircularProgressIndicator());
+        // return Center(child: CircularProgressIndicator());
+        return LoadingAnimationWidget(message: "Loading user type...",);
       }
       return GridView.builder(
         shrinkWrap: true,

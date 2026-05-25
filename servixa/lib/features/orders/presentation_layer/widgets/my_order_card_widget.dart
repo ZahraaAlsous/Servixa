@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -100,7 +101,11 @@ class MyOrderCardWidget extends StatelessWidget {
           Center(
             child: Obx(() {
               if (orderController.isDeletingOrders[order.id] == true) {
-                return CircularProgressIndicator();
+                // return CircularProgressIndicator();
+                return LoadingAnimationWidget(
+                  message: "Wait please...",
+                  loaderColor: ThemeApp.Foundation_Statue_Red,
+                );
               }
               return SizedBox(
                 width: size.width * 0.739,

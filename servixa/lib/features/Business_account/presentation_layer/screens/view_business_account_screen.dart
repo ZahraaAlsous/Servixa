@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -43,7 +44,11 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
       ),
       body: Obx(() {
         if (businessAccountController.isLoadingBusinessAccounts.value) {
-          return Center(child: CircularProgressIndicator());
+          // return Center(child: CircularProgressIndicator());
+          return LoadingAnimationWidget(
+            message: "Loading business accounts...",
+            showLogo: true,
+          );
         }
         if (businessAccountController.businessAccountsList.isEmpty) {
           return Center(child: Text("data"));

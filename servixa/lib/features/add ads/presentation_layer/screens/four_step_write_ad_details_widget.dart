@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -235,7 +236,8 @@ class _FourStepWriteAdDetailsWidgetState
           //     addAdsController.selectedCategoryAds.value!.questions!.isNotEmpty)
           Obx(() {
             if (categoryController.isLoadingCategoryQuestions.value) {
-              return Center(child: CircularProgressIndicator());
+              // return Center(child: CircularProgressIndicator());
+              return LoadingAnimationWidget(message: "Loading dynamic question...");
             } else {
               if (categoryController.categoryQuestions.isNotEmpty) {
                 return ListView.builder(

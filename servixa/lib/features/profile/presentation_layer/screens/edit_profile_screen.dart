@@ -8,6 +8,7 @@ import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -52,7 +53,8 @@ class EditProfileScreen extends GetView<ProfileController> {
                   icon: IconApp.person,
                   widthTextFormField: 0.444,
                   controller: profileController.firstNameController,
-                  validator: (value) => Validators.validateText(value, "First Name"),
+                  validator: (value) =>
+                      Validators.validateText(value, "First Name"),
                 ),
                 const SizedBox(width: DimensApp.widthBetweenTextFormField),
                 AppTextFormField(
@@ -130,7 +132,7 @@ class EditProfileScreen extends GetView<ProfileController> {
             //     ),
             //   ],
             // ),
-           
+
             // const SizedBox(height: DimensApp.hightBetweenTextFormField),
             // Row(
             //   children: [
@@ -163,7 +165,8 @@ class EditProfileScreen extends GetView<ProfileController> {
             const SizedBox(height: DimensApp.hightBetweenTextFormField),
             Obx(() {
               if (profileController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                // return Center(child: CircularProgressIndicator());
+                return LoadingAnimationWidget(message: "Wait please...");
               }
               return SizedBox(
                 width: size.width * 0.93,

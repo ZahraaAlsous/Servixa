@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -260,7 +261,8 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   // const SizedBox(height: 20),
                   Obx(() {
                     if (orderController.isSendOrder.value) {
-                      return Center(child: CircularProgressIndicator());
+                      // return Center(child: CircularProgressIndicator());
+                      return LoadingAnimationWidget(message: "Wait please...");
                     }
                     return Row(
                       children: [

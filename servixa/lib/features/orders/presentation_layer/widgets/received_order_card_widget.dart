@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
@@ -55,7 +56,13 @@ class ReceivedOrderCardWidget extends StatelessWidget {
           // SizedBox(height: 9),
           Obx(() {
             if (orderController.isUpdatingOrders[order.id] == true) {
-              return Center(child: CircularProgressIndicator());
+              // return Center(child: CircularProgressIndicator());
+              return LoadingAnimationWidget(
+                message: "Wait please...",
+                // loaderColor: order.status == "rejected"
+                //     ? ThemeApp.Foundation_Statue_Red
+                //     : null,
+              );
             }
             if (order.status == "rejected") {
               return Text(

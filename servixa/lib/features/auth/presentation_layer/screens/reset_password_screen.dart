@@ -4,6 +4,7 @@ import 'package:pinput/pinput.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -157,10 +158,10 @@ class ResetPasswordScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // زر إعادة تعيين كلمة المرور
               Obx(() {
                 if (authController.isLoadingResetPassword.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  // return const Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(message: "Wait please...",);
                 }
 
                 return SizedBox(

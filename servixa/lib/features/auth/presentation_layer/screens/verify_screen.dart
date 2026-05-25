@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:pinput/pinput.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -93,7 +94,8 @@ class VerifyScreen extends StatelessWidget {
 
             Obx(() {
               return authController.isLoading.value
-                  ? CircularProgressIndicator()
+                  // ? CircularProgressIndicator()
+                  ? LoadingAnimationWidget(message: "Wait please...",)
                   : SizedBox(
                       width: MediaQuery.of(context).size.width * 0.90,
                       child: Row(
