@@ -54,7 +54,6 @@ class AddAdService {
       // 2. دمج الأسئلة الديناميكية (custom_fields) داخل الـ Map
       dataMap.addAll(dynamicQuestions);
 
-      // 3. إضافة مصفوفة الصور الإضافية بنفس التنسيق المطلوب images[0], images[1]
       for (int i = 0; i < other_images.length; i++) {
         dataMap["images[$i]"] = await MultipartFile.fromFile(
           other_images[i].path,
@@ -233,7 +232,7 @@ class AddAdService {
     String? existing_main_image_url,
     required String type,
     List<File>? other_images,
-    List<String>? existing_sub_images_urls,
+    // List<String>? existing_sub_images_urls,
     Map<String, dynamic>? dynamicQuestions,
     double? lat,
     double? lng,
@@ -288,7 +287,7 @@ class AddAdService {
         for (int i = 0; i < other_images.length; i++) {
           formData.files.add(
             MapEntry(
-              "other_images[]",
+              "images[]",
               await MultipartFile.fromFile(
                 other_images[i].path,
                 filename:
@@ -299,12 +298,12 @@ class AddAdService {
         }
       }
 
-      if (existing_sub_images_urls != null &&
-          existing_sub_images_urls.isNotEmpty) {
-        for (String url in existing_sub_images_urls) {
-          formData.fields.add(MapEntry("existing_sub_images[]", url));
-        }
-      }
+      // if (existing_sub_images_urls != null &&
+      //     existing_sub_images_urls.isNotEmpty) {
+      //   for (String url in existing_sub_images_urls) {
+      //     formData.fields.add(MapEntry("images[]", url));
+      //   }
+      // }
 
       Response response = await dio.post(
         "https://services.tamkeen-dev.com/api/v1/ads/$adId",
@@ -356,7 +355,29 @@ class AddAdService {
     }
   }
 
-  // Future<bool> deleteImage({required int adId, required int imageId}) async {
-  //   try {} catch (e) {}
-  // }
+    Future<bool> deleteImage({required int adId, required int imageId}) async {
+    try {
+      log("=======================service: delete image IN");
+      String? token = await storage.read(key: "token");
+
+      Response response = await dio.delete(
+        "https://services.tamkeen-dev.com/api/v1/ads/$adId/images/$imageId",
+
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      log("====================SERVICE: Delete image OK");
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      log("=======================service: Delete image error");
+      log(
+        "=======================the error is : ${e.response!.data["message"]}",
+      );
+      throw e.response!.data["message"];
+    }
+  }
 }

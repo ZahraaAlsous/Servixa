@@ -11,6 +11,7 @@ import 'package:servixa/features/Business_account/data_layer/models/Business_acc
 import 'package:servixa/features/add%20ads/data_layer/sourses/add_ad_service.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/data_layer/models/image_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
@@ -308,7 +309,8 @@ class AddAdsController extends GetxController {
     resetCheckboxes();
     addressDetailsController.clear();
     existingMainImageUrl.value = "";
-    existingSubImagesUrls.clear();
+    // existingSubImagesUrls.clear();
+    existingSubImages.clear();
     isEditOperation.value = false;
     adIdEdit.value = null;
     oldAnswers.clear();
@@ -318,7 +320,8 @@ class AddAdsController extends GetxController {
   // ==================================
   // Rx<AdsModel?> adEdit = Rx<AdsModel?>(null);
   RxString existingMainImageUrl = "".obs;
-  RxList<String> existingSubImagesUrls = <String>[].obs;
+  // RxList<String> existingSubImagesUrls = <String>[].obs;
+  RxList<ImageModel> existingSubImages = <ImageModel>[].obs;
   RxBool isEditOperation = false.obs;
   Rx<int?> adIdEdit = Rx<int?>(null);
   int? oldCategoryId;
@@ -347,9 +350,10 @@ class AddAdsController extends GetxController {
     descriptionController.text = ad.dictation!;
     isRent.value = ad.isRent!;
     existingMainImageUrl.value = ad.image;
-    existingSubImagesUrls.assignAll(
-      ad.images.map((img) => img.toString()).toList(),
-    );
+    // existingSubImagesUrls.assignAll(
+    //   ad.images.map((img) => img.toString()).toList(),
+    // );
+    existingSubImages.assignAll(ad.images);
     priceController.text = ad.price.toString();
     typeCoin = ad.typeCoin == "USD" ? "2" : "1";
     typeService = ad.typeService == "service" ? "1" : "2";
@@ -465,9 +469,9 @@ class AddAdsController extends GetxController {
   }
 
   void removeExistingSubImageAt(int index) {
-    if (index >= 0 && index < existingSubImagesUrls.length) {
-      existingSubImagesUrls.removeAt(index);
-    }
+    // if (index >= 0 && index < existingSubImagesUrls.length) {
+    //   existingSubImagesUrls.removeAt(index);
+    // }
   }
 
   Future<void> updateAd(
@@ -528,6 +532,7 @@ class AddAdsController extends GetxController {
       log(" Old answers saved: ${oldAnswers.keys}");
     } else {
       log(" No old answers to save");
+      oldAnswers.clear();
     }
 
     finalAnswers.clear();
@@ -540,15 +545,36 @@ class AddAdsController extends GetxController {
   Map<String, dynamic> getFinalAnswersForSubmit() {
     final Map<String, dynamic> result = {};
 
-    result.addAll(finalAnswers);
-
-    for (var key in oldAnswers.keys) {
-      result[key] = "";
-      log("##################### ${oldAnswers.keys}");
+    // ✅ إضافة الإجابات الجديدة
+    if (finalAnswers.isNotEmpty) {
+      result.addAll(finalAnswers);
+      log("📦 New answers to save: ${finalAnswers.keys}");
     }
 
+    // ✅ إضافة الإجابات القديمة بقيمة فارغة للحذف
+    if (oldAnswers.isNotEmpty) {
+      for (var key in oldAnswers.keys) {
+        result[key] = "";
+        log("📦 Marking old answer for deletion: $key");
+      }
+    }
+
+    log("📤 Final answers to submit: ${result.keys}");
     return result;
   }
+
+  // Map<String, dynamic> getFinalAnswersForSubmit() {
+  //   final Map<String, dynamic> result = {};
+
+  //   result.addAll(finalAnswers);
+
+  //   for (var key in oldAnswers.keys) {
+  //     result[key] = "";
+  //     log("##################### ${oldAnswers.keys}");
+  //   }
+
+  //   return result;
+  // }
 
   void reFreshListAfterUpdateAd(int adId) {
     final indexPending = adsController.pendingMyAdList.indexWhere(
@@ -588,6 +614,53 @@ class AddAdsController extends GetxController {
     adsController.adsList.refresh();
     adsController.rejectedMyAdList.refresh();
     adsController.myAdsList.refresh();
+  }
+
+  // ==================================================
+  RxMap<int, bool> isDeleteImageNaw = <int, bool>{}.obs;
+
+  Future<void> deleteImage({
+    required int adId,
+    required int imageId,
+    required int localIndex,
+    // bool isNetworkImage = true,
+  }) async {
+    try {
+      log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : delete image IN");
+      isDeleteImageNaw[imageId] = true;
+      bool isDeleted = await addAdService.deleteImage(
+        adId: adId,
+        imageId: imageId,
+      );
+
+      if (isDeleted) {
+        log("================= Controller: delete image OK");
+        // removeExistingSubImageAt();
+        // if (isNetworkImage) {
+        existingSubImages.removeAt(localIndex);
+        // existingSubImagesUrls.removeAt(localIndex);
+        // existingSubImagesIds.removeAt(localIndex);
+        if (adsController.adsDetails.value != null) {
+          adsController.adsDetails.value!.images.removeAt(localIndex);
+          adsController.adsDetails.refresh();
+        }
+        log("🗑️ Existing sub image removed from local list");
+        // }
+        // else {
+        //   listSelectedSubImage.removeAt(localIndex);
+        //   log("🗑️ New sub image removed from local list");
+        // }
+
+        // existingSubImagesUrls.refresh();
+        existingSubImages.refresh();
+        listSelectedSubImage.refresh();
+      }
+    } catch (e) {
+      log("======================controller: Delete image ERROR");
+      log("======================The error is : $e");
+    } finally {
+      isDeleteImageNaw[imageId] = false;
+    }
   }
 
   @override

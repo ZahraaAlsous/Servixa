@@ -300,7 +300,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 }
 
                 if (addAdsController.listSelectedSubImage.isEmpty &&
-                    addAdsController.existingSubImagesUrls.isEmpty) {
+                    // addAdsController.existingSubImagesUrls.isEmpty) {
+                    addAdsController.existingSubImages.isEmpty) {
                   Get.snackbar(
                     "Alert",
                     "Please add at least one sub image",

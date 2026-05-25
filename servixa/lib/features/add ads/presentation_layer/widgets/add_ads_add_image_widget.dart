@@ -140,13 +140,12 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/services/image_service.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
+import 'package:servixa/features/ads/business_later/ads_controller.dart';
 
 class AddAdsAddImageWidget extends StatelessWidget {
-  final AddAdsController addAdsController =
-      Get.find<
-        AddAdsController
-      >(); // استخدام Find أفضل من Put هنا إذا كان منشأ مسبقاً
-  final RxList<File> list; // هذه للصور المحلية الجديدة
+  final AddAdsController addAdsController = Get.find<AddAdsController>();
+  final AdsController adsController = Get.put(AdsController());
+  final RxList<File> list;
   final String buttonContain;
 
   AddAdsAddImageWidget({
@@ -158,10 +157,9 @@ class AddAdsAddImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // جلب قائمة روابط الصور القادمة من السيرفر من الـ controller
-      final networkImages = addAdsController.existingSubImagesUrls;
+      // final networkImages = addAdsController.existingSubImagesUrls;
+      final networkImages = addAdsController.existingSubImages;
 
-      // إجمالي عدد الصور الكلي (الشبكة + المحلية)
       final int networkCount = networkImages.length;
       final int localCount = list.length;
       final int totalCount = networkCount + localCount;
@@ -179,10 +177,9 @@ class AddAdsAddImageWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final bool isNetworkImage = index < networkCount;
 
-                    // تحديد مصدر الصورة بناءً على الـ index
                     ImageProvider imageProvider;
                     if (isNetworkImage) {
-                      imageProvider = NetworkImage(networkImages[index]);
+                      imageProvider = NetworkImage(networkImages[index].url);
                     } else {
                       final localIndex = index - networkCount;
                       imageProvider = FileImage(list[localIndex]);
@@ -191,8 +188,7 @@ class AddAdsAddImageWidget extends StatelessWidget {
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 6.7),
                       child: Stack(
-                        clipBehavior: Clip
-                            .none, // لتجنب قص زر الحذف إذا خرج قليلاً عن الحدود
+                        clipBehavior: Clip.none,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.26511,
@@ -205,11 +201,8 @@ class AddAdsAddImageWidget extends StatelessWidget {
                               ),
                               border: Border.all(
                                 color: isNetworkImage
-                                    ? Colors
-                                          .grey
-                                          .shade400 // لون مميز للصور القديمة
-                                    : ThemeApp
-                                          .Foundation_Main_main_500, // لون مميز للصور المضافة حديثاً
+                                    ? Colors.grey.shade400
+                                    : ThemeApp.Foundation_Main_main_500,
                                 width: 2,
                               ),
                               boxShadow: [
@@ -222,33 +215,83 @@ class AddAdsAddImageWidget extends StatelessWidget {
                             ),
                           ),
 
-                          // زر الحذف الذكي
                           Positioned(
-                            top: -10,
-                            left: -10,
-                            child: IconButton(
-                              onPressed: () {
-                                if (isNetworkImage) {
-                                  // حذف الصورة من قائمة السيرفر
-                                  addAdsController.removeExistingSubImageAt(
-                                    index,
-                                  );
-                                } else {
-                                  // حذف الصورة من القائمة المحلية المضافة حديثاً
-                                  final localIndex = index - networkCount;
-                                  addAdsController.removeImageAt(
-                                    list,
-                                    localIndex,
-                                  );
-                                }
-                              },
-                              icon: SvgPicture.asset(
-                                IconApp.cancel,
-                                width: 20,
-                                height: 20,
-                                color: Colors.red,
-                              ),
-                            ),
+                            top: -5,
+                            left: -5,
+                            child: Obx(() {
+                              if (index >= networkImages.length) {
+                                return IconButton(
+                                  onPressed: () {
+                                    // if (isNetworkImage) {
+                                    //   // addAdsController.removeExistingSubImageAt(
+                                    //   //   index,
+                                    //   // );
+
+                                    //   addAdsController.deleteImage(
+                                    //     adId:
+                                    //         adsController.adsDetails.value!.id,
+                                    //     imageId: networkImages[index].id,
+                                    //     localIndex: index,
+                                    //   );
+                                    // } else {
+                                    final localIndex = index - networkCount;
+                                    addAdsController.removeImageAt(
+                                      list,
+                                      localIndex,
+                                    );
+                                    // }
+                                  },
+                                  icon: SvgPicture.asset(
+                                    IconApp.cancel,
+                                    width: 20,
+                                    height: 20,
+                                    color: Colors.red,
+                                  ),
+                                );
+                              }
+
+                              final imageId = networkImages[index].id;
+                              final isLoading =
+                                  addAdsController.isDeleteImageNaw[imageId] ==
+                                  true;
+
+                              if (isLoading) {
+                                return const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+
+                              return IconButton(
+                                onPressed: () {
+                                  if (isNetworkImage) {
+                                    // addAdsController.removeExistingSubImageAt(
+                                    //   index,
+                                    // );
+
+                                    addAdsController.deleteImage(
+                                      adId: adsController.adsDetails.value!.id,
+                                      imageId: networkImages[index].id,
+                                      localIndex: index,
+                                    );
+                                  }
+                                  // else {
+                                  //   final localIndex = index - networkCount;
+                                  //   addAdsController.removeImageAt(
+                                  //     list,
+                                  //     localIndex,
+                                  //   );
+                                  // }
+                                },
+                                icon: SvgPicture.asset(
+                                  IconApp.cancel,
+                                  width: 20,
+                                  height: 20,
+                                  color: Colors.red,
+                                ),
+                              );
+                            }),
                           ),
                         ],
                       ),
