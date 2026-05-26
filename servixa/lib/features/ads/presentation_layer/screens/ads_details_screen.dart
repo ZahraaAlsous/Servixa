@@ -11,6 +11,7 @@ import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
+import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -20,6 +21,7 @@ import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/details_bottom_navigation_bar_widget.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/rate_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/review_section.dart';
+import 'package:servixa/features/ads/presentation_layer/widgets/slider_ad_widget.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/rate/business_later/rate_controller.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/bottom_sheet_review_widget.dart';
@@ -85,7 +87,12 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     return Obx(() {
       if (adsController.isLoading.value) {
         // return Scaffold(body: const Center(child: CircularProgressIndicator()));
-        return Scaffold(body: LoadingAnimationWidget(message: "Loading ad details...", showLogo: true,));
+        return Scaffold(
+          body: LoadingAnimationWidget(
+            message: "Loading ad details...",
+            showLogo: true,
+          ),
+        );
       }
 
       if (adsController.adsDetails.value == null) {
@@ -150,110 +157,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (ads.images.isNotEmpty)
-                    Stack(
-                      alignment: AlignmentGeometry.bottomCenter,
-                      children: [
-                        CarouselSlider.builder(
-                          itemCount: ads.images.length,
-                          itemBuilder:
-                              (
-                                BuildContext context,
-                                int itemIndex,
-                                int pageViewIndex,
-                              ) {
-                                return Container(
-                                  // width: size.width,
-                                  width: widthScreen,
-                                  height: 325,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(21),
-                                      bottomRight: Radius.circular(21),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(0, 1),
-                                        blurRadius: 7,
-                                        spreadRadius: 0,
-                                        color: Color.fromRGBO(0, 0, 0, 0.25),
-                                      ),
-                                    ],
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        ads.images[itemIndex].url,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
-                              },
-                          options: CarouselOptions(
-                            height: 325,
-                            // aspectRatio: 16 / 9,
-                            viewportFraction: 1,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            reverse: false,
-                            autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 3),
-                            autoPlayAnimationDuration: const Duration(
-                              milliseconds: 800,
-                            ),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            // enlargeCenterPage: true,
-                            // enlargeFactor: 0.3,
-                            enlargeCenterPage: false,
-                            onPageChanged: (index, reason) {
-                              homeController.currentCarouselIndex.value = index;
-                            },
-                            scrollDirection: Axis.horizontal,
-                          ),
-                        ),
-                        Obx(
-                          () => Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: ads.images!.asMap().entries.map((entry) {
-                              return Container(
-                                // edit
-                                // غير قياس
-                                width: 7,
-                                height: 7,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 4.0,
-                                  vertical: 8.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  // edit
-                                  // غير سماكة
-                                  border:
-                                      homeController
-                                              .currentCarouselIndex
-                                              .value ==
-                                          entry.key
-                                      ? Border.all(
-                                          color:
-                                              ThemeApp.Foundation_Main_main_100,
-                                          width: 1.5,
-                                        )
-                                      : Border.all(style: BorderStyle.none),
-                                  color:
-                                      homeController
-                                              .currentCarouselIndex
-                                              .value ==
-                                          entry.key
-                                      ? ThemeApp.Foundation_Main_main_500
-                                      : ThemeApp
-                                            .colorCirclesSliderAndStarAndDivider,
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-
+                  if (ads.images.isNotEmpty) SliderAdWidget(ads: ads),
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(
                       // horizontal: size.width * DimensApp.spaceHorizontalScreen,
