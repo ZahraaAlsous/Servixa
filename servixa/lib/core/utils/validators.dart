@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
 import 'package:get/get.dart' hide Trans;
 
@@ -20,21 +21,21 @@ class Validators {
 
   static String? validatePassword(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Password is required";
+      return "Password is required".tr();
     }
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return "Password must contain at least one uppercase letter";
+      return "Password must contain at least one uppercase letter".tr();
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number";
+      return "Password must contain at least one number".tr();
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return "Password must contain at least one special character";
+      return "Password must contain at least one special character".tr();
     }
     if (value.length < 8) {
-      return "Password must be at least 8 characters";
+      return "Password must be at least 8 characters".tr();
     }
 
     return null;
@@ -45,7 +46,7 @@ class Validators {
       return "Confirm password is required";
     }
     if (value.length < 8) {
-      return "Password must be at least 8 characters";
+      return "Password must be at least 8 characters".tr();
     }
     if (value != password) {
       return "Passwords do not match";
@@ -55,21 +56,21 @@ class Validators {
 
   static String? validateChangePassword(String? value, String oldPassword) {
     if (value == null || value.trim().isEmpty) {
-      return "Password is required";
+      return "Password is required".tr();
     }
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return "Password must contain at least one uppercase letter";
+      return "Password must contain at least one uppercase letter".tr();
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number";
+      return "Password must contain at least one number".tr();
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return "Password must contain at least one special character";
+      return "Password must contain at least one special character".tr();
     }
     if (value.length < 8) {
-      return "Password must be at least 8 characters";
+      return "Password must be at least 8 characters".tr();
     }
 
     if (value.trim() == oldPassword.trim()) {

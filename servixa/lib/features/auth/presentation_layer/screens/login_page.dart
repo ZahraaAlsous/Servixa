@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: Text(
-                          "Forget Password ?",
+                          "Forget Password ?".tr(),
                           style: TypographyApp.Body_mid_Regular.copyWith(
                             color: ThemeApp.Foundation_Main_main_500,
                           ),

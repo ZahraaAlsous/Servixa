@@ -16,6 +16,17 @@
   "Don’t have an account ?": "Don’t have an account ?",
   "Email Address": "Email Address",
   "Password": "Password",
+  "Forget Password ?": "Forget Password ?",
+
+  "Reset Password": "Reset Password",
+  "Enter your email address and we'll send you a verification code": "Enter your email address and we'll send you a verification code",
+  "Send Reset Code": "Send Reset Code",
+  "Create New Password": "Create New Password",
+  "We sent a verification code to": "We sent a verification code to",
+  "Enter new password": "Enter new password",
+  "New Password": "New Password",
+  "Confirm your new password": "Confirm your new password",
+  "Confirm Password": "Confirm Password",
 
   "Register": "Register",
   "TitleRegister": "Create Your ",
@@ -110,8 +121,9 @@
   "Loading address...": "Loading address...",
   "Loading rate...": "Loading rate...",
   "Loading reviews...": "Loading reviews...",
+  "wait please...": "wait please...",
 
-  "Successfully completed":"Successfully completed",
+  "Successfully completed": "Successfully completed",
   "Please login first to report this ad": "Please login first to report this ad",
   "You cannot report your own ad": "You cannot report your own ad",
   "Ad removed successfully": "Ad removed successfully",
@@ -119,6 +131,13 @@
   "You must have a business account and it must be accepted in order to create an review.": "You must have a business account and it must be accepted in order to create an review.",
   "You must have an account and log in to the app through it in order to create an order.": "You must have an account and log in to the app through it in order to create an order.",
   "You must have a business account and it must be accepted in order to create an order.": "You must have a business account and it must be accepted in order to create an order.",
+
+  "Password is required": "Password is required",
+  "Password must contain at least one uppercase letter": "Password must contain at least one uppercase letter",
+  "Password must contain at least one number": "Password must contain at least one number",
+  "Password must contain at least one special character": "Password must contain at least one special character",
+  "Password must be at least 8 characters": "Password must be at least 8 characters",
+  "The password matches the previous password.": "The password matches the previous password.",
 
   "agreeTermsAndPolicies": "I agree with ",
   "termsAndPolicies": "terms & policies",

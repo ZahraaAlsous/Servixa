@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:pinput/pinput.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -59,14 +60,14 @@ class ResetPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Create New Password",
+                "Create New Password".tr(),
                 style: TypographyApp.Title_larg_Mid.copyWith(
                   color: ThemeApp.black,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                "We sent a verification code to",
+                "We sent a verification code to".tr(),
                 style: TypographyApp.Title_Mid_Regular.copyWith(
                   color: ThemeApp.Foundation_Secendary_grey_200,
                 ),
@@ -161,7 +162,7 @@ class ResetPasswordScreen extends StatelessWidget {
               Obx(() {
                 if (authController.isLoadingResetPassword.value) {
                   // return const Center(child: CircularProgressIndicator());
-                  return LoadingAnimationWidget(message: "Wait please...",);
+                  return LoadingAnimationWidget(message: "Wait please...".tr());
                 }
 
                 return SizedBox(
@@ -195,7 +196,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      "Reset Password",
+                      "Reset Password".tr(),
                       style: TypographyApp.Body_mid_Mid.copyWith(
                       color: ThemeApp.whiteBackground,
                     ),
