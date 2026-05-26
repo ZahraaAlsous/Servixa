@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
@@ -17,7 +18,7 @@ class ThirdStepSupCategoryWidget extends StatelessWidget {
     return Obx(() {
       if (categoryController.isLoadingSubCategory.value) {
         // return CircularProgressIndicator();
-        return LoadingAnimationWidget(message: "Loading sup categories...");
+        return LoadingAnimationWidget(message: "Loading sup categories...".tr());
       }
       return GridView.builder(
         shrinkWrap: true,

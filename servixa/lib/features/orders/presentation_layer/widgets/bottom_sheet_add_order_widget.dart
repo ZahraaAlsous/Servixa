@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -62,7 +63,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                       Expanded(
                         flex: 8,
                         child: Text(
-                          "Request Catalog",
+                          "Request Catalog".tr(),
                           style: TypographyApp.Title_larg_Mid.copyWith(
                             color: ThemeApp.black,
                           ),
@@ -91,7 +92,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   //   flex: 1,
                   //  child:
                   Text(
-                    "Need By Date",
+                    "Need By Date".tr(),
                     style: TypographyApp.Title_Mid_Mid.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -124,7 +125,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                             color: ThemeApp.Foundation_Main_main_500,
                           ),
                           Text(
-                            " Select date",
+                            " Select date".tr(),
                             style: TypographyApp.Body_mid_Regular.copyWith(
                               color: ThemeApp.Foundation_Secendary_grey_200,
                             ),
@@ -215,7 +216,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   // ),
                   const SizedBox(height: 10),
                   Text(
-                    "Business Account",
+                    "Business Account".tr(),
                     style: TypographyApp.Title_Mid_Mid.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -225,7 +226,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   _buildBusinessDropdown(),
                   const SizedBox(height: 10),
                   Text(
-                    "Quantity",
+                    "Quantity".tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -243,7 +244,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   Text(
-                    "Details",
+                    "Details".tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -262,7 +263,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                   Obx(() {
                     if (orderController.isSendOrder.value) {
                       // return Center(child: CircularProgressIndicator());
-                      return LoadingAnimationWidget(message: "Wait please...");
+                      return LoadingAnimationWidget(message: "Wait please...".tr());
                     }
                     return Row(
                       children: [
@@ -282,7 +283,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                               orderController.cleanFailed();
                             },
                             child: Text(
-                              "Cancel",
+                              "Cancel".tr(),
                               style: TypographyApp.Body_mid_Mid.copyWith(
                                 color: ThemeApp.Foundation_Main_main_500,
                               ),
@@ -318,7 +319,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
                               }
                             },
                             child: Text(
-                              "Submit",
+                              "Submit".tr(),
                               style: TypographyApp.Body_mid_Mid.copyWith(
                                 color: ThemeApp.Foundation_Main_yellow_50,
                               ),
@@ -354,8 +355,8 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           hintText: businessAccountController.isLoadingBusinessAccounts.value
-              ? "Loading business accounts..."
-              : "Select Business Account",
+              ? "Loading business accounts...".tr()
+              : "Select Business Account".tr(),
           hintStyle: TypographyApp.Body_mid_Regular.copyWith(
             color: ThemeApp.Foundation_Secendary_grey_400,
           ),

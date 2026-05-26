@@ -88,7 +88,7 @@ class AppMapWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-                child: Text("View Location", style: TypographyApp.Body_mid_Mid),
+                child: Text("View Location".tr(), style: TypographyApp.Body_mid_Mid),
               ),
             ),
           ],

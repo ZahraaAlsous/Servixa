@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_outlined_button_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
@@ -51,7 +52,7 @@ class BottomSheetReportWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Why are you reporting this ad?",
+                        "Why are you reporting this ad?".tr(),
                         style: TypographyApp.Title_larg_Mid.copyWith(
                           color: ThemeApp.Foundation_Grey_grey_700,
                         ),
@@ -68,7 +69,7 @@ class BottomSheetReportWidget extends StatelessWidget {
                         if (reportController.isSendReport.value) {
                           // return Center(child: CircularProgressIndicator());
                           return LoadingAnimationWidget(
-                            message: "Wait please...",
+                            message: "Wait please...".tr(),
                           );
                         }
                         return _buildActionButtons();
@@ -100,7 +101,7 @@ class BottomSheetReportWidget extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              "Report Ad",
+              "Report Ad".tr(),
               style: TypographyApp.Title_larg_Mid.copyWith(
                 color: ThemeApp.Foundation_Grey_grey_700,
               ),
@@ -152,7 +153,9 @@ class BottomSheetReportWidget extends StatelessWidget {
                           reportController.textReportController.clear();
                         },
                         (e) {
-                          AppSnackbar.showError("Failed to submit report: $e");
+                          AppSnackbar.showError(
+                            "Failed to submit report:".tr() + "$e",
+                          );
                         },
                       );
                     }
@@ -165,11 +168,9 @@ class BottomSheetReportWidget extends StatelessWidget {
               ),
             ),
             child: Text(
-                    "Submit Report",
-                    style: TypographyApp.Body_mid_Mid.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
+              "Submit Report".tr(),
+              style: TypographyApp.Body_mid_Mid.copyWith(color: Colors.white),
+            ),
           ),
         ),
       ],

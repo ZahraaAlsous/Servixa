@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
@@ -17,7 +18,7 @@ class SecondStepSelectCategoryWidget extends StatelessWidget {
     return Obx(() {
       if (categoryController.isLoadingCategory.value) {
         // return Center(child: CircularProgressIndicator());
-        return LoadingAnimationWidget(message: "Loading categories...");
+        return LoadingAnimationWidget(message: "Loading categories...".tr());
       }
       return GridView.builder(
         shrinkWrap: true,

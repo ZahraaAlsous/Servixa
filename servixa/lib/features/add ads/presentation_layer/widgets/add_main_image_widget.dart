@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/services/image_service.dart';
@@ -135,7 +136,7 @@ class AddMainImageWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          title,
+          title.tr(),
           style: TypographyApp.Title_Mid_Mid.copyWith(
             color: ThemeApp.Foundation_Secendary_grey_600,
           ),
@@ -143,17 +144,14 @@ class AddMainImageWidget extends StatelessWidget {
         const SizedBox(height: 8),
 
         Obx(() {
-          // 1. إذا قام المستخدم باختيار صورة جديدة من الجهاز (ملف محلي)
           if (controller.selectedMainImage.value != null) {
             return _buildLocalImageState(controller);
           }
 
-          // 2. إذا كنا في وضع التعديل وهناك صورة سابقة مرفوعة على السيرفر
           if (controller.existingMainImageUrl.isNotEmpty) {
             return _buildNetworkImageState(controller);
           }
 
-          // 3. الحالة الافتراضية: لا يوجد صورة (إعلان جديد تماماً)
           return _buildEmptyState(controller);
         }),
       ],
@@ -179,7 +177,7 @@ class AddMainImageWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Tap to select main image",
+            "Tap to select main image".tr(),
             style: TextStyle(color: Colors.grey.shade500),
           ),
           const SizedBox(height: 8),
@@ -193,7 +191,7 @@ class AddMainImageWidget extends StatelessWidget {
               ),
             ),
             child: Text(
-              "Add Main Picture",
+              "Add Main Picture".tr(),
               style: TypographyApp.Body_mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Main_main_50,
               ),
@@ -204,7 +202,6 @@ class AddMainImageWidget extends StatelessWidget {
     );
   }
 
-  // واجهة عرض الصورة القادمة من السيرفر (Network Image) أثناء التعديل
   Widget _buildNetworkImageState(AddAdsController controller) {
     return Stack(
       children: [
@@ -232,7 +229,6 @@ class AddMainImageWidget extends StatelessWidget {
             ),
           ),
         ),
-        // زر تعديل/تغيير الصورة القادمة من السيرفر
         Positioned(
           top: 8,
           right: 8,
@@ -245,13 +241,12 @@ class AddMainImageWidget extends StatelessWidget {
               icon: const Icon(
                 Icons.edit,
                 color: Colors.white,
-              ), // شكل قلم للتعديل
+              ), 
               onPressed: () =>
                   ImageService.pickImage(controller.selectedMainImage),
             ),
           ),
         ),
-        // // زر حذف الصورة من الواجهة
         // Positioned(
         //   top: 8,
         //   left: 8,
@@ -271,7 +266,6 @@ class AddMainImageWidget extends StatelessWidget {
     );
   }
 
-  // واجهة عرض الصورة المحلية بعد اختيارها من الهاتف (Local File)
   Widget _buildLocalImageState(AddAdsController controller) {
     return Stack(
       children: [

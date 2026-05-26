@@ -112,7 +112,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               Obx(
                 () => addAdsController.isCreate.value
                     // ? CircularProgressIndicator()
-                    ? LoadingAnimationWidget(message: "Wait please...".tr(),)
+                    ? LoadingAnimationWidget(message: "Wait please...".tr())
                     : _buildNavigationButtons(),
               ),
             ],
@@ -281,9 +281,10 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 }
 
                 if (categoryController.isLoadingCategoryQuestions.value) {
-                   Get.snackbar(
-                    "Alert",
-                    "Please wait a moment while the classification questions are uploaded, if available.",
+                  Get.snackbar(
+                    "Alert".tr(),
+                    "Please wait a moment while the classification questions are uploaded, if available."
+                        .tr(),
                     backgroundColor: ThemeApp.Foundation_Main_main_50,
                     colorText: ThemeApp.Foundation_Main_main_500,
                   );
@@ -293,8 +294,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 if (addAdsController.selectedMainImage.value == null &&
                     addAdsController.existingMainImageUrl.value.isEmpty) {
                   Get.snackbar(
-                    "Alert",
-                    "Please select a main image",
+                    "Alert".tr(),
+                    "Please select a main image".tr(),
                     backgroundColor: ThemeApp.Foundation_Main_main_50,
                     colorText: ThemeApp.Foundation_Main_main_500,
                   );
@@ -305,8 +306,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                     // addAdsController.existingSubImagesUrls.isEmpty) {
                     addAdsController.existingSubImages.isEmpty) {
                   Get.snackbar(
-                    "Alert",
-                    "Please add at least one sub image",
+                    "Alert".tr(),
+                    "Please add at least one sub image".tr(),
                     backgroundColor: ThemeApp.Foundation_Main_main_50,
                     colorText: ThemeApp.Foundation_Main_main_500,
                   );
@@ -318,8 +319,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 }
                 if (addAdsController.isAgree()) {
                   Get.snackbar(
-                    "Alert",
-                    "Please agree to the terms and policies",
+                    "Alert".tr(),
+                    "Please agree to the terms and policies".tr(),
                     backgroundColor: ThemeApp.Foundation_Main_main_50,
                     colorText: ThemeApp.Foundation_Main_main_500,
                   );
@@ -423,8 +424,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                     });
                   } else {
                     Get.snackbar(
-                      "Alert",
-                      "Please select a sub category",
+                      "Alert".tr(),
+                      "Please select a sub category".tr(),
                       backgroundColor: ThemeApp.Foundation_Main_main_50,
                       colorText: ThemeApp.Foundation_Main_main_500,
                     );
@@ -436,8 +437,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 }
               } else {
                 Get.snackbar(
-                  "Alert",
-                  "This step is required",
+                  "Alert".tr(),
+                  "This step is required".tr(),
                   backgroundColor: ThemeApp.Foundation_Main_main_50,
                   colorText: ThemeApp.Foundation_Main_main_500,
                 );

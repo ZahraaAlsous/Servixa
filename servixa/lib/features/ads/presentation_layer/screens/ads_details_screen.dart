@@ -642,7 +642,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   iconButtonOutBorder: IconApp.messages,
                   textButtonElevetedBorder: " Make An Offer",
                   iconButtonElevetedBorder: IconApp.badgePercent,
-                  onPressedButtonOutBorder: () {
+                  onPressedButtonElevetedBorder: () {
                     if (authController.currentUser.value == null) {
                       AppSnackbar.showAlert(
                         "You must have an account and log in to the app through it in order to create an review.",
@@ -662,7 +662,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       );
                     }
                   },
-                  onPressedButtonElevetedBorder: () {
+                  onPressedButtonOutBorder: () {
                     if (authController.currentUser.value == null) {
                       AppSnackbar.showAlert(
                         "You must have an account and log in to the app through it in order to create an order.",

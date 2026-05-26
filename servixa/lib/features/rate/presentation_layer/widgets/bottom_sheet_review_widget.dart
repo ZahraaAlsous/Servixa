@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,7 +55,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "Rate this Ad",
+                        "Rate this Ad".tr(),
                         style: TypographyApp.Title_larg_Mid.copyWith(
                           color: ThemeApp.black,
                         ),
@@ -99,7 +100,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
                   },
                 ),
                 Text(
-                  "Rate by clicking on a star",
+                  "Rate by clicking on a star".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_200,
                   ),
@@ -115,7 +116,9 @@ class BottomSheetReviewWidget extends StatelessWidget {
                 Obx(() {
                   if (rateController.isAddRateNow.value) {
                     // return Center(child: CircularProgressIndicator());
-                    return LoadingAnimationWidget(message: "Wait please...");
+                    return LoadingAnimationWidget(
+                      message: "Wait please...".tr(),
+                    );
                   }
                   return Row(
                     children: [
@@ -134,7 +137,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
                             rateController.cleanRateFailed();
                           },
                           child: Text(
-                            "Cancel",
+                            "Cancel".tr(),
                             style: TypographyApp.Body_mid_Mid.copyWith(
                               color: ThemeApp.Foundation_Main_main_500,
                             ),
@@ -170,7 +173,7 @@ class BottomSheetReviewWidget extends StatelessWidget {
                             }
                           },
                           child: Text(
-                            "Submit",
+                            "Submit".tr(),
                             style: TypographyApp.Body_mid_Mid.copyWith(
                               color: ThemeApp.Foundation_Main_yellow_50,
                             ),

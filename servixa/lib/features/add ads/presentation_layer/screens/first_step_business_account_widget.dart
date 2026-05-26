@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -20,7 +21,7 @@ class FirstStepBusinessAccountWidget extends StatelessWidget {
         Obx(() {
           if (businessAccountController.isLoadingBusinessAccounts.value) {
             // return Center(child: CircularProgressIndicator());
-            return LoadingAnimationWidget(message: "Loading business accounts...");
+            return LoadingAnimationWidget(message: "Loading business accounts...".tr());
           }
           return ListView.builder(
             shrinkWrap: true,

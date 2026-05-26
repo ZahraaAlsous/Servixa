@@ -60,7 +60,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               Obx(() {
                 if (authController.isLoadingForgetPassword.value) {
                   // return const Center(child: CircularProgressIndicator());
-                  return LoadingAnimationWidget(message: "wait please...".tr(),);
+                  return LoadingAnimationWidget(message: "Wait please...".tr(),);
                 }
                 return SizedBox(
                   width: double.infinity,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
@@ -38,7 +39,7 @@ class _FourStepWriteAdDetailsWidgetState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Ad Title",
+            "Ad Title".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -78,7 +79,7 @@ class _FourStepWriteAdDetailsWidgetState
 
           // const SizedBox(height: 16),
           Text(
-            "Description",
+            "Description".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -109,7 +110,7 @@ class _FourStepWriteAdDetailsWidgetState
                 ),
               ),
               Text(
-                "Is it for rent ?",
+                "Is it for rent ?".tr(),
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Secendary_grey_600,
                 ),
@@ -120,7 +121,7 @@ class _FourStepWriteAdDetailsWidgetState
 
           AddMainImageWidget(title: "Main Picture"),
 
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           AddAdsAddImageWidget(
             list: addAdsController.listSelectedSubImage,
             buttonContain: "Add Sub Picture",
@@ -128,7 +129,7 @@ class _FourStepWriteAdDetailsWidgetState
           const SizedBox(height: 16),
 
           Text(
-            "Price",
+            "Price".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -149,7 +150,7 @@ class _FourStepWriteAdDetailsWidgetState
           const SizedBox(height: 16),
 
           Text(
-            "price",
+            "Currency type".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -169,7 +170,7 @@ class _FourStepWriteAdDetailsWidgetState
               DropdownMenuItem<String>(
                 value: "1",
                 child: Text(
-                  "SYP",
+                  "SYP".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_400,
                   ),
@@ -179,7 +180,7 @@ class _FourStepWriteAdDetailsWidgetState
               DropdownMenuItem<String>(
                 value: "2",
                 child: Text(
-                  "USD",
+                  "USD".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_400,
                   ),
@@ -191,7 +192,7 @@ class _FourStepWriteAdDetailsWidgetState
           const SizedBox(height: 16),
 
           Text(
-            "Type",
+            "Type".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -210,7 +211,7 @@ class _FourStepWriteAdDetailsWidgetState
               DropdownMenuItem<String>(
                 value: "1",
                 child: Text(
-                  "service",
+                  "Service".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_400,
                   ),
@@ -221,7 +222,7 @@ class _FourStepWriteAdDetailsWidgetState
               DropdownMenuItem<String>(
                 value: "2",
                 child: Text(
-                  "equipment",
+                  "Equipment".tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Secendary_grey_400,
                   ),
@@ -237,7 +238,9 @@ class _FourStepWriteAdDetailsWidgetState
           Obx(() {
             if (categoryController.isLoadingCategoryQuestions.value) {
               // return Center(child: CircularProgressIndicator());
-              return LoadingAnimationWidget(message: "Loading dynamic question...");
+              return LoadingAnimationWidget(
+                message: "Loading dynamic questions...".tr(),
+              );
             } else {
               if (categoryController.categoryQuestions.isNotEmpty) {
                 return ListView.builder(
