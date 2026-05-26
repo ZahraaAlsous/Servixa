@@ -8,4 +8,5 @@ class ImageApp {
   static const String bording2 = "assets/images/bording2.png";
   static const String nothing = "assets/images/nothing.png";
   static const String loading = "assets/images/app_icon.png";
+  static const String placeholder = "assets/images/placeholder_image.png";
 }

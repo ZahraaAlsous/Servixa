@@ -312,7 +312,7 @@ class EditProfileScreen extends GetView<ProfileController> {
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return FadeInImage(
         image: NetworkImage(imageUrl),
-        placeholder: const AssetImage(ImageApp.profileImage),
+        placeholder: const AssetImage(ImageApp.placeholder),
         fit: BoxFit.cover,
         width: 120,
         height: 120,

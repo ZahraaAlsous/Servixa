@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/icon_app.dart';
+import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -64,20 +65,45 @@ class AppCardAdsWidget extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
-                width: size.width,
-                height: 126,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(ads.image),
-                    fit: BoxFit.cover,
-                  ),
+              // Container(
+              //   width: size.width,
+              //   height: 126,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.only(
+              //       topLeft: Radius.circular(8),
+              //       topRight: Radius.circular(8),
+              //     ),
+              //     image: DecorationImage(
+              //       image: NetworkImage(ads.image),
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              // ),
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(8),
+                ),
+                child: FadeInImage(
+                  image: NetworkImage(ads.image),
+                  placeholder: const AssetImage(ImageApp.placeholder),
+                  fit: BoxFit.cover,
+                  width: size.width,
+                  height: 126,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: size.width,
+                      height: 126,
+                      color: ThemeApp.Foundation_Secendary_grey_100,
+                      child: const Icon(
+                        Icons.broken_image,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
                 ),
               ),
+
               isMyAdd
                   ?
                     // Row(
@@ -215,17 +241,52 @@ class AppCardAdsWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: size.width * 0.230,
-            height: 95,
-            decoration: BoxDecoration(
+          // Container(
+          //   width: size.width * 0.230,
+          //   height: 95,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(8),
+          //     image: DecorationImage(
+          //       image: AssetImage(ads.image),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          // Container(
+          //   width: size.width * 0.230,
+          //   height: 95,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(8),
+          //     // image: DecorationImage(
+          //     //   image: AssetImage(ads.image),
+          //     //   fit: BoxFit.cover,
+          //     // ),
+          //   ),
+          //   child: 
+            ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: AssetImage(ads.image),
+              child: FadeInImage(
+                image: NetworkImage(ads.image),
+                placeholder: const AssetImage(ImageApp.placeholder),
                 fit: BoxFit.cover,
+                width: size.width * 0.230,
+                height: 95,
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: size.width * 0.230,
+                    height: 95,
+                    color: ThemeApp.Foundation_Secendary_grey_100,
+                    child: const Icon(
+                      Icons.broken_image,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                  );
+                },
               ),
             ),
-          ),
+          // ),
+
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -246,7 +307,7 @@ class AppCardAdsWidget extends StatelessWidget {
                       height: 16,
                       color: ThemeApp.Foundation_Main_main_500,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       ads.place ?? "place",
                       style: TypographyApp.Body_mid_Regular.copyWith(
