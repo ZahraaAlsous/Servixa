@@ -112,7 +112,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               Obx(
                 () => addAdsController.isCreate.value
                     // ? CircularProgressIndicator()
-                    ? LoadingAnimationWidget(message: "Wait please...",)
+                    ? LoadingAnimationWidget(message: "Wait please...".tr(),)
                     : _buildNavigationButtons(),
               ),
             ],

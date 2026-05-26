@@ -151,20 +151,46 @@ class LocationSection extends StatelessWidget {
                             BottomSheetPortfolioWidget(ad: ads),
                           );
                         },
-                        child: CircleAvatar(
-                          // radius: size.width * 0.100,
-                          radius: widthScreen * 0.100,
-                          // radius: 36,
-                          // edit
-                          // الصورة ما عم تطلع
-                          backgroundImage: AssetImage(ImageApp.profileImage),
-                          // backgroundImage: selectedImage != null
-                          //     ? FileImage(selectedImage!)
-                          //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                          // child: user.img!.isEmpty && selectedImage == null
-                          //     ? const Icon(Icons.person, size: 60)
-                          //     : null,
-                        ),
+                        child:
+                            //  CircleAvatar(
+                            //   // radius: size.width * 0.100,
+                            //   radius: widthScreen * 0.100,
+                            //   // radius: 36,
+                            //   // edit
+                            //   // الصورة ما عم تطلع
+                            //   backgroundImage: AssetImage(ImageApp.profileImage),
+                            //   // backgroundImage: selectedImage != null
+                            //   //     ? FileImage(selectedImage!)
+                            //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
+                            //   // child: user.img!.isEmpty && selectedImage == null
+                            //   //     ? const Icon(Icons.person, size: 60)
+                            //   //     : null,
+                            // ),
+                            ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(50),
+                              child: FadeInImage(
+                                width: 53,
+                                height: 53,
+                                fit: BoxFit.cover,
+                                placeholder: AssetImage(ImageApp.placeholder),
+                                image: ads.user.image == null
+                                    ? AssetImage(ImageApp.profileImage)
+                                    : NetworkImage(ads.user.image!),
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                      return CircleAvatar(
+                                        radius: 37,
+                                        backgroundColor: ThemeApp
+                                            .Foundation_Secendary_grey_100,
+                                        child: const Icon(
+                                          Icons.broken_image,
+                                          size: 30,
+                                          color: Colors.grey,
+                                        ),
+                                      );
+                                    },
+                              ),
+                            ),
                       ),
                     ),
                     const SizedBox(width: 5),
@@ -195,7 +221,9 @@ class LocationSection extends StatelessWidget {
                               const SizedBox(width: 5),
                               Text(
                                 // "Riyadh – Malaz",
-                                ads.businessAccount != null ? ads.businessAccount!.addressDetail : "Not available",
+                                ads.businessAccount != null
+                                    ? ads.businessAccount!.addressDetail
+                                    : "Not available",
                                 style: TypographyApp.Label_Mid_Regular.copyWith(
                                   color: ThemeApp.Foundation_Secendary_grey_600,
                                 ),

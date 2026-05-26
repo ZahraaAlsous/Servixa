@@ -1,8 +1,7 @@
-import 'dart:async';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -24,7 +23,7 @@ class FiveStepAddLocationPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Address Detail",
+            "Address Detail".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_600,
             ),
@@ -46,7 +45,7 @@ class FiveStepAddLocationPage extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () => Text(
-                    addAdsController.currentAddress.value,
+                    addAdsController.currentAddress.value.tr(),
                     style: TypographyApp.Body_mid_Regular.copyWith(
                       color: ThemeApp.Foundation_Secendary_grey_300,
                     ),

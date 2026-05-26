@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart' hide Trans;
@@ -304,7 +305,7 @@ class AddAdsController extends GetxController {
     typeCoin = null;
     typeService = null;
     selectedLatLng.value = null;
-    currentAddress.value = "Select your location from map";
+    currentAddress.value = "Select your location from map".tr();
     finalAnswers.clear();
     resetCheckboxes();
     addressDetailsController.clear();

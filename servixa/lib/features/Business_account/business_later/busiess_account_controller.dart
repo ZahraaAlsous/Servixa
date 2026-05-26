@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart' hide Trans;
@@ -234,7 +235,7 @@ class BusinessAccountController extends GetxController {
       selectedCityId.value = 0;
       selectedCity.value = null;
       selectedLatLng.value = null;
-      currentAddress.value = "Select your location from map";
+      currentAddress.value = "Select your location from map".tr();
     } catch (e) {
       log("Error in clearFailedBusinessAccount: $e");
     }

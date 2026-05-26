@@ -234,7 +234,7 @@ class RegisterPage extends StatelessWidget {
                   Obx(
                     () => authController.isLoading.value
                         // ? CircularProgressIndicator()
-                        ? LoadingAnimationWidget(message: "Wait please...",)
+                        ? LoadingAnimationWidget(message: "Wait please...".tr(),)
                         : AuthElevatedButtonWidget(
                             colorButton:
                                 !authController.isAgreeTermsAndPolicies.value

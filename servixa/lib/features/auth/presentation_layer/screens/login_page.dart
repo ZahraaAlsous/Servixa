@@ -142,7 +142,7 @@ class LoginPage extends StatelessWidget {
                   Obx(
                     () => authController.isLoading.value
                         // ? const CircularProgressIndicator()
-                        ? LoadingAnimationWidget(message: "Wait please...")
+                        ? LoadingAnimationWidget(message: "Wait please...".tr())
                         : AuthElevatedButtonWidget(
                             text: "Login",
                             onPressed: authController.isLoading.value
