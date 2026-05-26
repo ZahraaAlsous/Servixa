@@ -91,6 +91,7 @@ class OptionProfileScreen extends StatelessWidget {
                                               .currentUser
                                               .value!
                                               .image!,
+                                              
                                         )
                                       : AssetImage(ImageApp.profileImage),
                                 ),

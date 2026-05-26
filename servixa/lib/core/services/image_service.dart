@@ -16,11 +16,11 @@ class ImageService {
       );
 
       if (pickedFile != null) {
-        file.value = File(pickedFile.path); // ✅ استبدال الصورة
-        log('Main image selected: ${pickedFile.path}');
+        file.value = File(pickedFile.path);
+        log('image selected: ${pickedFile.path}');
       }
     } catch (e) {
-      log('Error picking main image: $e');
+      log('Error picking image: $e');
     }
   }
 

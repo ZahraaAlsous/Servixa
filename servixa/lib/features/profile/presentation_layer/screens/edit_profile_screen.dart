@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
-import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
-import 'package:servixa/common/widgets/app_map_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
-import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/services/image_service.dart';
 import 'package:servixa/core/utils/validators.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/profile/business_later/profile_controller.dart';
 
 class EditProfileScreen extends GetView<ProfileController> {
   final TextEditingController addressDetailsController =
       TextEditingController();
   final ProfileController profileController = Get.put(ProfileController());
+  final AuthController authController = Get.put(AuthController());
   EditProfileScreen({super.key}) {
     Get.find<ProfileController>().initialDataEditProfile();
   }
@@ -44,6 +43,50 @@ class EditProfileScreen extends GetView<ProfileController> {
               typographyApp: TypographyApp.Title_larg_Mid,
             ),
             SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            Center(
+              child: Stack(
+                children: [
+                  Obx(
+                    () => CircleAvatar(
+                      radius: 60,
+                      backgroundImage:
+                          profileController.selectedImage.value != null
+                          ? FileImage(profileController.selectedImage.value!)
+                          : (authController.currentUser.value!.image!.isNotEmpty
+                                ? NetworkImage(
+                                    authController.currentUser.value!.image!,
+                                  )
+                                : null),
+                      child:
+                          authController.currentUser.value!.image!.isEmpty &&
+                              profileController.selectedImage.value == null
+                          ? const Icon(Icons.person, size: 60)
+                          : null,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: const Color.fromARGB(255, 102, 102, 102),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.camera_alt,
+                          size: 15,
+                          color: Colors.white,
+                        ),
+                        // onPressed: _pickImage,
+                        onPressed: () => ImageService.pickImage(
+                          profileController.selectedImage,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
             Row(
               children: [

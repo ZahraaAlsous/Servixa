@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 import 'package:servixa/features/profile/data_layer/sourses/profile_service.dart';
+import 'package:dio/dio.dart' as dio;
 
 enum AccountType { regular, business }
 
@@ -21,6 +23,7 @@ class ProfileController extends GetxController {
   late TextEditingController lastNameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
+  Rx<File?> selectedImage = Rx<File?>(null);
 
   @override
   void onInit() {
@@ -31,16 +34,6 @@ class ProfileController extends GetxController {
     phoneController = TextEditingController();
     initialDataEditProfile();
   }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  //   // ✅ هذا السطر هو السر: سيعيد البيانات للأصل في كل مرة تفتح الصفحة
-  //   initialDataEditProfile();
-  //   log(
-  //     "=============================View Ready: Data Refreshed from Backend state",
-  //   );
-  // }
 
   void initialDataEditProfile() {
     final user = authController.currentUser.value;
@@ -91,8 +84,14 @@ class ProfileController extends GetxController {
           currentUser?.phone != phoneController.text) {
         updatedFields["phone_number"] = phoneController.text.trim();
       }
+      if (selectedImage.value != null) {
+        updatedFields['image'] = dio.MultipartFile.fromFileSync(
+          selectedImage.value!.path,
+        );
+        log("Image selected: ${selectedImage.value!.path}");
+      }
 
-      if (updatedFields.isEmpty) {
+      if (updatedFields.isEmpty && selectedImage.value == null) {
         log(
           "=============================Controller: Updater Profile No fields to update",
         );
@@ -100,13 +99,16 @@ class ProfileController extends GetxController {
         return;
       }
 
-      UserModel updatedUser = await profileService.updateProfile(updatedFields);
+      UserModel updatedUser = await profileService.updateProfile(
+        updatedFields,
+        imageFile: selectedImage.value,
+      );
 
       authController.currentUser.value = updatedUser;
       await authController.refreshCurrentUser();
 
       log("=============================Controller: Updater Profile OK");
-
+      selectedImage.value = null;
       onSuccess?.call(true);
     } catch (e) {
       log("=============================Controller: Updater Profile ERROR");
