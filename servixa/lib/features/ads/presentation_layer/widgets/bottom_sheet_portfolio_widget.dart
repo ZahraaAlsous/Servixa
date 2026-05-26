@@ -70,10 +70,35 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(ImageApp.profileImageRounded),
+                  // CircleAvatar(
+                  //   radius: 40,
+                  //   backgroundImage: AssetImage(ImageApp.profileImageRounded),
+                  // ),
+                  ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(50),
+                    child: FadeInImage(
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage(ImageApp.placeholder),
+                      image: ad.user.image == null
+                          ? AssetImage(ImageApp.profileImage)
+                          : NetworkImage(ad.user.image!),
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return CircleAvatar(
+                          radius: 37,
+                          backgroundColor:
+                              ThemeApp.Foundation_Secendary_grey_100,
+                          child: const Icon(
+                            Icons.broken_image,
+                            size: 30,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
                   ),
+
                   const SizedBox(height: 10),
 
                   Text(
