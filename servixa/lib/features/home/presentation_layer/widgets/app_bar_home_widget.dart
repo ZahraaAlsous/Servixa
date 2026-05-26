@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -25,23 +26,75 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
             authController.currentUser.value != null) {
           return Row(
             children: [
-              InkWell(
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(OptionProfileScreen());
+              //   },
+              //   child: Container(
+              //     width: size.width * 0.109,
+              //     height: 48.6,
+              //     decoration: BoxDecoration(
+              //       image: DecorationImage(
+              //         image: authController.currentUser.value?.image != null
+              //             ? NetworkImage(
+              //                 authController.currentUser.value!.image!,
+              //               )
+              //             : AssetImage(ImageApp.profileImage),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(() => OptionProfileScreen());
+              //   },
+              //   child: Container(
+              //     width: size.width * 0.109,
+              //     height: 48.6,
+              //     decoration: BoxDecoration(
+              //       shape: BoxShape.circle,
+              //       color: ThemeApp.Foundation_Secendary_grey_100,
+              //     ),
+              //     child: ClipOval(
+              //       child:
+              //           authController.currentUser.value?.image != null &&
+              //               authController.currentUser.value!.image!.isNotEmpty
+              //           ? FadeInImage(
+              //               image: NetworkImage(
+              //                 authController.currentUser.value!.image!,
+              //               ),
+              //               placeholder: const AssetImage(
+              //                 ImageApp.profileImage,
+              //               ),
+              //               fit: BoxFit.cover,
+              //               width: size.width * 0.109,
+              //               height: 48.6,
+              //               imageErrorBuilder: (context, error, stackTrace) {
+              //                 return Container(
+              //                   width: size.width * 0.109,
+              //                   height: 48.6,
+              //                   color: ThemeApp.Foundation_Secendary_grey_100,
+              //                   child: const Icon(
+              //                     Icons.broken_image,
+              //                     size: 30,
+              //                     color: Colors.grey,
+              //                   ),
+              //                 );
+              //               },
+              //             )
+              //           : Image.asset(
+              //               ImageApp.profileImage,
+              //               fit: BoxFit.cover,
+              //               width: size.width * 0.109,
+              //               height: 48.6,
+              //             ),
+              //     ),
+              //   ),
+              // ),
+              ProfileImageWidget(
                 onTap: () {
-                  Get.to(OptionProfileScreen());
+                  Get.to(() => OptionProfileScreen());
                 },
-                child: Container(
-                  width: size.width * 0.109,
-                  height: 48.6,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: authController.currentUser.value?.image != null
-                          ? NetworkImage(
-                              authController.currentUser.value!.image!,
-                            )
-                          : AssetImage(ImageApp.profileImage),
-                    ),
-                  ),
-                ),
               ),
               const SizedBox(width: 5),
               Column(

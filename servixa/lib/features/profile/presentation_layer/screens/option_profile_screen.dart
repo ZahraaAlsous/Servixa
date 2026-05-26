@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
@@ -69,7 +70,36 @@ class OptionProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          InkWell(
+                          // InkWell(
+                          //   onTap: () {
+                          //     Get.bottomSheet(
+                          //       isDismissible: true,
+                          //       enableDrag: true,
+                          //       isScrollControlled: true,
+                          //       BottomSheetViewProfileWidget(),
+                          //     );
+                          //   },
+                          //   child: Container(
+                          //     width: widthScreen * 0.109,
+                          //     height: 48.6,
+                          //     decoration: BoxDecoration(
+                          //       image: DecorationImage(
+                          //         image:
+                          //             authController.currentUser.value?.image !=
+                          //                 null
+                          //             ? NetworkImage(
+                          //                 authController
+                          //                     .currentUser
+                          //                     .value!
+                          //                     .image!,
+
+                          //               )
+                          //             : AssetImage(ImageApp.profileImage),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          ProfileImageWidget(
                             onTap: () {
                               Get.bottomSheet(
                                 isDismissible: true,
@@ -78,25 +108,6 @@ class OptionProfileScreen extends StatelessWidget {
                                 BottomSheetViewProfileWidget(),
                               );
                             },
-                            child: Container(
-                              width: widthScreen * 0.109,
-                              height: 48.6,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      authController.currentUser.value?.image !=
-                                          null
-                                      ? NetworkImage(
-                                          authController
-                                              .currentUser
-                                              .value!
-                                              .image!,
-                                              
-                                        )
-                                      : AssetImage(ImageApp.profileImage),
-                                ),
-                              ),
-                            ),
                           ),
                           const SizedBox(width: 5),
                           // Column(

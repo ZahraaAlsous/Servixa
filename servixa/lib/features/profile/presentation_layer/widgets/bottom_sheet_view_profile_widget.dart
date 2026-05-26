@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -28,18 +29,19 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
             topRight: Radius.circular(40),
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeader(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(ImageApp.profileImageRounded),
-                  ),
+                  // CircleAvatar(
+                  //   radius: 40,
+                  //   backgroundImage: AssetImage(ImageApp.profileImageRounded),
+                  // ),
+                  ProfileImageWidget(width: 80, height: 80,),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,8 +142,6 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                 // "Ahmad@gmail.com",
                 authController.currentUser.value!.email!,
               ),
-            // edit
-            // icon
             if (authController.currentUser.value!.phone != null)
               _buildListTileContactInfo(
                 "Phone Number :",

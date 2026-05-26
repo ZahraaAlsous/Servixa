@@ -7,6 +7,7 @@ import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
+import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/services/image_service.dart';
@@ -27,224 +28,318 @@ class EditProfileScreen extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(),
-      body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.symmetric(
-          horizontal: size.width * DimensApp.spaceHorizontalScreen,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppRichTextWidget(
-              firstText: "Update ",
-              secondText: "Profile",
-              typographyApp: TypographyApp.Title_larg_Mid,
-            ),
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
-            Center(
-              child: Stack(
-                children: [
-                  Obx(
-                    () => CircleAvatar(
-                      radius: 60,
-                      backgroundImage:
-                          profileController.selectedImage.value != null
-                          ? FileImage(profileController.selectedImage.value!)
-                          : (authController.currentUser.value!.image!.isNotEmpty
-                                ? NetworkImage(
-                                    authController.currentUser.value!.image!,
-                                  )
-                                : null),
-                      child:
-                          authController.currentUser.value!.image!.isEmpty &&
-                              profileController.selectedImage.value == null
-                          ? const Icon(Icons.person, size: 60)
-                          : null,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: const Color.fromARGB(255, 102, 102, 102),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.camera_alt,
-                          size: 15,
-                          color: Colors.white,
-                        ),
-                        // onPressed: _pickImage,
-                        onPressed: () => ImageService.pickImage(
-                          profileController.selectedImage,
+    return WillPopScope(
+      onWillPop: () async {
+        profileController.selectedImage.value = null;
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: ThemeApp.whiteBackground,
+        appBar: AppBarWidget(),
+        body: SingleChildScrollView(
+          padding: EdgeInsetsGeometry.symmetric(
+            horizontal: size.width * DimensApp.spaceHorizontalScreen,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppRichTextWidget(
+                firstText: "Update ",
+                secondText: "Profile",
+                typographyApp: TypographyApp.Title_larg_Mid,
+              ),
+              SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+
+              // Center(
+              //   child: Stack(
+              //     children: [
+              //       Obx(
+              //         () => CircleAvatar(
+              //           radius: 60,
+              //           backgroundImage:
+              //               profileController.selectedImage.value != null
+              //               ? FileImage(profileController.selectedImage.value!)
+              //               : (authController.currentUser.value!.image!.isNotEmpty
+              //                     ? NetworkImage(
+              //                         authController.currentUser.value!.image!,
+              //                       )
+              //                     : null),
+              //           child:
+              //               authController.currentUser.value!.image!.isEmpty &&
+              //                   profileController.selectedImage.value == null
+              //               ? const Icon(Icons.person, size: 60)
+              //               : null,
+              //         ),
+              //       ),
+              //       Positioned(
+              //         bottom: 0,
+              //         right: 0,
+              //         child: CircleAvatar(
+              //           radius: 18,
+              //           backgroundColor: const Color.fromARGB(255, 102, 102, 102),
+              //           child: IconButton(
+              //             icon: Icon(
+              //               Icons.camera_alt,
+              //               size: 15,
+              //               color: Colors.white,
+              //             ),
+              //             // onPressed: _pickImage,
+              //             onPressed: () => ImageService.pickImage(
+              //               profileController.selectedImage,
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              Center(
+                child: Stack(
+                  children: [
+                    Obx(
+                      () => ClipOval(
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ThemeApp.Foundation_Secendary_grey_100,
+                          ),
+                          child: _buildProfileImage(),
                         ),
                       ),
                     ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          102,
+                          102,
+                          102,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          onPressed: () => ImageService.pickImage(
+                            profileController.selectedImage,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: DimensApp.hightBetweenTextFormField),
+
+              Row(
+                children: [
+                  AppTextFormField(
+                    labelText: "First Name",
+                    hintText: "Ahmad",
+                    icon: IconApp.person,
+                    widthTextFormField: 0.444,
+                    controller: profileController.firstNameController,
+                    validator: (value) =>
+                        Validators.validateText(value, "First Name"),
+                  ),
+                  const SizedBox(width: DimensApp.widthBetweenTextFormField),
+                  AppTextFormField(
+                    labelText: "Last Name",
+                    hintText: "Ahmad",
+                    icon: IconApp.person,
+                    widthTextFormField: 0.444,
+                    controller: profileController.lastNameController,
+                    validator: (value) =>
+                        Validators.validateText(value, "Last name"),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-            Row(
-              children: [
-                AppTextFormField(
-                  labelText: "First Name",
-                  hintText: "Ahmad",
-                  icon: IconApp.person,
-                  widthTextFormField: 0.444,
-                  controller: profileController.firstNameController,
-                  validator: (value) =>
-                      Validators.validateText(value, "First Name"),
+              AppTextFormField(
+                labelText: "Email Address",
+                hintText: "example@gmail.com",
+                keyboardType: TextInputType.emailAddress,
+                icon: IconApp.email,
+                controller: profileController.emailController,
+                validator: (value) => Validators.validateEmailRegister(
+                  value,
+                  profileController.phoneController.text,
                 ),
-                const SizedBox(width: DimensApp.widthBetweenTextFormField),
-                AppTextFormField(
-                  labelText: "Last Name",
-                  hintText: "Ahmad",
-                  icon: IconApp.person,
-                  widthTextFormField: 0.444,
-                  controller: profileController.lastNameController,
-                  validator: (value) =>
-                      Validators.validateText(value, "Last name"),
+              ),
+              const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              AppTextFormField(
+                labelText: "Phone Number",
+                hintText: "+963 11111111",
+                keyboardType: TextInputType.phone,
+                // edit
+                // icon
+                icon: IconApp.phone,
+                controller: profileController.phoneController,
+                validator: (value) => Validators.validatePhoneRegister(
+                  value,
+                  profileController.emailController.text,
                 ),
-              ],
-            ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
-
-            AppTextFormField(
-              labelText: "Email Address",
-              hintText: "example@gmail.com",
-              keyboardType: TextInputType.emailAddress,
-              icon: IconApp.email,
-              controller: profileController.emailController,
-              validator: (value) => Validators.validateEmailRegister(
-                value,
-                profileController.phoneController.text,
               ),
-            ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            AppTextFormField(
-              labelText: "Phone Number",
-              hintText: "+963 11111111",
-              keyboardType: TextInputType.phone,
-              // edit
-              // icon
-              icon: IconApp.phone,
-              controller: profileController.phoneController,
-              validator: (value) => Validators.validatePhoneRegister(
-                value,
-                profileController.emailController.text,
-              ),
-            ),
-            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            // AppDropdownButtonFormFieldWidget(
-            //   hintText: "City",
-            //   // edit
-            //   onChanged: (value) {
-            //     // addAdsController.typeService = value;
-            //   },
-            //   // edit
-            //   prefixIcon: IconApp.city,
-            //   borderRadio: 16,
-            //   // edit
-            //   // validator: Validators.validateReviewAndRequestOrder,
-            //   // edit
-            //   items: [
-            //     DropdownMenuItem<String>(
-            //       value: "dolar",
-            //       child: Text(
-            //         "Dollar \$",
-            //         style: TypographyApp.Body_mid_Mid.copyWith(
-            //           color: ThemeApp.Foundation_Secendary_grey_400,
-            //         ),
-            //       ),
-            //       alignment: Alignment.center,
-            //     ),
+              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              // AppDropdownButtonFormFieldWidget(
+              //   hintText: "City",
+              //   // edit
+              //   onChanged: (value) {
+              //     // addAdsController.typeService = value;
+              //   },
+              //   // edit
+              //   prefixIcon: IconApp.city,
+              //   borderRadio: 16,
+              //   // edit
+              //   // validator: Validators.validateReviewAndRequestOrder,
+              //   // edit
+              //   items: [
+              //     DropdownMenuItem<String>(
+              //       value: "dolar",
+              //       child: Text(
+              //         "Dollar \$",
+              //         style: TypographyApp.Body_mid_Mid.copyWith(
+              //           color: ThemeApp.Foundation_Secendary_grey_400,
+              //         ),
+              //       ),
+              //       alignment: Alignment.center,
+              //     ),
 
-            //     DropdownMenuItem<String>(
-            //       value: "sp",
-            //       child: Text(
-            //         "Sp Syrian pounds",
-            //         style: TypographyApp.Body_mid_Mid.copyWith(
-            //           color: ThemeApp.Foundation_Secendary_grey_400,
-            //         ),
-            //       ),
-            //       alignment: Alignment.center,
-            //     ),
-            //   ],
-            // ),
+              //     DropdownMenuItem<String>(
+              //       value: "sp",
+              //       child: Text(
+              //         "Sp Syrian pounds",
+              //         style: TypographyApp.Body_mid_Mid.copyWith(
+              //           color: ThemeApp.Foundation_Secendary_grey_400,
+              //         ),
+              //       ),
+              //       alignment: Alignment.center,
+              //     ),
+              //   ],
+              // ),
 
-            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            // Row(
-            //   children: [
-            //     SvgPicture.asset(
-            //       IconApp.place,
-            //       color: ThemeApp.Foundation_Main_main_500,
-            //     ),
-            //     // edit
-            //     Text(
-            //       "742 Evergreen Terrace, Springfield",
-            //       style: TypographyApp.Body_mid_Regular.copyWith(
-            //         color: ThemeApp.Foundation_Secendary_grey_300,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              // Row(
+              //   children: [
+              //     SvgPicture.asset(
+              //       IconApp.place,
+              //       color: ThemeApp.Foundation_Main_main_500,
+              //     ),
+              //     // edit
+              //     Text(
+              //       "742 Evergreen Terrace, Springfield",
+              //       style: TypographyApp.Body_mid_Regular.copyWith(
+              //         color: ThemeApp.Foundation_Secendary_grey_300,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-            // AppMapWidget(),
-            // const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              // AppMapWidget(),
+              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-            // AppTextAreaWidget(
-            //   hintText: "Address Detail",
-            //   // edit
-            //   prefixIcon: IconApp.Balconies,
-            //   controller: addressDetailsController,
-            //               validate: Validators.validateReviewAndRequestOrder,
+              // AppTextAreaWidget(
+              //   hintText: "Address Detail",
+              //   // edit
+              //   prefixIcon: IconApp.Balconies,
+              //   controller: addressDetailsController,
+              //               validate: Validators.validateReviewAndRequestOrder,
 
-            // ),
-            const SizedBox(height: DimensApp.hightBetweenTextFormField),
-            Obx(() {
-              if (profileController.isLoading.value) {
-                // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Wait please...");
-              }
-              return SizedBox(
-                width: size.width * 0.93,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+              // ),
+              const SizedBox(height: DimensApp.hightBetweenTextFormField),
+              Obx(() {
+                if (profileController.isLoading.value) {
+                  // return Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(message: "Wait please...");
+                }
+                return SizedBox(
+                  width: size.width * 0.93,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      backgroundColor: ThemeApp.Foundation_Main_main_500,
                     ),
-                    backgroundColor: ThemeApp.Foundation_Main_main_500,
-                  ),
-                  onPressed: () {
-                    profileController.updateProfile(
-                      (isUpdate) {
-                        AppSnackbar.showSuccess(
-                          isUpdate ? "update done" : "no Faild update",
-                        );
-                      },
-                      (e) {
-                        AppSnackbar.showError(e);
-                      },
-                    );
-                  },
+                    onPressed: () {
+                      profileController.updateProfile(
+                        (isUpdate) {
+                          AppSnackbar.showSuccess(
+                            isUpdate ? "update done" : "no Faild update",
+                          );
+                        },
+                        (e) {
+                          AppSnackbar.showError(e);
+                        },
+                      );
+                    },
 
-                  child: Text(
-                    "Update",
-                    style: TypographyApp.Body_mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Main_yellow_50,
+                    child: Text(
+                      "Update",
+                      style: TypographyApp.Body_mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Main_yellow_50,
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
-          ],
+                );
+              }),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildProfileImage() {
+    if (profileController.selectedImage.value != null) {
+      return Image.file(
+        profileController.selectedImage.value!,
+        fit: BoxFit.cover,
+        width: 120,
+        height: 120,
+      );
+    }
+
+    final imageUrl = authController.currentUser.value?.image;
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      return FadeInImage(
+        image: NetworkImage(imageUrl),
+        placeholder: const AssetImage(ImageApp.profileImage),
+        fit: BoxFit.cover,
+        width: 120,
+        height: 120,
+        imageErrorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: 120,
+            height: 120,
+            color: ThemeApp.Foundation_Secendary_grey_100,
+            child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
+          );
+        },
+      );
+    }
+
+    return Image.asset(
+      ImageApp.profileImage,
+      fit: BoxFit.cover,
+      width: 120,
+      height: 120,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          width: 120,
+          height: 120,
+          color: ThemeApp.Foundation_Secendary_grey_100,
+          child: const Icon(Icons.person, size: 50, color: Colors.grey),
+        );
+      },
     );
   }
 }
