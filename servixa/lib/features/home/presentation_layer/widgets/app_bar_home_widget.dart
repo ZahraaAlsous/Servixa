@@ -5,7 +5,6 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';

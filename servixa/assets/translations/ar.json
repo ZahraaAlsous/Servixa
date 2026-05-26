@@ -158,6 +158,26 @@
   "Failed to submit report:": "فشل في تقديم التقرير:",
   "Submit Report": "إرسال التقرير",
 
+  "Received Orders": "الطلبات المستلمة",
+  "My Orders": "طلباتي",
+  "Service : ": "الخدمة : ",
+  "Date : ": "التاريخ : ",
+  "Status :": "حالة الطلب : ",
+  "Detail : ": "التفاصيل:",
+  "No order details were entered.": "لم يتم إدخال أي تفاصيل عن الطلب.",
+  "Your request has been accepted.": "تم قبول طلبك.",
+  "Your order was rejected.": "تم رفض طلبك.",
+  "The order was deleted": "تم حذف الطلب",
+  "Request Date :": "تاريخ الطلب : ",
+  "Not available": "غير متوفر",
+  "Name : ": "الاسم : ",
+  "Phone : ": "الهاتف : ",
+  "Email : ": "البريد إلكتروني : ",
+  "You have rejected this request.": "لقد رفضت هذا الطلب.",
+  "You have accepted this request.": "لقد قبلت هذا الطلب.",
+  "The situation has become":"لقد أصبحت الحالة ",
+  "Accept":"قبول",
+
   "Nothing Here Yet": "لا يوجد شيء هنا بعد",
   "No content is available right now. Please try again later.": "لا يوجد محتوى متاح حاليًا. يرجى المحاولة لاحقًا.",
 
@@ -170,7 +190,8 @@
   "Loading dynamic questions...": "جارٍ تحميل الأسئلة التفاعلية...",
   "Loading business accounts...": "جارٍ تحميل حسابات الأعمال...",
   "Loading categories...": "جارٍ تحميل الفئات...",
-  "Loading sup categories...":"جارٍ تحميل الفئات الفرعية...",
+  "Loading sup categories...": "جارٍ تحميل الفئات الفرعية...",
+  "Loading orders...": "جارٍ تحميل الطلبات...",
 
   "Successfully completed": "تم بنجاح",
   "Please login first to report this ad": "يرجى تسجيل الدخول أولاً للإبلاغ عن هذا الإعلان",
@@ -203,7 +224,8 @@
   "Submit": "إرسال",
   "View": "عرض",
   "Add": "إضافة",
-  "Cancel": "يلغي",
+  "Cancel": "إلغاء",
+  "Decline": "انخفاض",
 
   "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
 }

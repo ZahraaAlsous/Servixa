@@ -1,14 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
-import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
-import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/data_layer/models/orders_model.dart';
+import 'package:servixa/features/orders/presentation_layer/widgets/app_bar_order_widget.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/my_order_card_widget.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/received_order_card_widget.dart';
 
@@ -20,86 +19,7 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBarWidget(
-        title: Container(
-          height: 48,
-          width: size.width * 0.895,
-          padding: EdgeInsetsGeometry.all(2),
-          decoration: BoxDecoration(
-            color: ThemeApp.whiteBackground,
-            borderRadius: BorderRadius.circular(21),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Obx(
-                  () => InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-
-                    onTap: () {
-                      orderController.isSelectedMyOrders.value = true;
-                      orderController.getOrders((e) {
-                        AppSnackbar.showError(e);
-                      });
-                    },
-                    child: Container(
-                      alignment: AlignmentGeometry.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: orderController.isSelectedMyOrders.value
-                            ? ThemeApp.Foundation_Main_main_500
-                            : ThemeApp.whiteBackground,
-                      ),
-                      child: Text(
-                        "Received Orders",
-                        style: TypographyApp.text_button_order.copyWith(
-                          color: !orderController.isSelectedMyOrders.value
-                              ? ThemeApp.Foundation_Main_main_500
-                              : ThemeApp.whiteBackground,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Obx(
-                  () => InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-
-                    onTap: () {
-                      orderController.isSelectedMyOrders.value = false;
-                      orderController.getOrders((e) {
-                        AppSnackbar.showError(e);
-                      });
-                    },
-                    child: Container(
-                      alignment: AlignmentGeometry.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: !orderController.isSelectedMyOrders.value
-                            ? ThemeApp.Foundation_Main_main_500
-                            : ThemeApp.whiteBackground,
-                      ),
-                      child: Text(
-                        "My Orders",
-                        style: TypographyApp.text_button_order.copyWith(
-                          color: orderController.isSelectedMyOrders.value
-                              ? ThemeApp.Foundation_Main_main_500
-                              : ThemeApp.whiteBackground,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-
+      appBar: AppBarOrderWidget(),
       backgroundColor: ThemeApp.whiteBackground,
       body: Column(
         children: [
@@ -108,7 +28,7 @@ class OrderScreen extends StatelessWidget {
             if (orderController.isLoadingOrder.value) {
               // return const Center(child: CircularProgressIndicator());
               return LoadingAnimationWidget(
-                message: "Loading orders...",
+                message: "Loading orders...".tr(),
                 showLogo: true,
               );
             }

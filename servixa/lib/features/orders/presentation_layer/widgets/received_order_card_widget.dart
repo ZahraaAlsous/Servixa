@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -37,9 +38,9 @@ class ReceivedOrderCardWidget extends StatelessWidget {
             title: "Request Date :",
             trailing: order.fromDate ?? "Not available",
           ),
-          ListTileOrderWidget(title: "Service :", trailing: order.adName),
+          ListTileOrderWidget(title: "Service : ", trailing: order.adName),
           ListTileOrderWidget(
-            title: "Name :",
+            title: "Name : ",
             trailing: order.user.firstName + " " + order.user.lastName,
           ),
           if (order.user.phone != null)
@@ -58,7 +59,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
             if (orderController.isUpdatingOrders[order.id] == true) {
               // return Center(child: CircularProgressIndicator());
               return LoadingAnimationWidget(
-                message: "Wait please...",
+                message: "Wait please...".tr(),
                 // loaderColor: order.status == "rejected"
                 //     ? ThemeApp.Foundation_Statue_Red
                 //     : null,
@@ -66,7 +67,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
             }
             if (order.status == "rejected") {
               return Text(
-                "You have rejected this request.",
+                "You have rejected this request.".tr(),
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Statue_Red,
                 ),
@@ -75,7 +76,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
 
             if (order.status == "accepted") {
               return Text(
-                "You have accepted this request.",
+                "You have accepted this request.".tr(),
                 style: TypographyApp.Title_Mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Main_main_500,
                 ),
@@ -100,7 +101,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                         2,
                         (status) {
                           AppSnackbar.showSuccess(
-                            " The status tranform to $status",
+                            "The situation has become".tr() + "$status",
                           );
                         },
                         (e) {
@@ -109,7 +110,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "Accept",
+                      "Accept".tr(),
                       // orderController.buttonTexts[order.id]!,
                       style: TypographyApp.Label_Mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_yellow_50,
@@ -134,7 +135,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                         // "rejected",
                         (status) {
                           AppSnackbar.showSuccess(
-                            " The status tranform to $status",
+                            "The situation has become".tr() + "$status",
                           );
                         },
                         (e) {
@@ -143,7 +144,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "Decline",
+                      "Decline".tr(),
                       style: TypographyApp.Label_Mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Statue_Red,
                       ),

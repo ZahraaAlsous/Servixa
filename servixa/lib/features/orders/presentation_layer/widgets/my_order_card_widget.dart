@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -69,7 +70,7 @@ class MyOrderCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Detail :",
+                  "Detail : ".tr(),
                   style: TypographyApp.Title_Mid_Mid.copyWith(
                     color: ThemeApp.black,
                   ),
@@ -78,7 +79,7 @@ class MyOrderCardWidget extends StatelessWidget {
                 // const SizedBox(width: 0.5),
                 Expanded(
                   child: Text(
-                    order.details ?? "No order details were entered.",
+                    order.details ?? "No order details were entered.".tr(),
                     textAlign: TextAlign.end,
                     maxLines: 2,
                     style: TypographyApp.Title_Mid_Mid.copyWith(
@@ -101,7 +102,7 @@ class MyOrderCardWidget extends StatelessWidget {
           Center(
             child: order.status == "accepted"
                 ? Text(
-                    "Your request has been accepted.",
+                    "Your request has been accepted.".tr(),
                     style: TypographyApp.Title_Mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),
@@ -117,7 +118,7 @@ class MyOrderCardWidget extends StatelessWidget {
                     if (orderController.isDeletingOrders[order.id] == true) {
                       // return CircularProgressIndicator();
                       return LoadingAnimationWidget(
-                        message: "Wait please...",
+                        message: "Wait please...".tr(),
                         loaderColor: ThemeApp.Foundation_Statue_Red,
                       );
                     }
@@ -135,7 +136,7 @@ class MyOrderCardWidget extends StatelessWidget {
                           },
                         ),
                         label: Text(
-                          "Decline",
+                          "Decline".tr(),
                           style: TypographyApp.Label_Mid_Mid.copyWith(
                             color: ThemeApp.Foundation_Statue_Red,
                           ),

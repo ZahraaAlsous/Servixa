@@ -158,6 +158,26 @@
   "Failed to submit report:": "Failed to submit report:",
   "Submit Report": "Submit Report",
 
+  "Received Orders":"Received Orders",
+  "My Orders":"My Orders",
+  "Service : ":"Service : ",
+  "Date : ":"Date : ",
+  "Status :":"Status : ",
+  "Detail : ":"Detail : ",
+  "No order details were entered.":"No order details were entered.",
+  "Your request has been accepted.":"Your request has been accepted.",
+  "Your order was rejected.":"Your order was rejected.",
+  "The order was deleted":"The order was deleted",
+  "Request Date :":"Request Date : ",
+  "Not available":"Not available",
+  "Name : ": "Name : ",
+  "Phone : ":"Phone : ",
+   "Email : ": "Email : ",
+   "You have rejected this request.":"You have rejected this request.",
+   "You have accepted this request.":"You have accepted this request.",
+   "The situation has become":"The situation has become ",
+   "Accept":"Accept",
+
   "Nothing Here Yet": "Nothing Here Yet",
   "No content is available right now. Please try again later.": "No content is available right now. Please try again later.",
 
@@ -171,6 +191,7 @@
   "Loading business accounts...": "Loading business accounts...",
   "Loading categories...":"Loading categories...",
   "Loading sup categories...":"Loading sup categories...",
+  "Loading orders...":"Loading orders...",
 
   "Successfully completed": "Successfully completed",
   "Please login first to report this ad": "Please login first to report this ad",
@@ -204,6 +225,7 @@
   "View": "View",
   "Add": "Add",
   "Cancel": "Cancel",
+  "Decline":"Decline",
 
   "Login to enjoy all features": "Login to enjoy all features"
 }

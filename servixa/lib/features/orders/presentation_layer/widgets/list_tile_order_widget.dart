@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -15,7 +16,7 @@ class ListTileOrderWidget extends StatelessWidget {
       visualDensity: const VisualDensity(vertical: -4),
       minVerticalPadding: 0,
       title: Text(
-        title,
+        title.tr(),
         style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
       ),
       trailing: Text(
