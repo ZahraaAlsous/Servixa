@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +11,6 @@ import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
@@ -89,7 +88,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
         // return Scaffold(body: const Center(child: CircularProgressIndicator()));
         return Scaffold(
           body: LoadingAnimationWidget(
-            message: "Loading ad details...",
+            message: "Loading ad details...".tr(),
             showLogo: true,
           ),
         );
@@ -256,7 +255,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Discerption",
+                          "Description".tr(),
                           style: TypographyApp.Title_larg_Mid.copyWith(
                             color: ThemeApp.Foundation_Main_Color_900,
                           ),
@@ -495,7 +494,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             color: ThemeApp.Foundation_Main_main_300,
                           ),
                           Text(
-                            " Rate this Ad",
+                            " Rate this Ad".tr(),
                             style: TypographyApp.Title_larg_Mid,
                           ),
                         ],
@@ -511,7 +510,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       vertical: 5,
                     ),
                     child: AppTitleSectionWidget(
-                      data: "Top Reviews",
+                      data: "Top Reviews".tr(),
                       typographyAppButton: TypographyApp.Body_mid_Mid,
                       typographyAppTitle: TypographyApp.Title_larg_Mid,
                       // edit

@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -26,7 +27,7 @@ class LocationSection extends StatelessWidget {
 
   Future<String> getAddressName() async {
     try {
-      if (ads.lat == null || ads.lng == null) return "Unknown Location";
+      if (ads.lat == null || ads.lng == null) return "Unknown Location".tr();
 
       List<Placemark> placemarks = await placemarkFromCoordinates(
         ads.lat!,
@@ -36,9 +37,9 @@ class LocationSection extends StatelessWidget {
         Placemark place = placemarks[0];
         return "${place.street}, ${place.locality}";
       }
-      return "Location not found";
+      return "Location not found".tr();
     } catch (e) {
-      return "Error fetching location";
+      return "Error fetching location".tr();
     }
   }
 
@@ -59,7 +60,7 @@ class LocationSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Location",
+            "Location".tr(),
             style: TypographyApp.Title_larg_Mid.copyWith(
               color: ThemeApp.Foundation_Main_Color_900,
             ),
@@ -68,11 +69,11 @@ class LocationSection extends StatelessWidget {
           FutureBuilder<String>(
             future: getAddressName(),
             builder: (context, snapshot) {
-              String addressText = "Loading address...";
+              String addressText = "Loading address...".tr();
               if (snapshot.hasData) {
                 addressText = snapshot.data!;
               } else if (snapshot.hasError) {
-                addressText = "Error loading location";
+                addressText = "Error loading location".tr();
               }
 
               return Row(

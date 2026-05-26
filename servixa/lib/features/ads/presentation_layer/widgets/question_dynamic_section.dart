@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -22,7 +23,7 @@ class QuestionDynamicSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "About this item",
+            "About this item".tr(),
             style: TypographyApp.Title_larg_Mid.copyWith(
               color: ThemeApp.Foundation_Main_Color_900,
             ),

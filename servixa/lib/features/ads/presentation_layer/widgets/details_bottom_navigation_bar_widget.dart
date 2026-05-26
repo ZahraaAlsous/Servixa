@@ -1,17 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/rate/business_later/rate_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:servixa/core/const/dimens_app.dart';
-import 'package:servixa/core/const/icon_app.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/rate/business_later/rate_controller.dart';
-import 'package:servixa/features/rate/data_layer/models/rate_model.dart';
-
 class DetailsBottomNavigationBarWidget extends StatelessWidget {
   void Function()? onPressedButtonOutBorder;
   String textButtonOutBorder;
@@ -56,7 +49,7 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
                   color: ThemeApp.Foundation_Main_main_500,
                 ),
                 Text(
-                  textButtonOutBorder,
+                  textButtonOutBorder.tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Main_main_500,
                   ),
@@ -87,7 +80,7 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
                 ),
 
                 Text(
-                  textButtonElevetedBorder,
+                  textButtonElevetedBorder.tr(),
                   style: TypographyApp.Body_mid_Mid.copyWith(
                     color: ThemeApp.Foundation_Main_yellow_50,
                   ),

@@ -25,8 +25,8 @@ class AppSnackbar {
 
   static void showSuccess(String message) {
     Get.snackbar(
-      "تم بنجاح",
-      message,
+      "Successfully completed".tr(),
+      message.tr(),
       // snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green.withOpacity(0.8),
       colorText: Colors.white,
@@ -37,7 +37,7 @@ class AppSnackbar {
   static void showAlert(String message) {
     Get.snackbar(
       "Alert",
-      message,
+      message.tr(),
       // snackPosition: SnackPosition.BOTTOM,
       backgroundColor: ThemeApp.Foundation_Main_main_50,
       colorText: ThemeApp.Foundation_Main_main_500,

@@ -1,4 +1,4 @@
-// lib/common/widgets/loading_animation_widget.dart
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -113,7 +113,7 @@ class _LoadingAnimationWidgetState extends State<LoadingAnimationWidget>
                 return Opacity(opacity: opacity, child: child);
               },
               child: Text(
-                widget.message ?? "Loading...",
+                widget.message ?? "Loading...".tr(),
                 style: TypographyApp.Body_mid_Mid.copyWith(
                   color: ThemeApp.Foundation_Secendary_grey_300,
                 ),

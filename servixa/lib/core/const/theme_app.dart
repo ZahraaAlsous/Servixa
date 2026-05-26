@@ -14,6 +14,7 @@ class ThemeApp {
   static const Color Foundation_Secendary_grey_700 = Color(0xff242424);
   static const Color Foundation_Secendary_grey_800 = Color(0xff1C1C1C);
   static const Color Foundation_Secendary_grey_900 = Color(0xff151515);
+  static const Color Foundation_Secendary_Color_Normal = Color(0xff262626);
 
   static const Color Foundation_Main_main_50 = Color(0xffF0EBF7);
   static const Color Foundation_Main_main_100 = Color(0xffD1C1E7);

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -22,10 +23,10 @@ class RateSection extends StatelessWidget {
     return Obx(() {
       if (rateController.isLoadingRateNow.value) {
         // Center(child: CircularProgressIndicator());
-     return   LoadingAnimationWidget(message: "Loading rate...");
+        return LoadingAnimationWidget(message: "Loading rate...".tr());
       }
       if (rateController.ratesReview.value == null) {
-        return const Center(child: Text("No ratings available"));
+        return Center(child: Text("No ratings available".tr()));
       }
       StatisticsModel rate = rateController.ratesReview.value!.statistics;
 
@@ -64,7 +65,7 @@ class RateSection extends StatelessWidget {
                     direction: Axis.horizontal,
                   ),
                   Text(
-                    "Reviews ${rate.totalRatings.toString()}",
+                    "Reviews ".tr() + "${rate.totalRatings.toString()}",
                     style: TypographyApp.Title_Mid_Mid.copyWith(
                       color: ThemeApp.gray_scale_Most_Dark,
                     ),
