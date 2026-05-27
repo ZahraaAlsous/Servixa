@@ -51,12 +51,12 @@ class HomePage extends StatelessWidget {
                 maxLines: 2,
               ),
             ),
-            SizedBox(height: DimensApp.spaceBetweenSection),
+            const SizedBox(height: DimensApp.spaceBetweenSection),
             Center(
               child: AppSearchTextFormFieldWidget(
                 readOnly: true,
                 onTap: () {
-                  Get.to(SearchScreen());
+                  Get.to(() => SearchScreen());
                 },
               ),
             ),
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "Categories",
               onPressed: () {
-                Get.to(CategoriesScreen());
+                Get.to(() => CategoriesScreen());
               },
             ),
             //
@@ -77,7 +77,9 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (categoryController.isLoadingCategory.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading categories...");
+                return LoadingAnimationWidget(
+                  message: "Loading categories...".tr(),
+                );
               }
               return SizedBox(
                 // height: size.height * 0.090,
@@ -99,9 +101,12 @@ class HomePage extends StatelessWidget {
                       margin: true,
                       onTap: () {
                         category.hasChildren
-                            ? Get.to(SubCategoryScreen(category: category))
+                            ? Get.to(
+                                () => SubCategoryScreen(category: category),
+                              )
                             : Get.to(
-                                AllAdsOfCategoryScreen(category: category),
+                                () =>
+                                    AllAdsOfCategoryScreen(category: category),
                               );
                       },
                     );
@@ -114,14 +119,14 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome1",
               onPressed: () {
-                Get.to(ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen());
               },
             ),
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...");
+                return LoadingAnimationWidget(message: "Loading ads...".tr());
               }
               return SizedBox(
                 // note
@@ -159,15 +164,15 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome2",
               onPressed: () {
-                Get.to(ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen());
               },
             ),
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...");
+                return LoadingAnimationWidget(message: "Loading ads...".tr());
               }
               return SizedBox(
                 // note
@@ -205,15 +210,15 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome3",
               onPressed: () {
-                Get.to(ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen());
               },
             ),
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...");
+                return LoadingAnimationWidget(message: "Loading ads...".tr());
               }
               return SizedBox(
                 // note
@@ -235,7 +240,7 @@ class HomePage extends StatelessWidget {
                           widthCard: 0.611,
                           isGridView: true,
                           onTap: () {
-                            Get.to(AdsDetailsScreen(adsId: ads.id));
+                            Get.to(() => AdsDetailsScreen(adsId: ads.id));
                           },
                         ),
                       );
@@ -249,7 +254,7 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...");
+                return LoadingAnimationWidget(message: "Loading ads...".tr());
               }
               return GridView.builder(
                 padding: EdgeInsetsGeometry.only(
@@ -258,8 +263,8 @@ class HomePage extends StatelessWidget {
                   bottom: 63,
                 ),
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
@@ -273,7 +278,7 @@ class HomePage extends StatelessWidget {
                     widthCard: 0.431,
                     isGridView: true,
                     onTap: () {
-                      Get.to(AdsDetailsScreen(adsId: ads.id));
+                      Get.to(() => AdsDetailsScreen(adsId: ads.id));
                     },
                   );
                 },
