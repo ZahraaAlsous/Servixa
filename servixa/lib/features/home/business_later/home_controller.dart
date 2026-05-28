@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/home/data_layer/models/image_slider_model.dart';
 import 'package:servixa/features/home/data_layer/sourses/home_service.dart';
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 
 class HomeController extends GetxController {
+  final LocationController locationController = Get.put(LocationController());
   // int selectedIndex = 0;
   RxInt selectedIndex = 0.obs;
   final HomeService homeService = HomeService();
@@ -16,6 +18,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     getImageSliders();
+    locationController.loadSavedLocation();
   }
 
   Future<void> getImageSliders() async {

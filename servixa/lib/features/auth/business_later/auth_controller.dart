@@ -255,6 +255,8 @@ class AuthController extends GetxController {
         isLoggedIn.value = false;
         await storage.delete(key: "token");
         await storage.delete(key: "user");
+        await storage.delete(key: "user_location");
+        await storage.delete(key: "user_address");
         currentUser.value = null;
         clearLoginFields();
         clearRegisterFields();

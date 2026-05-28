@@ -183,7 +183,7 @@
   "Pending": "قيد الانتظار",
   "Rejected": "مرفوض",
 
-  "Top Construction Services": "خدمات البناء المتميزة",
+  " your location": " في موقعك",
 
   "Nothing Here Yet": "لا يوجد شيء هنا بعد",
   "No content is available right now. Please try again later.": "لا يوجد محتوى متاح حاليًا. يرجى المحاولة لاحقًا.",
@@ -235,5 +235,6 @@
   "Cancel": "إلغاء",
   "Decline": "انخفاض",
 
+  "Welcome, Guest":"أهلاً وسهلاً أيها الضيف",
   "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
 }

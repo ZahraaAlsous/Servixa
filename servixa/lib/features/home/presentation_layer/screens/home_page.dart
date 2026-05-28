@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome1",
               onPressed: () {
-                Get.to(() => ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen(title: "titleSectionHome1",));
               },
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
@@ -164,7 +164,7 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome2",
               onPressed: () {
-                Get.to(() => ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen(title: "titleSectionHome2"));
               },
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
@@ -210,7 +210,7 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome3",
               onPressed: () {
-                Get.to(() => ViewAllAdsScreen());
+                Get.to(() => ViewAllAdsScreen(title: "titleSectionHome3"));
               },
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),

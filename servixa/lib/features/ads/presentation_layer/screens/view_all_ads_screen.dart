@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
+import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -10,11 +11,14 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class ViewAllAdsScreen extends StatelessWidget {
-  ViewAllAdsScreen({super.key});
+  final String title;
+  ViewAllAdsScreen({super.key, required this.title});
   AdsController adsController = Get.put(AdsController());
+  final LocationController locationController = Get.find<LocationController>();
   final RxInt crossAxisCount = 1.obs;
   @override
   Widget build(BuildContext context) {
@@ -40,13 +44,32 @@ class ViewAllAdsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              // "Top Construction Services in",
-              "Top Construction Services".tr(),
-              style: TypographyApp.Title_larg_Mid.copyWith(
-                color: ThemeApp.Foundation_Secendary_grey_700,
-              ),
-            ),
+            Obx(() {
+              if (locationController.addressUserSelected.value != "") {
+                return AppRichTextWidget(
+                  // firstText: "Top Construction Services in",
+                  firstText: title,
+                  secondText: " in your location",
+                  typographyApp: TypographyApp.Title_larg_Mid,
+                  maxLines: 2,
+                );
+              }
+              return Text(
+                // "Top Construction Services in",
+                title.tr(),
+                style: TypographyApp.Title_larg_Mid.copyWith(
+                  color: ThemeApp.Foundation_Secendary_grey_700,
+                ),
+              );
+            }),
+            // Text(
+            //   // "Top Construction Services in",
+            //   "Top Construction Services".tr(),
+            //   style: TypographyApp.Title_larg_Mid.copyWith(
+            //     color: ThemeApp.Foundation_Secendary_grey_700,
+            //   ),
+            // ),
+
             // Text(
             //   "your location",
             //   style: TypographyApp.Title_larg_Mid.copyWith(
@@ -100,6 +123,7 @@ class ViewAllAdsScreen extends StatelessWidget {
                       ads: adsController.adsList[indexAds],
                       widthCard: 0.431,
                       isGridView: crossAxisCount.value == 2,
+                      isViewAll: true
                     );
                   },
                 );

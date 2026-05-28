@@ -24,6 +24,7 @@ class AppCardAdsWidget extends StatelessWidget {
   final bool isGridView;
   void Function()? onTap;
   bool isSearchCard;
+  bool isViewAll;
   bool isMyAdd;
   AppCardAdsWidget({
     super.key,
@@ -35,6 +36,7 @@ class AppCardAdsWidget extends StatelessWidget {
     required this.isGridView,
     this.onTap,
     this.isSearchCard = false,
+    this.isViewAll = false,
     this.isMyAdd = false,
   });
 
@@ -214,7 +216,7 @@ class AppCardAdsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(33),
         color: ThemeApp.whiteBackground,
-        border: isSearchCard
+        border: isSearchCard || isViewAll
             ? BoxBorder.all(
                 color: ThemeApp.Foundation_Secendary_grey_50,
                 width: 1,

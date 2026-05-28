@@ -8,10 +8,14 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
+import 'package:servixa/features/location%20user/presentation_layer/screens/location.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
 
 class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
   final AuthController authController = Get.put(AuthController());
+  // final LocationController locationController = Get.put(LocationController());
+   final LocationController locationController = Get.find<LocationController>();
 
   AppBarHomeWidget({super.key});
 
@@ -96,45 +100,87 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
                 },
               ),
               const SizedBox(width: 5),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    authController.currentUser.value!.firstName +
-                        " " +
-                        authController.currentUser.value!.lastName,
-                    style: TypographyApp.Title_Mid_Mid.copyWith(
-                      color: ThemeApp.Foundation_Grey_grey_700,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      authController.currentUser.value!.firstName +
+                          " " +
+                          authController.currentUser.value!.lastName,
+                      style: TypographyApp.Title_Mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Grey_grey_700,
+                      ),
                     ),
-                  ),
 
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // qustion
-                      // مو من مكتبة الألوان
-                      // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                      SvgPicture.asset(
-                        IconApp.place,
-                        width: 16,
-                        height: 16,
-                        color: ThemeApp.colorIconProfileHomeScreen,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        "Riyadh – Malaz",
-                        style: TypographyApp.Label_Mid_Regular.copyWith(
-                          color: ThemeApp.Foundation_Secendary_grey_600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    // Obx(() {
+                    //   if (locationController
+                    //       .AddressUserSelected
+                    //       .value
+                    //       .isNotEmpty) {
+                    //     return Row(
+                    //       // mainAxisAlignment: MainAxisAlignment.end,
+                    //       children: [
+                    //         SvgPicture.asset(
+                    //           IconApp.place,
+                    //           width: 16,
+                    //           height: 16,
+                    //           color: ThemeApp.colorIconProfileHomeScreen,
+                    //         ),
+                    //         const SizedBox(width: 5),
+                    //         Text(
+                    //           locationController.AddressUserSelected.value,
+                    //           // "Riyadh – Malaz",
+                    //           style: TypographyApp.Label_Mid_Regular.copyWith(
+                    //             color: ThemeApp.Foundation_Secendary_grey_600,
+                    //             overflow: TextOverflow.ellipsis
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     );
+                    //   }
+                    //   return SizedBox.shrink();
+                    // }),
+                    Obx(() {
+                      if (locationController
+                          .addressUserSelected
+                          .value
+                          .isNotEmpty) {
+                        return Row(
+                          children: [
+                            SvgPicture.asset(
+                              IconApp.place,
+                              width: 16,
+                              height: 16,
+                              color: ThemeApp.colorIconProfileHomeScreen,
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              // ✅ Expanded حول النص
+                              child: Text(
+                                locationController.addressUserSelected.value,
+                                style: TypographyApp.Label_Mid_Regular.copyWith(
+                                  color: ThemeApp.Foundation_Secendary_grey_600,
+                                ),
+                                maxLines: 1, // ✅ سطر واحد
+                                overflow: TextOverflow.ellipsis, // ✅ إضافة ...
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
+                  ],
+                ),
               ),
 
               const Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  locationController.cleanLocationVariables();
+                  Get.to(() => LocationPickerScreen());
+                },
                 icon: SvgPicture.asset(
                   IconApp.location,
                   width: 34,
@@ -148,7 +194,7 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
         return Row(
           children: [
             InkWell(
-              onTap: () => Get.to(OptionProfileScreen()),
+              onTap: () => Get.to(() => OptionProfileScreen()),
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: ThemeApp.Foundation_Main_main_100,

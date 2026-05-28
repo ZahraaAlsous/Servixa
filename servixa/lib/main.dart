@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -16,6 +17,19 @@ void main() async {
       child: MyApp(),
     ),
   );
+}
+
+class AppBinding extends Bindings {
+  @override
+  void dependencies() {
+    // ✅ تسجيل LocationController مسبقاً
+    Get.put(LocationController(), permanent: true);
+    // ✅ يمكنك إضافة باقي الـ Controllers هنا
+    // Get.put(AuthController(), permanent: true);
+    // Get.put(HomeController(), permanent: true);
+    // Get.put(AdsController(), permanent: true);
+    // Get.put(CategoryController(), permanent: true);
+  }
 }
 
 class MyApp extends StatelessWidget {

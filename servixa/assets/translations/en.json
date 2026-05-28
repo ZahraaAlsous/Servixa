@@ -179,11 +179,11 @@
   "Accept": "Accept",
 
   "My Ads": "My Ads",
-  "Accepted":"Accepted",
-  "Pending":"Pending",
-  "Rejected":"Rejected",
+  "Accepted": "Accepted",
+  "Pending": "Pending",
+  "Rejected": "Rejected",
 
-  "Top Construction Services":"Top Construction Services",
+  " in your location": " in your location",
 
   "Nothing Here Yet": "Nothing Here Yet",
   "No content is available right now. Please try again later.": "No content is available right now. Please try again later.",
@@ -235,5 +235,6 @@
   "Cancel": "Cancel",
   "Decline": "Decline",
 
+  "Welcome, Guest":"Welcome, Guest",
   "Login to enjoy all features": "Login to enjoy all features"
 }

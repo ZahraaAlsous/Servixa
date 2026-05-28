@@ -12,6 +12,7 @@ import 'package:servixa/features/ads/presentation_layer/screens/my_ads_screen.da
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/home_page.dart';
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/presentation_layer/screens/order_screen.dart';
@@ -30,6 +31,7 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
   final BusinessAccountController businessAccountController = Get.put(
     BusinessAccountController(),
   );
+  final LocationController locationController = Get.put(LocationController());
   final List<Widget> pages = [
     HomePage(),
     NotificationScreen(),

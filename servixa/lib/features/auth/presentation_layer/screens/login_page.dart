@@ -18,6 +18,7 @@ import 'package:servixa/common/widgets/auth_and_boarding_app_bar_widget.dart';
 import 'package:servixa/features/auth/presentation_layer/widgets/auth_elevated_button_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
+import 'package:servixa/features/location%20user/presentation_layer/screens/location.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class LoginPage extends StatelessWidget {
@@ -154,7 +155,8 @@ class LoginPage extends StatelessWidget {
                                       );
                                       authController.login(
                                         () {
-                                          Get.offAll(SuperHomeScreen());
+                                          // Get.offAll(()=>SuperHomeScreen());
+                                          Get.offAll(()=>LocationPickerScreen());
                                         },
                                         (e) {
                                           AppSnackbar.showError(e.toString());
