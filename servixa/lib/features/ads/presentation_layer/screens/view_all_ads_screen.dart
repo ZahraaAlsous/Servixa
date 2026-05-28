@@ -1,8 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -20,8 +19,7 @@ class ViewAllAdsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return 
-    Scaffold(
+    return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
       // AppBar(
@@ -43,18 +41,19 @@ class ViewAllAdsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Top Construction Services in",
+              // "Top Construction Services in",
+              "Top Construction Services".tr(),
               style: TypographyApp.Title_larg_Mid.copyWith(
                 color: ThemeApp.Foundation_Secendary_grey_700,
               ),
             ),
-            Text(
-              "your location",
-              style: TypographyApp.Title_larg_Mid.copyWith(
-                color: ThemeApp.Foundation_Main_main_500,
-              ),
-            ),
-            SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
+            // Text(
+            //   "your location",
+            //   style: TypographyApp.Title_larg_Mid.copyWith(
+            //     color: ThemeApp.Foundation_Main_main_500,
+            //   ),
+            // ),
+            const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               return Row(
                 children: [
@@ -86,7 +85,7 @@ class ViewAllAdsScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 return GridView.builder(
-                  padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+                  padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
                   // shrinkWrap: true,
                   // physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
