@@ -13,7 +13,8 @@ import 'package:servixa/features/location%20user/presentation_layer/screens/loca
 import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
 
 class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
-  final AuthController authController = Get.put(AuthController());
+  // final AuthController authController = Get.put(AuthController());
+   final AuthController authController = Get.find<AuthController>();
   // final LocationController locationController = Get.put(LocationController());
    final LocationController locationController = Get.find<LocationController>();
 
@@ -156,14 +157,13 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             const SizedBox(width: 5),
                             Expanded(
-                              // ✅ Expanded حول النص
                               child: Text(
                                 locationController.addressUserSelected.value,
                                 style: TypographyApp.Label_Mid_Regular.copyWith(
                                   color: ThemeApp.Foundation_Secendary_grey_600,
                                 ),
-                                maxLines: 1, // ✅ سطر واحد
-                                overflow: TextOverflow.ellipsis, // ✅ إضافة ...
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -178,8 +178,8 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
               const Spacer(),
               IconButton(
                 onPressed: () {
-                  locationController.cleanLocationVariables();
-                  Get.to(() => LocationPickerScreen());
+                  // locationController.cleanLocationVariables();
+                  // Get.to(() => LocationPickerScreen());
                 },
                 icon: SvgPicture.asset(
                   IconApp.location,

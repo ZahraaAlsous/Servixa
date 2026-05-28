@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -380,25 +381,33 @@ class OptionProfileScreen extends StatelessWidget {
             icon: IconApp.language,
           ),
           if (authController.isLoggedIn.value)
-            ListTileWidget(
-              title: "Logout",
-              // edit
-              onTap: () async {
-                log("******************************Click LOGOUT");
-                await authController.logout(
-                  () {
-                    AppSnackbar.showSuccess("Logout Success");
-                    Get.offAll(() => SuperHomeScreen());
-                  },
-                  (e) {
-                    AppSnackbar.showError(e);
-                  },
+            Obx(() {
+              if (authController.isLogOutNow.value) {
+                return LoadingAnimationWidget(
+                  message: "Wait please...".tr(),
+                  loaderColor: ThemeApp.Foundation_Statue_Red,
                 );
-              },
-              icon: IconApp.logout,
-              isNotLastTileList: false,
-              isLogout: true,
-            ),
+              }
+              return ListTileWidget(
+                title: "Logout",
+                // edit
+                onTap: () async {
+                  log("******************************Click LOGOUT");
+                  await authController.logout(
+                    () {
+                      AppSnackbar.showSuccess("Logout Success");
+                      Get.offAll(() => SuperHomeScreen());
+                    },
+                    (e) {
+                      AppSnackbar.showError(e);
+                    },
+                  );
+                },
+                icon: IconApp.logout,
+                isNotLastTileList: false,
+                isLogout: true,
+              );
+            }),
           if (!authController.isLoggedIn.value)
             ListTileWidget(
               title: "Login",

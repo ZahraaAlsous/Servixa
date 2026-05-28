@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/auth/data_layer/sourses/auth_service.dart';
+import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class AuthController extends GetxController {
@@ -15,6 +16,7 @@ class AuthController extends GetxController {
   RxBool isLoadingResetPassword = false.obs;
   RxBool isLoadingChangePassword = false.obs;
   RxBool isLoggedIn = false.obs;
+  RxBool isLogOutNow = false.obs;
 
   RxBool isPasswordVisible = true.obs;
   RxBool isAgreeTermsAndPolicies = false.obs;
@@ -251,6 +253,7 @@ class AuthController extends GetxController {
   ) async {
     try {
       log("==============================Controller : Logout IN");
+      isLogOutNow.value= true;
       if (await authService.logout()) {
         isLoggedIn.value = false;
         await storage.delete(key: "token");
@@ -270,6 +273,8 @@ class AuthController extends GetxController {
             e.toString(),
       );
       onError(e.toString());
+    }finally{
+      isLogOutNow.value = false;
     }
   }
 

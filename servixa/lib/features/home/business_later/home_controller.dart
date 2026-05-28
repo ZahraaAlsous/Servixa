@@ -18,7 +18,6 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     getImageSliders();
-    locationController.loadSavedLocation();
   }
 
   Future<void> getImageSliders() async {

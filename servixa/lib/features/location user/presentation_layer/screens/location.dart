@@ -10,10 +10,11 @@ import 'package:servixa/features/home/presentation_layer/screens/super_home_scre
 
 class LocationPickerScreen extends StatelessWidget {
   // final LocationController locationController = Get.put(LocationController());
-  final LocationController locationController =
-      Get.isRegistered<LocationController>()
-      ? Get.find<LocationController>()
-      : Get.put(LocationController(), permanent: true);
+  // final LocationController locationController =
+  //     Get.isRegistered<LocationController>()
+  //     ? Get.find<LocationController>()
+  //     : Get.put(LocationController(), permanent: true);
+   final LocationController locationController = Get.find<LocationController>();
 
   LocationPickerScreen({super.key});
 

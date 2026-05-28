@@ -153,9 +153,13 @@ class LocationController extends GetxController {
       );
 
       await storage.write(key: "user_address", value: selectedAddress.value);
-      addressUserSelected.value = await storage.read(key: "user_address") ?? "";
-      addressUserSelected.refresh();
-      log("Location saved: ${selectedAddress.value}");
+
+      // ✅ تحديث addressUserSelected
+      addressUserSelected.value = selectedAddress.value;
+
+      log("✅ Location saved: ${selectedAddress.value}");
+      log("✅ addressUserSelected now: ${addressUserSelected.value}");
+
       onSuccess();
     } catch (e) {
       log("Error saving location: $e");
@@ -165,28 +169,64 @@ class LocationController extends GetxController {
     }
   }
 
+  // Future<void> saveUserLocation(
+  //   void Function() onSuccess,
+  //   void Function(String e) onError,
+  // ) async {
+  //   if (selectedLatLng.value == null) {
+  //     onError("Please select your location");
+  //     return;
+  //   }
+
+  //   try {
+  //     isSaving.value = true;
+
+  //     await storage.write(
+  //       key: "user_location",
+  //       value:
+  //           "${selectedLatLng.value!.latitude},${selectedLatLng.value!.longitude}",
+  //     );
+
+  //     await storage.write(key: "user_address", value: selectedAddress.value);
+  //     addressUserSelected.value = await storage.read(key: "user_address") ?? "";
+  //     addressUserSelected.refresh();
+  //     log("Location saved: ${selectedAddress.value}");
+  //     onSuccess();
+  //   } catch (e) {
+  //     log("Error saving location: $e");
+  //     onError(e.toString());
+  //   } finally {
+  //     isSaving.value = false;
+  //   }
+  // }
+
   Future<bool> hasUserLocation() async {
     final location = await storage.read(key: "user_location");
     return location != null && location.isNotEmpty;
   }
 
+  // location_controller.dart
   Future<void> loadSavedLocation() async {
     try {
       final savedAddress = await storage.read(key: "user_address");
+      log("📦 loadSavedLocation - savedAddress: $savedAddress");
+
       if (savedAddress != null && savedAddress.isNotEmpty) {
         addressUserSelected.value = savedAddress;
-        log("Loaded saved location: $savedAddress");
+        log("✅ addressUserSelected set to: $savedAddress");
+      } else {
+        log("⚠️ No saved address found");
+      }
 
-        final savedLocation = await storage.read(key: "user_location");
-        if (savedLocation != null && savedLocation.isNotEmpty) {
-          final parts = savedLocation.split(',');
-          if (parts.length == 2) {
-            final lat = double.tryParse(parts[0]);
-            final lng = double.tryParse(parts[1]);
-            if (lat != null && lng != null) {
-              selectedLatLng.value = LatLng(lat, lng);
-              log("Loaded saved coordinates: $lat, $lng");
-            }
+      final savedLocation = await storage.read(key: "user_location");
+      if (savedLocation != null && savedLocation.isNotEmpty) {
+        final parts = savedLocation.split(',');
+        if (parts.length == 2) {
+          final lat = double.tryParse(parts[0]);
+          final lng = double.tryParse(parts[1]);
+          if (lat != null && lng != null) {
+            selectedLatLng.value = LatLng(lat, lng);
+            log("✅ Loaded saved coordinates: $lat, $lng");
           }
         }
       }
@@ -194,6 +234,31 @@ class LocationController extends GetxController {
       log("Error loading saved location: $e");
     }
   }
+
+  // Future<void> loadSavedLocation() async {
+  //   try {
+  //     final savedAddress = await storage.read(key: "user_address");
+  //     if (savedAddress != null && savedAddress.isNotEmpty) {
+  //       addressUserSelected.value = savedAddress;
+  //       log("Loaded saved location: $savedAddress");
+
+  //       final savedLocation = await storage.read(key: "user_location");
+  //       if (savedLocation != null && savedLocation.isNotEmpty) {
+  //         final parts = savedLocation.split(',');
+  //         if (parts.length == 2) {
+  //           final lat = double.tryParse(parts[0]);
+  //           final lng = double.tryParse(parts[1]);
+  //           if (lat != null && lng != null) {
+  //             selectedLatLng.value = LatLng(lat, lng);
+  //             log("Loaded saved coordinates: $lat, $lng");
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     log("Error loading saved location: $e");
+  //   }
+  // }
 
   void cleanLocationVariables() {
     selectedAddress.value = "";
