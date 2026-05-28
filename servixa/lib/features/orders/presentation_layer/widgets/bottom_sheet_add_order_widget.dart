@@ -351,7 +351,7 @@ class BottomSheetAddOrderWidget extends StatelessWidget {
             ? orderController.selectedBusinessAccountId.value
             : null,
         validator: (value) =>
-            Validators.validateDropDown(type: "account", value: value),
+            Validators.validateDropDown(type: "account".tr(), value: value),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           hintText: businessAccountController.isLoadingBusinessAccounts.value

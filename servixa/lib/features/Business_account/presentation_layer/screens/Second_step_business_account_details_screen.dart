@@ -35,7 +35,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
             icon: IconApp.bookNumber,
             keyboardType: TextInputType.number,
             validator: (value) =>
-                Validators.validateNumber(value, "License number"),
+                Validators.validateNumber(value, "License number".tr()),
             controller: businessAccountController.licenseNumberController,
           ),
           const SizedBox(height: 10),
@@ -53,7 +53,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
             ],
             textDirection: ui.TextDirection.rtl,
             validator: (value) =>
-                Validators.validateNameArabic(value, "Business name (Arabic)"),
+                Validators.validateNameArabic(value, "Business name (Arabic)".tr()),
             controller: businessAccountController.businessNameArController,
           ),
           const SizedBox(height: 10),
@@ -74,7 +74,7 @@ class SecondStepBusinessAccountDetailsScreen extends StatelessWidget {
             textDirection: ui.TextDirection.ltr,
             validator: (value) => Validators.validateNameEnglish(
               value,
-              "Business name (English)",
+              "Business name (English)".tr(),
             ),
             controller: businessAccountController.businessNameEnController,
           ),

@@ -141,7 +141,7 @@ class _FourStepWriteAdDetailsWidgetState
             icon: IconApp.price,
             keyboardType: TextInputType.number,
             controller: addAdsController.priceController,
-            validator: (value) => Validators.validateNumber(value, "Price"),
+            validator: (value) => Validators.validateNumber(value, "Price".tr()),
             // onChanged: (value) {
             //   addAdsController.price.value = value;
             // },

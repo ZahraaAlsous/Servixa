@@ -8,13 +8,13 @@ class Validators {
   );
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Email is required";
+      return "Email is required".tr();
     }
     String email = value.trim();
     String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(email)) {
-      return "Enter a valid email address";
+      return "Enter a valid email address".tr();
     }
     return null;
   }
@@ -43,13 +43,13 @@ class Validators {
 
   static String? validateConfirmPassword(String? value, String password) {
     if (value == null || value.trim().isEmpty) {
-      return "Confirm password is required";
+      return "Confirm password is required".tr();
     }
     if (value.length < 8) {
       return "Password must be at least 8 characters".tr();
     }
     if (value != password) {
-      return "Passwords do not match";
+      return "Passwords do not match".tr();
     }
     return null;
   }
@@ -74,7 +74,7 @@ class Validators {
     }
 
     if (value.trim() == oldPassword.trim()) {
-      return "The password matches the previous password.";
+      return "The password matches the previous password.".tr();
     }
 
     return null;
@@ -82,7 +82,7 @@ class Validators {
 
   static String? validateText(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message is required";
+      return "$message" + " is required".tr();
     }
     return null;
   }
@@ -93,7 +93,7 @@ class Validators {
     bool isRequired,
   ) {
     if (isRequired && (value == null || value.trim().isEmpty)) {
-      return "$message is required";
+      return "$message" + " is required".tr();
     }
 
     if (!isRequired && (value == null || value.trim().isEmpty)) {
@@ -102,7 +102,7 @@ class Validators {
 
     if (value != null && value.trim().isNotEmpty) {
       // if (value.trim().length < 2) {
-      return "Please enter a valid value (at least 2 characters)";
+      return "Please enter a valid value (at least 2 characters)".tr();
       // }
     }
 
@@ -131,15 +131,13 @@ class Validators {
     String input = value?.trim() ?? "";
     String emailInput = emailValue?.trim() ?? "";
 
-    // إذا كان الحقلين فارغين
     if (input.isEmpty && emailInput.isEmpty) {
-      return "Please enter either Email or Phone";
+      return "Please enter either Email or Phone".tr();
     }
 
-    // إذا بدأ المستخدم بالكتابة في حقل الهاتف، نتحقق من الصيغة
     if (input.isNotEmpty) {
       bool isPhone = RegExp(r'^[0-9]{9,15}$').hasMatch(input);
-      if (!isPhone) return "Enter a valid phone number";
+      if (!isPhone) return "Enter a valid phone number".tr();
     }
 
     return null;
@@ -165,17 +163,15 @@ class Validators {
     String input = value?.trim() ?? "";
     String phoneInput = phoneValue?.trim() ?? "";
 
-    // إذا كان الحقلين فارغين
     if (input.isEmpty && phoneInput.isEmpty) {
-      return "Please enter either Email or Phone";
+      return "Please enter either Email or Phone".tr();
     }
 
-    // إذا بدأ المستخدم بالكتابة في حقل الإيميل، نتحقق من الصيغة
     if (input.isNotEmpty) {
       bool isEmail = RegExp(
         r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
       ).hasMatch(input);
-      if (!isEmail) return "Enter a valid email address";
+      if (!isEmail) return "Enter a valid email address".tr();
     }
 
     return null;
@@ -183,7 +179,7 @@ class Validators {
 
   static String? validateEmailOrPhone(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "This field is required";
+      return "This field is required".tr();
     }
 
     String input = value.trim();
@@ -193,7 +189,7 @@ class Validators {
     bool isEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input);
 
     if (!isPhone && !isEmail) {
-      return "Enter a valid email address or phone number";
+      return "Enter a valid email address or phone number".tr();
     }
 
     return null;
@@ -201,14 +197,14 @@ class Validators {
 
   static String? validateReviewAndRequestOrder(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "This field is required";
+      return "This field is required".tr();
     }
     return null;
   }
 
   static String? validateDate(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Please select a date";
+      return "Please select a date".tr();
     }
     return null;
   }
@@ -243,23 +239,22 @@ class Validators {
     String? value,
     SearchFilterController controller,
   ) {
-    // إذا كان الحقل فارغاً، لا مشكلة
     if (value == null || value.trim().isEmpty) {
       return null;
     }
 
     final minPrice = int.tryParse(value.trim());
     if (minPrice == null) {
-      return "Please enter a valid number";
+      return "Please enter a valid number".tr();
     }
 
     if (controller.maxPriceFilter.value != null &&
         minPrice > controller.maxPriceFilter.value!) {
-      return "Minimum price cannot be greater than maximum price";
+      return "Minimum price cannot be greater than maximum price".tr();
     }
 
     if (minPrice < 0) {
-      return "Price cannot be negative";
+      return "Price cannot be negative".tr();
     }
 
     return null;
@@ -275,16 +270,16 @@ class Validators {
 
     final maxPrice = int.tryParse(value.trim());
     if (maxPrice == null) {
-      return "Please enter a valid number";
+      return "Please enter a valid number".tr();
     }
 
     if (controller.minPriceFilter.value != null &&
         maxPrice < controller.minPriceFilter.value!) {
-      return "Maximum price cannot be less than minimum price";
+      return "Maximum price cannot be less than minimum price".tr();
     }
 
     if (maxPrice < 0) {
-      return "Price cannot be negative";
+      return "Price cannot be negative".tr();
     }
 
     return null;
@@ -292,10 +287,10 @@ class Validators {
 
   static String? validateNumber(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message is required";
+      return "$message" + " is required".tr();
     }
     if (!value.isNum) {
-      return "The $message must be in numbers only.";
+      return "The ".tr() + "$message" + " must be in numbers only.".tr();
     }
     return null;
   }
@@ -306,7 +301,7 @@ class Validators {
     bool isRequired,
   ) {
     if (isRequired && (value == null || value.trim().isEmpty)) {
-      return "$message is required";
+      return "$message" + " is required".tr();
     }
     if (!isRequired && (value == null || value.trim().isEmpty)) {
       return null;
@@ -322,11 +317,11 @@ class Validators {
     final number = double.tryParse(trimmedValue);
 
     if (number == null) {
-      return "Please enter a valid number";
+      return "Please enter a valid number".tr();
     }
 
     if (number < 0) {
-      return "Please enter a valid number";
+      return "Please enter a valid number".tr();
     }
 
     return null;
@@ -334,24 +329,24 @@ class Validators {
 
   static String? validateNameArabic(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message is required";
+      return "$message" +" is required".tr();
     }
     final arabicRegex = RegExp(r'^[\u0600-\u06FF\s]+$');
 
     if (!arabicRegex.hasMatch(value)) {
-      return 'Only Arabic characters are allowed.';
+      return "Only Arabic characters are allowed.".tr();
     }
     return null;
   }
 
   static String? validateNameEnglish(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message is required";
+      return "$message" +" is required".tr();
     }
     final englishRegex = RegExp(r'^[a-zA-Z0-9\s]+$');
 
     if (!englishRegex.hasMatch(value)) {
-      return 'Only English characters are allowed.';
+      return "Only English characters are allowed.".tr();
     }
     return null;
   }
@@ -359,7 +354,7 @@ class Validators {
   static String? validateDropDown({int? value, required String type}) {
     // if (value == null || value.trim().isEmpty) {
     if (value == null) {
-      return "Please select $type";
+      return "Please select ".tr() +"$type";
     }
     return null;
   }
@@ -370,7 +365,7 @@ class Validators {
     }
 
     if (value.trim().isEmpty) {
-      return "Please enter a valid value (spaces only are not allowed)";
+      return "Please enter a valid value (spaces only are not allowed)".tr();
     }
 
     return null;

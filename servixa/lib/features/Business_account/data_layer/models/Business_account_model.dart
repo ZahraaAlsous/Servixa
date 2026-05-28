@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 
 class BusinessAccountModel {
@@ -37,7 +38,7 @@ class BusinessAccountModel {
   });
 
   String getFormattedApprovedDate() {
-    if (approvedAt == null || approvedAt!.isEmpty) return "Not available";
+    if (approvedAt == null || approvedAt!.isEmpty) return "Not available".tr();
 
     try {
       DateTime date = DateTime.parse(approvedAt!);

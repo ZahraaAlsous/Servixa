@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -45,7 +46,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Portfolio",
+                    "Portfolio".tr(),
                     style: TypographyApp.Title_larg_Mid.copyWith(
                       color: ThemeApp.Foundation_Secendary_grey_700,
                     ),
@@ -149,7 +150,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Information",
+                          "Information".tr(),
                           style: TypographyApp.Title_larg_Mid.copyWith(
                             color: ThemeApp.black,
                           ),
@@ -157,20 +158,20 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                         const SizedBox(height: 10),
                         if (ad.user.email != null)
                           _listTile(
-                            title: "Email :",
+                            title: "Email : ",
                             // trailing: ad.businessAccount!.approvedAt!,
                             trailing: ad.user.email!,
                             leading: IconApp.email,
                           ),
                         if (ad.user.phone != null)
                           _listTile(
-                            title: "Phone :",
+                            title: "Phone : ",
                             // trailing: ad.businessAccount!.approvedAt!,
                             trailing: ad.user.phone!,
                             leading: IconApp.phone,
                           ),
                         _listTile(
-                          title: "Date of joining :",
+                          title: "Date of joining : ",
                           // trailing: ad.businessAccount!.approvedAt!,
                           trailing: ad.businessAccount!
                               .getFormattedApprovedDate(),
@@ -180,7 +181,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                         const SizedBox(height: 20),
 
                         Text(
-                          "My Ads",
+                          "My Ads".tr(),
                           style: TypographyApp.Title_larg_Mid.copyWith(
                             color: ThemeApp.black,
                           ),
@@ -191,7 +192,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                           if (searchFilterController.isLoadingAdsFilter.value) {
                             // return Center(child: CircularProgressIndicator());
                             return LoadingAnimationWidget(
-                              message: "Loading ads...",
+                              message: "Loading ads...".tr(),
                             );
                           }
                           return SizedBox(
@@ -211,6 +212,12 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                     ads: ad,
                                     widthCard: size.width * 0.367,
                                     isGridView: true,
+                                    onTap: () {
+                                      // Get.to(
+                                      //   () => AdsDetailsScreen(adsId: ad.id),
+                                      // );
+                                      // Get.to(AdsDetailsScreen(), arguments: ads.id);
+                                    },
                                   ),
                                 );
                               },
@@ -240,7 +247,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: SvgPicture.asset(leading, width: 20, height: 20),
       title: Text(
-        title,
+        title.tr(),
         style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
       ),
       trailing: Text(

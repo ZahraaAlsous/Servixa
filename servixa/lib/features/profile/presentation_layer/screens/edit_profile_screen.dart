@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -146,7 +147,7 @@ class EditProfileScreen extends GetView<ProfileController> {
                     widthTextFormField: 0.444,
                     controller: profileController.firstNameController,
                     validator: (value) =>
-                        Validators.validateText(value, "First Name"),
+                        Validators.validateText(value, "First Name".tr()),
                   ),
                   const SizedBox(width: DimensApp.widthBetweenTextFormField),
                   AppTextFormField(
@@ -156,7 +157,7 @@ class EditProfileScreen extends GetView<ProfileController> {
                     widthTextFormField: 0.444,
                     controller: profileController.lastNameController,
                     validator: (value) =>
-                        Validators.validateText(value, "Last name"),
+                        Validators.validateText(value, "Last name".tr()),
                   ),
                 ],
               ),
