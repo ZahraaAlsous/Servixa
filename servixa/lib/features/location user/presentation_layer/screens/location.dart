@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -14,7 +16,7 @@ class LocationPickerScreen extends StatelessWidget {
   //     Get.isRegistered<LocationController>()
   //     ? Get.find<LocationController>()
   //     : Get.put(LocationController(), permanent: true);
-   final LocationController locationController = Get.find<LocationController>();
+  final LocationController locationController = Get.find<LocationController>();
 
   LocationPickerScreen({super.key});
 
@@ -24,7 +26,7 @@ class LocationPickerScreen extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       body: SafeArea(
         child: Column(
-          children: [            
+          children: [
             Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
@@ -37,14 +39,14 @@ class LocationPickerScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "Select Your Location",
+                    "Select Your Location".tr(),
                     style: TypographyApp.Title_larg_Mid.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Please select your location to get better services",
+                    "Please select your location to get better services".tr(),
                     style: TypographyApp.Body_mid_Regular.copyWith(
                       color: ThemeApp.Foundation_Secendary_grey_400,
                     ),
@@ -68,16 +70,17 @@ class LocationPickerScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Obx(() {
                         if (locationController.isLoading.value) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(),
-                                SizedBox(height: 16),
-                                Text("Getting your location..."),
-                              ],
-                            ),
-                          );
+                          return LoadingAnimationWidget(message:"Getting your location...".tr() ,);
+                          //  const Center(
+                          //   child: Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       CircularProgressIndicator(),
+                          //       SizedBox(height: 16),
+                          //       Text("Getting your location..."),
+                          //     ],
+                          //   ),
+                          // );
                         }
                         return GoogleMap(
                           onMapCreated: (controller) {
@@ -130,30 +133,17 @@ class LocationPickerScreen extends StatelessWidget {
                 ],
               ),
             ),
-Obx(() {
+            Obx(() {
               if (locationController.selectedAddress.value.isNotEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          locationController.selectedAddress.value,
-                          style: const TextStyle(color: Colors.green),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    locationController.selectedAddress.value,
+                    style: const TextStyle(color: Colors.green),
+                    textAlign: TextAlign.center,
                   ),
                 );
               }
@@ -191,8 +181,8 @@ Obx(() {
                     child: Text(
                       // locationController.selectedAddress.value.isEmpty
                       //     ? "Select Location on Map"
-                      //     : 
-                          "Confirm Location",
+                      //     :
+                      "Confirm Location".tr(),
                       style: TypographyApp.Body_mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_yellow_50,
                       ),

@@ -42,6 +42,11 @@
   "Resend": "إعادة إرسال",
   "Verify": "تحقق",
 
+  "Select Your Location": "اختر موقعك",
+  "Please select your location to get better services": "يرجى تحديد موقعك للحصول على خدمات أفضل",
+  "Getting your location...": "جارٍ تحديد موقعك...",
+  "Confirm Location": "تأكيد الموقع",
+
   "titleHome1": "كل المعدات والخدمات التي ",
   "titleHome2": "تحتاجها",
   "titleSectionHome1": "أفضل الأدوات والمعدات",
