@@ -193,16 +193,24 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             // Obx(() {
                             //   return
                             IconButton(
-                              onPressed: () {
-                                // adsController.favorite(ads.id);
-                                // favoriteController.addToFavorite(ads.id, (e) {
-                                //   AppSnackbar.showError(e);
-                                // });
-                                // favoriteController.favoriteAdDetails(ads.id);
-                                favoriteController.addToFavorite(ads.id, (e) {
-                                  AppSnackbar.showError(e);
-                                });
-                              },
+                              onPressed: authController.isLoggedIn.value
+                                  ? () {
+                                      // adsController.favorite(ads.id);
+                                      // favoriteController.addToFavorite(ads.id, (e) {
+                                      //   AppSnackbar.showError(e);
+                                      // });
+                                      // favoriteController.favoriteAdDetails(ads.id);
+                                      favoriteController.addToFavorite(ads.id, (
+                                        e,
+                                      ) {
+                                        AppSnackbar.showError(e);
+                                      });
+                                    }
+                                  : () {
+                                      AppSnackbar.showAlert(
+                                        "You must be logged in".tr(),
+                                      );
+                                    },
                               icon: Obx(() {
                                 final isFavorite =
                                     adsController.adsDetails.value?.favorite ??

@@ -7,15 +7,16 @@ import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
-import 'package:servixa/features/add%20ads/presentation_layer/screens/super_ads_screen.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 
 class AppCardAdsWidget extends StatelessWidget {
   final AdsController adsController = Get.put(AdsController());
   final AddAdsController addAdsController = Get.put(AddAdsController());
   final FavoriteController favoriteController = Get.put(FavoriteController());
+  final AuthController authController = Get.find<AuthController>();
   // String assetName;
   // bool favorit;
   // int adsId;
@@ -183,12 +184,16 @@ class AppCardAdsWidget extends StatelessWidget {
                     ),
                     Spacer(),
                     IconButton(
-                      onPressed: () {
-                        // adsController.favorite(ads.id);
-                        favoriteController.addToFavorite(ads.id, (e) {
-                          AppSnackbar.showError(e);
-                        });
-                      },
+                      onPressed: authController.isLoggedIn.value
+                          ? () {
+                              // adsController.favorite(ads.id);
+                              favoriteController.addToFavorite(ads.id, (e) {
+                                AppSnackbar.showError(e);
+                              });
+                            }
+                          : () {
+                              AppSnackbar.showAlert("You must be logged in");
+                            },
                       icon: SvgPicture.asset(
                         ads.favorite
                             ? IconApp.favorite
@@ -264,31 +269,31 @@ class AppCardAdsWidget extends StatelessWidget {
           //     //   fit: BoxFit.cover,
           //     // ),
           //   ),
-          //   child: 
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: FadeInImage(
-                image: NetworkImage(ads.image),
-                placeholder: const AssetImage(ImageApp.placeholder),
-                fit: BoxFit.cover,
-                width: size.width * 0.230,
-                height: 95,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: size.width * 0.230,
-                    height: 95,
-                    color: ThemeApp.Foundation_Secendary_grey_100,
-                    child: const Icon(
-                      Icons.broken_image,
-                      size: 30,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
-              ),
+          //   child:
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: FadeInImage(
+              image: NetworkImage(ads.image),
+              placeholder: const AssetImage(ImageApp.placeholder),
+              fit: BoxFit.cover,
+              width: size.width * 0.230,
+              height: 95,
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: size.width * 0.230,
+                  height: 95,
+                  color: ThemeApp.Foundation_Secendary_grey_100,
+                  child: const Icon(
+                    Icons.broken_image,
+                    size: 30,
+                    color: Colors.grey,
+                  ),
+                );
+              },
             ),
-          // ),
+          ),
 
+          // ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -328,12 +333,16 @@ class AppCardAdsWidget extends StatelessWidget {
                     ),
                     Spacer(),
                     IconButton(
-                      onPressed: () {
-                        // adsController.favorite(ads.id);
-                        favoriteController.addToFavorite(ads.id, (e) {
-                          AppSnackbar.showError(e);
-                        });
-                      },
+                      onPressed: authController.isLoggedIn.value
+                          ? () {
+                              // adsController.favorite(ads.id);
+                              favoriteController.addToFavorite(ads.id, (e) {
+                                AppSnackbar.showError(e);
+                              });
+                            }
+                          : () {
+                              AppSnackbar.showAlert("You must be logged in");
+                            },
                       icon: SvgPicture.asset(
                         ads.favorite
                             ? IconApp.favorite

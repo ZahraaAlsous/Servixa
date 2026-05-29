@@ -213,6 +213,7 @@
   "You must have a business account and it must be accepted in order to create an review.": "يجب أن يكون لديك حساب تجاري ويجب قبوله لإنشاء رأي.",
   "You must have an account and log in to the app through it in order to create an order.": "يجب أن يكون لديك حساب وتسجيل الدخول إلى التطبيق من خلاله لإنشاء طلب",
   "You must have a business account and it must be accepted in order to create an order.": "يجب أن يكون لديك حساب تجاري ويجب أن يكون مقبول لإنشاء طلب",
+  "You must be logged in": "يجب عليك تسجيل الدخول",
 
   "Password is required": "كلمة المرور مطلوبة",
   "Password must contain at least one uppercase letter": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",

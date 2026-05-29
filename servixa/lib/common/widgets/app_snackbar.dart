@@ -36,7 +36,7 @@ class AppSnackbar {
 
   static void showAlert(String message) {
     Get.snackbar(
-      "Alert",
+      "Alert".tr(),
       message.tr(),
       // snackPosition: SnackPosition.BOTTOM,
       backgroundColor: ThemeApp.Foundation_Main_main_50,
