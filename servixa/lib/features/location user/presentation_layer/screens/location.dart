@@ -24,7 +24,7 @@ class LocationPickerScreen extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       body: SafeArea(
         child: Column(
-          children: [
+          children: [            
             Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
@@ -130,7 +130,35 @@ class LocationPickerScreen extends StatelessWidget {
                 ],
               ),
             ),
-
+Obx(() {
+              if (locationController.selectedAddress.value.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          locationController.selectedAddress.value,
+                          style: const TextStyle(color: Colors.green),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            }),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Obx(() {
@@ -161,9 +189,10 @@ class LocationPickerScreen extends StatelessWidget {
                       disabledBackgroundColor: Colors.grey.shade300,
                     ),
                     child: Text(
-                      locationController.selectedAddress.value.isEmpty
-                          ? "Select Location on Map"
-                          : "Confirm Location",
+                      // locationController.selectedAddress.value.isEmpty
+                      //     ? "Select Location on Map"
+                      //     : 
+                          "Confirm Location",
                       style: TypographyApp.Body_mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_yellow_50,
                       ),

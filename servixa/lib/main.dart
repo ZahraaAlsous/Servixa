@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/animation_containar.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // return MaterialApp(
     return GetMaterialApp(
+      initialBinding: AppBinding(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Servixa',
       home: SplashScreen(),
+      // home: AnimationContainar(),
       // home: GeocodingTestScreen(),
     );
   }

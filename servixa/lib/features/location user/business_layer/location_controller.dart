@@ -18,15 +18,19 @@ class LocationController extends GetxController {
   GoogleMapController? mapController;
   final Set<Marker> markers = {};
 
+  bool _hasRequestedPermission = false;
+
   @override
   void onInit() {
     super.onInit();
-    _requestPermissions();
+    // _requestPermissions();
     loadSavedLocation();
   }
 
-  Future<void> _requestPermissions() async {
+  Future<void> requestPermissions() async {
     try {
+      if (_hasRequestedPermission) return;
+      _hasRequestedPermission = true;
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -56,7 +60,7 @@ class LocationController extends GetxController {
   Future<void> getCurrentLocation() async {
     try {
       isLoading.value = true;
-
+      await requestPermissions();
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -90,11 +94,21 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> updatePosition(LatLng position) async {
+Future<void> updatePosition(LatLng position) async {
     selectedLatLng.value = position;
     _addMarker(position);
+
+    // ✅ انتظار اكتمال الحصول على العنوان
     await _getAddressFromLatLng(position);
+
+    log("📍 Position updated: ${position.latitude}, ${position.longitude}");
+    log("📍 Address: ${selectedAddress.value}");
   }
+  // Future<void> updatePosition(LatLng position) async {
+  //   selectedLatLng.value = position;
+  //   _addMarker(position);
+  //   await _getAddressFromLatLng(position);
+  // }
 
   Future<void> _getAddressFromLatLng(LatLng position) async {
     try {
@@ -133,7 +147,6 @@ class LocationController extends GetxController {
       ),
     );
   }
-
   Future<void> saveUserLocation(
     void Function() onSuccess,
     void Function(String e) onError,
@@ -146,18 +159,29 @@ class LocationController extends GetxController {
     try {
       isSaving.value = true;
 
+      // ✅ التأكد من وجود عنوان
+      String addressToSave = selectedAddress.value;
+
+      // إذا كان العنوان فارغاً، حاول الحصول عليه مرة أخرى
+      if (addressToSave.isEmpty || addressToSave == "Selected location") {
+        log("⚠️ Address is empty, trying to get address again...");
+        await _getAddressFromLatLng(selectedLatLng.value!);
+        addressToSave = selectedAddress.value;
+      }
+
+      // حفظ الموقع في Secure Storage
       await storage.write(
         key: "user_location",
         value:
             "${selectedLatLng.value!.latitude},${selectedLatLng.value!.longitude}",
       );
 
-      await storage.write(key: "user_address", value: selectedAddress.value);
+      await storage.write(key: "user_address", value: addressToSave);
 
       // ✅ تحديث addressUserSelected
-      addressUserSelected.value = selectedAddress.value;
+      addressUserSelected.value = addressToSave;
 
-      log("✅ Location saved: ${selectedAddress.value}");
+      log("✅ Location saved: $addressToSave");
       log("✅ addressUserSelected now: ${addressUserSelected.value}");
 
       onSuccess();
@@ -168,6 +192,41 @@ class LocationController extends GetxController {
       isSaving.value = false;
     }
   }
+
+  // Future<void> saveUserLocation(
+  //   void Function() onSuccess,
+  //   void Function(String e) onError,
+  // ) async {
+  //   if (selectedLatLng.value == null) {
+  //     onError("Please select your location");
+  //     return;
+  //   }
+
+  //   try {
+  //     isSaving.value = true;
+
+  //     await storage.write(
+  //       key: "user_location",
+  //       value:
+  //           "${selectedLatLng.value!.latitude},${selectedLatLng.value!.longitude}",
+  //     );
+
+  //     await storage.write(key: "user_address", value: selectedAddress.value);
+
+  //     // ✅ تحديث addressUserSelected
+  //     addressUserSelected.value = selectedAddress.value;
+
+  //     log("✅ Location saved: ${selectedAddress.value}");
+  //     log("✅ addressUserSelected now: ${addressUserSelected.value}");
+
+  //     onSuccess();
+  //   } catch (e) {
+  //     log("Error saving location: $e");
+  //     onError(e.toString());
+  //   } finally {
+  //     isSaving.value = false;
+  //   }
+  // }
 
   // Future<void> saveUserLocation(
   //   void Function() onSuccess,

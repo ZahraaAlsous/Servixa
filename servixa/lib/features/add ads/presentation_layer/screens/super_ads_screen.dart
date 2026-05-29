@@ -23,7 +23,7 @@ import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SuperAdsScreen extends StatefulWidget {
-  SuperAdsScreen({super.key});
+const  SuperAdsScreen({super.key});
 
   @override
   State<SuperAdsScreen> createState() => _SuperAdsScreenState();
