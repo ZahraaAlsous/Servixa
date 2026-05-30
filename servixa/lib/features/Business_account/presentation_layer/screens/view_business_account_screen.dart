@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_business_account_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -37,7 +38,7 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(
         title: Text(
-          "My business account",
+          "My business account".tr(),
           style: TypographyApp.Title_larg_Mid.copyWith(
             color: ThemeApp.Foundation_Main_main_500,
           ),
@@ -46,10 +47,11 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
       body: Obx(() {
         if (businessAccountController.isLoadingBusinessAccounts.value) {
           // return Center(child: CircularProgressIndicator());
-          return LoadingAnimationWidget(
-            message: "Loading business accounts...",
-            showLogo: true,
-          );
+          // return LoadingAnimationWidget(
+          //   message: "Loading business accounts...",
+          //   showLogo: true,
+          // );
+          return ShimmerBusinessAccountList(itemCount: 7,shrinkWrap: false,);
         }
         if (businessAccountController.businessAccountsList.isEmpty) {
           return Expanded(child: AppNothingWidget());

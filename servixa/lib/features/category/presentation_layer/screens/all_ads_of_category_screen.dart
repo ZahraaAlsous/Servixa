@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
-import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
-import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
-import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
 class AllAdsOfCategoryScreen extends StatefulWidget {
   CategoryModel category;
@@ -42,38 +38,37 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
 
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AppBarWidget(
-      ),
+      appBar: AppBarWidget(),
       body: Padding(
-        padding:  EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
         ),
         child: Column(
-          crossAxisAlignment:CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppRichTextWidget(
               // firstText: "Ads in ",
               // secondText: widget.category.name,
               firstText: widget.category.name,
-              secondText:" ads",
+              secondText: " ads",
               typographyApp: TypographyApp.Title_larg_Mid,
               colorFirstText: ThemeApp.Foundation_Main_main_500,
               colorSecondText: ThemeApp.black,
             ),
-        
+
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...", showLogo: true,);
+                // return LoadingAnimationWidget(message: "Loading ads...", showLogo: true,);
+                // return Expanded(child: ShimmerCardGridView(widthCard: 0.431, heightCard: 118));
+                return Expanded(child: ShimmerCardList(widthCard: 0.431, heightCard: 118));
               }
               if (adsController.adsCategory.isEmpty) {
                 return Expanded(child: AppNothingWidget());
               }
               return Expanded(
                 child: GridView.builder(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    vertical: 10,
-                  ),
+                  padding: EdgeInsetsGeometry.symmetric(vertical: 10),
                   // shrinkWrap: true,
                   // physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

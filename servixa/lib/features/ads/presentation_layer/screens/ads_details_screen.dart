@@ -9,6 +9,7 @@ import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_details_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -86,12 +87,13 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     return Obx(() {
       if (adsController.isLoading.value) {
         // return Scaffold(body: const Center(child: CircularProgressIndicator()));
-        return Scaffold(
-          body: LoadingAnimationWidget(
-            message: "Loading ad details...".tr(),
-            showLogo: true,
-          ),
-        );
+        // return Scaffold(
+        //   body: LoadingAnimationWidget(
+        //     message: "Loading ad details...".tr(),
+        //     showLogo: true,
+        //   ),
+        // );
+        return ShimmerAdDetailsWidget();
       }
 
       if (adsController.adsDetails.value == null) {

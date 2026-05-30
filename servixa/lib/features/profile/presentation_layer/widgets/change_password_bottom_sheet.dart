@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
@@ -164,7 +165,7 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
             Obx(() {
               if (authController.isLoadingChangePassword.value) {
                 // return const Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Wait please...");
+                return LoadingAnimationWidget(message: "Wait please...".tr());
               }
               return SizedBox(
                 width: double.infinity,
@@ -194,7 +195,7 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
                     ),
                   ),
                   child: Text(
-                    "Update Password",
+                    "Update Password".tr(),
                     style: TypographyApp.Body_mid_Mid.copyWith(
                       color: ThemeApp.whiteBackground,
                     ),
@@ -221,7 +222,7 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            "Change Password",
+            "Change Password".tr(),
             style: TypographyApp.Title_larg_Mid.copyWith(
               color: ThemeApp.Foundation_Grey_grey_700,
             ),

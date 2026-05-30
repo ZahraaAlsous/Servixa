@@ -64,6 +64,12 @@
   "Logout": "تسجيل الخروج",
   "Business Account": "حساب تجاري",
 
+  "Current Password": "كلمة المرور الحالية",
+  "Enter your current password": "أدخل كلمة مرورك الحالية",
+  "Confirm New Password": "تأكيد كلمة المرور الجديدة",
+  "Password changed successfully!": "تم تغيير كلمة المرور بنجاح!",
+  "Update Password": "تحديث كلمة المرور",
+
   "Portfolio": "مَلَفّ",
   "Information": "المعلومات",
   "Date of joining : ": "تاريخ الالتحاق : ",
@@ -101,6 +107,7 @@
 
   "View All ": "عرض كل ",
   "Categories": "الفئات",
+  " Sub Categories": " الفئات الفرعية",
 
   "Select your business account": "اختر حساب أعمالك",
   "Select the Main Category": "اختر الفئة الرئيسية",
@@ -181,7 +188,7 @@
   "Not available": "غير متوفر",
   "Name : ": "الاسم : ",
   "Phone : ": "الهاتف : ",
-  "Email : ": "البريد إلكتروني : ",
+  "Email : ": "البريد : ",
   "You have rejected this request.": "لقد رفضت هذا الطلب.",
   "You have accepted this request.": "لقد قبلت هذا الطلب.",
   "The situation has become": "لقد أصبحت الحالة ",
@@ -219,6 +226,13 @@
   "You must have an account and log in to the app through it in order to create an order.": "يجب أن يكون لديك حساب وتسجيل الدخول إلى التطبيق من خلاله لإنشاء طلب",
   "You must have a business account and it must be accepted in order to create an order.": "يجب أن يكون لديك حساب تجاري ويجب أن يكون مقبول لإنشاء طلب",
   "You must be logged in": "يجب عليك تسجيل الدخول",
+  "Please select user type": "الرجاء تحديد نوع المستخدم",
+  "Please fill all required fields": "الرجاء ملء جميع الحقول المطلوبة",
+  "Account created successfully": "تم إنشاء الحساب بنجاح",
+  "Please fill all required fields correctly": "الرجاء ملء جميع الحقول المطلوبة بشكل صحيح",
+  "No results found.": "لم يتم العثور على نتائج.",
+  "Searched items": "العناصر التي تم البحث عنها",
+  "All Ads": "جميع الإعلانات",
 
   "Password is required": "كلمة المرور مطلوبة",
   "Password must contain at least one uppercase letter": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",

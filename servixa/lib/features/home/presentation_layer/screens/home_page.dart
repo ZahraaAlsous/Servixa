@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -77,9 +78,10 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (categoryController.isLoadingCategory.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(
-                  message: "Loading categories...".tr(),
-                );
+                // return LoadingAnimationWidget(
+                //   message: "Loading categories...".tr(),
+                // );
+                return ShimmerCategoriesList(height: 84);
               }
               return SizedBox(
                 // height: size.height * 0.090,
@@ -119,14 +121,18 @@ class HomePage extends StatelessWidget {
             AppTitleSectionWidget(
               data: "titleSectionHome1",
               onPressed: () {
-                Get.to(() => ViewAllAdsScreen(title: "titleSectionHome1",));
+                Get.to(() => ViewAllAdsScreen(title: "titleSectionHome1"));
               },
             ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...".tr());
+                // return LoadingAnimationWidget(message: "Loading ads...".tr());
+                return ShimmerCardHorizontalList(
+                  widthCard: size.width * 0.413,
+                  heightCard: 236,
+                );
               }
               return SizedBox(
                 // note
@@ -172,7 +178,11 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...".tr());
+                // return LoadingAnimationWidget(message: "Loading ads...".tr());
+                return ShimmerCardHorizontalList(
+                  widthCard: size.width * 0.367,
+                  heightCard: 236,
+                );
               }
               return SizedBox(
                 // note
@@ -218,7 +228,11 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...".tr());
+                // return LoadingAnimationWidget(message: "Loading ads...".tr());
+                return ShimmerCardHorizontalList(
+                  widthCard: size.width * 0.611,
+                  heightCard: 236,
+                );
               }
               return SizedBox(
                 // note
@@ -254,7 +268,8 @@ class HomePage extends StatelessWidget {
             Obx(() {
               if (adsController.isLoading.value) {
                 // return Center(child: CircularProgressIndicator());
-                return LoadingAnimationWidget(message: "Loading ads...".tr());
+                // return LoadingAnimationWidget(message: "Loading ads...".tr());
+                return ShimmerCardGridView(widthCard: 0.413, shrinkWrap: true);
               }
               return GridView.builder(
                 padding: EdgeInsetsGeometry.only(

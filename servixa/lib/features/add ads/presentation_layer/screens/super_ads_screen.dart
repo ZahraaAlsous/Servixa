@@ -131,11 +131,14 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               ),
               const SizedBox(height: 10),
 
-              Obx(
-                () => addAdsController.isCreate.value
-                    // ? CircularProgressIndicator()
-                    ? LoadingAnimationWidget(message: "Wait please...".tr())
-                    : _buildNavigationButtons(),
+              Padding(
+                padding: const EdgeInsetsGeometry.symmetric(vertical: 5),
+                child: Obx(
+                  () => addAdsController.isCreate.value
+                      // ? CircularProgressIndicator()
+                      ? LoadingAnimationWidget(message: "Wait please...".tr())
+                      : _buildNavigationButtons(),
+                ),
               ),
             ],
           ),

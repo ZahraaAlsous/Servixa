@@ -58,83 +58,188 @@ class CreateBusinessAccountScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          padding: EdgeInsetsGeometry.symmetric(
-            horizontal: size.width * DimensApp.spaceHorizontalScreen,
-          ),
-          child: Column(
-            children: [
-              _buildStepIndicator(size),
-              Container(
-                width: size.width * 0.23488,
-                height: size.width * 0.23488,
-                alignment: AlignmentGeometry.center,
-                decoration: BoxDecoration(
-                  color: ThemeApp.Foundation_Main_main_100,
-                  borderRadius: BorderRadius.circular(78),
-                ),
-                child: Obx(() {
-                  log(
-                    'Loading icon: ${_stepIcon[businessAccountController.currentStep.value]}',
-                  );
-                  return SvgPicture.asset(
-                    _stepIcon[businessAccountController.currentStep.value],
-                    // IconApp.notification,
-                    width: 48,
-                    height: 48,
-                    color: ThemeApp.Foundation_Main_main_500,
-                  );
-                }),
-              ),
-              const SizedBox(height: 10),
-              Obx(
-                () => Text(
-                  _stepTitles[businessAccountController.currentStep.value].tr(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
+        // body: SingleChildScrollView(
+        //   padding: EdgeInsetsGeometry.symmetric(
+        //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
+        //   ),
+        //   child: Column(
+        //     children: [
+        //       _buildStepIndicator(size),
+        //       Container(
+        //         width: size.width * 0.23488,
+        //         height: size.width * 0.23488,
+        //         alignment: AlignmentGeometry.center,
+        //         decoration: BoxDecoration(
+        //           color: ThemeApp.Foundation_Main_main_100,
+        //           borderRadius: BorderRadius.circular(78),
+        //         ),
+        //         child: Obx(() {
+        //           log(
+        //             'Loading icon: ${_stepIcon[businessAccountController.currentStep.value]}',
+        //           );
+        //           return SvgPicture.asset(
+        //             _stepIcon[businessAccountController.currentStep.value],
+        //             // IconApp.notification,
+        //             width: 48,
+        //             height: 48,
+        //             color: ThemeApp.Foundation_Main_main_500,
+        //           );
+        //         }),
+        //       ),
+        //       const SizedBox(height: 10),
+        //       Obx(
+        //         () => Text(
+        //           _stepTitles[businessAccountController.currentStep.value].tr(),
+        //           style: const TextStyle(
+        //             fontSize: 20,
+        //             fontWeight: FontWeight.bold,
+        //           ),
+        //         ),
+        //       ),
+        //       const SizedBox(height: 10),
 
-              // Padding(
-              //   padding: EdgeInsets.symmetric(
-              //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
-              //   ),
-              //   child:
-              // Obx(() => _pages[businessAccountController.currentStep.value]),
-              Obx(
-                () => AnimatedSwitcher(
-                  duration: Duration(seconds: 1),
-                  switchInCurve: Curves.easeOutCubic,
-                  switchOutCurve: Curves.easeInCubic,
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: SlideTransition(
-                            position: Tween<Offset>(
-                              begin: Offset(0.1, 0),
-                              end: Offset(0, 0),
-                            ).animate(animation),
-                            child: child,
-                          ),
+        //       // Padding(
+        //       //   padding: EdgeInsets.symmetric(
+        //       //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
+        //       //   ),
+        //       //   child:
+        //       // Obx(() => _pages[businessAccountController.currentStep.value]),
+        //       Obx(
+        //         () => AnimatedSwitcher(
+        //           duration: Duration(seconds: 1),
+        //           switchInCurve: Curves.easeOutCubic,
+        //           switchOutCurve: Curves.easeInCubic,
+        //           transitionBuilder:
+        //               (Widget child, Animation<double> animation) {
+        //                 return FadeTransition(
+        //                   opacity: animation,
+        //                   child: SlideTransition(
+        //                     position: Tween<Offset>(
+        //                       begin: Offset(0.1, 0),
+        //                       end: Offset(0, 0),
+        //                     ).animate(animation),
+        //                     child: child,
+        //                   ),
+        //                 );
+        //               },
+        //           child: Container(
+        //             key: ValueKey<int>(
+        //               businessAccountController.currentStep.value,
+        //             ),
+        //             child: _pages[businessAccountController.currentStep.value],
+        //           ),
+        //         ),
+        //       ),
+        //       // ),
+        //       const SizedBox(height: 10),
+
+        //       //  _buildNavigationButtons(),
+        //       Obx(() {
+        //         return businessAccountController
+        //                 .isLoadingCreateBusinessAccount
+        //                 .value
+        //             // ? Center(child: CircularProgressIndicator())
+        //             ? LoadingAnimationWidget(message: "Wait please...".tr())
+        //             : _buildNavigationButtons();
+        //       }),
+        //     ],
+        //   ),
+        // ),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                ),
+                child: Column(
+                  children: [
+                    _buildStepIndicator(size),
+                    Container(
+                      width: size.width * 0.23488,
+                      height: size.width * 0.23488,
+                      alignment: AlignmentGeometry.center,
+                      decoration: BoxDecoration(
+                        color: ThemeApp.Foundation_Main_main_100,
+                        borderRadius: BorderRadius.circular(78),
+                      ),
+                      child: Obx(() {
+                        log(
+                          'Loading icon: ${_stepIcon[businessAccountController.currentStep.value]}',
                         );
-                      },
-                  child: Container(
-                    key: ValueKey<int>(
-                      businessAccountController.currentStep.value,
+                        return SvgPicture.asset(
+                          _stepIcon[businessAccountController
+                              .currentStep
+                              .value],
+                          // IconApp.notification,
+                          width: 48,
+                          height: 48,
+                          color: ThemeApp.Foundation_Main_main_500,
+                        );
+                      }),
                     ),
-                    child: _pages[businessAccountController.currentStep.value],
-                  ),
+                    const SizedBox(height: 10),
+                    Obx(
+                      () => Text(
+                        _stepTitles[businessAccountController.currentStep.value]
+                            .tr(),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                    //   ),
+                    //   child:
+                    // Obx(() => _pages[businessAccountController.currentStep.value]),
+                    Obx(
+                      () => AnimatedSwitcher(
+                        duration: Duration(seconds: 1),
+                        switchInCurve: Curves.easeOutCubic,
+                        switchOutCurve: Curves.easeInCubic,
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: Offset(0.1, 0),
+                                    end: Offset(0, 0),
+                                  ).animate(animation),
+                                  child: child,
+                                ),
+                              );
+                            },
+                        child: Container(
+                          key: ValueKey<int>(
+                            businessAccountController.currentStep.value,
+                          ),
+                          child:
+                              _pages[businessAccountController
+                                  .currentStep
+                                  .value],
+                        ),
+                      ),
+                    ),
+                    // ),
+                    const SizedBox(height: 10),
+
+                    //  _buildNavigationButtons(),
+                  ],
                 ),
               ),
-              // ),
-              const SizedBox(height: 10),
-
-              //  _buildNavigationButtons(),
-              Obx(() {
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.symmetric(
+                horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                vertical: 5,
+              ),
+              child: Obx(() {
                 return businessAccountController
                         .isLoadingCreateBusinessAccount
                         .value
@@ -142,8 +247,8 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                     ? LoadingAnimationWidget(message: "Wait please...".tr())
                     : _buildNavigationButtons();
               }),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

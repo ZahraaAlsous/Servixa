@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_rate_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -23,7 +24,8 @@ class RateSection extends StatelessWidget {
     return Obx(() {
       if (rateController.isLoadingRateNow.value) {
         // Center(child: CircularProgressIndicator());
-        return LoadingAnimationWidget(message: "Loading rate...".tr());
+        // return LoadingAnimationWidget(message: "Loading rate...".tr());
+        return ShimmerRateSection();
       }
       if (rateController.ratesReview.value == null) {
         return Center(child: Text("No ratings available".tr()));

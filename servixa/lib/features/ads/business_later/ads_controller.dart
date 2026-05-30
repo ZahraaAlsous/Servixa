@@ -17,6 +17,7 @@ class AdsController extends GetxController {
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
   RxBool isLoading = false.obs;
   RxBool isLoadingMyAdd = false.obs;
+  RxBool isLoadingMore = false.obs;
   RxBool isSelectedPendingMyAd = true.obs;
   RxBool isSelectedAcceptedMyAd = false.obs;
   RxBool isSelectedRejectedMyAd = false.obs;
@@ -187,6 +188,7 @@ class AdsController extends GetxController {
   ) async {
     try {
       isLoadingMyAdd.value = true;
+      isLoadingMore.value = true;
 
       List<AdsModel> adsPage = await adService.getMyAds(page: 1);
       myAdsList.value = adsPage;
@@ -219,7 +221,7 @@ class AdsController extends GetxController {
 
     while (hasMore) {
       try {
-        isLoadingMyAdd.value = true;
+        // isLoadingMyAdd.value = true;
         List<AdsModel> adsPage = await adService.getMyAds(page: currentPage);
 
         if (adsPage.isNotEmpty) {
@@ -247,7 +249,7 @@ class AdsController extends GetxController {
         );
         hasMore = false;
       } finally {
-        isLoadingMyAdd.value = false;
+        isLoadingMore.value = false;
       }
     }
   }

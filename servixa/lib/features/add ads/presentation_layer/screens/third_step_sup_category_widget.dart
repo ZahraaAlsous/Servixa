@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
@@ -18,7 +19,8 @@ class ThirdStepSupCategoryWidget extends StatelessWidget {
     return Obx(() {
       if (categoryController.isLoadingSubCategory.value) {
         // return CircularProgressIndicator();
-        return LoadingAnimationWidget(message: "Loading sup categories...".tr());
+        // return LoadingAnimationWidget(message: "Loading sup categories...".tr());
+        return ShimmerCategoriesGrid();
       }
       return GridView.builder(
         shrinkWrap: true,

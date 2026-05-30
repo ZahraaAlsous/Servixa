@@ -4,6 +4,7 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -60,10 +61,11 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 Obx(() {
                   if (categoryController.isLoadingSubCategory.value) {
                     // return Center(child: CircularProgressIndicator());
-                    return LoadingAnimationWidget(
-                      message: "Loading sup categories...",
-                      showLogo: true,
-                    );
+                    // return LoadingAnimationWidget(
+                    //   message: "Loading sup categories...",
+                    //   showLogo: true,
+                    // );
+                    return ShimmerCategoriesGrid();
                   }
                   if (categoryController.subCategories.isEmpty) {
                     return Expanded(child: AppNothingWidget());
@@ -75,7 +77,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         mainAxisSpacing: 16,
-                        crossAxisSpacing: 1,
+                        crossAxisSpacing: 2,
                         childAspectRatio: 120 / 84,
                       ),
                       itemCount: categoryController.subCategories.length,

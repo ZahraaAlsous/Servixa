@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_my_order_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_received_order_widget.dart';
+import 'package:servixa/common/widgets/shimmer_business_account_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
@@ -27,19 +30,29 @@ class OrderScreen extends StatelessWidget {
           Obx(() {
             if (orderController.isLoadingOrder.value) {
               // return const Center(child: CircularProgressIndicator());
-              return LoadingAnimationWidget(
-                message: "Loading orders...".tr(),
-                showLogo: true,
-              );
+              // return LoadingAnimationWidget(
+              //   message: "Loading orders...".tr(),
+              //   showLogo: true,
+              // );
+              if (orderController.isSelectedMyOrders.value) {
+                return Expanded(child: ShimmerReceivedOrderCardList());
+              }
+              if (!orderController.isSelectedMyOrders.value) {
+                return Expanded(child: ShimmerMyOrderCardList());
+              }
             }
-            if (orderController.myOrders.isEmpty && !orderController.isSelectedMyOrders.value) {
+            if (orderController.myOrders.isEmpty &&
+                !orderController.isSelectedMyOrders.value) {
               return Expanded(child: AppNothingWidget());
             }
-            if (orderController.receivedOrders.isEmpty && orderController.isSelectedMyOrders.value) {
+            if (orderController.receivedOrders.isEmpty &&
+                orderController.isSelectedMyOrders.value) {
               return Expanded(child: AppNothingWidget());
             }
-            return SizedBox(
-              height: 500,
+            return
+            // SizedBox(
+            //   height: 500,
+            Expanded(
               child: Obx(() {
                 return ListView.builder(
                   padding: EdgeInsetsGeometry.symmetric(

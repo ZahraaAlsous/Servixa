@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
@@ -42,18 +41,29 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       // appBar: AppBarWidget(title: Text("My Ads"),),
       appBar: AppBarMyAdsWidget(toolbarHeight: 80),
       body: Obx(() {
-        if (adsController.isLoadingMyAdd.value &&
+        // if (adsController.isLoadingMyAdd.value &&
+        //     ((adsController.isSelectedAcceptedMyAd.value &&
+        //             adsController.acceptedMyAdList.isEmpty) ||
+        //         (adsController.isSelectedPendingMyAd.value &&
+        //             adsController.pendingMyAdList.isEmpty) ||
+        //         (adsController.isSelectedRejectedMyAd.value &&
+        //             adsController.rejectedMyAdList.isEmpty))) {
+        if (adsController.isLoadingMyAdd.value ||
             ((adsController.isSelectedAcceptedMyAd.value &&
-                    adsController.acceptedMyAdList.isEmpty) ||
+                    adsController.acceptedMyAdList.isEmpty &&
+                    adsController.isLoadingMore.value) ||
                 (adsController.isSelectedPendingMyAd.value &&
-                    adsController.pendingMyAdList.isEmpty) ||
+                    adsController.pendingMyAdList.isEmpty &&
+                    adsController.isLoadingMore.value) ||
                 (adsController.isSelectedRejectedMyAd.value &&
-                    adsController.rejectedMyAdList.isEmpty))) {
-          // return Center(child: CircularProgressIndicator());
-          return LoadingAnimationWidget(
-            message: "Loading ads...".tr(),
-            showLogo: true,
-          );
+                    adsController.rejectedMyAdList.isEmpty &&
+                    adsController.isLoadingMore.value))) {
+          // return Center(child: CircularProgressIndicataor());
+          // return LoadingAnimationWidget(
+          //   message: "Loading ads...".tr(),
+          //   showLogo: true,
+          // );
+          return ShimmerCardGridView(widthCard: 0.34, shrinkWrap: false,);
         }
         if (adsController.isSelectedAcceptedMyAd.value &&
             adsController.acceptedMyAdList.isEmpty) {

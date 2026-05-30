@@ -64,6 +64,12 @@
   "Logout": "Logout",
   "Business Account": "Business Account",
 
+  "Current Password": "Current Password",
+  "Enter your current password": "Enter your current password",
+  "Confirm New Password": "Confirm New Password",
+  "Password changed successfully!": "Password changed successfully!",
+  "Update Password": "Update Password",
+
   "Portfolio": "Portfolio",
   "Information": "Information",
   "Date of joining : ": "Date of joining :",
@@ -101,6 +107,7 @@
 
   "View All ": "View All ",
   "Categories": "Categories",
+  " Sub Categories": " Sub Categories",
 
   "Select your business account": "Select your business account",
   "Select the Main Category": "Select the Main Category",
@@ -219,6 +226,13 @@
   "You must have an account and log in to the app through it in order to create an order.": "You must have an account and log in to the app through it in order to create an order.",
   "You must have a business account and it must be accepted in order to create an order.": "You must have a business account and it must be accepted in order to create an order.",
   "You must be logged in": "You must be logged in",
+  "Please select user type": "Please select user type",
+  "Please fill all required fields": "Please fill all required fields",
+  "Account created successfully": "Account created successfully",
+  "Please fill all required fields correctly": "Please fill all required fields correctly",
+  "No results found.": "No results found.",
+  "Searched items": "Searched items",
+  "All Ads": "All Ads",
 
   "Password is required": "Password is required",
   "Password must contain at least one uppercase letter": "Password must contain at least one uppercase letter",

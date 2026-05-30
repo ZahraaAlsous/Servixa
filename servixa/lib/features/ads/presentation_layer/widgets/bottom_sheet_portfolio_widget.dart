@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -191,8 +191,13 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                         Obx(() {
                           if (searchFilterController.isLoadingAdsFilter.value) {
                             // return Center(child: CircularProgressIndicator());
-                            return LoadingAnimationWidget(
-                              message: "Loading ads...".tr(),
+                            // return LoadingAnimationWidget(
+                            //   message: "Loading ads...".tr(),
+                            // );
+                            return ShimmerCardHorizontalList(
+                              widthCard: size.width * 0.367,
+                              heightCard: 250,
+                              itemCount: 6,
                             );
                           }
                           return SizedBox(

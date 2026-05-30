@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
+import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
@@ -31,10 +31,11 @@ class MyFavoriteScreen extends StatelessWidget {
       body: Obx(() {
         if (favoriteController.isLoadingFavorite.value) {
           // return Center(child: CircularProgressIndicator());
-          return LoadingAnimationWidget(
-            message: "Loading ads...",
-            showLogo: true,
-          );
+          // return LoadingAnimationWidget(
+          //   message: "Loading ads...",
+          //   showLogo: true,
+          // );
+          return ShimmerCardGridView(widthCard: 0.431, shrinkWrap:  false,);
         }
         if (favoriteController.myFavoriteAdsList.isEmpty) {
           return Expanded(child: AppNothingWidget());
