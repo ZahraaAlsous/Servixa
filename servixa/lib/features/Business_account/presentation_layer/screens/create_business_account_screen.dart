@@ -103,7 +103,33 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               //     horizontal: size.width * DimensApp.spaceHorizontalScreen,
               //   ),
               //   child:
-              Obx(() => _pages[businessAccountController.currentStep.value]),
+              // Obx(() => _pages[businessAccountController.currentStep.value]),
+              Obx(
+                () => AnimatedSwitcher(
+                  duration: Duration(seconds: 1),
+                  switchInCurve: Curves.easeOutCubic,
+                  switchOutCurve: Curves.easeInCubic,
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(
+                            position: Tween<Offset>(
+                              begin: Offset(0.1, 0),
+                              end: Offset(0, 0),
+                            ).animate(animation),
+                            child: child,
+                          ),
+                        );
+                      },
+                  child: Container(
+                    key: ValueKey<int>(
+                      businessAccountController.currentStep.value,
+                    ),
+                    child: _pages[businessAccountController.currentStep.value],
+                  ),
+                ),
+              ),
               // ),
               const SizedBox(height: 10),
 
@@ -113,7 +139,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                         .isLoadingCreateBusinessAccount
                         .value
                     // ? Center(child: CircularProgressIndicator())
-                    ? LoadingAnimationWidget(message: "Wait please...",)
+                    ? LoadingAnimationWidget(message: "Wait please...".tr())
                     : _buildNavigationButtons();
               }),
             ],
@@ -147,21 +173,23 @@ class CreateBusinessAccountScreen extends StatelessWidget {
     // required bool isCurrent,
     required Size size,
   }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
-          width: size.width * 0.2145,
-          height: 8.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: isActive
-                ? ThemeApp.Foundation_Main_main_500
-                : ThemeApp.Foundation_Secendary_grey_100,
-          ),
-        ),
-      ],
+    return
+    // Row(
+    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // children: [
+    AnimatedContainer(
+      duration: Duration(seconds: 1),
+      margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
+      width: size.width * 0.2145,
+      height: 8.5,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7),
+        color: isActive
+            ? ThemeApp.Foundation_Main_main_500
+            : ThemeApp.Foundation_Secendary_grey_100,
+      ),
+      //   ),
+      // ],
     );
   }
 
@@ -258,7 +286,9 @@ class CreateBusinessAccountScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
             ),
             child: Text(
-              businessAccountController.currentStep == 3 ? 'Submit'.tr() : 'Next'.tr(),
+              businessAccountController.currentStep.value == 3
+                  ? 'Submit'.tr()
+                  : 'Next'.tr(),
               style: TypographyApp.Body_mid_Mid.copyWith(
                 color: ThemeApp.Foundation_Main_main_50,
               ),

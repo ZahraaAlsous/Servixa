@@ -42,7 +42,7 @@ class MyOrderCardWidget extends StatelessWidget {
           ListTileOrderWidget(title: "Service : ", trailing: order.adName),
           ListTileOrderWidget(
             title: "Date : ",
-            trailing: order.fromDate ?? "Not available",
+            trailing: order.fromDate ?? "Not available".tr(),
           ),
           ListTileOrderWidget(title: "Status :", trailing: order.status),
 
@@ -109,7 +109,7 @@ class MyOrderCardWidget extends StatelessWidget {
                   )
                 : order.status == "rejected"
                 ? Text(
-                    "Your order was rejected.",
+                    "Your order was rejected.".tr(),
                     style: TypographyApp.Title_Mid_Mid.copyWith(
                       color: ThemeApp.Foundation_Statue_Red,
                     ),

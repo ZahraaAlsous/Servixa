@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AnimationContainar extends StatefulWidget {
-  AnimationContainar({super.key});
+class AnimationCurves extends StatefulWidget {
+  AnimationCurves({super.key});
 
   @override
-  State<AnimationContainar> createState() => _AnimationContainarState();
+  State<AnimationCurves> createState() => _AnimationCurvesState();
 }
 
-class _AnimationContainarState extends State<AnimationContainar> {
+class _AnimationCurvesState extends State<AnimationCurves> {
   double w = 200.0;
 
   double h = 200.0;

@@ -23,7 +23,7 @@ import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SuperAdsScreen extends StatefulWidget {
-const  SuperAdsScreen({super.key});
+  const SuperAdsScreen({super.key});
 
   @override
   State<SuperAdsScreen> createState() => _SuperAdsScreenState();
@@ -86,8 +86,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   color: ThemeApp.Foundation_Main_main_100,
                   borderRadius: BorderRadius.circular(26),
                 ),
-                // edit
-                // يمكن صورة من الباك
                 child: SvgPicture.asset(
                   _stepIcon[_currentStep],
                   width: 48,
@@ -105,7 +103,31 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               ),
               const SizedBox(height: 10),
               Expanded(
-                child: SingleChildScrollView(child: _pages[_currentStep]),
+                // child: SingleChildScrollView(child: _pages[_currentStep]),
+                child: SingleChildScrollView(
+                  child: AnimatedSwitcher(
+                    duration: Duration(seconds: 1),
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeInCubic,
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: Offset(0.1, 0), 
+                                end: Offset(0, 0), 
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
+                    child: Container(
+                      key: ValueKey<int>(_currentStep),
+                      child: _pages[_currentStep],
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
 
@@ -154,10 +176,12 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     // required bool isCurrent,
     required Size size,
   }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
+    return 
+    // Row(
+    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   children: [
+        AnimatedContainer(
+          duration: Duration(seconds: 1),
           margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
           width: size.width * 0.179,
           height: 8.5,
@@ -167,8 +191,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 ? ThemeApp.Foundation_Main_main_500
                 : ThemeApp.Foundation_Secendary_grey_100,
           ),
-        ),
-      ],
+      //   ),
+      // ],
     );
   }
 

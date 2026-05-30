@@ -160,7 +160,7 @@ class AppCardAdsWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.place_outlined),
+                    const Icon(Icons.place_outlined),
                     Expanded(
                       child: Text(
                         // "Riyadh – Malaz",
@@ -331,7 +331,7 @@ class AppCardAdsWidget extends StatelessWidget {
                         color: ThemeApp.Foundation_Main_main_500,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: authController.isLoggedIn.value
                           ? () {
