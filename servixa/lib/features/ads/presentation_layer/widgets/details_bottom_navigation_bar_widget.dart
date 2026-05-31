@@ -5,6 +5,8 @@ import 'package:servixa/features/rate/business_later/rate_controller.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/const/dimens_app.dart';
+
 class DetailsBottomNavigationBarWidget extends StatelessWidget {
   void Function()? onPressedButtonOutBorder;
   String textButtonOutBorder;
@@ -25,71 +27,80 @@ class DetailsBottomNavigationBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final widthScreen = Get.width;
+    final widthScreen = Get.width;
 
-    return Row(
-      children: [
-        Expanded(
-          child: OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            onPressed: onPressedButtonOutBorder,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  // IconApp.messages,
-                  iconButtonOutBorder,
-                  width: 20,
-                  height: 20,
-                  color: ThemeApp.Foundation_Main_main_500,
+    return 
+    Padding(
+      padding: EdgeInsetsGeometry.symmetric(
+        horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
+        vertical: 0,
+      ),
+      child: 
+      Row(
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: ThemeApp.Foundation_Main_main_500),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                Text(
-                  textButtonOutBorder.tr(),
-                  style: TypographyApp.Body_mid_Mid.copyWith(
+              ),
+              onPressed: onPressedButtonOutBorder,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    // IconApp.messages,
+                    iconButtonOutBorder,
+                    width: 20,
+                    height: 20,
                     color: ThemeApp.Foundation_Main_main_500,
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ThemeApp.Foundation_Main_main_500,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                  Text(
+                    textButtonOutBorder.tr(),
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_main_500,
+                    ),
+                  ),
+                ],
               ),
             ),
-            onPressed: onPressedButtonElevetedBorder,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  // IconApp.badgePercent,
-                  iconButtonElevetedBorder,
-                  width: 20,
-                  height: 20,
-                  color: ThemeApp.Foundation_Main_yellow_50,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ThemeApp.Foundation_Main_main_500,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-
-                Text(
-                  textButtonElevetedBorder.tr(),
-                  style: TypographyApp.Body_mid_Mid.copyWith(
+              ),
+              onPressed: onPressedButtonElevetedBorder,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    // IconApp.badgePercent,
+                    iconButtonElevetedBorder,
+                    width: 20,
+                    height: 20,
                     color: ThemeApp.Foundation_Main_yellow_50,
                   ),
-                ),
-              ],
+
+                  Text(
+                    textButtonElevetedBorder.tr(),
+                    style: TypographyApp.Body_mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Main_yellow_50,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      )
+    
     );
   }
 }

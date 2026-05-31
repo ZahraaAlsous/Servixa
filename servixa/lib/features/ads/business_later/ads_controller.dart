@@ -18,6 +18,7 @@ class AdsController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingMyAdd = false.obs;
   RxBool isLoadingMore = false.obs;
+  RxBool isDeleteNow = false.obs;
   RxBool isSelectedPendingMyAd = true.obs;
   RxBool isSelectedAcceptedMyAd = false.obs;
   RxBool isSelectedRejectedMyAd = false.obs;
@@ -160,7 +161,7 @@ class AdsController extends GetxController {
   ) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Delete Ad IN");
-
+      isDeleteNow.value = true;
       bool isDeleted = await adService.deleteAd(adId);
       if (isDeleted) {
         myAdsList.removeWhere((ad) => ad.id == adId);
@@ -179,6 +180,8 @@ class AdsController extends GetxController {
             e.toString(),
       );
       onError(e.toString());
+    } finally {
+      isDeleteNow.value = false;
     }
   }
 

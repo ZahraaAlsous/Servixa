@@ -22,6 +22,7 @@ import 'package:servixa/features/ads/presentation_layer/widgets/details_bottom_n
 import 'package:servixa/features/ads/presentation_layer/widgets/rate_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/review_section.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/slider_ad_widget.dart';
+import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/orders/presentation_layer/widgets/bottom_sheet_add_order_widget.dart';
 import 'package:servixa/features/rate/business_later/rate_controller.dart';
 import 'package:servixa/features/rate/presentation_layer/widgets/bottom_sheet_review_widget.dart';
@@ -56,6 +57,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   );
   final AddAdsController addAdsController = Get.put(AddAdsController());
   final RateController rateController = Get.put(RateController());
+  final CategoryController categoryController = Get.put(CategoryController());
 
   @override
   void initState() {
@@ -535,13 +537,35 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
         bottomNavigationBar:
             authController.currentUser.value != null &&
                 ads.user.id == authController.currentUser.value!.id
-            ? Padding(
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                  vertical: 0,
-                ),
-                child: DetailsBottomNavigationBarWidget(
+            ? Obx(() {
+                if (categoryController.isLoadingCategoryQuestions.value) {
+                  return Container(
+                    height: 40,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      // vertical: 10,
+                    ),
+                    child: LoadingAnimationWidget(
+                      message: "Wait please...".tr(),
+                    ),
+                  );
+                }
+                if (adsController.isDeleteNow.value) {
+                  return Container(
+                    height: 40,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      // vertical: 10,
+                    ),
+                    child: LoadingAnimationWidget(
+                      message: "Wait please...".tr(),
+                      loaderColor: ThemeApp.Foundation_Statue_Red,
+                    ),
+                  );
+                }
+                return DetailsBottomNavigationBarWidget(
                   textButtonOutBorder: " Edit",
+
                   iconButtonOutBorder: IconApp.edit,
                   textButtonElevetedBorder: " Delete",
                   iconButtonElevetedBorder: IconApp.delete,
@@ -563,219 +587,211 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       AppSnackbar.showSuccess("Ad removed successfully");
                     }, (e) => AppSnackbar.showError(e));
                   },
-                ),
-
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: OutlinedButton(
-                //         style: OutlinedButton.styleFrom(
-                //           side: BorderSide(
-                //             color: ThemeApp.Foundation_Main_main_500,
-                //           ),
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(16),
-                //           ),
-                //         ),
-                //         onPressed: () {
-                //           addAdsController.initialFailedEditAd(ads);
-                //           Get.to(SuperAdsScreen());
-                //         },
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             SvgPicture.asset(
-                //               IconApp.messages,
-                //               width: 20,
-                //               height: 20,
-                //               color: ThemeApp.Foundation_Main_main_500,
-                //             ),
-                //             Text(
-                //               "Edit",
-                //               style: TypographyApp.Body_mid_Mid.copyWith(
-                //                 color: ThemeApp.Foundation_Main_main_500,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //     const SizedBox(width: 10),
-                //     Expanded(
-                //       child: ElevatedButton(
-                //         style: ElevatedButton.styleFrom(
-                //           backgroundColor: ThemeApp.Foundation_Main_main_500,
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(16),
-                //           ),
-                //         ),
-                //         onPressed: () {
-                //           businessAccountController
-                //               .getBusinessAccountApproved();
-                //           Get.bottomSheet(
-                //             isDismissible: true,
-                //             enableDrag: true,
-                //             isScrollControlled: true,
-                //             BottomSheetAddOrderWidget(adId: ads.id),
-                //           );
-                //         },
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             SvgPicture.asset(
-                //               IconApp.badgePercent,
-                //               width: 20,
-                //               height: 20,
-                //               color: ThemeApp.Foundation_Main_yellow_50,
-                //             ),
-
-                //             Text(
-                //               " Make An Offer",
-                //               style: TypographyApp.Body_mid_Mid.copyWith(
-                //                 color: ThemeApp.Foundation_Main_yellow_50,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-              )
-            : Padding(
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                  vertical: 0,
-                ),
-                child: DetailsBottomNavigationBarWidget(
-                  textButtonOutBorder: "Chat",
-                  iconButtonOutBorder: IconApp.messages,
-                  textButtonElevetedBorder: " Make An Offer",
-                  iconButtonElevetedBorder: IconApp.badgePercent,
-                  onPressedButtonElevetedBorder: () {
-                    if (authController.currentUser.value == null) {
-                      AppSnackbar.showAlert(
-                        "You must have an account and log in to the app through it in order to create an review.",
-                      );
-                    } else if (!authController
-                        .currentUser
-                        .value!
-                        .hasBusinessAccount!) {
-                      AppSnackbar.showAlert(
-                        "You must have a business account and it must be accepted in order to create an review.",
-                      );
-                    } else {
-                      Get.bottomSheet(
-                        isDismissible: true,
-                        enableDrag: true,
-                        BottomSheetReviewWidget(adId: ads.id),
-                      );
-                    }
-                  },
-                  onPressedButtonOutBorder: () {
-                    if (authController.currentUser.value == null) {
-                      AppSnackbar.showAlert(
-                        "You must have an account and log in to the app through it in order to create an order.",
-                      );
-                    } else if (!authController
-                        .currentUser
-                        .value!
-                        .hasBusinessAccount!) {
-                      AppSnackbar.showAlert(
-                        "You must have a business account and it must be accepted in order to create an order.",
-                      );
-                    } else {
-                      businessAccountController.getBusinessAccountApproved();
-                      Get.bottomSheet(
-                        isDismissible: true,
-                        enableDrag: true,
-                        isScrollControlled: true,
-                        BottomSheetAddOrderWidget(adId: ads.id),
-                      );
-                    }
-                  },
-                ),
-
-                //  Row(
-                //   children: [
-                //     Expanded(
-                //       child: OutlinedButton(
-                //         style: OutlinedButton.styleFrom(
-                //           side: BorderSide(
-                //             color: ThemeApp.Foundation_Main_main_500,
-                //           ),
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(16),
-                //           ),
-                //         ),
-                //         onPressed: () {
-                //           Get.bottomSheet(
-                //             isDismissible: true,
-                //             enableDrag: true,
-                //             BottomSheetReviewWidget(adId: ads.id),
-                //           );
-                //         },
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             SvgPicture.asset(
-                //               IconApp.messages,
-                //               width: 20,
-                //               height: 20,
-                //               color: ThemeApp.Foundation_Main_main_500,
-                //             ),
-                //             Text(
-                //               "Chat",
-                //               style: TypographyApp.Body_mid_Mid.copyWith(
-                //                 color: ThemeApp.Foundation_Main_main_500,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //     const SizedBox(width: 10),
-                //     Expanded(
-                //       child: ElevatedButton(
-                //         style: ElevatedButton.styleFrom(
-                //           backgroundColor: ThemeApp.Foundation_Main_main_500,
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(16),
-                //           ),
-                //         ),
-                //         onPressed: () {
-                //           businessAccountController
-                //               .getBusinessAccountApproved();
-                //           Get.bottomSheet(
-                //             isDismissible: true,
-                //             enableDrag: true,
-                //             isScrollControlled: true,
-                //             BottomSheetAddOrderWidget(adId: ads.id),
-                //           );
-                //         },
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             SvgPicture.asset(
-                //               IconApp.badgePercent,
-                //               width: 20,
-                //               height: 20,
-                //               color: ThemeApp.Foundation_Main_yellow_50,
-                //             ),
-
-                //             Text(
-                //               " Make An Offer",
-                //               style: TypographyApp.Body_mid_Mid.copyWith(
-                //                 color: ThemeApp.Foundation_Main_yellow_50,
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                );
+              })
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: OutlinedButton(
+            //         style: OutlinedButton.styleFrom(
+            //           side: BorderSide(
+            //             color: ThemeApp.Foundation_Main_main_500,
+            //           ),
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(16),
+            //           ),
+            //         ),
+            //         onPressed: () {
+            //           addAdsController.initialFailedEditAd(ads);
+            //           Get.to(SuperAdsScreen());
+            //         },
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             SvgPicture.asset(
+            //               IconApp.messages,
+            //               width: 20,
+            //               height: 20,
+            //               color: ThemeApp.Foundation_Main_main_500,
+            //             ),
+            //             Text(
+            //               "Edit",
+            //               style: TypographyApp.Body_mid_Mid.copyWith(
+            //                 color: ThemeApp.Foundation_Main_main_500,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(width: 10),
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           backgroundColor: ThemeApp.Foundation_Main_main_500,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(16),
+            //           ),
+            //         ),
+            //         onPressed: () {
+            //           businessAccountController
+            //               .getBusinessAccountApproved();
+            //           Get.bottomSheet(
+            //             isDismissible: true,
+            //             enableDrag: true,
+            //             isScrollControlled: true,
+            //             BottomSheetAddOrderWidget(adId: ads.id),
+            //           );
+            //         },
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             SvgPicture.asset(
+            //               IconApp.badgePercent,
+            //               width: 20,
+            //               height: 20,
+            //               color: ThemeApp.Foundation_Main_yellow_50,
+            //             ),
+            //             Text(
+            //               " Make An Offer",
+            //               style: TypographyApp.Body_mid_Mid.copyWith(
+            //                 color: ThemeApp.Foundation_Main_yellow_50,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            : DetailsBottomNavigationBarWidget(
+                textButtonOutBorder: "Chat",
+                iconButtonOutBorder: IconApp.messages,
+                textButtonElevetedBorder: " Make An Offer",
+                iconButtonElevetedBorder: IconApp.badgePercent,
+                onPressedButtonElevetedBorder: () {
+                  if (authController.currentUser.value == null) {
+                    AppSnackbar.showAlert(
+                      "You must have an account and log in to the app through it in order to create an review.",
+                    );
+                  } else if (!authController
+                      .currentUser
+                      .value!
+                      .hasBusinessAccount!) {
+                    AppSnackbar.showAlert(
+                      "You must have a business account and it must be accepted in order to create an review.",
+                    );
+                  } else {
+                    Get.bottomSheet(
+                      isDismissible: true,
+                      enableDrag: true,
+                      BottomSheetReviewWidget(adId: ads.id),
+                    );
+                  }
+                },
+                onPressedButtonOutBorder: () {
+                  if (authController.currentUser.value == null) {
+                    AppSnackbar.showAlert(
+                      "You must have an account and log in to the app through it in order to create an order.",
+                    );
+                  } else if (!authController
+                      .currentUser
+                      .value!
+                      .hasBusinessAccount!) {
+                    AppSnackbar.showAlert(
+                      "You must have a business account and it must be accepted in order to create an order.",
+                    );
+                  } else {
+                    businessAccountController.getBusinessAccountApproved();
+                    Get.bottomSheet(
+                      isDismissible: true,
+                      enableDrag: true,
+                      isScrollControlled: true,
+                      BottomSheetAddOrderWidget(adId: ads.id),
+                    );
+                  }
+                },
               ),
+
+        //  Row(
+        //   children: [
+        //     Expanded(
+        //       child: OutlinedButton(
+        //         style: OutlinedButton.styleFrom(
+        //           side: BorderSide(
+        //             color: ThemeApp.Foundation_Main_main_500,
+        //           ),
+        //           shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(16),
+        //           ),
+        //         ),
+        //         onPressed: () {
+        //           Get.bottomSheet(
+        //             isDismissible: true,
+        //             enableDrag: true,
+        //             BottomSheetReviewWidget(adId: ads.id),
+        //           );
+        //         },
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             SvgPicture.asset(
+        //               IconApp.messages,
+        //               width: 20,
+        //               height: 20,
+        //               color: ThemeApp.Foundation_Main_main_500,
+        //             ),
+        //             Text(
+        //               "Chat",
+        //               style: TypographyApp.Body_mid_Mid.copyWith(
+        //                 color: ThemeApp.Foundation_Main_main_500,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //     const SizedBox(width: 10),
+        //     Expanded(
+        //       child: ElevatedButton(
+        //         style: ElevatedButton.styleFrom(
+        //           backgroundColor: ThemeApp.Foundation_Main_main_500,
+        //           shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(16),
+        //           ),
+        //         ),
+        //         onPressed: () {
+        //           businessAccountController
+        //               .getBusinessAccountApproved();
+        //           Get.bottomSheet(
+        //             isDismissible: true,
+        //             enableDrag: true,
+        //             isScrollControlled: true,
+        //             BottomSheetAddOrderWidget(adId: ads.id),
+        //           );
+        //         },
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             SvgPicture.asset(
+        //               IconApp.badgePercent,
+        //               width: 20,
+        //               height: 20,
+        //               color: ThemeApp.Foundation_Main_yellow_50,
+        //             ),
+
+        //             Text(
+        //               " Make An Offer",
+        //               style: TypographyApp.Body_mid_Mid.copyWith(
+        //                 color: ThemeApp.Foundation_Main_yellow_50,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
 
         // );
       );
