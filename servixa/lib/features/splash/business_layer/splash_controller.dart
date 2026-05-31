@@ -6,8 +6,8 @@ import 'package:servixa/features/boarding/presentation_layer/screens/super_board
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class SplashController extends GetxController {
-  BoardingController boardingController = Get.put(BoardingController());
-  AuthController authController = Get.put(AuthController());
+  final BoardingController boardingController = Get.put(BoardingController());
+  final AuthController authController = Get.put(AuthController());
   @override
   void onInit() {
     super.onInit();
@@ -19,8 +19,8 @@ class SplashController extends GetxController {
   void _navigateToNext() async {
     await Future.delayed(const Duration(seconds: 5));
 
-    final boardingController = Get.put(BoardingController());
-    final authController = Get.put(AuthController());
+    // final boardingController = Get.put(BoardingController());
+    // final authController = Get.put(AuthController());
 
     if (boardingController.isFirstLaunch.value) {
       Get.offAll(() => SuperBoardingScreen());

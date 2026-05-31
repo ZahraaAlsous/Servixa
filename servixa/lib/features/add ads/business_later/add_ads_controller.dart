@@ -369,7 +369,7 @@ class AddAdsController extends GetxController {
 
     final int categoryIdForQuestions =
         selectedSubCategoryAdsId.value ?? selectedCategoryAdsId.value!;
-    log("📝 Loading questions for category: $categoryIdForQuestions");
+    log(" Loading questions for category: $categoryIdForQuestions");
 
     await categoryController.getCategoryQuestions(categoryIdForQuestions);
     await _initializeDynamicQuestions(ad);
@@ -546,13 +546,11 @@ class AddAdsController extends GetxController {
   Map<String, dynamic> getFinalAnswersForSubmit() {
     final Map<String, dynamic> result = {};
 
-    // ✅ إضافة الإجابات الجديدة
     if (finalAnswers.isNotEmpty) {
       result.addAll(finalAnswers);
       log("📦 New answers to save: ${finalAnswers.keys}");
     }
 
-    // ✅ إضافة الإجابات القديمة بقيمة فارغة للحذف
     if (oldAnswers.isNotEmpty) {
       for (var key in oldAnswers.keys) {
         result[key] = "";

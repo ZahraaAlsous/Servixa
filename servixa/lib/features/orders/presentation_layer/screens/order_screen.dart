@@ -1,11 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_my_order_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_received_order_widget.dart';
-import 'package:servixa/common/widgets/shimmer_business_account_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
