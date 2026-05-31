@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_snackbar.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_business_account_widget.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';

@@ -17,7 +17,7 @@ class SplashController extends GetxController {
   }
 
   void _navigateToNext() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 3));
 
     // final boardingController = Get.put(BoardingController());
     // final authController = Get.put(AuthController());

@@ -58,26 +58,6 @@ class _FourStepWriteAdDetailsWidgetState
           ),
 
           const SizedBox(height: 16),
-
-          // Text(
-          //   "Ad Slug",
-          //   style: TypographyApp.Title_Mid_Mid.copyWith(
-          //     color: ThemeApp.Foundation_Secendary_grey_600,
-          //   ),
-          // ),
-          // const SizedBox(height: 5),
-
-          // AppTextFormField(
-          //   hintText: "Slug..",
-          //   icon: IconApp.solarLinkOutline,
-          //   controller: slugController,
-          //   onChanged: (value) {
-          //     addAdsController.adSlug = value;
-          //   },
-          //   validator: Validators.validateReviewAndRequestOrder,
-          // ),
-
-          // const SizedBox(height: 16),
           Text(
             "Description".tr(),
             style: TypographyApp.Title_Mid_Mid.copyWith(

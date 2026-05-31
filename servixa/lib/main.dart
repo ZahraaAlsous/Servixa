@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/animation_containar.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
@@ -24,15 +23,11 @@ void main() async {
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    // ✅ تسجيل LocationController مسبقاً
     Get.put(LocationController(), permanent: true);
     Get.put(
       AuthController(),
       permanent: true,
     ); 
-    // Get.put(HomeController(), permanent: true);
-    // Get.put(AdsController(), permanent: true);
-    // Get.put(CategoryController(), permanent: true);
   }
 }
 

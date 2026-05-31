@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -37,6 +38,10 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/report%20an%20ad/presentation_layer/widgets/bottom_sheet_report_widget.dart';
 import 'package:share_plus/share_plus.dart';
+
+import 'dart:io';
+// import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -798,36 +803,89 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     });
   }
 
-  Future<void> _shareAds() async {
+  // Future<void> _shareAds() async {
+  //   try {
+  //     final ads = adsController.adsDetails.value!;
+
+  //     String shareContent =
+  //         '''
+  // 🏠 *Share ad from Servixa*
+  // ═══════════════════════
+
+  // 📌 *${ads.title}*
+  // 💰 *Price:* ${ads.price} ${ads.typeCoin}
+  // 📍 *Location:* 742 Evergreen Terrace, Springfield
+  // 📋 *Type:* ${ads.typeService}
+
+  // 📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
+
+  // ⭐ *Rate:* 4.0/5
+  // ═══════════════════════
+  // For more details:
+  // 📱 Download the Servixa app''';
+
+  //     await SharePlus.instance.share(
+  //       ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
+  //     );
+
+  //     log("Share Done");
+  //   } catch (e) {
+  //     log("Error in share: $e");
+  //   }
+  // }
+Future<void> _shareAds() async {
     try {
       final ads = adsController.adsDetails.value!;
 
+      // 1. تجهيز نص المشاركة
       String shareContent =
           '''
-  🏠 *Share ad from Servixa*
-  ═══════════════════════
+🏠 *Share ad from Servixa*
+═══════════════════════
 
-  📌 *${ads.title}*
-  💰 *Price:* ${ads.price} ${ads.typeCoin}
-  📍 *Location:* 742 Evergreen Terrace, Springfield
-  📋 *Type:* ${ads.typeService}
+📌 *${ads.title}*
+💰 *Price:* ${ads.price} ${ads.typeCoin}
+📍 *Location:* ${ads.place ?? 'Not specified'}
+📋 *Type:* ${ads.typeService}
 
-  📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
+📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
 
-  ⭐ *Rate:* 4.0/5
-  ═══════════════════════
-  For more details:
-  📱 Download the Servixa app''';
+⭐ *Rate:* 4.0/5
+═══════════════════════
+🔗 *View Ad Link:* https://servixa.com/ads/${ads.id} 
 
-      await SharePlus.instance.share(
-        ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
-      );
+📱 Download the Servixa app''';
 
-      log("Share Done");
+      // // 2. التحقق من وجود صور للإعلان ومشاركتها
+      // if (ads.image != null && ads.image.isNotEmpty) {
+      //   // final imageUrl = ads.images[0].url; // مسار رابط الصورة من الـ Model
+      //   final imageUrl = ads.image; // مسار رابط الصورة من الـ Model
+
+      //   // الحصول على مسار مجلد الكاش المؤقت بالجهاز
+      //   final tempDir = await getTemporaryDirectory();
+      //   final savePath = '${tempDir.path}/shared_image.png';
+
+      //   // استخدام Dio لتحميل الصورة وحفظها مباشرة كملف
+      //   final dio = Dio();
+      //   await dio.download(imageUrl, savePath);
+
+      //   // مشاركة الصورة المحفوظة والنص معاً
+      //   await Share.shareXFiles(
+      //     [XFile(savePath)],
+      //     text: shareContent,
+      //     subject: 'Share ad: ${ads.title}',
+      //   );
+      // } else {
+        // إذا لم يكن هناك صورة، شارك النص فقط
+        await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
+      // }
+
+      log("Share Done with Dio");
     } catch (e) {
       log("Error in share: $e");
+      AppSnackbar.showError("Could not share image: $e");
     }
   }
-
+  
   // }
 }

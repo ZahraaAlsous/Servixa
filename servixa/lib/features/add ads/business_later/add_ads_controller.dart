@@ -548,17 +548,17 @@ class AddAdsController extends GetxController {
 
     if (finalAnswers.isNotEmpty) {
       result.addAll(finalAnswers);
-      log("📦 New answers to save: ${finalAnswers.keys}");
+      log("New answers to save: ${finalAnswers.keys}");
     }
 
     if (oldAnswers.isNotEmpty) {
       for (var key in oldAnswers.keys) {
         result[key] = "";
-        log("📦 Marking old answer for deletion: $key");
+        log("Marking old answer for deletion: $key");
       }
     }
 
-    log("📤 Final answers to submit: ${result.keys}");
+    log("Final answers to submit: ${result.keys}");
     return result;
   }
 
@@ -643,11 +643,11 @@ class AddAdsController extends GetxController {
           adsController.adsDetails.value!.images.removeAt(localIndex);
           adsController.adsDetails.refresh();
         }
-        log("🗑️ Existing sub image removed from local list");
+        log("Existing sub image removed from local list");
         // }
         // else {
         //   listSelectedSubImage.removeAt(localIndex);
-        //   log("🗑️ New sub image removed from local list");
+        //   log(" New sub image removed from local list");
         // }
 
         // existingSubImagesUrls.refresh();
