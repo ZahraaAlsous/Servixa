@@ -11,12 +11,13 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    boardingController.checkIfFirstLunch();
-    authController.checkLoginStatus();
     _navigateToNext();
   }
 
   void _navigateToNext() async {
+    await boardingController.checkIfFirstLunch();
+    await authController.checkLoginStatus();
+
     await Future.delayed(const Duration(seconds: 3));
 
     // final boardingController = Get.put(BoardingController());

@@ -6,8 +6,8 @@ import 'package:servixa/core/const/typography_app.dart';
 
 class AuthAndBoardingAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  final Widget whereGo;
-  const AuthAndBoardingAppBarWidget({super.key, required Widget this.whereGo});
+  final void Function()? onPressed;
+    AuthAndBoardingAppBarWidget({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,7 @@ class AuthAndBoardingAppBarWidget extends StatelessWidget
       // toolbarHeight : 20,
       actions: [
         TextButton(
-          onPressed: () {
-            Get.offAll(
-              () => whereGo,
-              //  SuperHomeScreen()
-            );
-          },
+          onPressed: onPressed,
           child: Text(
             "Skip".tr(),
             textAlign: TextAlign.center,

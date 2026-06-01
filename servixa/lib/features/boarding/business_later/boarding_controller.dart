@@ -19,7 +19,7 @@ class BoardingController extends GetxController {
   //   checkIfFirstLunch();
   // }
 
-  void checkIfFirstLunch() async {
+  Future<void> checkIfFirstLunch() async {
     String? status = await storage.read(key: "isFirstLaunch");
 
     if (status == null || status == "true") {

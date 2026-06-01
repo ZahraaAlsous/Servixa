@@ -34,8 +34,14 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: const AuthAndBoardingAppBarWidget(
-        whereGo: const SuperHomeScreen(),
+      appBar:  AuthAndBoardingAppBarWidget(
+        // whereGo: const SuperHomeScreen(),
+        onPressed: () {
+          Get.offAll(
+            () => const SuperHomeScreen(),
+            //  SuperHomeScreen()
+          );
+        },
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsetsGeometry.symmetric(

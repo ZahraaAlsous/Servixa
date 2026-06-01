@@ -33,8 +33,14 @@ class RegisterPage extends StatelessWidget {
     final size = Get.width;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: const AuthAndBoardingAppBarWidget(
-        whereGo: const SuperHomeScreen(),
+      appBar:  AuthAndBoardingAppBarWidget(
+        // whereGo: const SuperHomeScreen(),
+        onPressed: () {
+          Get.offAll(
+            () => const SuperHomeScreen(),
+            //  SuperHomeScreen()
+          );
+        },
       ),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.symmetric(

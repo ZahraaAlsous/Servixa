@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/features/auth/data_layer/sourses/auth_service.dart';
-import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/profile/data_layer/models/user_model.dart';
 
 class AuthController extends GetxController {

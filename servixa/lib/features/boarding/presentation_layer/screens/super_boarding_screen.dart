@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -25,7 +26,19 @@ class SuperBoardingScreen extends StatelessWidget {
     final size = Get.width;
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
-      appBar: AuthAndBoardingAppBarWidget(whereGo: LoginPage()),
+      appBar: AuthAndBoardingAppBarWidget(
+        // whereGo: LoginPage()
+        onPressed: () async {
+          await const FlutterSecureStorage().write(
+            key: "isFirstLaunch",
+            value: "false",
+          );
+          Get.offAll(
+            () => LoginPage(),
+            //  SuperHomeScreen()
+          );
+        },
+      ),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(
           // horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -76,13 +89,17 @@ class SuperBoardingScreen extends StatelessWidget {
                   const SizedBox(width: 21),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (boardingController.currentStep.value <
                             _pages.length - 1) {
                           boardingController.currentStep.value++;
                         } else {
                           // Get.to(SuperHomeScreen());
-                          Get.offAll(LoginPage());
+                          await const FlutterSecureStorage().write(
+                            key: "isFirstLaunch",
+                            value: "false",
+                          );
+                          Get.offAll(() => LoginPage());
                         }
                       },
 
