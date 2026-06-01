@@ -70,7 +70,9 @@ class LocationPickerScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Obx(() {
                         if (locationController.isLoading.value) {
-                          return LoadingAnimationWidget(message:"Getting your location...".tr() ,);
+                          return LoadingAnimationWidget(
+                            message: "Getting your location...".tr(),
+                          );
                           //  const Center(
                           //   child: Column(
                           //     mainAxisAlignment: MainAxisAlignment.center,

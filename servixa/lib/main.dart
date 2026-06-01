@@ -10,8 +10,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      startLocale: Locale('en'),
-
+      // startLocale: Locale('en'),
+      startLocale: null,
       supportedLocales: [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
@@ -24,10 +24,7 @@ class AppBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(LocationController(), permanent: true);
-    Get.put(
-      AuthController(),
-      permanent: true,
-    ); 
+    Get.put(AuthController(), permanent: true);
   }
 }
 
