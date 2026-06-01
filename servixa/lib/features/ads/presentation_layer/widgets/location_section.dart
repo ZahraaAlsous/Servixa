@@ -12,6 +12,7 @@ import 'package:servixa/core/const/icon_app.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
+import 'package:servixa/core/services/url_launcher_service%20.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_portfolio_widget.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
@@ -236,20 +237,37 @@ class LocationSection extends StatelessWidget {
                     // Spacer(),
                     Expanded(
                       flex: 10,
-                      child: SvgPicture.asset(
-                        IconApp.messages,
-                        width: 29,
-                        height: 29,
-                        color: ThemeApp.Foundation_Main_main_500,
+                      child: IconButton(
+                        onPressed: () {
+                          AppSnackbar.showAlert("This feature will be available soon.");
+                        },
+                        // iconSize: 50,
+                        padding: EdgeInsets.zero,
+                        icon: SvgPicture.asset(
+                          IconApp.messages,
+                          width: 29,
+                          height: 29,
+                          color: ThemeApp.Foundation_Main_main_500,
+                        ),
                       ),
                     ),
+                    if(ads.user.phone != null)
                     Expanded(
                       flex: 10,
-                      child: SvgPicture.asset(
-                        IconApp.phone,
-                        width: 29,
-                        height: 29,
-                        color: ThemeApp.Foundation_Main_main_500,
+                      child: IconButton(
+                        onPressed: () async {
+                          await UrlLauncherService.makePhoneCall(
+                            ads.user.phone!,
+                          );
+                        },
+                        // iconSize: 50,
+                        padding: EdgeInsets.zero,
+                        icon: SvgPicture.asset(
+                          IconApp.phone,
+                          width: 29,
+                          height: 29,
+                          color: ThemeApp.Foundation_Main_main_500,
+                        ),
                       ),
                     ),
                   ],

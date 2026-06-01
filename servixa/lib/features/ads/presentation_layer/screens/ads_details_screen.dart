@@ -521,12 +521,13 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   const SpaceBetweenSectionWidget(),
                   RateSection(),
 
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
-                      vertical: 5,
-                    ),
-                    child: AppTitleSectionWidget(
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(
+                  //     horizontal: widthScreen * DimensApp.spaceHorizontalScreen,
+                  //     vertical: 5,
+                  //   ),
+                  //   child:
+                     AppTitleSectionWidget(
                       data: "Top Reviews".tr(),
                       typographyAppButton: TypographyApp.Body_mid_Mid,
                       typographyAppTitle: TypographyApp.Title_larg_Mid,
@@ -534,7 +535,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       // شو لبصفحة يلي بروح عليها
                       onPressed: () {},
                     ),
-                  ),
+                  // ),
                   ReviewSection(),
                 ],
               ),
