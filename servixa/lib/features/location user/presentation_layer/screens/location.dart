@@ -155,7 +155,8 @@ class LocationPickerScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Obx(() {
                 if (locationController.isSaving.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  // return const Center(child: CircularProgressIndicator());
+                  return LoadingAnimationWidget(message: "Wait please...".tr());
                 }
                 return SizedBox(
                   width: double.infinity,
