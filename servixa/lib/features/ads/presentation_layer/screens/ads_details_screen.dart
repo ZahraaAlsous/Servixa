@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -38,10 +37,6 @@ import 'package:readmore/readmore.dart';
 import 'package:servixa/common/widgets/app_title_section_widget.dart';
 import 'package:servixa/features/report%20an%20ad/presentation_layer/widgets/bottom_sheet_report_widget.dart';
 import 'package:share_plus/share_plus.dart';
-
-import 'dart:io';
-// import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 class AdsDetailsScreen extends StatefulWidget {
   int adsId;
@@ -527,14 +522,14 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   //     vertical: 5,
                   //   ),
                   //   child:
-                     AppTitleSectionWidget(
-                      data: "Top Reviews".tr(),
-                      typographyAppButton: TypographyApp.Body_mid_Mid,
-                      typographyAppTitle: TypographyApp.Title_larg_Mid,
-                      // edit
-                      // شو لبصفحة يلي بروح عليها
-                      onPressed: () {},
-                    ),
+                  AppTitleSectionWidget(
+                    data: "Top Reviews".tr(),
+                    typographyAppButton: TypographyApp.Body_mid_Mid,
+                    typographyAppTitle: TypographyApp.Title_larg_Mid,
+                    // edit
+                    // شو لبصفحة يلي بروح عليها
+                    onPressed: () {},
+                  ),
                   // ),
                   ReviewSection(),
                 ],
@@ -834,7 +829,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   //     log("Error in share: $e");
   //   }
   // }
-Future<void> _shareAds() async {
+  Future<void> _shareAds() async {
     try {
       final ads = adsController.adsDetails.value!;
 
@@ -842,7 +837,7 @@ Future<void> _shareAds() async {
       String shareContent =
           '''
 🏠 *Share ad from Servixa*
-═══════════════════════
+══════════════════════
 
 📌 *${ads.title}*
 💰 *Price:* ${ads.price} ${ads.typeCoin}
@@ -851,11 +846,12 @@ Future<void> _shareAds() async {
 
 📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
 
-⭐ *Rate:* 4.0/5
-═══════════════════════
+⭐ *Rate:* ${rateController.ratesReview.value!.statistics.averageRating}/5
+══════════════════════
 🔗 *View Ad Link:* https://servixa.com/ads/${ads.id} 
 
-📱 Download the Servixa app''';
+📱 Download the Servixa app 
+https://play.google.com/store/apps/details?id=com.servixa''';
 
       // // 2. التحقق من وجود صور للإعلان ومشاركتها
       // if (ads.image != null && ads.image.isNotEmpty) {
@@ -877,8 +873,8 @@ Future<void> _shareAds() async {
       //     subject: 'Share ad: ${ads.title}',
       //   );
       // } else {
-        // إذا لم يكن هناك صورة، شارك النص فقط
-        await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
+      // إذا لم يكن هناك صورة، شارك النص فقط
+      await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
       // }
 
       log("Share Done with Dio");
@@ -887,6 +883,6 @@ Future<void> _shareAds() async {
       AppSnackbar.showError("Could not share image: $e");
     }
   }
-  
+
   // }
 }
