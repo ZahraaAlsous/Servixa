@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
   final HomeService homeService = HomeService();
   RxBool isLoadingSlider = false.obs;
+  RxBool hasErrorLoadingSlider = false.obs;
   RxInt currentCarouselIndex = 0.obs;
   RxList<ImageSliderModel> sliders = <ImageSliderModel>[].obs;
 
@@ -24,10 +25,12 @@ class HomeController extends GetxController {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: getImageSliders IN");
       isLoadingSlider.value = true;
+      hasErrorLoadingSlider.value = false;
       List<ImageSliderModel> fetchedSliders = await homeService
           .getImageSliders();
       sliders.value = fetchedSliders;
     } catch (e) {
+      hasErrorLoadingSlider.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: getImageSliders ERROR");
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>The error is: ${e.toString()}");
       Get.snackbar('Error', e.toString());

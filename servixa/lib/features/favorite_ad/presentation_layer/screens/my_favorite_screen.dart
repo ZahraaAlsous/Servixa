@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
@@ -35,7 +36,14 @@ class MyFavoriteScreen extends StatelessWidget {
           //   message: "Loading ads...",
           //   showLogo: true,
           // );
-          return ShimmerCardGridView(widthCard: 0.431, shrinkWrap:  false,);
+          return ShimmerCardGridView(widthCard: 0.431, shrinkWrap: false);
+        }
+        if (favoriteController.hasErrorLoadingFavorite.value) {
+          return InternetConnectionErrorWidget(
+            onPressed: () {
+              favoriteController.getMyFavorite((e) {});
+            },
+          );
         }
         if (favoriteController.myFavoriteAdsList.isEmpty) {
           return Expanded(child: AppNothingWidget());

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_loading_widget.dart';
 import 'package:servixa/core/const/image_app.dart';
@@ -26,6 +27,13 @@ class SlidersHomeWidget extends StatelessWidget {
           widthCard: size.width * 0.913,
           heightCard: 145,
           margin: EdgeInsetsGeometry.symmetric(horizontal: 5),
+        );
+      }
+      if (homeController.hasErrorLoadingSlider.value) {
+        return InternetConnectionErrorWidget(
+          onPressed: () {
+            homeController.getImageSliders();
+          },
         );
       }
       return SizedBox(

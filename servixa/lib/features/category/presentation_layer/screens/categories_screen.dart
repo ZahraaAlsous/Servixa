@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
-import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
-import 'package:servixa/common/widgets/app_snackbar.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
-import 'package:servixa/features/ads/presentation_layer/screens/view_all_ads_screen.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 import 'package:servixa/features/category/presentation_layer/screens/all_ads_of_category_screen.dart';
@@ -51,6 +48,13 @@ class CategoriesScreen extends StatelessWidget {
                 //   showLogo: true,
                 // );
                 return ShimmerCategoriesGrid();
+              }
+              if (categoryController.hasErrorLoadingCategory.value) {
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    categoryController.getCategories((e) {});
+                  },
+                );
               }
               if (categoryController.categories.isEmpty) {
                 return Expanded(child: AppNothingWidget());

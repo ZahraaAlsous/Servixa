@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:servixa/features/home/data_layer/models/image_slider_model.dart';
 
 class HomeService {
@@ -25,7 +26,7 @@ class HomeService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : getImageSliders ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service: getImageSliders ERROR");
       log(

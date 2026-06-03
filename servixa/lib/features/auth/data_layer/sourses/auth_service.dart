@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService {
@@ -41,7 +42,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : Register ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Register ERROR");
       log(
@@ -78,7 +79,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : Login ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Login ERROR");
       log(
@@ -117,7 +118,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : Verify Email ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Verify Email ERROR");
       log(
@@ -168,7 +169,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : Logout ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Logout ERROR");
       log(
@@ -202,7 +203,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : ChangePassword ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : ChangePassword ERROR");
       log(
@@ -234,7 +235,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : ForgetPassword ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : ForgetPassword ERROR");
       log(
@@ -268,7 +269,7 @@ class AuthService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : ResetPassword ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : ResetPassword ERROR");
       log(

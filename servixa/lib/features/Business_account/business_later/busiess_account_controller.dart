@@ -27,7 +27,9 @@ class BusinessAccountController extends GetxController {
   RxBool isLoadingCreateBusinessAccount = false.obs;
   RxBool isLoadingCities = false.obs;
   RxBool isLoadingUserTypes = false.obs;
+  RxBool hasErrorLoadingUserTypes = false.obs;
   RxBool isLoadingBusinessAccounts = false.obs;
+  RxBool hasErrorBusinessAccounts = false.obs;
   RxBool agreeLoadingCitiesAndUserTypes = false.obs;
   RxInt selectedUserTypeId = 0.obs;
   TextEditingController licenseNumberController = TextEditingController();
@@ -99,6 +101,7 @@ class BusinessAccountController extends GetxController {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : getUserTypes IN");
 
       isLoadingUserTypes.value = true;
+      hasErrorLoadingUserTypes.value = false;
       userTypesList.value = await businessAccountService.getUserTypes();
       log("==============================Controller : getUserTypes OK");
     } catch (e) {
@@ -107,8 +110,8 @@ class BusinessAccountController extends GetxController {
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
-
-      throw e;
+      hasErrorLoadingUserTypes.value = true;
+      // throw e;
     } finally {
       isLoadingUserTypes.value = false;
     }
@@ -265,6 +268,7 @@ class BusinessAccountController extends GetxController {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : GetBusinessAccount IN");
 
       isLoadingBusinessAccounts.value = true;
+      hasErrorBusinessAccounts.value = false;
       businessAccountsList.value = await businessAccountService
           .getBusinessAccount();
     } catch (e) {
@@ -275,6 +279,7 @@ class BusinessAccountController extends GetxController {
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
+      hasErrorBusinessAccounts.value = true;
     } finally {
       isLoadingBusinessAccounts.value = false;
     }
@@ -287,14 +292,13 @@ class BusinessAccountController extends GetxController {
       );
 
       isLoadingBusinessAccounts.value = true;
-     await getBusinessAccount();
+      await getBusinessAccount();
       businessAccountsApprovedList.value = businessAccountsList
           .where((account) => account.status == "approved")
           .toList();
       log(
         "==============================Controller : GetBusinessAccountApproved OK",
       );
-
     } catch (e) {
       log(
         "==============================Controller : GetBusinessAccountApproved ERROR",

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ReportService {
@@ -33,7 +34,7 @@ class ReportService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : AddReport ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("=================================Service: AddReport ERROR");
       log(

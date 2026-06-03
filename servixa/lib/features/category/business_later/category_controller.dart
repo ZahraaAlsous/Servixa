@@ -9,8 +9,11 @@ import 'package:servixa/features/category/data_layer/sourses/category_servic.dar
 class CategoryController extends GetxController {
   final CategoryServic categoryService = CategoryServic();
   RxBool isLoadingCategory = false.obs;
+  RxBool hasErrorLoadingCategory = false.obs;
   RxBool isLoadingSubCategory = false.obs;
+  RxBool hasErrorLoadingSubCategory = false.obs;
   RxBool isLoadingCategoryQuestions = false.obs;
+  RxBool hasErrorLoadingCategoryQuestions = false.obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<CategoryModel> subCategories = <CategoryModel>[].obs;
   RxList<CategoryQuestionModel> categoryQuestions =
@@ -21,18 +24,33 @@ class CategoryController extends GetxController {
   void onInit() {
     super.onInit();
     getCategories(AppSnackbar.showError);
-    // getCategories();
+    // // getCategories();
+    // ever(isLoadingCategory, (_) {
+    //   if (!isLoadingCategory.value && categories.isEmpty) {
+    //     Future.delayed(Duration(seconds: 5), () {
+    //       if (categories.isEmpty) {
+    //         log('⏰ مرت 5 ثوانٍ وما زالت قائمة الفئات فارغة');
+    //         log('🚀 إعادة محاولة تحميل الفئات...');
+    //         getCategories(AppSnackbar.showError);
+    //       } else {
+    //         log('✅ تم تحميل الفئات خلال فترة الانتظار');
+    //       }
+    //     });
+    //   }
+    // });
   }
 
   Future<void> getCategories(void Function(String e) onError) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Categories IN");
       isLoadingCategory.value = true;
+      hasErrorLoadingCategory.value = false;
       categories.value = await categoryService.getCategories();
       if (categories.isNotEmpty) {
         log("==============================Controller : Get Categories OK");
       }
     } catch (e) {
+      hasErrorLoadingCategory.value = true;
       log("==============================Controller : Get Categories ERROR");
       log(
         "==============================Controller THE ERROR IS: " +
@@ -107,11 +125,16 @@ class CategoryController extends GetxController {
 
   Future<void> getSubCategories(int categoryId) async {
     try {
+      hasErrorLoadingSubCategory.value = false;
       isLoadingSubCategory.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Sub Categories IN");
       subCategories.value = await categoryService.getSubCategories(categoryId);
     } catch (e) {
-      AppSnackbar.showError(e.toString());
+      hasErrorLoadingSubCategory.value = true;
+      log(
+        "==============================Controller : Get Sub Categories ERROR",
+      );
+      // AppSnackbar.showError(e.toString());
     } finally {
       isLoadingSubCategory.value = false;
     }
@@ -121,6 +144,7 @@ class CategoryController extends GetxController {
     try {
       //  categoryQuestions.clear();
       isLoadingCategoryQuestions.value = true;
+      hasErrorLoadingCategoryQuestions.value = false;
 
       log(
         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions IN",
@@ -129,7 +153,8 @@ class CategoryController extends GetxController {
         categoryId,
       );
     } catch (e) {
-      AppSnackbar.showError(e.toString());
+      hasErrorLoadingCategoryQuestions.value = true;
+      // AppSnackbar.showError(e.toString());
     } finally {
       isLoadingCategoryQuestions.value = false;
     }

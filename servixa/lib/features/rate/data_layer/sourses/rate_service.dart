@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/rate/data_layer/models/review_rate_model.dart';
 
@@ -36,7 +37,7 @@ class RateService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : AddRate ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : AddRate ERROR");
       log(
@@ -64,7 +65,7 @@ class RateService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : GetRateReview ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : GetRateReview ERROR");
       log(

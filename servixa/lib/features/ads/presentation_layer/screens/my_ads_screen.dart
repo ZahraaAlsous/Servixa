@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -63,7 +64,30 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
           //   message: "Loading ads...".tr(),
           //   showLogo: true,
           // );
-          return ShimmerCardGridView(widthCard: 0.34, shrinkWrap: false,);
+          return ShimmerCardGridView(widthCard: 0.34, shrinkWrap: false);
+        }
+        // if ((adsController.isLoadingMyAdd.value && adsController.hasErrorLoadingMyAds.value) ||(adsController.isSelectedAcceptedMyAd.value &&
+        //         adsController.acceptedMyAdList.isEmpty &&
+        //         adsController.isLoadingMore.value) ||
+        //     (adsController.isSelectedPendingMyAd.value &&
+        //         adsController.pendingMyAdList.isEmpty &&
+        //         adsController.isLoadingMore.value) ||
+        //     (adsController.isSelectedRejectedMyAd.value &&
+        //         adsController.rejectedMyAdList.isEmpty &&
+        //         adsController.isLoadingMore.value)) {
+        if (adsController.hasErrorLoadingMyAds.value ||
+            (adsController.isSelectedAcceptedMyAd.value &&
+                adsController.acceptedMyAdList.isEmpty &&
+                adsController.hasErrorLoadingMyAdsMore.value) ||
+            (adsController.isSelectedPendingMyAd.value &&
+                adsController.pendingMyAdList.isEmpty &&
+                adsController.hasErrorLoadingMyAdsMore.value) ||
+            (adsController.isSelectedRejectedMyAd.value &&
+                adsController.rejectedMyAdList.isEmpty &&
+                adsController.hasErrorLoadingMyAdsMore.value)) {
+          return InternetConnectionErrorWidget(
+            onPressed: () => adsController.getMyAds(() {}, (e) {}),
+          );
         }
         if (adsController.isSelectedAcceptedMyAd.value &&
             adsController.acceptedMyAdList.isEmpty) {

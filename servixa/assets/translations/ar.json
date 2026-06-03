@@ -265,6 +265,7 @@
   " must be in numbers only.": " يجب أن تكون بالأرقام فقط.",
   "Please select ": "الرجاء الاختيار ",
   "account": "الحساب",
+  "Please re-upload the questions for the selected category; and if there are any questions, they should be completed.": "يرجى إعادة تحميل الأسئلة للفئة المحددة؛ وإذا كانت هناك أي أسئلة، يجب إكمالها.",
 
   "agreeTermsAndPolicies": "أوافق على ",
   "termsAndPolicies": "الشروط والسياسات",
@@ -285,5 +286,7 @@
   "Decline": "انخفاض",
 
   "Welcome, Guest": "أهلاً وسهلاً أيها الضيف",
-  "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات"
+  "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات",
+
+  "Connection failed: Please check your internet": "فشل الاتصال: يرجى التحقق من اتصالك بالإنترنت"
 }

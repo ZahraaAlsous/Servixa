@@ -16,8 +16,12 @@ class AdsController extends GetxController {
   RxList<AdsModel> rejectedMyAdList = <AdsModel>[].obs;
   Rx<AdsModel?> adsDetails = Rx<AdsModel?>(null);
   RxBool isLoading = false.obs;
+  RxBool hasErrorLoadingAds = false.obs;
+  RxBool hasErrorLoadingDetails = false.obs;
   RxBool isLoadingMyAdd = false.obs;
   RxBool isLoadingMore = false.obs;
+  RxBool hasErrorLoadingMyAds = false.obs;
+  RxBool hasErrorLoadingMyAdsMore = false.obs;
   RxBool isDeleteNow = false.obs;
   RxBool isSelectedPendingMyAd = true.obs;
   RxBool isSelectedAcceptedMyAd = false.obs;
@@ -36,11 +40,26 @@ class AdsController extends GetxController {
     //   getAddDetailss(adId);
     // //   //  getAdsDetails(adId);
     // }
+
+    // ever(isLoading, (_) {
+    //   if (!isLoading.value && adsList.isEmpty) {
+    //     Future.delayed(Duration(seconds: 5), () {
+    //       if (adsList.isEmpty) {
+    //         log('⏰ مرت 3 ثوانٍ وما زالت قائمة الإعلانات فارغة');
+    //         log('🚀 إعادة محاولة تحميل الإعلانات...');
+    //         getAds();
+    //       } else {
+    //         log('✅ تم تحميل الإعلانات خلال فترة الانتظار');
+    //       }
+    //     });
+    //   }
+    // });
   }
 
   Future<void> getAds({int? categoryId}) async {
     try {
       isLoading.value = true;
+      hasErrorLoadingAds.value = false;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Ads IN");
 
       List<AdsModel> ads = await adService.getAds(categoryId: categoryId);
@@ -49,6 +68,7 @@ class AdsController extends GetxController {
 
       log("==============================Controller : Ads OK");
     } catch (e) {
+      hasErrorLoadingAds.value = true;
       log("==============================Controller : Ads ERROR");
       log(
         "==============================Controller THE ERROR IS: " +
@@ -70,11 +90,13 @@ class AdsController extends GetxController {
   ) async {
     try {
       isLoading.value = true;
+      hasErrorLoadingDetails.value = false;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Ad Details IN");
 
       adsDetails.value = await adService.getAdDetails(adId);
       log("==============================Controller : Ad Details OK");
     } catch (e) {
+      hasErrorLoadingDetails.value = true;
       log("==============================Controller : Ad Details ERROR");
       log(
         "==============================Controller THE ERROR IS: " +
@@ -192,6 +214,7 @@ class AdsController extends GetxController {
     try {
       isLoadingMyAdd.value = true;
       isLoadingMore.value = true;
+      hasErrorLoadingMyAds.value = false;
 
       List<AdsModel> adsPage = await adService.getMyAds(page: 1);
       myAdsList.value = adsPage;
@@ -212,6 +235,10 @@ class AdsController extends GetxController {
         "==============================Controller THE ERROR IS: " +
             e.toString(),
       );
+
+      hasErrorLoadingMyAds.value = true;
+      isLoadingMore.value = false;
+
       onError(e.toString());
     } finally {
       isLoadingMyAdd.value = false;
@@ -221,6 +248,7 @@ class AdsController extends GetxController {
   Future<void> _loadRemainingPages() async {
     int currentPage = 2;
     bool hasMore = true;
+    hasErrorLoadingMyAdsMore.value = false;
 
     while (hasMore) {
       try {
@@ -251,6 +279,7 @@ class AdsController extends GetxController {
               e.toString(),
         );
         hasMore = false;
+        hasErrorLoadingMyAdsMore.value = true;
       } finally {
         isLoadingMore.value = false;
       }

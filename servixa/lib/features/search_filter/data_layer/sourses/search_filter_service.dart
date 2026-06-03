@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
@@ -59,7 +60,7 @@ class SearchFilterService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : AdsFilter ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : AdsFilter ERROR");
       log(

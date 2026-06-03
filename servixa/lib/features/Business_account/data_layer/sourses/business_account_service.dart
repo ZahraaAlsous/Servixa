@@ -36,7 +36,7 @@ class BusinessAccountService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : getUserTypes ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : getUserTypes ERROR");
       log(
@@ -75,7 +75,7 @@ class BusinessAccountService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : GetCities ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : GetCities ERROR");
       log(
@@ -162,7 +162,7 @@ class BusinessAccountService {
         log(
           "==============================Service : CreateBusinessAccount ERROR_Net",
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log(
         "==============================Service : CreateBusinessAccount ERROR",
@@ -203,7 +203,7 @@ class BusinessAccountService {
         log(
           "==============================Service : GetBusinessAccount ERROR_Net",
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : GetBusinessAccount ERROR");
       log(

@@ -115,8 +115,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                             opacity: animation,
                             child: SlideTransition(
                               position: Tween<Offset>(
-                                begin: Offset(0.1, 0), 
-                                end: Offset(0, 0), 
+                                begin: Offset(0.1, 0),
+                                end: Offset(0, 0),
                               ).animate(animation),
                               child: child,
                             ),
@@ -179,21 +179,21 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     // required bool isCurrent,
     required Size size,
   }) {
-    return 
+    return
     // Row(
     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
     //   children: [
-        AnimatedContainer(
-          duration: Duration(seconds: 1),
-          margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
-          width: size.width * 0.179,
-          height: 8.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: isActive
-                ? ThemeApp.Foundation_Main_main_500
-                : ThemeApp.Foundation_Secendary_grey_100,
-          ),
+    AnimatedContainer(
+      duration: Duration(seconds: 1),
+      margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
+      width: size.width * 0.179,
+      height: 8.5,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7),
+        color: isActive
+            ? ThemeApp.Foundation_Main_main_500
+            : ThemeApp.Foundation_Secendary_grey_100,
+      ),
       //   ),
       // ],
     );
@@ -311,6 +311,17 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   Get.snackbar(
                     "Alert".tr(),
                     "Please wait a moment while the classification questions are uploaded, if available."
+                        .tr(),
+                    backgroundColor: ThemeApp.Foundation_Main_main_50,
+                    colorText: ThemeApp.Foundation_Main_main_500,
+                  );
+                  return;
+                }
+
+                if (categoryController.hasErrorLoadingCategoryQuestions.value) {
+                  Get.snackbar(
+                    "Alert".tr(),
+                    "Please re-upload the questions for the selected category; and if there are any questions, they should be completed."
                         .tr(),
                     backgroundColor: ThemeApp.Foundation_Main_main_50,
                     colorText: ThemeApp.Foundation_Main_main_500,

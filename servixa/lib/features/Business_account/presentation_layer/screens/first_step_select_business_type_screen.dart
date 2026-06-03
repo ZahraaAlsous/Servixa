@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_loading_widget.dart';
@@ -30,6 +31,11 @@ class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: 6,
         );
+      }
+      if (businessAccountController.hasErrorLoadingUserTypes.value) {
+        return InternetConnectionErrorWidget(onPressed: (){
+          businessAccountController.getUserTypes();
+        });
       }
       return GridView.builder(
         shrinkWrap: true,

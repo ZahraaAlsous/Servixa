@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_my_order_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_received_order_widget.dart';
@@ -37,6 +38,15 @@ class OrderScreen extends StatelessWidget {
               if (!orderController.isSelectedMyOrders.value) {
                 return Expanded(child: ShimmerMyOrderCardList());
               }
+            }
+            if (orderController.hasErrorLoadingOrders.value) {
+              return Expanded(
+                child: InternetConnectionErrorWidget(
+                  onPressed: () {
+                    orderController.getOrders((e) {});
+                  },
+                ),
+              );
             }
             if (orderController.myOrders.isEmpty &&
                 !orderController.isSelectedMyOrders.value) {

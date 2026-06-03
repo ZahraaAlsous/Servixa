@@ -10,6 +10,7 @@ class FavoriteController extends GetxController {
   final FavoriteService favoriteService = FavoriteService();
   final AdsController adsController = Get.put(AdsController());
   RxBool isLoadingFavorite = false.obs;
+  RxBool hasErrorLoadingFavorite = false.obs;
   RxList<AdsModel> myFavoriteAdsList = <AdsModel>[].obs;
 
   bool isAdCurrentlyFavorite(int adId) {
@@ -179,10 +180,12 @@ class FavoriteController extends GetxController {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: GetMyFavorite IN");
       isLoadingFavorite.value = true;
+      hasErrorLoadingFavorite.value = false;
       myFavoriteAdsList.value = await favoriteService.getMyFavorite();
     } catch (e) {
       log("==============================Controller: GetMyFavorite ERROR");
       log("==============================The error is: $e");
+      hasErrorLoadingFavorite.value = true;
       onError(e.toString());
     } finally {
       isLoadingFavorite.value = false;

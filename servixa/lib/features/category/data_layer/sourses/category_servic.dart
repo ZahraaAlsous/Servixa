@@ -45,7 +45,7 @@ class CategoryServic {
         log(
           "==============================Service THE ERROR IS: " + e.toString(),
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Get Categories ERROR");
 
@@ -92,7 +92,7 @@ class CategoryServic {
         log(
           "==============================Service THE ERROR IS: " + e.toString(),
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : Get SubCategories ERROR");
 
@@ -146,7 +146,7 @@ class CategoryServic {
         log(
           "==============================Service THE ERROR IS: " + e.toString(),
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log(
         "==============================Service : Get Category Questions ERROR",

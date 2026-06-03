@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 
@@ -369,6 +370,11 @@ class AddAdService {
       log("====================SERVICE: Delete image OK");
       return response.statusCode == 200;
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError) {
+        log("==============================Service : AddReport ERROR_Net");
+        throw "Connection failed: Please check your internet".tr();
+      }
       log("=======================service: Delete image error");
       log(
         "=======================the error is : ${e.response!.data["message"]}",

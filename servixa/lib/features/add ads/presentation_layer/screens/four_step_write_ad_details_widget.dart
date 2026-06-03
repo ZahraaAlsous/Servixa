@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -121,7 +122,8 @@ class _FourStepWriteAdDetailsWidgetState
             icon: IconApp.price,
             keyboardType: TextInputType.number,
             controller: addAdsController.priceController,
-            validator: (value) => Validators.validateNumber(value, "Price".tr()),
+            validator: (value) =>
+                Validators.validateNumber(value, "Price".tr()),
             // onChanged: (value) {
             //   addAdsController.price.value = value;
             // },
@@ -220,6 +222,18 @@ class _FourStepWriteAdDetailsWidgetState
               // return Center(child: CircularProgressIndicator());
               return LoadingAnimationWidget(
                 message: "Loading dynamic questions...".tr(),
+              );
+            } else if (categoryController
+                .hasErrorLoadingCategoryQuestions
+                .value) {
+              return InternetConnectionErrorWidget(
+                onPressed: () {
+                  categoryController.getCategoryQuestions(
+                    addAdsController.selectedSubCategoryAds.value != null
+                        ? addAdsController.selectedSubCategoryAds.value!.id
+                        : addAdsController.selectedCategoryAds.value!.id,
+                  );
+                },
               );
             } else {
               if (categoryController.categoryQuestions.isNotEmpty) {

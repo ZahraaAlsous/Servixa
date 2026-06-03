@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -24,6 +26,7 @@ import 'package:servixa/features/home/presentation_layer/widgets/app_bar_home_wi
 import 'package:servixa/features/home/presentation_layer/widgets/circle_sliders_widget.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/sliders_home_widget.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
+import 'package:servixa/sliver.dart';
 
 class HomePage extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
@@ -37,10 +40,14 @@ class HomePage extends StatelessWidget {
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarHomeWidget(),
       body: SingleChildScrollView(
+        // physics: const BouncingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
+            // TextButton(onPressed: () => Get.to(()=> SliversDemoPage()), child: Text("sliver")),
+          
             Padding(
               padding: EdgeInsetsGeometry.symmetric(
                 horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -82,6 +89,9 @@ class HomePage extends StatelessWidget {
                 //   message: "Loading categories...".tr(),
                 // );
                 return ShimmerCategoriesList(height: 84);
+              }
+              if (categoryController.hasErrorLoadingCategory.value) {
+                return InternetConnectionErrorWidget(onPressed : (){categoryController.getCategories(AppSnackbar.showError);});
               }
               return SizedBox(
                 // height: size.height * 0.090,
@@ -134,6 +144,10 @@ class HomePage extends StatelessWidget {
                   heightCard: 236,
                 );
               }
+
+              if (adsController.hasErrorLoadingAds.value) {
+                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+              }
               return SizedBox(
                 // note
                 // ليس نفس قياس التصميم
@@ -183,6 +197,9 @@ class HomePage extends StatelessWidget {
                   widthCard: size.width * 0.367,
                   heightCard: 236,
                 );
+              }
+              if (adsController.hasErrorLoadingAds.value) {
+                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
               }
               return SizedBox(
                 // note
@@ -234,6 +251,9 @@ class HomePage extends StatelessWidget {
                   heightCard: 236,
                 );
               }
+              if (adsController.hasErrorLoadingAds.value) {
+                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+              }
               return SizedBox(
                 // note
                 // ليس نفس قياس التصميم
@@ -271,6 +291,9 @@ class HomePage extends StatelessWidget {
                 // return LoadingAnimationWidget(message: "Loading ads...".tr());
                 return ShimmerCardGridView(widthCard: 0.413, shrinkWrap: true);
               }
+              if (adsController.hasErrorLoadingAds.value) {
+                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+              }
               return GridView.builder(
                 padding: EdgeInsetsGeometry.only(
                   right: size.width * DimensApp.spaceHorizontalScreen,
@@ -286,7 +309,11 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 0.7,
                 ),
                 itemCount: adsController.adsList.length,
+                // itemCount: adsController.adsList.length + 1,
                 itemBuilder: (context, indexAds) {
+                  // if (indexAds == adsController.adsList.length) {
+                  //   return _buildEndOfListIndicator(context);
+                  // }
                   AdsModel ads = adsController.adsList[indexAds];
                   return AppCardAdsWidget(
                     ads: ads,
@@ -305,3 +332,56 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+// // دالة لبناء مؤشر نهاية القائمة
+// Widget _buildEndOfListIndicator() {
+//   return Container(
+//     padding: EdgeInsets.symmetric(vertical: 20),
+//     child: Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         Icon(Icons.hourglass_bottom, color: Colors.grey[400], size: 40),
+//         SizedBox(height: 8),
+//         Text(
+//           "لقد وصلت إلى النهاية 🎉",
+//           style: TextStyle(color: Colors.grey[500], fontSize: 14),
+//         ),
+//         Text(
+//           "لا يوجد المزيد من الإعلانات",
+//           style: TextStyle(color: Colors.grey[400], fontSize: 12),
+//         ),
+//       ],
+//     ),
+//   );
+// }
+// دالة لبناء مؤشر نهاية القائمة
+// Widget _buildEndOfListIndicator(BuildContext context) {
+//   return Container(
+//     // padding: EdgeInsets.symmetric(vertical: 20),
+//     width: MediaQuery.of(context).size.width,
+//     height: 20,
+//     decoration: BoxDecoration(
+//       color: Colors.grey[200],
+//       borderRadius: BorderRadius.only(
+//         topLeft: Radius.circular(100),
+//         topRight: Radius.circular(100),
+//       ),
+//     ),
+
+//     // child: Column(
+//     //   mainAxisAlignment: MainAxisAlignment.center,
+//     //   children: [
+//     //     Icon(Icons.hourglass_bottom, color: Colors.grey[400], size: 40),
+//     //     SizedBox(height: 8),
+//     //     Text(
+//     //       "لقد وصلت إلى النهاية 🎉",
+//     //       style: TextStyle(color: Colors.grey[500], fontSize: 14),
+//     //     ),
+//     //     Text(
+//     //       "لا يوجد المزيد من الإعلانات",
+//     //       style: TextStyle(color: Colors.grey[400], fontSize: 12),
+//     //     ),
+//     //   ],
+//     // ),
+//   );
+// }

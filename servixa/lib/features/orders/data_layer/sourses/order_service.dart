@@ -45,7 +45,7 @@ class OrderService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : AddOrder ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : AddOrder ERROR");
       log(
@@ -86,7 +86,7 @@ class OrderService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : GetOrder ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : GetOrder ERROR");
       log(
@@ -118,7 +118,7 @@ class OrderService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.connectionError) {
         log("==============================Service : DeleteOrder ERROR_Net");
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : DeleteOrder ERROR");
       log(
@@ -156,7 +156,7 @@ class OrderService {
         log(
           "==============================Service : UpdateStatusOrder ERROR_Net",
         );
-        throw "Connection failed: Please check your internet";
+        throw "Connection failed: Please check your internet".tr();
       }
       log("==============================Service : UpdateStatusOrder ERROR");
       log(

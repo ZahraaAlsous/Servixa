@@ -154,7 +154,7 @@
   "No reviews yet": "No reviews yet",
   "Chat": "Chat",
   " Make An Offer": " Make An Offer",
-  "This feature will be available soon.":"This feature will be available soon.",
+  "This feature will be available soon.": "This feature will be available soon.",
 
   "Rate this Ad": "Rate this Ad",
   "Rate by clicking on a star": "Rate by clicking on a star",
@@ -265,6 +265,7 @@
   " must be in numbers only.": " must be in numbers only.",
   "Please select ": "Please select ",
   "account": "account",
+  "Please re-upload the questions for the selected category; and if there are any questions, they should be completed.": "Please re-upload the questions for the selected category; and if there are any questions, they should be completed.",
 
   "agreeTermsAndPolicies": "I agree with ",
   "termsAndPolicies": "terms & policies",
@@ -285,5 +286,7 @@
   "Decline": "Decline",
 
   "Welcome, Guest": "Welcome, Guest",
-  "Login to enjoy all features": "Login to enjoy all features"
+  "Login to enjoy all features": "Login to enjoy all features",
+
+  "Connection failed: Please check your internet": "Connection failed: Please check your internet"
 }

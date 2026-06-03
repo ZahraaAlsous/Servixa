@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -66,6 +66,13 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                     //   showLogo: true,
                     // );
                     return ShimmerCategoriesGrid();
+                  }
+                  if (categoryController.hasErrorLoadingSubCategory.value) {
+                    return InternetConnectionErrorWidget(
+                      onPressed: () {
+                        categoryController.getSubCategories(widget.category.id);
+                      },
+                    );
                   }
                   if (categoryController.subCategories.isEmpty) {
                     return Expanded(child: AppNothingWidget());

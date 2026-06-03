@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_business_account_widget.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
@@ -25,6 +26,13 @@ class FirstStepBusinessAccountWidget extends StatelessWidget {
               shrinkWrap: true,
               itemCount: 6,
               onlyApproved: true,
+            );
+          }
+          if (businessAccountController.hasErrorBusinessAccounts.value) {
+            return InternetConnectionErrorWidget(
+              onPressed: () {
+                businessAccountController.getBusinessAccountApproved();
+              },
             );
           }
           return ListView.builder(

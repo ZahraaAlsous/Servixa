@@ -9,6 +9,7 @@ class OrderController extends GetxController {
   final orderService = OrderService();
   RxBool isSendOrder = false.obs;
   RxBool isLoadingOrder = false.obs;
+  RxBool hasErrorLoadingOrders = false.obs;
   RxMap<int, bool> isDeletingOrders = <int, bool>{}.obs;
   RxBool isSelectedMyOrders = false.obs;
   RxList<OrdersModel> myOrders = <OrdersModel>[].obs;
@@ -59,6 +60,7 @@ class OrderController extends GetxController {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: GetOrders IN");
       isLoadingOrder.value = true;
+      hasErrorLoadingOrders.value = false;
       if (isSelectedMyOrders.value) {
         receivedOrders.value = await orderService.getOrders(isMyOrders: 1);
         // for (var order in receivedOrders) {
@@ -74,7 +76,7 @@ class OrderController extends GetxController {
     } catch (e) {
       log("==============================Controller: GetOrders ERROR");
       log("==============================The error is : $e");
-
+      hasErrorLoadingOrders.value = true;
       onError(e.toString());
     } finally {
       isLoadingOrder.value = false;
