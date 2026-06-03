@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/internet_connection_error_widget.dart';
+import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';

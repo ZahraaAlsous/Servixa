@@ -288,5 +288,7 @@
   "Welcome, Guest": "أهلاً وسهلاً أيها الضيف",
   "Login to enjoy all features": "سجل الدخول للاستمتاع بجميع الميزات",
 
-  "Connection failed: Please check your internet": "فشل الاتصال: يرجى التحقق من اتصالك بالإنترنت"
+  "Connection failed: Please check your internet": "فشل الاتصال: يرجى التحقق من اتصالك بالإنترنت",
+  "No internet connection or server error": "لا يوجد اتصال بالإنترنت أو خطأ في الخادم",
+  "Try Again": "حاول مرة أخرى"
 }

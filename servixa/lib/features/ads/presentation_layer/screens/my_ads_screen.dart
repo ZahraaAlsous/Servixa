@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/internet_connection_error_widget.dart';
+import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/internet_connection_error_widget.dart';
+import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_checkbox_terms_policies_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';

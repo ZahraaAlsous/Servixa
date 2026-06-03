@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/internet_connection_error_widget.dart';
+import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';

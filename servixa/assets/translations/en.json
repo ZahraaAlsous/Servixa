@@ -288,5 +288,7 @@
   "Welcome, Guest": "Welcome, Guest",
   "Login to enjoy all features": "Login to enjoy all features",
 
-  "Connection failed: Please check your internet": "Connection failed: Please check your internet"
+  "Connection failed: Please check your internet": "Connection failed: Please check your internet",
+  "No internet connection or server error": "No internet connection or server error",
+  "Try Again": "Try Again"
 }

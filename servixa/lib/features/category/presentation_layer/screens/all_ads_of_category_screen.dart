@@ -4,6 +4,7 @@ import 'package:servixa/common/widgets/app_bar_widget.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
+import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -61,7 +62,17 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
                 // return Center(child: CircularProgressIndicator());
                 // return LoadingAnimationWidget(message: "Loading ads...", showLogo: true,);
                 // return Expanded(child: ShimmerCardGridView(widthCard: 0.431, heightCard: 118));
-                return Expanded(child: ShimmerCardList(widthCard: 0.431, heightCard: 118));
+                return Expanded(
+                  child: ShimmerCardList(widthCard: 0.431, heightCard: 118),
+                );
+              }
+              if (adsController.hasErrorLoadingAds.value) {
+                return Expanded(
+                  child: InternetConnectionErrorWidget(
+                    onPressed: () =>
+                        adsController.getAds(categoryId: widget.category.id),
+                  ),
+                );
               }
               if (adsController.adsCategory.isEmpty) {
                 return Expanded(child: AppNothingWidget());
