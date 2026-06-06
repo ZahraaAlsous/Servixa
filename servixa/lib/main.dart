@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/core/services/notification_service.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/splash/presentation_layer/screens/splash_screen.dart';
@@ -7,6 +9,16 @@ import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 1. تهيئة الفيربيز أولاً
+  await Firebase.initializeApp(); 
+  
+  // 2. تهيئة خدمة الإشعارات
+  await NotificationService.initialize();
+  
+  // طباعة التوكن لتجربته في الـ Firebase Console
+  await NotificationService.getDeviceToken();
+
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(

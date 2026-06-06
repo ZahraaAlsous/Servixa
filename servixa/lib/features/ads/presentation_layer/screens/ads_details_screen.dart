@@ -85,7 +85,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size.width;
     final widthScreen = Get.width;
     return Obx(() {
       if (adsController.isLoading.value) {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "669110349214",
+    "project_id": "dtgfhjgf-f77e4",
+    "storage_bucket": "dtgfhjgf-f77e4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669110349214:android:0415e0bb68d259c9f6ba8f",
+        "android_client_info": {
+          "package_name": "com.example.servixa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvmtHUUWYYtczfFHXPiHX4bHc__ovczRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

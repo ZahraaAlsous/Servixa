@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:servixa/core/services/notification_service.dart';
 
 class AuthService {
   final Dio dio = Dio();
@@ -56,9 +57,17 @@ class AuthService {
   Future<void> login(String email, String password) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : Login IN");
+      String? deviceId = await getDeviceId();
+      String? fcm_token = await NotificationService.getDeviceToken();
+
       Response response = await dio.post(
         "https://services.tamkeen-dev.com/api/v1/login",
-        data: {"email": email, "password": password},
+        data: {
+          "email": email,
+          "password": password,
+          "device_id": deviceId,
+          "fcm_token": fcm_token,
+        },
         options: Options(headers: {"Accept": "application/json"}),
       );
       if (response.statusCode == 200) {
