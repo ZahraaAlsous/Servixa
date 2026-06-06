@@ -575,7 +575,47 @@ class AddAdsController extends GetxController {
   //   return result;
   // }
 
+  // void reFreshListAfterUpdateAd(int adId) {
+  //   final indexPending = adsController.pendingMyAdList.indexWhere(
+  //     (item) => item.id == adId,
+  //   );
+  //   final indexAccept = adsController.acceptedMyAdList.indexWhere(
+  //     (item) => item.id == adId,
+  //   );
+  //   final indexReject = adsController.rejectedMyAdList.indexWhere(
+  //     (item) => item.id == adId,
+  //   );
+  //   final indexMyAd = adsController.myAdsList.indexWhere(
+  //     (item) => item.id == adId,
+  //   );
+
+  //   if (indexPending != -1) {
+  //     adsController.pendingMyAdList[indexPending] =
+  //         adsController.adsDetails.value!;
+  //   }
+  //   if (indexAccept != -1) {
+  //     adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
+  //     adsController.adsList.removeWhere((item) => item.id == adId);
+
+  //     adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+  //   }
+
+  //   if (indexReject != -1) {
+  //     adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
+  //     adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+  //   }
+  //   if (indexMyAd != -1) {
+  //     adsController.pendingMyAdList[indexPending] =
+  //         adsController.adsDetails.value!;
+  //   }
+  //   adsController.pendingMyAdList.refresh();
+  //   adsController.acceptedMyAdList.refresh();
+  //   adsController.adsList.refresh();
+  //   adsController.rejectedMyAdList.refresh();
+  //   adsController.myAdsList.refresh();
+  // }
   void reFreshListAfterUpdateAd(int adId) {
+    // 1. البحث عن مكان الإعلان في القوائم المختلفة
     final indexPending = adsController.pendingMyAdList.indexWhere(
       (item) => item.id == adId,
     );
@@ -588,26 +628,37 @@ class AddAdsController extends GetxController {
     final indexMyAd = adsController.myAdsList.indexWhere(
       (item) => item.id == adId,
     );
+    final indexGeneralAds = adsController.adsList.indexWhere(
+      (item) => item.id == adId,
+    );
 
     if (indexPending != -1) {
       adsController.pendingMyAdList[indexPending] =
           adsController.adsDetails.value!;
     }
+
     if (indexAccept != -1) {
       adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
-      adsController.adsList.removeWhere((item) => item.id == adId);
 
+      adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
       adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
     }
 
     if (indexReject != -1) {
       adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
+
+      adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
       adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
     }
+
     if (indexMyAd != -1) {
-      adsController.pendingMyAdList[indexPending] =
-          adsController.adsDetails.value!;
+      adsController.myAdsList[indexMyAd] = adsController.adsDetails.value!;
     }
+
+    if (indexGeneralAds != -1) {
+      adsController.adsList[indexGeneralAds] = adsController.adsDetails.value!;
+    }
+
     adsController.pendingMyAdList.refresh();
     adsController.acceptedMyAdList.refresh();
     adsController.adsList.refresh();

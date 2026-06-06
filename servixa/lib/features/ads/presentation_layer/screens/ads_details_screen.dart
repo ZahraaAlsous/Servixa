@@ -552,7 +552,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             ? Obx(() {
                 if (categoryController.isLoadingCategoryQuestions.value) {
                   return Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       // vertical: 10,
@@ -564,7 +564,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 }
                 if (adsController.isDeleteNow.value) {
                   return Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       // vertical: 10,

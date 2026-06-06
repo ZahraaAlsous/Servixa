@@ -144,7 +144,7 @@ class AppCardAdsWidget extends StatelessWidget {
               right: 8,
               left: 8,
               top: 8,
-              bottom: 8,
+              // bottom: 8,
             ),
             child: Column(
               // mainAxisAlignment:MainAxisAlignment.start,
@@ -175,14 +175,18 @@ class AppCardAdsWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      // "500 SAK",
-                      ads.price.toString() + " " + ads.typeCoin,
-                      style: TypographyApp.Body_mid_Mid.copyWith(
-                        color: ThemeApp.Foundation_Main_main_500,
+                    Expanded(
+                      child: Text(
+                        // "500 SAK",
+                        ads.price.toString() + " " + ads.typeCoin,
+                        maxLines: 1,
+                        style: TypographyApp.Body_mid_Mid.copyWith(
+                          color: ThemeApp.Foundation_Main_main_500,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                    Spacer(),
+                    // Spacer(),
                     IconButton(
                       onPressed: authController.isLoggedIn.value
                           ? () {
