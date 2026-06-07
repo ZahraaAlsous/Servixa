@@ -473,11 +473,11 @@ class AddAdsController extends GetxController {
     }
   }
 
-  void removeExistingSubImageAt(int index) {
-    // if (index >= 0 && index < existingSubImagesUrls.length) {
-    //   existingSubImagesUrls.removeAt(index);
-    // }
-  }
+  // void removeExistingSubImageAt(int index) {
+  // if (index >= 0 && index < existingSubImagesUrls.length) {
+  //   existingSubImagesUrls.removeAt(index);
+  // }
+  // }
 
   Future<void> updateAd(
     int adId,
@@ -642,17 +642,21 @@ class AddAdsController extends GetxController {
     }
 
     if (indexAccept != -1) {
-      adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
+    // adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
 
-      adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
-      adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+    // adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
+    // adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+    adsController.acceptedMyAdList[indexAccept] =
+        adsController.adsDetails.value!;
     }
 
     if (indexReject != -1) {
-      adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
+      //   adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
 
-      adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
-      adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+      //   adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
+      //   adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+      adsController.rejectedMyAdList[indexReject] =
+          adsController.adsDetails.value!;
     }
 
     if (indexMyAd != -1) {

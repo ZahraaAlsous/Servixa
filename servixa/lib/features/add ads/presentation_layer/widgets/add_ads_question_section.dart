@@ -78,12 +78,12 @@ class AddAdsQuestionSection extends StatelessWidget {
                           addAdsController
                               .finalAnswers["custom_fields[${question.id}]"] ??
                           "",
-                      validator: (value) =>
-                          Validators.validateTextDinamckQuestion(
-                            value,
-                            question.question,
-                            question.metaData.is_required,
-                          ),
+                      // validator: (value) =>
+                      //     Validators.validateTextDinamckQuestion(
+                      //       value,
+                      //       question.question,
+                      //       question.metaData.is_required,
+                      //     ),
                       onChanged: (value) {
                         // addAdsController.adTitle = value;
                         addAdsController.saveSimpleAnswer(question.id, value);

@@ -190,6 +190,7 @@ class AdsController extends GetxController {
         acceptedMyAdList.removeWhere((ad) => ad.id == adId);
         pendingMyAdList.removeWhere((ad) => ad.id == adId);
         rejectedMyAdList.removeWhere((ad) => ad.id == adId);
+        adsList.removeWhere((ad) => ad.id == adId);
         log("==============================Controller : Delete Ad OK");
         onSuccess();
       } else {
