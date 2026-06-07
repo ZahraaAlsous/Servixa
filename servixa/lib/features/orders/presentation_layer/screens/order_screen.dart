@@ -22,73 +22,73 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBarOrderWidget(),
       backgroundColor: ThemeApp.whiteBackground,
-      body: Column(
-        children: [
-          const SizedBox(height: 10),
-          Obx(() {
-            if (orderController.isLoadingOrder.value) {
-              // return const Center(child: CircularProgressIndicator());
-              // return LoadingAnimationWidget(
-              //   message: "Loading orders...".tr(),
-              //   showLogo: true,
-              // );
-              if (orderController.isSelectedMyOrders.value) {
-                return Expanded(child: ShimmerReceivedOrderCardList());
-              }
-              if (!orderController.isSelectedMyOrders.value) {
-                return Expanded(child: ShimmerMyOrderCardList());
-              }
+      body: Padding(
+        padding: EdgeInsetsGeometry.only(
+          bottom: 60,
+        ),
+        child: Obx(() {
+          if (orderController.isLoadingOrder.value) {
+            // return const Center(child: CircularProgressIndicator());
+            // return LoadingAnimationWidget(
+            //   message: "Loading orders...".tr(),
+            //   showLogo: true,
+            // );
+            if (orderController.isSelectedMyOrders.value) {
+              return Expanded(child: ShimmerReceivedOrderCardList());
             }
-            if (orderController.hasErrorLoadingOrders.value) {
-              return Expanded(
-                child: InternetConnectionErrorWidget(
-                  onPressed: () {
-                    orderController.getOrders((e) {});
-                  },
-                ),
-              );
+            if (!orderController.isSelectedMyOrders.value) {
+              return Expanded(child: ShimmerMyOrderCardList());
             }
-            if (orderController.myOrders.isEmpty &&
-                !orderController.isSelectedMyOrders.value) {
-              return Expanded(child: AppNothingWidget());
-            }
-            if (orderController.receivedOrders.isEmpty &&
-                orderController.isSelectedMyOrders.value) {
-              return Expanded(child: AppNothingWidget());
-            }
-            return
-            // SizedBox(
-            //   height: 500,
-            Expanded(
-              child: Obx(() {
-                return ListView.builder(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: size.width * DimensApp.spaceHorizontalScreen,
-                  ),
-                  itemCount: !orderController.isSelectedMyOrders.value
-                      ? orderController.myOrders.length
-                      : orderController.receivedOrders.length,
-                  // itemCount: orderController.myOrders.length,
-                  itemBuilder: (context, indexOrder) {
-                    OrdersModel order =
-                        !orderController.isSelectedMyOrders.value
-                        ? orderController.myOrders[indexOrder]
-                        : orderController.receivedOrders[indexOrder];
-                    // if (orderController.isSelectedMyOrders.value) {
-                    //   orderController.getButtonTextByStatus(
-                    //     order.status,
-                    //     order.id,
-                    //   );
-                    // }
-                    return !orderController.isSelectedMyOrders.value
-                        ? MyOrderCardWidget(order: order)
-                        : ReceivedOrderCardWidget(order: order);
-                  },
-                );
-              }),
+          }
+          if (orderController.hasErrorLoadingOrders.value) {
+            return Expanded(
+              child: InternetConnectionErrorWidget(
+                onPressed: () {
+                  orderController.getOrders((e) {});
+                },
+              ),
             );
-          }),
-        ],
+          }
+          if (orderController.myOrders.isEmpty &&
+              !orderController.isSelectedMyOrders.value) {
+            return Expanded(child: AppNothingWidget());
+          }
+          if (orderController.receivedOrders.isEmpty &&
+              orderController.isSelectedMyOrders.value) {
+            return Expanded(child: AppNothingWidget());
+          }
+          return
+          // SizedBox(
+          //   height: 500,
+          Expanded(
+            child: Obx(() {
+              return ListView.builder(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: size.width * DimensApp.spaceHorizontalScreen,
+                ),
+                itemCount: !orderController.isSelectedMyOrders.value
+                    ? orderController.myOrders.length
+                    : orderController.receivedOrders.length,
+                // itemCount: orderController.myOrders.length,
+                itemBuilder: (context, indexOrder) {
+                  OrdersModel order =
+                      !orderController.isSelectedMyOrders.value
+                      ? orderController.myOrders[indexOrder]
+                      : orderController.receivedOrders[indexOrder];
+                  // if (orderController.isSelectedMyOrders.value) {
+                  //   orderController.getButtonTextByStatus(
+                  //     order.status,
+                  //     order.id,
+                  //   );
+                  // }
+                  return !orderController.isSelectedMyOrders.value
+                      ? MyOrderCardWidget(order: order)
+                      : ReceivedOrderCardWidget(order: order);
+                },
+              );
+            }),
+          );
+        }),
       ),
       // ),
     );

@@ -26,7 +26,6 @@ import 'package:servixa/features/home/presentation_layer/widgets/app_bar_home_wi
 import 'package:servixa/features/home/presentation_layer/widgets/circle_sliders_widget.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/sliders_home_widget.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
-import 'package:servixa/sliver.dart';
 
 class HomePage extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
@@ -332,56 +331,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-// // دالة لبناء مؤشر نهاية القائمة
-// Widget _buildEndOfListIndicator() {
-//   return Container(
-//     padding: EdgeInsets.symmetric(vertical: 20),
-//     child: Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Icon(Icons.hourglass_bottom, color: Colors.grey[400], size: 40),
-//         SizedBox(height: 8),
-//         Text(
-//           "لقد وصلت إلى النهاية 🎉",
-//           style: TextStyle(color: Colors.grey[500], fontSize: 14),
-//         ),
-//         Text(
-//           "لا يوجد المزيد من الإعلانات",
-//           style: TextStyle(color: Colors.grey[400], fontSize: 12),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-// دالة لبناء مؤشر نهاية القائمة
-// Widget _buildEndOfListIndicator(BuildContext context) {
-//   return Container(
-//     // padding: EdgeInsets.symmetric(vertical: 20),
-//     width: MediaQuery.of(context).size.width,
-//     height: 20,
-//     decoration: BoxDecoration(
-//       color: Colors.grey[200],
-//       borderRadius: BorderRadius.only(
-//         topLeft: Radius.circular(100),
-//         topRight: Radius.circular(100),
-//       ),
-//     ),
-
-//     // child: Column(
-//     //   mainAxisAlignment: MainAxisAlignment.center,
-//     //   children: [
-//     //     Icon(Icons.hourglass_bottom, color: Colors.grey[400], size: 40),
-//     //     SizedBox(height: 8),
-//     //     Text(
-//     //       "لقد وصلت إلى النهاية 🎉",
-//     //       style: TextStyle(color: Colors.grey[500], fontSize: 14),
-//     //     ),
-//     //     Text(
-//     //       "لا يوجد المزيد من الإعلانات",
-//     //       style: TextStyle(color: Colors.grey[400], fontSize: 12),
-//     //     ),
-//     //   ],
-//     // ),
-//   );
-// }

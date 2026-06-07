@@ -4,6 +4,7 @@ import 'package:get/get.dart' hide Trans;
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
+import 'package:servixa/features/setting/presentation_layer/screens/policies_screen.dart';
 
 class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
   AppCheckboxTermsPoliciesWidget({super.key});
@@ -48,13 +49,13 @@ class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
             // edit
             // page terms & policies
             // Get.to(RegisterPage());
+            Get.to(() => PoliciesScreen());
           },
           child: Text(
             "termsAndPolicies".tr(),
             style: TypographyApp.Body_mid_Mid.copyWith(
               color: ThemeApp.Foundation_Main_main_500,
             ),
-            
           ),
         ),
       ],
