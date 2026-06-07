@@ -31,7 +31,7 @@ class QuestionDynamicSection extends StatelessWidget {
           const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
           Wrap(
-            spacing: 20,
+            spacing: 10,
             runSpacing: 12,
             children: ads.categoryQuestionAnswer!.map((answer) {
               if (answer.value == null) return const SizedBox();
@@ -48,15 +48,12 @@ class QuestionDynamicSection extends StatelessWidget {
               }
 
               return SizedBox(
-                width: widthScreen * 0.4,
-                child: Row(
+                width: widthScreen * 0.45,
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 4,
+                  runSpacing: 2, 
                   children: [
-                    // SvgPicture.asset(
-                    //   _getIconForField(answer.question.type),
-                    //   width: 22,
-                    //   height: 22,
-                    //   color: ThemeApp.Foundation_Main_main_500,
-                    // ),
                     Text(
                       "${answer.question.question}: ",
                       style: TypographyApp.Title_Mid_Regular.copyWith(
@@ -68,7 +65,6 @@ class QuestionDynamicSection extends StatelessWidget {
                       style: TypographyApp.Title_Mid_Regular.copyWith(
                         color: ThemeApp.Foundation_Main_main_500,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                     if (answer.unit_of_masure != null &&
                         answer.unit_of_masure!.isNotEmpty)
