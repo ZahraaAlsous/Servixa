@@ -152,7 +152,17 @@ class CategoryController extends GetxController {
       categoryQuestions.value = await categoryService.getCategoryQuestions(
         categoryId,
       );
+      log(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions OK",
+      );
     } catch (e) {
+      log(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions ERROR",
+      );
+      log(
+        "==============================Controller THE ERROR IS: " +
+            e.toString(),
+      );
       hasErrorLoadingCategoryQuestions.value = true;
       // AppSnackbar.showError(e.toString());
     } finally {

@@ -446,6 +446,10 @@ class AddAdsController extends GetxController {
           String numberValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = numberValue;
+        } else if (question.type == "select") {
+          String selectValue = answer.value.toString();
+
+          finalAnswers["custom_fields[$questionId]"] = selectValue;
         }
       }
     } catch (e) {

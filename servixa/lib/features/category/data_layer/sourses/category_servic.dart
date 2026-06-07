@@ -127,6 +127,7 @@ class CategoryServic {
         log(
           "==============================Service : Get Category Questions OK",
         );
+        log(response.data["data"]["custom_fields"].toString());
         return CategoryQuestionModel.listFromJson(
           response.data["data"]["custom_fields"],
         );
