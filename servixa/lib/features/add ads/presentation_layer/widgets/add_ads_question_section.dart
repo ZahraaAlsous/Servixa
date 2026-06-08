@@ -196,6 +196,26 @@ class AddAdsQuestionSection extends StatelessWidget {
                           addAdsController.saveSimpleAnswer(question.id, value);
                         }
                       },
+                   validator: (value) {
+                        final stringValue = value?.toString();
+
+                        if (question.metaData.is_required) {
+                          if (stringValue == null || stringValue.isEmpty) {
+                            return "${question.question}" +" is required".tr();
+                          }
+                        }
+
+                        // if (stringValue != null && stringValue.isNotEmpty) {
+                        //   return Validators.validateTextDinamckQuestion(
+                        //     stringValue,
+                        //     question.question,
+                        //     question.metaData.is_required,
+                        //   );
+                        // }
+
+                        return null;
+                      },
+
                       items:
                           question.metaData.options?.map((option) {
                             return DropdownMenuItem<String>(
@@ -411,18 +431,18 @@ class AddAdsQuestionSection extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          question.question,
-                          style: TypographyApp.Title_Mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Secendary_grey_600,
-                          ),
-                        ),
-                        if (question.metaData.is_required)
-                          Text(" *", style: TextStyle(color: Colors.red)),
-                      ],
+                    // Row(
+                    //   children: [
+                    Text(
+                      question.question,
+                      style: TypographyApp.Title_Mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Secendary_grey_600,
+                      ),
                     ),
+                    // if (question.metaData.is_required)
+                    //   Text(" *", style: TextStyle(color: Colors.red)),
+                    //   ],
+                    // ),
                     const SizedBox(height: 5),
                     AppTextAreaWidget(
                       hintText: question.metaData.hint ?? question.question,

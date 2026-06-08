@@ -307,9 +307,16 @@ class Validators {
     if (isRequired && (value == null || value.trim().isEmpty)) {
       return "$message" + " is required".tr();
     }
-    if (!isRequired && (value == null || value.trim().isEmpty)) {
+     if (value != null && value.isNotEmpty && value.trim().isEmpty) {
+      return "Please enter a valid value".tr();
+    }
+
+    if (!isRequired && (value == null || value.isEmpty)) {
       return null;
     }
+    // if (!isRequired && (value == null || value.trim().isEmpty)) {
+    //   return null;
+    // }
 
     // if (value != null && value.trim().isNotEmpty && !value.isNum) {
     //   // if (value.trim().length < 2) {
