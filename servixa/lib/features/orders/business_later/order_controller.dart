@@ -66,8 +66,14 @@ class OrderController extends GetxController {
         // for (var order in receivedOrders) {
         //   getButtonTextByStatus(order.status, order.id);
         // }
+        log("Received Orders before sorting: $receivedOrders");
+        sortOrdersByStatus(receivedOrders);
+        log("Received Orders after sorting: $receivedOrders");
       } else {
         myOrders.value = await orderService.getOrders(isMyOrders: 0);
+        log("My Orders before sorting: $myOrders");
+        sortOrdersByStatus(myOrders);
+        log("My Orders after sorting: $myOrders");
       }
       // myOrders.value = await orderService.getOrders(
       //   isMyOrders: isSelectedMyOrders.value ? 1 : 0,
@@ -81,6 +87,15 @@ class OrderController extends GetxController {
     } finally {
       isLoadingOrder.value = false;
     }
+  }
+
+  final statusOrder = {'pending': 0, 'accepted': 1, 'rejected': 2};
+  void sortOrdersByStatus(List<OrdersModel> list) {
+    list.sort((a, b) {
+      int priorityA = statusOrder[a.status] ?? 99;
+      int priorityB = statusOrder[b.status] ?? 99;
+      return priorityA.compareTo(priorityB);
+    });
   }
 
   Future<void> deleteOrder(
