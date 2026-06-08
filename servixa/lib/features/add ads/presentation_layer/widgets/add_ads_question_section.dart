@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/app_dropdown_button_form_field_widget.dart';
+import 'package:servixa/common/widgets/app_text_area_widget.dart';
 import 'package:servixa/common/widgets/app_text_form_field_widget.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
@@ -142,7 +143,7 @@ class AddAdsQuestionSection extends StatelessWidget {
                   ],
                 );
               } else if (question.type == "select") {
-                 // الحصول على القيمة المحفوظة
+                // الحصول على القيمة المحفوظة
                 String? savedValue = addAdsController
                     .finalAnswers["custom_fields[${question.id}]"];
 
@@ -268,6 +269,184 @@ class AddAdsQuestionSection extends StatelessWidget {
                         },
                       ),
                     ),
+                  ],
+                );
+              }
+              // else if (question.type == "radio") {
+              //   return Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Row(
+              //         children: [
+              //           Text(
+              //             question.question,
+              //             style: TypographyApp.Title_Mid_Mid.copyWith(
+              //               color: ThemeApp.Foundation_Secendary_grey_600,
+              //             ),
+              //           ),
+              //           Text(
+              //             question.unitOfMeasurement == null
+              //                 ? ""
+              //                 : "(${question.unitOfMeasurement})",
+              //             style: TypographyApp.Title_Mid_Regular.copyWith(
+              //               color: ThemeApp.Foundation_Secendary_grey_200,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Wrap(
+              //         children: List.generate(
+              //           question.metaData.options?.length ?? 0,
+              //           (indexOption) {
+              //             return
+              //             Obx(() {
+              //             // var selectedOption =
+              //             //     question.metaData.options![indexOption];
+              //             return RadioListTile<String>(
+              //               title: Text(
+              //                 question.metaData.options![indexOption],
+              //               ),
+              //               value: question.metaData.options![indexOption],
+              //               groupValue: addAdsController
+              //                   .radioAnswer[question.id]!
+              //                   .value,
+              //               onChanged: (value) {
+              //                 // addAdsController.saveSimpleAnswer(question.id, value!);
+              //                 addAdsController.radioAnswer[question.id]!.value =
+              //                     value!;
+              //                 // addAdsController
+              //                 //         .radioSelectedOptions[question
+              //                 //         .id] =
+              //                 //     value!;
+              //               },
+              //             );
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //     ],
+              //   );
+              // }
+              else if (question.type == "radio") {
+                String? savedValue = addAdsController.radioAnswer[question.id];
+                if (savedValue == null &&
+                    addAdsController.finalAnswers.containsKey(
+                      "custom_fields[${question.id}]",
+                    )) {
+                  savedValue = addAdsController
+                      .finalAnswers["custom_fields[${question.id}]"];
+                  if (savedValue != null) {
+                    addAdsController.radioAnswer[question.id] = savedValue;
+                  }
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          question.question,
+                          style: TypographyApp.Title_Mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Secendary_grey_600,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          question.unitOfMeasurement == null
+                              ? ""
+                              : "(${question.unitOfMeasurement})",
+                          style: TypographyApp.Title_Mid_Regular.copyWith(
+                            color: ThemeApp.Foundation_Secendary_grey_200,
+                          ),
+                        ),
+                        if (question.metaData.is_required)
+                          Text(" *", style: const TextStyle(color: Colors.red)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Obx(() {
+                      String? currentValue =
+                          addAdsController.radioAnswer[question.id];
+
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 8,
+                        children: List.generate(
+                          question.metaData.options?.length ?? 0,
+                          (indexOption) {
+                            String optionValue =
+                                question.metaData.options![indexOption];
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio<String>(
+                                  value: optionValue,
+                                  groupValue: currentValue,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      addAdsController.saveRadioAnswer(
+                                        question.id,
+                                        value,
+                                      );
+                                    }
+                                  },
+                                  activeColor:
+                                      ThemeApp.Foundation_Main_main_500,
+                                ),
+                                Text(
+                                  optionValue,
+                                  style: TypographyApp.Body_mid_Regular,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    }),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              } else if (question.type == "textarea") {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          question.question,
+                          style: TypographyApp.Title_Mid_Mid.copyWith(
+                            color: ThemeApp.Foundation_Secendary_grey_600,
+                          ),
+                        ),
+                        if (question.metaData.is_required)
+                          Text(" *", style: TextStyle(color: Colors.red)),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    AppTextAreaWidget(
+                      hintText: question.metaData.hint ?? question.question,
+                      initialValue:
+                          addAdsController
+                              .finalAnswers["custom_fields[${question.id}]"] ??
+                          "",
+                      // controller: TextEditingController(
+                      //   text:
+                      //       addAdsController
+                      //           .finalAnswers["custom_fields[${question.id}]"] ??
+                      //       "",
+                      // ),
+                      validate: (value) =>
+                          Validators.validateTextDinamckQuestion(
+                            value,
+                            question.question,
+                            question.metaData.is_required,
+                          ),
+                      onChange: (value) {
+                        addAdsController.saveSimpleAnswer(question.id, value);
+                      },
+                    ),
+                    const SizedBox(height: 16),
                   ],
                 );
               }

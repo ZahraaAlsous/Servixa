@@ -250,6 +250,7 @@
   "Confirm password is required": "تأكيد كلمة المرور مطلوب",
   "Passwords do not match": "كلمتا المرور غير متطابقتين",
   "Please enter a valid value (at least 2 characters)": "الرجاء إدخال قيمة صحيحة (حرفين على الأقل)",
+  "Please enter a valid value": "الرجاء إدخال قيمة صحيحة",
   "Please enter either Email or Phone": "الرجاء إدخال البريد الإلكتروني أو رقم الهاتف",
   "Enter a valid phone number": "أدخل رقم هاتف صحيحاً",
   "This field is required": "هذا الحقل مطلوب",

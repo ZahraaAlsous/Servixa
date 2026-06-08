@@ -7,19 +7,21 @@ import 'package:servixa/core/utils/validators.dart';
 
 class AppTextAreaWidget extends StatelessWidget {
   String hintText;
-  String prefixIcon;
-  TextEditingController controller;
+  String? prefixIcon;
+  TextEditingController? controller;
   TextInputAction? textInputAction;
   void Function(String)? onChange;
   String? Function(String?) validate;
+  String? initialValue;
   AppTextAreaWidget({
     super.key,
     required this.hintText,
-    required this.prefixIcon,
-    required this.controller,
+     this.prefixIcon,
+     this.controller,
     this.textInputAction,
     this.onChange,
     required this.validate,
+    this.initialValue
   });
 
   @override
@@ -58,6 +60,7 @@ class AppTextAreaWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(width: 1, color: Colors.red),
         ),
+        
 
         // prefixIcon: Column(
         //   mainAxisAlignment: MainAxisAlignment.start,
@@ -74,7 +77,7 @@ class AppTextAreaWidget extends StatelessWidget {
         //     ),
         //   ],
         // ),
-        prefixIcon: SizedBox(
+        prefixIcon: prefixIcon != null ? SizedBox(
           height: 140,
           child: Stack(
             children: [
@@ -82,7 +85,7 @@ class AppTextAreaWidget extends StatelessWidget {
                 top: 15,
                 left: 10,
                 child: SvgPicture.asset(
-                  prefixIcon,
+                  prefixIcon!,
                   width: 20,
                   height: 20,
                   color: ThemeApp.Foundation_Main_main_500,
@@ -90,7 +93,7 @@ class AppTextAreaWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        ): null,
 
         prefixIconConstraints: const BoxConstraints(minWidth: 40, maxWidth: 40),
       ),
@@ -98,6 +101,7 @@ class AppTextAreaWidget extends StatelessWidget {
 
       controller: controller,
       onChanged: onChange,
+      initialValue: initialValue,
       // note
       // تأكل إذا حقل الرأي و حقل تفاصيل الطلب مطلوب أو لا
       // validator: Validators.validateReviewAndRequestOrder,

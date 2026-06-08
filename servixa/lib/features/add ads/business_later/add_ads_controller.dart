@@ -55,6 +55,7 @@ class AddAdsController extends GetxController {
   Rx<File?> selectedMainImage = Rx<File?>(null);
   Map<String, dynamic> finalAnswers = {};
   var checkboxStates = <int, RxList<bool>>{}.obs;
+   RxMap<int, String> radioAnswer = <int, String>{}.obs;
 
   // @override
   // void onInit() {
@@ -122,6 +123,7 @@ class AddAdsController extends GetxController {
     log(finalAnswers.toString());
   }
 
+// zoz
   void initializeCheckboxes(int questionId, int optionsCount) {
     if (!checkboxStates.containsKey(questionId)) {
       checkboxStates[questionId] = List.generate(
@@ -219,6 +221,7 @@ class AddAdsController extends GetxController {
     selectedMainImage.value = null;
   }
 
+// zoz
   bool validateDynamicQuestions() {
     for (var question in categoryController.categoryQuestions) {
       if (question.metaData.is_required) {
@@ -315,6 +318,7 @@ class AddAdsController extends GetxController {
     isEditOperation.value = false;
     adIdEdit.value = null;
     oldAnswers.clear();
+    radioAnswer.clear();
     // checkboxStates.clear();
   }
 
@@ -328,6 +332,7 @@ class AddAdsController extends GetxController {
   int? oldCategoryId;
   int? oldSupCategoryId;
 
+// zoz
   Future<void> initialFailedEditAd(AdsModel ad) async {
     // selectedBusinessAccount.value = ad.businessAccount!;
     isEditOperation.value = true;
@@ -376,6 +381,7 @@ class AddAdsController extends GetxController {
     log("*************************************initialize ad done");
   }
 
+// zoz
   Future<dynamic> _initializeDynamicQuestions(AdsModel ad) async {
     try {
       if (ad.categoryQuestionAnswer == null ||
@@ -447,6 +453,11 @@ class AddAdsController extends GetxController {
 
           finalAnswers["custom_fields[$questionId]"] = numberValue;
         } else if (question.type == "select") {
+          String selectValue = answer.value.toString();
+
+          finalAnswers["custom_fields[$questionId]"] = selectValue;
+        }
+         else if (question.type == "textarea") {
           String selectValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = selectValue;
@@ -528,6 +539,7 @@ class AddAdsController extends GetxController {
 
   Map<String, dynamic> oldAnswers = {};
 
+// zoz
   void prepareForNewCategory() {
     log(" Preparing for new category - Saving old answers");
     log(" Old finalAnswers before save: ${finalAnswers.keys}");
@@ -543,10 +555,12 @@ class AddAdsController extends GetxController {
     finalAnswers.clear();
 
     checkboxStates.clear();
+    log("888888888888888888888"+radioAnswer.toString());
 
     log(" Prepared for new category. Old answers count: ${oldAnswers.length}");
   }
 
+// zoz
   Map<String, dynamic> getFinalAnswersForSubmit() {
     final Map<String, dynamic> result = {};
 
@@ -619,7 +633,6 @@ class AddAdsController extends GetxController {
   //   adsController.myAdsList.refresh();
   // }
   void reFreshListAfterUpdateAd(int adId) {
-    // 1. البحث عن مكان الإعلان في القوائم المختلفة
     final indexPending = adsController.pendingMyAdList.indexWhere(
       (item) => item.id == adId,
     );
@@ -642,12 +655,12 @@ class AddAdsController extends GetxController {
     }
 
     if (indexAccept != -1) {
-    // adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
+      // adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
 
-    // adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
-    // adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
-    adsController.acceptedMyAdList[indexAccept] =
-        adsController.adsDetails.value!;
+      // adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
+      // adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
+      adsController.acceptedMyAdList[indexAccept] =
+          adsController.adsDetails.value!;
     }
 
     if (indexReject != -1) {
@@ -719,6 +732,13 @@ class AddAdsController extends GetxController {
     } finally {
       isDeleteImageNaw[imageId] = false;
     }
+  }
+
+
+    void saveRadioAnswer(int questionId, String value) {
+    radioAnswer[questionId] = value;
+    finalAnswers["custom_fields[$questionId]"] = value;
+    log("Saved radio answer for question $questionId: $value");
   }
 
   @override

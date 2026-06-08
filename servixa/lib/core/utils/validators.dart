@@ -96,15 +96,19 @@ class Validators {
       return "$message" + " is required".tr();
     }
 
-    if (!isRequired && (value == null || value.trim().isEmpty)) {
+    if (value != null && value.isNotEmpty && value.trim().isEmpty) {
+      return "Please enter a valid value".tr();
+    }
+
+    if (!isRequired && (value == null || value.isEmpty)) {
       return null;
     }
 
-    if (value != null && value.trim().isNotEmpty) {
-      // if (value.trim().length < 2) {
-      return "Please enter a valid value (at least 2 characters)".tr();
-      // }
-    }
+    // if (value != null && value.trim().isNotEmpty) {
+    //   // if (value.trim().length < 2) {
+    //   return "Please enter a valid value (at least 2 characters)".tr();
+    //   // }
+    // }
 
     return null;
   }
@@ -329,7 +333,7 @@ class Validators {
 
   static String? validateNameArabic(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message" +" is required".tr();
+      return "$message" + " is required".tr();
     }
     final arabicRegex = RegExp(r'^[\u0600-\u06FF\s]+$');
 
@@ -341,7 +345,7 @@ class Validators {
 
   static String? validateNameEnglish(String? value, String message) {
     if (value == null || value.trim().isEmpty) {
-      return "$message" +" is required".tr();
+      return "$message" + " is required".tr();
     }
     final englishRegex = RegExp(r'^[a-zA-Z0-9\s]+$');
 
@@ -354,7 +358,7 @@ class Validators {
   static String? validateDropDown({int? value, required String type}) {
     // if (value == null || value.trim().isEmpty) {
     if (value == null) {
-      return "Please select ".tr() +"$type";
+      return "Please select ".tr() + "$type";
     }
     return null;
   }
