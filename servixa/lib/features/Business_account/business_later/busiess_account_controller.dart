@@ -263,6 +263,15 @@ class BusinessAccountController extends GetxController {
     }
   }
 
+  final statusAccount = {'pending': 0, 'approved': 1, 'rejected': 2};
+  void sortAccountByStatus(List<BusinessAccountModel> list) {
+    list.sort((a, b) {
+      int priorityA = statusAccount[a.status] ?? 99;
+      int priorityB = statusAccount[b.status] ?? 99;
+      return priorityA.compareTo(priorityB);
+    });
+  }
+
   Future<void> getBusinessAccount() async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : GetBusinessAccount IN");
@@ -271,6 +280,7 @@ class BusinessAccountController extends GetxController {
       hasErrorBusinessAccounts.value = false;
       businessAccountsList.value = await businessAccountService
           .getBusinessAccount();
+      sortAccountByStatus(businessAccountsList);
     } catch (e) {
       log(
         "==============================Controller : GetBusinessAccount ERROR",
