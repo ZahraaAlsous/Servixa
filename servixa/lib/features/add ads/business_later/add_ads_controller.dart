@@ -54,8 +54,9 @@ class AddAdsController extends GetxController {
   Rx<LatLng?> selectedLatLng = Rx<LatLng?>(null);
   Rx<File?> selectedMainImage = Rx<File?>(null);
   Map<String, dynamic> finalAnswers = {};
-  var checkboxStates = <int, RxList<bool>>{}.obs;
-   RxMap<int, String> radioAnswer = <int, String>{}.obs;
+  // var checkboxStates = <int, RxList<bool>>{}.obs;
+  RxMap<int, String> radioAnswer = <int, String>{}.obs;
+  RxMap<int, List<String>> checkBoxAnswer = <int, List<String>>{}.obs;
 
   // @override
   // void onInit() {
@@ -123,37 +124,17 @@ class AddAdsController extends GetxController {
     log(finalAnswers.toString());
   }
 
-// zoz
-  void initializeCheckboxes(int questionId, int optionsCount) {
-    if (!checkboxStates.containsKey(questionId)) {
-      checkboxStates[questionId] = List.generate(
-        optionsCount,
-        (_) => false,
-      ).obs;
-    }
-    log(checkboxStates.toString());
+  void saveRadioAnswer(int questionId, String value) {
+    radioAnswer[questionId] = value;
+    finalAnswers["custom_fields[$questionId]"] = value;
+    log("Saved radio answer for question $questionId: $value");
   }
 
-  void collectCheckboxAnswers() {
-    for (var question in categoryController.categoryQuestions) {
-      if (question.type == "checkbox") {
-        List<String> selectedForThisQuestion = [];
-
-        var states = checkboxStates[question.id];
-        for (int i = 0; i < states!.length; i++) {
-          if (states[i] == true) {
-            selectedForThisQuestion.add(question.metaData.options![i]);
-          }
-        }
-
-        String finalKey = "custom_fields[${question.id}]";
-        String finalValue = jsonEncode(selectedForThisQuestion);
-        saveSimpleAnswer(question.id, finalValue);
-        log("$finalKey : $finalValue");
-        log(checkboxStates.toString());
-        log("===========================Final answers: $finalAnswers");
-      }
-    }
+  void saveCheckBoxAnswer(int questionId, List<String> value) {
+    checkBoxAnswer[questionId] = value;
+    final String jsonValue = jsonEncode(value);
+    finalAnswers["custom_fields[$questionId]"] = jsonValue;
+    log("Saved checkbox answer for question $questionId: $value");
   }
 
   Future<void> updatePosition(LatLng position) async {
@@ -221,22 +202,13 @@ class AddAdsController extends GetxController {
     selectedMainImage.value = null;
   }
 
-// zoz
   bool validateDynamicQuestions() {
     for (var question in categoryController.categoryQuestions) {
       if (question.metaData.is_required) {
         if (question.type == "checkbox") {
-          var states = checkboxStates[question.id];
-          bool hasSelection = false;
-          if (states != null) {
-            for (int i = 0; i < states.length; i++) {
-              if (states[i] == true) {
-                hasSelection = true;
-                break;
-              }
-            }
-          }
-          if (!hasSelection) {
+          final answer = finalAnswers["custom_fields[${question.id}]"];
+
+          if (answer == null || (answer is List && answer.isEmpty)) {
             Get.snackbar(
               "Alert",
               "${question.question} is required",
@@ -246,8 +218,9 @@ class AddAdsController extends GetxController {
             return false;
           }
         } else {
-          String? answer = finalAnswers["custom_fields[${question.id}]"];
-          if (answer == null || answer.isEmpty) {
+          final answer = finalAnswers["custom_fields[${question.id}]"];
+
+          if (answer == null || answer.toString().isEmpty) {
             Get.snackbar(
               "Alert",
               "${question.question} is required",
@@ -262,32 +235,11 @@ class AddAdsController extends GetxController {
     return true;
   }
 
-  // bool validateImages() {
-  //   if (selectedMainImage.value == null) {
-  //     Get.snackbar("Alert", "Please select a main image");
-  //     return false;
-  //   }
-  //   // if (imageSupList == null || imageSupList!.isEmpty) {
-  //   //   Get.snackbar("Alert", "Please add at least one sub image");
-  //   //   return false;
-  //   // }
-  //   return true;
-  // }
-
   bool isAgree() {
     if (authController.isAgreeTermsAndPolicies.value) {
       return false;
     }
     return true;
-  }
-
-  void resetCheckboxes() {
-    for (var entry in checkboxStates.entries) {
-      for (int i = 0; i < entry.value.length; i++) {
-        entry.value[i] = false;
-      }
-    }
-    log("🔄 Checkboxes reset (all set to false)");
   }
 
   void cleanCleanAd() {
@@ -310,7 +262,7 @@ class AddAdsController extends GetxController {
     selectedLatLng.value = null;
     currentAddress.value = "Select your location from map".tr();
     finalAnswers.clear();
-    resetCheckboxes();
+    // resetCheckboxes();
     addressDetailsController.clear();
     existingMainImageUrl.value = "";
     // existingSubImagesUrls.clear();
@@ -319,6 +271,7 @@ class AddAdsController extends GetxController {
     adIdEdit.value = null;
     oldAnswers.clear();
     radioAnswer.clear();
+    checkBoxAnswer.clear();
     // checkboxStates.clear();
   }
 
@@ -332,7 +285,7 @@ class AddAdsController extends GetxController {
   int? oldCategoryId;
   int? oldSupCategoryId;
 
-// zoz
+  // zoz
   Future<void> initialFailedEditAd(AdsModel ad) async {
     // selectedBusinessAccount.value = ad.businessAccount!;
     isEditOperation.value = true;
@@ -381,7 +334,7 @@ class AddAdsController extends GetxController {
     log("*************************************initialize ad done");
   }
 
-// zoz
+  // zoz
   Future<dynamic> _initializeDynamicQuestions(AdsModel ad) async {
     try {
       if (ad.categoryQuestionAnswer == null ||
@@ -392,7 +345,7 @@ class AddAdsController extends GetxController {
       log("####################################NotNull");
 
       finalAnswers.clear();
-      checkboxStates.clear();
+      // checkboxStates.clear();
 
       for (var answer in ad.categoryQuestionAnswer!) {
         final questionId = answer.question.id;
@@ -404,41 +357,44 @@ class AddAdsController extends GetxController {
           log("###########################qustion null");
           continue;
         }
-
         if (question.type == "checkbox") {
-          try {
-            List<String> selectedOptions = [];
-
-            if (answer.value is String) {
-              try {
-                final decoded = jsonDecode(answer.value);
-                if (decoded is List) {
-                  selectedOptions = decoded.cast<String>();
-                } else {
-                  selectedOptions = [answer.value];
-                }
-              } catch (e) {
-                selectedOptions = [answer.value];
-              }
-            } else if (answer.value is List) {
-              selectedOptions = List<String>.from(answer.value);
-            }
-
-            initializeCheckboxes(questionId, question.metaData.options!.length);
-
-            final states = checkboxStates[questionId];
-            if (states != null) {
-              for (int i = 0; i < question.metaData.options!.length; i++) {
-                final option = question.metaData.options![i];
-                states[i] = selectedOptions.contains(option);
-              }
-            }
-
-            finalAnswers["custom_fields[$questionId]"] = jsonEncode(
-              selectedOptions,
+          if (answer.value == null ||
+              answer.value.toString().trim().isEmpty ||
+              answer.value.toString() == "null") {
+            finalAnswers["custom_fields[$questionId]"] = "";
+            checkBoxAnswer[questionId] = <String>[].obs;
+            log("@@@@@@@@@@@@@@@@@@@@@@@@@Empty");
+          } else {
+            String rawValue = answer.value.toString();
+            log(
+              "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ rawValue $rawValue",
             );
-          } catch (e) {
-            log("Error parsing checkbox answer: $e");
+
+            // 👈 السحر هنا: تنظيف النص من الأقواس المربعة [ ] إن وجدت لضمان بقاء الكلمات النظيفة فقط
+            String cleanedValue = rawValue
+                .replaceAll('[', '')
+                .replaceAll(']', '')
+                .trim();
+            log(
+              "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ cleanedValue $cleanedValue",
+            );
+
+            // حفظ القيمة النظيفة في finalAnswers
+            finalAnswers["custom_fields[$questionId]"] = cleanedValue;
+
+            // الآن عند عمل split، ستحصلين على كلمات صافية ومطابقة تماماً لخيارات الـ UI
+            List<String> parsedOptions = cleanedValue.isEmpty
+                ? []
+                : cleanedValue.split(',').map((e) => e.trim()).toList();
+
+            log(
+              "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ parsedOptions $parsedOptions",
+            );
+
+            checkBoxAnswer[questionId] = parsedOptions.obs;
+            log(
+              "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ checkBoxAnswer ${checkBoxAnswer[questionId]}",
+            );
           }
         } else if (question.type == "radio") {
           String selectedValue = answer.value.toString();
@@ -456,8 +412,7 @@ class AddAdsController extends GetxController {
           String selectValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = selectValue;
-        }
-         else if (question.type == "textarea") {
+        } else if (question.type == "textarea") {
           String selectValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = selectValue;
@@ -539,7 +494,7 @@ class AddAdsController extends GetxController {
 
   Map<String, dynamic> oldAnswers = {};
 
-// zoz
+  // zoz
   void prepareForNewCategory() {
     log(" Preparing for new category - Saving old answers");
     log(" Old finalAnswers before save: ${finalAnswers.keys}");
@@ -554,13 +509,13 @@ class AddAdsController extends GetxController {
 
     finalAnswers.clear();
 
-    checkboxStates.clear();
-    log("888888888888888888888"+radioAnswer.toString());
+    // checkboxStates.clear();
+    log("888888888888888888888" + radioAnswer.toString());
 
     log(" Prepared for new category. Old answers count: ${oldAnswers.length}");
   }
 
-// zoz
+  // zoz
   Map<String, dynamic> getFinalAnswersForSubmit() {
     final Map<String, dynamic> result = {};
 
@@ -732,13 +687,6 @@ class AddAdsController extends GetxController {
     } finally {
       isDeleteImageNaw[imageId] = false;
     }
-  }
-
-
-    void saveRadioAnswer(int questionId, String value) {
-    radioAnswer[questionId] = value;
-    finalAnswers["custom_fields[$questionId]"] = value;
-    log("Saved radio answer for question $questionId: $value");
   }
 
   @override

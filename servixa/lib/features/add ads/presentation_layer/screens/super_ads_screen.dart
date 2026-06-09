@@ -243,7 +243,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   // addAdsController.collectCheckboxAnswers();
                 }
                 if (categoryController.categoryQuestions.isNotEmpty) {
-                  addAdsController.collectCheckboxAnswers();
+                  // addAdsController.collectCheckboxAnswers();
                 }
                 if (!addAdsController.formKey2.currentState!.validate()) {
                   return;
@@ -259,7 +259,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 } else {
                   if (categoryController.categoryQuestions.isEmpty) {
                     addAdsController.finalAnswers.clear();
-                    addAdsController.resetCheckboxes();
+                    // addAdsController.resetCheckboxes();
+                    addAdsController.checkBoxAnswer.clear();
                   }
                   addAdsController.isEditOperation.value
                       ? addAdsController.updateAd(

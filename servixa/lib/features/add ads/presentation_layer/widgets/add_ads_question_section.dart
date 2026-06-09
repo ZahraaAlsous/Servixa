@@ -143,20 +143,16 @@ class AddAdsQuestionSection extends StatelessWidget {
                   ],
                 );
               } else if (question.type == "select") {
-                // الحصول على القيمة المحفوظة
                 String? savedValue = addAdsController
                     .finalAnswers["custom_fields[${question.id}]"];
 
-                // الحصول على قائمة الخيارات
                 List<String> options = question.metaData.options ?? [];
 
-                // التحقق مما إذا كانت القيمة المحفوظة موجودة في الخيارات
                 String? validValue =
                     (savedValue != null && options.contains(savedValue))
                     ? savedValue
                     : null;
 
-                // للتصحيح: طباعة القيم للتأكد
                 log("Question: ${question.question}");
                 log("Saved value: '$savedValue'");
                 log("Options: $options");
@@ -196,12 +192,12 @@ class AddAdsQuestionSection extends StatelessWidget {
                           addAdsController.saveSimpleAnswer(question.id, value);
                         }
                       },
-                   validator: (value) {
+                      validator: (value) {
                         final stringValue = value?.toString();
 
                         if (question.metaData.is_required) {
                           if (stringValue == null || stringValue.isEmpty) {
-                            return "${question.question}" +" is required".tr();
+                            return "${question.question}" + " is required".tr();
                           }
                         }
 
@@ -237,10 +233,9 @@ class AddAdsQuestionSection extends StatelessWidget {
                   ],
                 );
               } else if (question.type == "checkbox") {
-                addAdsController.initializeCheckboxes(
-                  question.id,
-                  question.metaData.options?.length ?? 0,
-                );
+                if (addAdsController.checkBoxAnswer[question.id] == null) {
+                  addAdsController.checkBoxAnswer[question.id] = <String>[].obs;
+                }
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,35 +258,227 @@ class AddAdsQuestionSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Wrap(
-                      children: List.generate(
-                        question.metaData.options?.length ?? 0,
-                        (indexOption) {
-                          return Obx(() {
-                            var isChecked = addAdsController
-                                .checkboxStates[question.id]![indexOption];
-
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Checkbox(
-                                  value: isChecked,
-                                  onChanged: (bool? value) {
-                                    addAdsController.checkboxStates[question
-                                            .id]![indexOption] =
-                                        value!;
-                                  },
-                                ),
-                                Text(question.metaData.options![indexOption]),
-                              ],
+                    // Wrap(
+                    //   children: List.generate(
+                    //     question.metaData.options?.length ?? 0,
+                    //     (indexOption) {
+                    //       return Obx(() {
+                    //         var isChecked = addAdsController
+                    //             .checkboxStates[question.id]![indexOption];
+                    //         return Row(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: [
+                    //             Checkbox(
+                    //               value: isChecked,
+                    //               onChanged: (bool? value) {
+                    //                 addAdsController.checkboxStates[question
+                    //                         .id]![indexOption] =
+                    //                     value!;
+                    //               },
+                    //             ),
+                    //             Text(question.metaData.options![indexOption]),
+                    //           ],
+                    //         );
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
+                    Obx(() {
+                      final selectedOptions =
+                          addAdsController.checkBoxAnswer[question.id] ?? [];
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 8,
+                        children: List.generate(
+                          question.metaData.options?.length ?? 0,
+                          (indexOption) {
+                            String optionValue =
+                                question.metaData.options![indexOption];
+                            return CheckboxListTile(
+                              contentPadding: EdgeInsetsGeometry.zero,
+                              title: Text(
+                                question.metaData.options![indexOption],
+                              ),
+                              value: selectedOptions.contains(optionValue),
+                              onChanged: (bool? value) {
+                                value!
+                                    ? addAdsController
+                                          .checkBoxAnswer[question.id]
+                                          ?.add(optionValue)
+                                    : addAdsController
+                                          .checkBoxAnswer[question.id]
+                                          ?.remove(optionValue);
+                                addAdsController.saveCheckBoxAnswer(
+                                  question.id,
+                                  addAdsController.checkBoxAnswer[question
+                                          .id] ??
+                                      [],
+                                );
+                              },
                             );
-                          });
-                        },
-                      ),
-                    ),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   children: [
+                            //     Radio<String>(
+                            //       value: optionValue,
+                            //       groupValue: currentValue,
+                            //       onChanged: (value) {
+                            //         if (value != null) {
+                            //           addAdsController.saveRadioAnswer(
+                            //             question.id,
+                            //             value,
+                            //           );
+                            //         }
+                            //       },
+                            //       activeColor:
+                            //           ThemeApp.Foundation_Main_main_500,
+                            //     ),
+                            //     Text(
+                            //       optionValue,
+                            //       style: TypographyApp.Body_mid_Regular,
+                            //     ),
+                            //   ],
+                            // );
+                          },
+                        ),
+                      );
+                    }),
                   ],
                 );
               }
+              // else if (question.type == "checkbox") {
+              //   if (addAdsController.checkBoxAnswer[question.id] == null) {
+              //     addAdsController.checkBoxAnswer[question.id] = <String>[].obs;
+              //   }
+              //   final widthScreen = Get.width;
+              //   return Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       // عنوان الحقل (مثال: ميزات يمتلكها)
+              //       Row(
+              //         children: [
+              //           Text(
+              //             question.question,
+              //             style: TypographyApp.Title_Mid_Mid.copyWith(
+              //               color: ThemeApp.Foundation_Secendary_grey_600,
+              //             ),
+              //           ),
+              //           Text(
+              //             question.unitOfMeasurement == null
+              //                 ? ""
+              //                 : " (${question.unitOfMeasurement})",
+              //             style: TypographyApp.Title_Mid_Regular.copyWith(
+              //               color: ThemeApp.Foundation_Secendary_grey_200,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       const SizedBox(height: 8),
+              //       // عرض الخيارات بجانب بعضها بطريقة شبكية مرنة
+              //       Obx(() {
+              //         final selectedOptions =
+              //             addAdsController.checkBoxAnswer[question.id] ?? [];
+              //         final optionsList = question.metaData.options ?? [];
+              //         return Wrap(
+              //           spacing: 12, // المسافة الأفقية بين الصناديق
+              //           runSpacing:
+              //               10, // المسافة الرأسية في حال النزول لسطر جديد
+              //           children: List.generate(optionsList.length, (
+              //             indexOption,
+              //           ) {
+              //             String optionValue = optionsList[indexOption];
+              //             return SizedBox(
+              //               // لـ عرض خيارين بالصف: نقسم مساحة الشاشة على 2 مع مراعاة الهوامش والـ spacing
+              //               width:
+              //                   (widthScreen - 36) /
+              //                   2, // 👈 غيري الرقم 2 إلى 3 إذا أردتِ عرض 3 عناصر بالسطر الواحد
+              //               child: CheckboxListTile(
+              //                 // value: addAdsController
+              //                 //     .checkBoxAnswer[question.id]
+              //                 //     ?.contains(optionValue),
+              //                 title: Text(
+              //                   question.metaData.options![indexOption],
+              //                 ),
+              //                 value: selectedOptions.contains(optionValue),
+              //                 onChanged: (bool? value) {
+              //                   value!
+              //                       ? addAdsController
+              //                             .checkBoxAnswer[question.id]
+              //                             ?.add(optionValue)
+              //                       : addAdsController
+              //                             .checkBoxAnswer[question.id]
+              //                             ?.remove(optionValue);
+              //                   addAdsController.saveCheckBoxAnswer(
+              //                     question.id,
+              //                     addAdsController.checkBoxAnswer[question
+              //                             .id] ??
+              //                         [],
+              //                   );
+              //                 },
+              //               ),
+              //               // Row(
+              //               //   mainAxisSize: MainAxisSize.min,
+              //               //   children: [
+              //               //     Theme(
+              //               //       // لتصغير الهوامش الافتراضية داخل مربع الشيكبوكس الصغير ليتناسب مع التصميم
+              //               //       data: ThemeData(
+              //               //         checkboxTheme: CheckboxThemeData(
+              //               //           materialTapTargetSize:
+              //               //               MaterialTapTargetSize.shrinkWrap,
+              //               //         ),
+              //               //       ),
+              //               //       child: Checkbox(
+              //               //         value: selectedOptions.contains(
+              //               //           optionValue,
+              //               //         ),
+              //               //         activeColor:
+              //               //             ThemeApp.Foundation_Main_main_500,
+              //               //         onChanged: (bool? isChecked) {
+              //               //           if (isChecked!) {
+              //               //             addAdsController
+              //               //                 .checkBoxAnswer[question.id]
+              //               //                 ?.add(optionValue);
+              //               //           } else {
+              //               //             addAdsController
+              //               //                 .checkBoxAnswer[question.id]
+              //               //                 ?.remove(optionValue);
+              //               //           }
+              //               //           // حفظ البيانات في الـ finalAnswers المخصصة للرفع للـ API
+              //               //           addAdsController.saveCheckBoxAnswer(
+              //               //             question.id,
+              //               //             addAdsController.checkBoxAnswer[question
+              //               //                     .id] ??
+              //               //                 [],
+              //               //           );
+              //               //         },
+              //               //       ),
+              //               //     ),
+              //               //     const SizedBox(width: 4),
+              //               //     // لمنع الـ Overflow إذا كان اسم الخيار نفسه طويلاً جداً
+              //               //     Expanded(
+              //               //       child: Text(
+              //               //         optionValue,
+              //               //         style:
+              //               //             TypographyApp
+              //               //                 .Title_Mid_Regular.copyWith(
+              //               //               color: ThemeApp.black,
+              //               //             ),
+              //               //         maxLines: 1,
+              //               //         overflow: TextOverflow.ellipsis,
+              //               //       ),
+              //               //     ),
+              //               //   ],
+              //               // ),
+              //             );
+              //           }),
+              //         );
+              //       }),
+              //       const SizedBox(
+              //         height: 16,
+              //       ), // فاصل سفلي بين الحقول الديناميكية
+              //     ],
+              //   );
+              // }
               // else if (question.type == "radio") {
               //   return Column(
               //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,27 +550,27 @@ class AddAdsQuestionSection extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          question.question,
-                          style: TypographyApp.Title_Mid_Mid.copyWith(
-                            color: ThemeApp.Foundation_Secendary_grey_600,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          question.unitOfMeasurement == null
-                              ? ""
-                              : "(${question.unitOfMeasurement})",
-                          style: TypographyApp.Title_Mid_Regular.copyWith(
-                            color: ThemeApp.Foundation_Secendary_grey_200,
-                          ),
-                        ),
-                        if (question.metaData.is_required)
-                          Text(" *", style: const TextStyle(color: Colors.red)),
-                      ],
+                    // Row(
+                    //   children: [
+                    Text(
+                      question.question,
+                      style: TypographyApp.Title_Mid_Mid.copyWith(
+                        color: ThemeApp.Foundation_Secendary_grey_600,
+                      ),
                     ),
+                    const SizedBox(width: 4),
+                    Text(
+                      question.unitOfMeasurement == null
+                          ? ""
+                          : "(${question.unitOfMeasurement})",
+                      style: TypographyApp.Title_Mid_Regular.copyWith(
+                        color: ThemeApp.Foundation_Secendary_grey_200,
+                      ),
+                    ),
+                    //     if (question.metaData.is_required)
+                    //       Text(" *", style: const TextStyle(color: Colors.red)),
+                    //   ],
+                    // ),
                     const SizedBox(height: 8),
                     Obx(() {
                       String? currentValue =
