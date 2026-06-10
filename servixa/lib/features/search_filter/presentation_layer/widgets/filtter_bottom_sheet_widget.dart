@@ -518,7 +518,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                       ),
                       child: Obx(
                         () => Text(
-                          "Apply Filters" +
+                          "Apply Filters".tr() +
                               "${searchFilterController.numberOfEffectiveFilters() > 0 ? " (${searchFilterController.numberOfEffectiveFilters()})" : ""}",
                           style: TypographyApp.Title_Mid_Mid.copyWith(
                             color: ThemeApp.whiteBackground,

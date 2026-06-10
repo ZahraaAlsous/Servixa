@@ -22,11 +22,40 @@ class SlidersHomeWidget extends StatelessWidget {
       if (homeController.isLoadingSlider.value) {
         // return Center(child: CircularProgressIndicator());
         // return LoadingAnimationWidget(showText: false);
-        return shimmerLoadingList(
+        // return shimmerLoadingList(
+        //   height: 145,
+        //   widthCard: size.width * 0.913,
+        //   heightCard: 145,
+        //   margin: EdgeInsetsGeometry.symmetric(horizontal: 5),
+        // );
+        return SizedBox(
           height: 145,
-          widthCard: size.width * 0.913,
-          heightCard: 145,
-          margin: EdgeInsetsGeometry.symmetric(horizontal: 5),
+          child: CarouselSlider.builder(
+            // itemCount: carouselImages.length,
+            itemCount: 2,
+            itemBuilder:
+                (BuildContext context, int itemIndex, int pageViewIndex) {
+                  return ShimmerLoadingWidget(width: size.width * 0.913);
+                },
+            options: CarouselOptions(
+              height: 166,
+              aspectRatio: 16 / 9,
+              viewportFraction: 0.8,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.3,
+              onPageChanged: (index, reason) {
+                homeController.currentCarouselIndex.value = index;
+              },
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
         );
       }
       if (homeController.hasErrorLoadingSlider.value) {
