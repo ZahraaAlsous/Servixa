@@ -199,12 +199,12 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                       .EffectiveCategoryFilter
                                       .value) {
                                     if (value == null) {
-                                      return "pleas select sup category";
+                                      return "pleas select sup category".tr();
                                     }
                                     if (!searchFilterController
                                         .EffectiveSubCategoryFilter
                                         .value) {
-                                      return "pleas active sub category filter";
+                                      return "pleas active sub category filter".tr();
                                     }
                                   }
                                   return null;
@@ -462,7 +462,7 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                     ),
                     child: Obx(
                       () => Text(
-                        "Apply Filters${searchFilterController.numberOfEffectiveFilters() > 0 ? " (${searchFilterController.numberOfEffectiveFilters()})" : ""}",
+                        "Apply Filters"+"${searchFilterController.numberOfEffectiveFilters() > 0 ? " (${searchFilterController.numberOfEffectiveFilters()})" : ""}",
                         style: TypographyApp.Title_Mid_Mid.copyWith(
                           color: ThemeApp.whiteBackground,
                         ),
