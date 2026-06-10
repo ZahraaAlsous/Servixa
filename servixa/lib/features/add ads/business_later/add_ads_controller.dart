@@ -325,11 +325,22 @@ class AddAdsController extends GetxController {
       _updateAddressFromLatLng(position);
     }
 
-    final int categoryIdForQuestions =
-        selectedSubCategoryAdsId.value ?? selectedCategoryAdsId.value!;
-    log(" Loading questions for category: $categoryIdForQuestions");
+    // final int categoryIdForQuestions =
+    //     selectedSubCategoryAdsId.value ?? selectedCategoryAdsId.value!;
+    // log(" Loading questions for category: $categoryIdForQuestions");
 
-    await categoryController.getCategoryQuestions(categoryIdForQuestions);
+    // await categoryController.getCategoryQuestions(categoryIdForQuestions);
+    if (selectedSubCategoryAdsId.value != null) {
+      await categoryController.getCategoryQuestions(
+        selectedCategoryAdsId.value!,
+        false,
+      );
+    }
+    await categoryController.getCategoryQuestions(
+      selectedSubCategoryAdsId.value!,
+      true,
+    );
+
     await _initializeDynamicQuestions(ad);
     log("*************************************initialize ad done");
   }
@@ -370,7 +381,6 @@ class AddAdsController extends GetxController {
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ rawValue $rawValue",
             );
 
-            // 👈 السحر هنا: تنظيف النص من الأقواس المربعة [ ] إن وجدت لضمان بقاء الكلمات النظيفة فقط
             String cleanedValue = rawValue
                 .replaceAll('[', '')
                 .replaceAll(']', '')
@@ -379,10 +389,8 @@ class AddAdsController extends GetxController {
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ cleanedValue $cleanedValue",
             );
 
-            // حفظ القيمة النظيفة في finalAnswers
             finalAnswers["custom_fields[$questionId]"] = cleanedValue;
 
-            // الآن عند عمل split، ستحصلين على كلمات صافية ومطابقة تماماً لخيارات الـ UI
             List<String> parsedOptions = cleanedValue.isEmpty
                 ? []
                 : cleanedValue.split(',').map((e) => e.trim()).toList();

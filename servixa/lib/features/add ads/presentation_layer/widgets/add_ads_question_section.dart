@@ -31,11 +31,19 @@ class AddAdsQuestionSection extends StatelessWidget {
         );
       } else if (categoryController.hasErrorLoadingCategoryQuestions.value) {
         return InternetConnectionErrorWidget(
-          onPressed: () {
-            categoryController.getCategoryQuestions(
-              addAdsController.selectedSubCategoryAds.value != null
-                  ? addAdsController.selectedSubCategoryAds.value!.id
-                  : addAdsController.selectedCategoryAds.value!.id,
+          onPressed: () async {
+            // categoryController.getCategoryQuestions(
+            //   addAdsController.selectedSubCategoryAds.value != null
+            //       ? addAdsController.selectedSubCategoryAds.value!.id
+            //       : addAdsController.selectedCategoryAds.value!.id,
+            // );
+            await categoryController.getCategoryQuestions(
+              addAdsController.selectedSubCategoryAds.value!.id,
+              true,
+            );
+            await categoryController.getCategoryQuestions(
+              addAdsController.selectedCategoryAds.value!.id,
+              false,
             );
           },
         );

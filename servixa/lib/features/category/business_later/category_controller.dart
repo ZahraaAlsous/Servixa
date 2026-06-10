@@ -140,7 +140,9 @@ class CategoryController extends GetxController {
     }
   }
 
-  Future<void> getCategoryQuestions(int categoryId) async {
+  List<CategoryQuestionModel> mainCategoryQuestion = [];
+  List<CategoryQuestionModel> supCategoryQuestion = [];
+  Future<void> getCategoryQuestions(int categoryId, bool isSupCategory) async {
     try {
       //  categoryQuestions.clear();
       isLoadingCategoryQuestions.value = true;
@@ -149,9 +151,25 @@ class CategoryController extends GetxController {
       log(
         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions IN",
       );
-      categoryQuestions.value = await categoryService.getCategoryQuestions(
-        categoryId,
-      );
+      if (!isSupCategory) {
+        mainCategoryQuestion = await categoryService.getCategoryQuestions(
+          categoryId,
+        );
+        categoryQuestions.clear();
+        categoryQuestions.addAll(mainCategoryQuestion);
+      }
+
+      if (isSupCategory) {
+        supCategoryQuestion = await categoryService.getCategoryQuestions(
+          categoryId,
+        );
+        categoryQuestions.clear();
+        categoryQuestions.addAll(mainCategoryQuestion);
+        categoryQuestions.addAll(supCategoryQuestion);
+      }
+      // categoryQuestions.value = await categoryService.getCategoryQuestions(
+      //   categoryId,
+      // );
       log(
         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : Get Category Questions OK",
       );
