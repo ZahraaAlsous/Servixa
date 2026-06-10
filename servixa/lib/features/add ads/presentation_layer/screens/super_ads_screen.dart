@@ -105,6 +105,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
               Expanded(
                 // child: SingleChildScrollView(child: _pages[_currentStep]),
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: AnimatedSwitcher(
                     duration: Duration(seconds: 1),
                     switchInCurve: Curves.easeOutCubic,
@@ -449,7 +450,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                     addAdsController.selectedSubCategoryAds.value = null;
                     addAdsController.selectedSubCategoryAdsId.value = null;
 
-                    
                     // addAdsController.finalAnswers.clear();
                     // addAdsController.checkBoxAnswer.clear();
                     // addAdsController.radioAnswer.clear();
@@ -465,58 +465,57 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                   }
                 } else if (_currentStep == 2) {
                   if (categoryController.supCategoryQuestion.isNotEmpty) {
-                      for (var question
-                          in categoryController.supCategoryQuestion) {
-                        String key = "custom_fields[${question.id}]";
+                    for (var question
+                        in categoryController.supCategoryQuestion) {
+                      String key = "custom_fields[${question.id}]";
 
-                        // تنظيف finalAnswers
-                        log(
-                          "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
-                        );
+                      // تنظيف finalAnswers
+                      log(
+                        "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
+                      );
 
-                        // addAdsController.finalAnswers.remove(key);
-                        addAdsController.finalAnswers[key] = "";
-                        log(
-                          "+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
-                        );
-                        log(
-                          "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.oldAnswers}",
-                        );
+                      // addAdsController.finalAnswers.remove(key);
+                      addAdsController.finalAnswers[key] = "";
+                      log(
+                        "+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
+                      );
+                      log(
+                        "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.oldAnswers}",
+                      );
 
-                        addAdsController.oldAnswers.remove(key);
-                        addAdsController.oldAnswers[key] ="";
-                        log(
-                          "+++++++++++++++++++++++++++++++++++++++++${addAdsController.oldAnswers}",
-                        );
-
-                        log(
-                          "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.checkBoxAnswer}",
-                        );
-
-                        // تنظيف checkBoxAnswer
-                        addAdsController.checkBoxAnswer.remove(question.id);
-                        log(
-                          "+++++++++++++++++++++++++++++++++++++++++${addAdsController.checkBoxAnswer}",
-                        );
-                        log(
-                          "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",
-                        );
-
-                        // تنظيف radioAnswer
-                        addAdsController.radioAnswer.remove(question.id);
-                        log(
-                          "+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",
-                        );
-                      }
+                      addAdsController.oldAnswers.remove(key);
+                      addAdsController.oldAnswers[key] = "";
+                      log(
+                        "+++++++++++++++++++++++++++++++++++++++++${addAdsController.oldAnswers}",
+                      );
 
                       log(
-                        "Cleaned answers for previous sub-category questions: ${categoryController.supCategoryQuestion.map((q) => q.id).toList()}",
+                        "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.checkBoxAnswer}",
+                      );
+
+                      // تنظيف checkBoxAnswer
+                      addAdsController.checkBoxAnswer.remove(question.id);
+                      log(
+                        "+++++++++++++++++++++++++++++++++++++++++${addAdsController.checkBoxAnswer}",
+                      );
+                      log(
+                        "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",
+                      );
+
+                      // تنظيف radioAnswer
+                      addAdsController.radioAnswer.remove(question.id);
+                      log(
+                        "+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",
                       );
                     }
+
+                    log(
+                      "Cleaned answers for previous sub-category questions: ${categoryController.supCategoryQuestion.map((q) => q.id).toList()}",
+                    );
+                  }
                   if (addAdsController.selectedSubCategoryAds.value != null) {
                     // addAdsController.cleanAnswerOldQuestion;
 
-                    
                     categoryController.getCategoryQuestions(
                       addAdsController.selectedSubCategoryAds.value!.id,
                       true,

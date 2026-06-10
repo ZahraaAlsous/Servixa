@@ -168,6 +168,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
             // Scaffold(
             // body:
             SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -842,10 +843,32 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
   // }
   Future<void> _shareAds() async {
     try {
+      String currentLang =
+          EasyLocalization.of(
+            WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+                Colors.transparent as BuildContext,
+          )?.locale.languageCode ??
+          "en";
       final ads = adsController.adsDetails.value!;
 
       // 1. تجهيز نص المشاركة
-      String shareContent =
+      String shareContent = currentLang == "ar" ?'''
+🏠 *شارك إعلانًا من Servixa*
+═══════════════════════
+
+📌 *${ads.title}*
+💰 *السعر:* ${ads.price} ${ads.typeCoin}
+📍 *الموقع:* ${ads.place ?? 'غير محدد'}
+📋 *النوع:* ${ads.typeService}
+
+📝 *الوصف:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
+
+⭐ *التقييم:* ${rateController.ratesReview.value!.statistics.averageRating}/5
+══════════════════════
+🔗 *رابط عرض الإعلان:* https://servixa.com/ads/${ads.id}
+
+📱 حمّل تطبيق Servixa
+https://play.google.com/store/apps/details?id=com.servixa''' :
           '''
 🏠 *Share ad from Servixa*
 ══════════════════════

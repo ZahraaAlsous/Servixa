@@ -25,6 +25,7 @@ import 'package:servixa/features/profile/presentation_layer/screens/edit_profile
 import 'package:servixa/features/profile/presentation_layer/widgets/bottom_sheet_view_profile_widget.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/change_password_bottom_sheet.dart';
 import 'package:servixa/features/profile/presentation_layer/widgets/list_tile_widget.dart';
+import 'package:share_plus/share_plus.dart';
 
 class OptionProfileScreen extends StatelessWidget {
   const OptionProfileScreen({super.key});
@@ -222,7 +223,7 @@ class OptionProfileScreen extends StatelessWidget {
                               // where go
                               onPressed: () {
                                 // edit
-                                Get.to(CreateBusinessAccountScreen());
+                                Get.to(() => CreateBusinessAccountScreen());
                                 // busiessAccountController.getBusinessAccount();
                                 // Get.bottomSheet(
                                 //   isDismissible: true,
@@ -317,7 +318,9 @@ class OptionProfileScreen extends StatelessWidget {
           ListTileWidget(
             title: "Share This App",
             // edit
-            onTap: () {},
+            onTap: () {
+              _shareApp();
+            },
             icon: IconApp.shareOutline,
             isNotLastTileList: authController.isLoggedIn.value ? true : false,
           ),
@@ -424,5 +427,39 @@ class OptionProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<void> _shareApp() async {
+  try {
+    String currentLang =
+        EasyLocalization.of(
+          WidgetsBinding.instance.focusManager.primaryFocus?.context ??
+              Colors.transparent as BuildContext,
+        )?.locale.languageCode ??
+        "en";
+    String shareContent = currentLang == "ar"
+        ? '''
+📲 حمل تطبيق Servixa الآن!
+
+أضف إعلاناتك، تصفح المنتجات والخدمات في منطقتك بكل سهولة.
+
+🔗 https://play.google.com/store/apps/details?id=com.Servixa
+
+كن جزءاً من مجتمعنا 🚀'''
+        : '''
+📲Download the Servixa app now!
+
+Add your ads and browse products and services in your area with ease.
+
+🔗 https://play.google.com/store/apps/details?id=com.Servixa
+
+Be part of our community 🚀''';
+
+    await Share.share(shareContent, subject: 'Share App');
+
+    log("Share Done with Dio");
+  } catch (e) {
+    log("Error in share: $e");
   }
 }

@@ -79,9 +79,10 @@ class PoliciesScreen extends StatelessWidget {
             _buildTabBar(),
             // const SizedBox(height: 16),
             Expanded(
-              child: SingleChildScrollView(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(16),
-                child: _buildPolicyContent(),
+                children: [_buildPolicyContent()],
               ),
             ),
           ],

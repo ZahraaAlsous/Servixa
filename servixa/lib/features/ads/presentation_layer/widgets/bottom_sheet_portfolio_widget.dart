@@ -69,6 +69,7 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
 
           Expanded(
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   // CircleAvatar(
