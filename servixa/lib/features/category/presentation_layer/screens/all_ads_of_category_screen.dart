@@ -10,6 +10,7 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/category/data_layer/models/category_model.dart';
 
 class AllAdsOfCategoryScreen extends StatefulWidget {
@@ -95,6 +96,13 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
                       widthCard: 0.431,
                       isGridView: crossAxisCount.value == 2,
                       isSearchCard: true,
+                      onTap: () {
+                        Get.to(
+                          () => AdsDetailsScreen(
+                            adsId: adsController.adsCategory[indexAds].id,
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
