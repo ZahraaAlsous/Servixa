@@ -115,7 +115,14 @@ Future<void> updatePosition(LatLng position) async {
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
-      );
+      ).timeout(
+            const Duration(seconds: 10),
+            onTimeout: () {
+              log("Geocoding timeout after 10 seconds");
+              return [];
+            },
+          );
+      ;
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         String address = [
@@ -125,11 +132,19 @@ Future<void> updatePosition(LatLng position) async {
           place.country,
         ].where((part) => part != null && part.isNotEmpty).join(', ');
 
-        selectedAddress.value = address;
-        log("Address: $address");
+          if (address.isNotEmpty) {
+          selectedAddress.value = address;
+          log("Address: $address");
+        } else {
+          // إذا كان العنوان فارغاً، استخدم الإحداثيات كبديل
+          selectedAddress.value =
+              "${position.latitude.toStringAsFixed(4)}, ${position.longitude.toStringAsFixed(4)}";
+          log("Using coordinates as address: ${selectedAddress.value}");
+        }
       } else {
-        selectedAddress.value = "Selected location";
-      }
+        selectedAddress.value =
+            "${position.latitude.toStringAsFixed(4)}, ${position.longitude.toStringAsFixed(4)}";
+        log("No placemark found, using coordinates");      }
     } catch (e) {
       log("Error getting address: $e");
       selectedAddress.value = "Selected location";
