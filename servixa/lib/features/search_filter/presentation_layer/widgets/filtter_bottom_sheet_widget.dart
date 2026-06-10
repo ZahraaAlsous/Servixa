@@ -101,34 +101,49 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                 FilterName: "Category",
                               ),
                               AppDropdownButtonFormFieldWidget(
-                                hintText: "All In Classified",
+                                hintText:
+                                    categoryController.isLoadingCategory.value
+                                    ? "Loading..."
+                                    : "All In Classified",
                                 value:
                                     searchFilterController.selectCategory.value,
                                 // edit
-                                onChanged: (value) {
-                                  searchFilterController.selectCategory.value =
-                                      value;
-                                  if (searchFilterController
-                                      .selectCategory
-                                      .value!
-                                      .hasChildren) {
-                                    categoryController.getSubCategories(
-                                      searchFilterController
-                                          .selectCategory
-                                          .value!
-                                          .id,
-                                    );
-                                  } else {
-                                    searchFilterController
-                                            .selectSubCategory
-                                            .value =
-                                        null;
-                                    searchFilterController
-                                            .EffectiveSubCategoryFilter
-                                            .value =
-                                        false;
-                                  }
-                                },
+                                onChanged:
+                                    categoryController.isLoadingCategory.value
+                                    ? null
+                                    : (value) {
+                                        if (value is CategoryModel) {
+                                          searchFilterController
+                                                  .selectSubCategory
+                                                  .value =
+                                              null;
+
+                                          searchFilterController
+                                                  .selectCategory
+                                                  .value =
+                                              value;
+                                          if (searchFilterController
+                                              .selectCategory
+                                              .value!
+                                              .hasChildren) {
+                                            categoryController.getSubCategories(
+                                              searchFilterController
+                                                  .selectCategory
+                                                  .value!
+                                                  .id,
+                                            );
+                                          } else {
+                                            searchFilterController
+                                                    .selectSubCategory
+                                                    .value =
+                                                null;
+                                            searchFilterController
+                                                    .EffectiveSubCategoryFilter
+                                                    .value =
+                                                false;
+                                          }
+                                        }
+                                      },
                                 isSizeFontSmall:
                                     searchFilterController
                                             .selectCategory
@@ -143,18 +158,27 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                 ) {
                                   return DropdownMenuItem<CategoryModel>(
                                     value: category,
-                                    child: Row(
-                                      children: [
+                                    child:
+                                        // Row(
+                                        //   children: [
                                         // SvgPicture.asset(category.icon!),
                                         // // edit
                                         // // design
+                                        // Expanded(
+                                        // child:
                                         Text(
                                           category.name,
                                           // edit
-                                          style: TextStyle(fontSize: 9),
+                                          style:
+                                              TypographyApp
+                                                  .Body_mid_Regular.copyWith(
+                                                color: ThemeApp
+                                                    .Foundation_Secendary_grey_700,
+                                              ),
                                         ),
-                                      ],
-                                    ),
+                                    // ),
+                                    //   ],
+                                    // ),
                                   );
                                 }).toList(),
                                 borderRadio: 16,
@@ -190,16 +214,28 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                   FilterName: "Sub Category",
                                 ),
                                 AppDropdownButtonFormFieldWidget(
-                                  hintText: "All In Classified",
+                                  hintText:
+                                      categoryController
+                                          .isLoadingSubCategory
+                                          .value
+                                      ? "Loading..."
+                                      : "All In Classified",
                                   value: searchFilterController
                                       .selectSubCategory
                                       .value,
-                                  onChanged: (Value) {
-                                    searchFilterController
-                                            .selectSubCategory
-                                            .value =
-                                        Value;
-                                  },
+                                  onChanged:
+                                      categoryController
+                                          .isLoadingSubCategory
+                                          .value
+                                      ? null
+                                      : (Value) {
+                                          if (Value is CategoryModel) {
+                                            searchFilterController
+                                                    .selectSubCategory
+                                                    .value =
+                                                Value;
+                                          }
+                                        },
                                   validator: (value) {
                                     if (searchFilterController
                                         .EffectiveCategoryFilter
@@ -221,18 +257,31 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                                   ) {
                                     return DropdownMenuItem<CategoryModel>(
                                       value: subCategory,
-                                      child: Row(
-                                        children: [
+                                      child:
+                                          // Row(
+                                          //   children: [
                                           // edit
                                           // disen
                                           // SvgPicture.asset(subCategory.icon),
+                                          // Expanded(
+                                          //   child:
                                           Text(
                                             subCategory.name,
                                             // edit
-                                            style: TextStyle(fontSize: 9),
+                                            style: 
+                                            // TextStyle(
+                                            //   fontSize: 9,
+                                            //   // overflow: TextOverflow.ellipsis
+                                            // ),
+                                            TypographyApp
+                                                    .Body_mid_Regular.copyWith(
+                                                  color: ThemeApp
+                                                      .Foundation_Secendary_grey_700,
+                                                ),
                                           ),
-                                        ],
-                                      ),
+                                      // ),
+                                      //   ],
+                                      // ),
                                     );
                                   }).toList(),
                                   borderRadio: 16,

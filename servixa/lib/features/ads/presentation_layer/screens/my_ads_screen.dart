@@ -108,6 +108,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                   ? adsController.pendingMyAdList
                   : adsController.rejectedMyAdList);
         return GridView.builder(
+          physics: const ClampingScrollPhysics(),
           padding: EdgeInsetsGeometry.only(
             left: size.width * DimensApp.spaceHorizontalScreen,
             right: size.width * DimensApp.spaceHorizontalScreen,
