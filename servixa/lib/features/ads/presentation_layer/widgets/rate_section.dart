@@ -47,7 +47,7 @@ class RateSection extends StatelessWidget {
                 children: [
                   Text(
                     // "4.0",
-                    rate.averageRating.toDouble().toString(),
+                    rate.averageRating.toString(),
                     style: TypographyApp.H3_Bold.copyWith(
                       color: ThemeApp.Foundation_Main_main_500,
                     ),
@@ -60,7 +60,7 @@ class RateSection extends StatelessWidget {
                     // value from back
                     rating: 4,
                     itemBuilder: (context, index) =>
-                        _getStarColor(index, rate.averageRating.toDouble()),
+                        _getStarColor(index, rate.averageRating),
 
                     itemCount: 5,
                     itemSize: 20,
@@ -75,9 +75,9 @@ class RateSection extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 5),
             Expanded(
-              flex: 67,
+              flex: 68,
               child: Column(
                 children: [
                   RateStarWidget(

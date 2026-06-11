@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ThemeApp {
+  // static final ThemeData lightTheme = ThemeData(
+  //   brightness: Brightness.light,
+  //   scaffoldBackgroundColor: whiteBackground,
+    
+  // );
+  // static final ThemeData darkTheme = ThemeData(
+  //   brightness: Brightness.dark,
+  //   scaffoldBackgroundColor: Foundation_Secendary_grey_500,
+  // );
   static const Color linearBackground = Color(0xffD9BEFF);
   static const Color whiteBackground = Color(0xffFFFFFF);
 

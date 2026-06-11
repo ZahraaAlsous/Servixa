@@ -382,6 +382,16 @@ class OptionProfileScreen extends StatelessWidget {
             },
             icon: IconApp.language,
           ),
+          //     ListTileWidget(
+          //   title: "Dark",
+          //   // edit
+          //   onTap: () {
+          //     Get.changeTheme(
+          //       Get.isDarkMode ? ThemeApp.lightTheme : ThemeApp.darkTheme,
+          //     );
+          //   },
+          //   icon: IconApp.language,
+          // ),
           if (authController.isLoggedIn.value)
             Obx(() {
               if (authController.isLogOutNow.value) {

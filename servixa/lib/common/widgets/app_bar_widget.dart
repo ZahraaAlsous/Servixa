@@ -5,7 +5,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? child;
   final Widget? title;
   final double? toolbarHeight;
-  AppBarWidget({super.key, this.child, this.title, this.toolbarHeight});
+  final List<Widget>? actionsNotification;
+  AppBarWidget({
+    super.key,
+    this.child,
+    this.title,
+    this.toolbarHeight,
+    this.actionsNotification,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +30,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: child,
       ),
+      actions: actionsNotification,
     );
   }
 
   @override
-  Size get preferredSize =>  Size.fromHeight(toolbarHeight ?? kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(toolbarHeight ?? kToolbarHeight);
 }

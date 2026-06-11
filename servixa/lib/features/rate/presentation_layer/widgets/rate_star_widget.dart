@@ -5,7 +5,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 
 class RateStarWidget extends StatelessWidget {
-  int percent;
+  double percent;
   int numberStar;
   double widthBarPercentage;
   RateStarWidget({
@@ -36,7 +36,7 @@ class RateStarWidget extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 15,
+            flex: 25,
             child: Text(
               "${percent}%",
               textAlign: TextAlign.end,
@@ -47,7 +47,7 @@ class RateStarWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Expanded(
-            flex: 75,
+            flex: 74,
             child: _percentageBar(percent / 100)),
           Expanded(
             flex: 10,
@@ -59,7 +59,7 @@ class RateStarWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 10,
+            flex: 9,
             child: Text(
               numberStar.toString(),
               style: TypographyApp.Label_Mid_Mid.copyWith(
