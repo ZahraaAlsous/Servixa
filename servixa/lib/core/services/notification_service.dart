@@ -184,9 +184,12 @@ class NotificationService {
     try {
       String? token = await _messaging.getToken();
       log("Device Token: $token");
+      print("Device Token: $token");
+    
       return token;
     } catch (e) {
       log("Error getting token: $e");
+      print("Error getting token: $e");
       return null;
     }
   }
