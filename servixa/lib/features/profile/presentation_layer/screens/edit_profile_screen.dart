@@ -259,7 +259,7 @@ class EditProfileScreen extends GetView<ProfileController> {
               Obx(() {
                 if (profileController.isLoading.value) {
                   // return Center(child: CircularProgressIndicator());
-                  return LoadingAnimationWidget(message: "Wait please...");
+                  return LoadingAnimationWidget(message: "Wait please...".tr());
                 }
                 return SizedBox(
                   width: size.width * 0.93,
@@ -273,8 +273,12 @@ class EditProfileScreen extends GetView<ProfileController> {
                     onPressed: () {
                       profileController.updateProfile(
                         (isUpdate) {
+                          Get.back();
                           AppSnackbar.showSuccess(
-                            isUpdate ? "update done" : "no Faild update",
+                            isUpdate
+                                ? "Profile information has been successfully updated"
+                                      .tr()
+                                : "None of the fields have been changed.".tr(),
                           );
                         },
                         (e) {
@@ -284,7 +288,7 @@ class EditProfileScreen extends GetView<ProfileController> {
                     },
 
                     child: Text(
-                      "Update",
+                      "Update".tr(),
                       style: TypographyApp.Body_mid_Mid.copyWith(
                         color: ThemeApp.Foundation_Main_yellow_50,
                       ),

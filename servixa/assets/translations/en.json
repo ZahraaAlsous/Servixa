@@ -73,6 +73,11 @@
   "Portfolio": "Portfolio",
   "Information": "Information",
   "Date of joining : ": "Date of joining :",
+  "Update": "Update",
+  "Profile information has been successfully updated": "Profile information has been successfully updated",
+  "None of the fields have been changed.": "None of the fields have been changed.",
+  "Update ":"Update ",
+  "Profile":"Profile",
 
   "Select a Business Profile Type": "Select a Business Profile Type",
   "Enter The Business Details": "Enter The Business Details",

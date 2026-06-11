@@ -73,6 +73,11 @@
   "Portfolio": "مَلَفّ",
   "Information": "المعلومات",
   "Date of joining : ": "تاريخ الالتحاق : ",
+  "Update": "تحديث",
+  "Profile information has been successfully updated": "تم تحديث معلومات الملف الشخصي بنجاح",
+  "None of the fields have been changed.": "لم يتم تغيير أي من الحقول",
+  "Update ": "تحديث ",
+  "Profile":"الملف الشخصي",
 
   "Select a Business Profile Type": "حدد نوع ملف تعريف الأعمال",
   "Enter The Business Details": "أدخل تفاصيل العمل",
