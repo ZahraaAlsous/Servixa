@@ -20,16 +20,16 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(
-        actionsNotification: [
-          IconButton(
-            onPressed: () async {
-              AppSnackbar.showAlert(
-                await NotificationService.getDeviceToken() ?? "NO Token",
-              );
-            },
-            icon: SvgPicture.asset(IconApp.notificationCard),
-          ),
-        ],
+        // actionsNotification: [
+        //   IconButton(
+        //     onPressed: () async {
+        //       AppSnackbar.showAlert(
+        //         await NotificationService.getDeviceToken() ?? "NO Token",
+        //       );
+        //     },
+        //     icon: SvgPicture.asset(IconApp.notificationCard),
+        //   ),
+        // ],
       ),
       body: ListView.builder(
         padding: EdgeInsetsGeometry.only(left: 8, right: 8, bottom: 60),
