@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -887,29 +889,29 @@ https://play.google.com/store/apps/details?id=com.servixa''' :
 📱 Download the Servixa app 
 https://play.google.com/store/apps/details?id=com.servixa''';
 
-      // // 2. التحقق من وجود صور للإعلان ومشاركتها
-      // if (ads.image != null && ads.image.isNotEmpty) {
-      //   // final imageUrl = ads.images[0].url; // مسار رابط الصورة من الـ Model
-      //   final imageUrl = ads.image; // مسار رابط الصورة من الـ Model
+      // 2. التحقق من وجود صور للإعلان ومشاركتها
+      if (ads.image != null && ads.image.isNotEmpty) {
+        // final imageUrl = ads.images[0].url; // مسار رابط الصورة من الـ Model
+        final imageUrl = ads.image; // مسار رابط الصورة من الـ Model
 
-      //   // الحصول على مسار مجلد الكاش المؤقت بالجهاز
-      //   final tempDir = await getTemporaryDirectory();
-      //   final savePath = '${tempDir.path}/shared_image.png';
+        // الحصول على مسار مجلد الكاش المؤقت بالجهاز
+        final tempDir = await getTemporaryDirectory();
+        final savePath = '${tempDir.path}/shared_image.png';
 
-      //   // استخدام Dio لتحميل الصورة وحفظها مباشرة كملف
-      //   final dio = Dio();
-      //   await dio.download(imageUrl, savePath);
+        // استخدام Dio لتحميل الصورة وحفظها مباشرة كملف
+        final dio = Dio();
+        await dio.download(imageUrl, savePath);
 
-      //   // مشاركة الصورة المحفوظة والنص معاً
-      //   await Share.shareXFiles(
-      //     [XFile(savePath)],
-      //     text: shareContent,
-      //     subject: 'Share ad: ${ads.title}',
-      //   );
-      // } else {
+        // مشاركة الصورة المحفوظة والنص معاً
+        await Share.shareXFiles(
+          [XFile(savePath)],
+          text: shareContent,
+          subject: 'Share ad: ${ads.title}',
+        );
+      } else {
       // إذا لم يكن هناك صورة، شارك النص فقط
       await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
-      // }
+      }
 
       log("Share Done with Dio");
     } catch (e) {
