@@ -46,7 +46,7 @@ class MyFavoriteScreen extends StatelessWidget {
           );
         }
         if (favoriteController.myFavoriteAdsList.isEmpty) {
-          return Expanded(child: AppNothingWidget());
+          return AppNothingWidget();
         }
         return Obx(
           () => GridView.builder(

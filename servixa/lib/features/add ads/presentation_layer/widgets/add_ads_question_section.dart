@@ -558,8 +558,8 @@ class AddAdsQuestionSection extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Row(
-                    //   children: [
+                    Row(
+                      children: [
                     Text(
                       question.question,
                       style: TypographyApp.Title_Mid_Mid.copyWith(
@@ -577,9 +577,9 @@ class AddAdsQuestionSection extends StatelessWidget {
                     ),
                     //     if (question.metaData.is_required)
                     //       Text(" *", style: const TextStyle(color: Colors.red)),
-                    //   ],
-                    // ),
-                    const SizedBox(height: 8),
+                      ],
+                    ),
+                    // const SizedBox(height: 8),
                     Obx(() {
                       String? currentValue =
                           addAdsController.radioAnswer[question.id];

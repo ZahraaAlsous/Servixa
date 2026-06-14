@@ -77,7 +77,7 @@
   "Profile information has been successfully updated": "تم تحديث معلومات الملف الشخصي بنجاح",
   "None of the fields have been changed.": "لم يتم تغيير أي من الحقول",
   "Update ": "تحديث ",
-  "Profile":"الملف الشخصي",
+  "Profile": "الملف الشخصي",
 
   "Select a Business Profile Type": "حدد نوع ملف تعريف الأعمال",
   "Enter The Business Details": "أدخل تفاصيل العمل",
@@ -217,7 +217,7 @@
   "Pending": "قيد الانتظار",
   "Rejected": "مرفوض",
 
-  " your location": " في موقعك",
+  " in your location": " في موقعك",
 
   "Privacy Policy": "سياسة الخصوصية",
   "Terms & Conditions": "الشروط والأحكام",

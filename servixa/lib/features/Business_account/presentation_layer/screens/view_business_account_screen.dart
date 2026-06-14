@@ -62,7 +62,7 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
           );
         }
         if (businessAccountController.businessAccountsList.isEmpty) {
-          return Expanded(child: AppNothingWidget());
+          return AppNothingWidget();
         }
         return ListView.builder(
           padding: EdgeInsetsGeometry.symmetric(

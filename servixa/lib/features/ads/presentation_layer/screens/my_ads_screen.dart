@@ -91,15 +91,15 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
         }
         if (adsController.isSelectedAcceptedMyAd.value &&
             adsController.acceptedMyAdList.isEmpty) {
-          return Expanded(child: AppNothingWidget());
+          return AppNothingWidget();
         }
         if (adsController.isSelectedPendingMyAd.value &&
             adsController.pendingMyAdList.isEmpty) {
-          return Expanded(child: AppNothingWidget());
+          return AppNothingWidget();
         }
         if (adsController.isSelectedRejectedMyAd.value &&
             adsController.rejectedMyAdList.isEmpty) {
-          return Expanded(child: AppNothingWidget());
+          return AppNothingWidget();
         }
         List<AdsModel> myAdsListFilter =
             adsController.isSelectedAcceptedMyAd.value

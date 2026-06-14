@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_review_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -50,6 +49,7 @@ class ReviewSection extends StatelessWidget {
                       rateController.ratesReview.value!.ratings[indexReview];
                   return Container(
                     padding: EdgeInsetsGeometry.all(5),
+                    margin: EdgeInsetsGeometry.only(bottom: 5),
                     // width: size.width * 0.9255,
                     width: widthScreen * 0.9255,
                     decoration: BoxDecoration(
