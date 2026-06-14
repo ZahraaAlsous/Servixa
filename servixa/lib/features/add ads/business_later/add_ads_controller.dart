@@ -284,6 +284,9 @@ class AddAdsController extends GetxController {
   Rx<int?> adIdEdit = Rx<int?>(null);
   int? oldCategoryId;
   int? oldSupCategoryId;
+  Rx<BusinessAccountModel?> businessAccountAdUpdate = Rx<BusinessAccountModel?>(
+    null,
+  );
 
   // zoz
   Future<void> initialFailedEditAd(AdsModel ad) async {
@@ -316,7 +319,7 @@ class AddAdsController extends GetxController {
     priceController.text = ad.price.toString();
     typeCoin = ad.typeCoin == "USD" ? "2" : "1";
     typeService = ad.typeService == "service" ? "1" : "2";
-
+    businessAccountAdUpdate.value = ad.businessAccount;
     addressDetailsController.text = ad.place ?? "";
     if (ad.lat != null && ad.lng != null) {
       final position = LatLng(ad.lat!, ad.lng!);
@@ -513,6 +516,8 @@ class AddAdsController extends GetxController {
       );
       adsController.adsDetails.value!.category =
           selectedSubCategoryAds.value ?? selectedCategoryAds.value;
+      adsController.adsDetails.value!.businessAccount =
+          businessAccountAdUpdate.value;
       adsController.adsDetails.refresh();
       reFreshListAfterUpdateAd(adId);
       onSuccess();
