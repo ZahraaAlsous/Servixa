@@ -464,7 +464,12 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                     });
                   }
                 } else if (_currentStep == 2) {
-                  if (categoryController.supCategoryQuestion.isNotEmpty) {
+                  final bool isCategoryChanged =
+                      addAdsController.oldCategoryId !=
+                          addAdsController.selectedCategoryAdsId.value ||
+                      addAdsController.oldSupCategoryId !=
+                          addAdsController.selectedSubCategoryAdsId.value;
+                  if (categoryController.supCategoryQuestion.isNotEmpty && isCategoryChanged) {
                     for (var question
                         in categoryController.supCategoryQuestion) {
                       String key = "custom_fields[${question.id}]";

@@ -53,8 +53,8 @@ class AddAdsController extends GetxController {
   RxString currentAddress = "Select your location from map".obs;
   Rx<LatLng?> selectedLatLng = Rx<LatLng?>(null);
   Rx<File?> selectedMainImage = Rx<File?>(null);
-  Map<String, dynamic> finalAnswers = {};
-  // var checkboxStates = <int, RxList<bool>>{}.obs;
+  RxMap<String, dynamic> finalAnswers = <String, dynamic>{}
+      .obs; // var checkboxStates = <int, RxList<bool>>{}.obs;
   RxMap<int, String> radioAnswer = <int, String>{}.obs;
   RxMap<int, List<String>> checkBoxAnswer = <int, List<String>>{}.obs;
 
@@ -330,17 +330,35 @@ class AddAdsController extends GetxController {
     // log(" Loading questions for category: $categoryIdForQuestions");
 
     // await categoryController.getCategoryQuestions(categoryIdForQuestions);
+    // if (selectedSubCategoryAdsId.value != null) {
+    //   await categoryController.getCategoryQuestions(
+    //     selectedCategoryAdsId.value!,
+    //     false,
+    //   );
+    // }
+    // await categoryController.getCategoryQuestions(
+    //   selectedSubCategoryAdsId.value!,
+    //   true,
+    // );
+    // --- التعديل هنا لتجنب الكراش ولجلب الأسئلة بالترتيب الصحيح ---
     if (selectedSubCategoryAdsId.value != null) {
+      // جلب أسئلة الرئيسي ثم الفرعي
+      await categoryController.getCategoryQuestions(
+        selectedCategoryAdsId.value!,
+        false,
+      );
+      await categoryController.getCategoryQuestions(
+        selectedSubCategoryAdsId.value!,
+        true,
+      );
+    } else if (selectedCategoryAdsId.value != null) {
+      // جلب أسئلة الرئيسي فقط
       await categoryController.getCategoryQuestions(
         selectedCategoryAdsId.value!,
         false,
       );
     }
-    await categoryController.getCategoryQuestions(
-      selectedSubCategoryAdsId.value!,
-      true,
-    );
-
+    // -------------------------------------------------------------
     await _initializeDynamicQuestions(ad);
     log("*************************************initialize ad done");
   }
@@ -404,10 +422,18 @@ class AddAdsController extends GetxController {
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ checkBoxAnswer ${checkBoxAnswer[questionId]}",
             );
           }
-        } else if (question.type == "radio") {
+        }
+        //  else if (question.type == "radio") {
+        //   String selectedValue = answer.value.toString();
+        //   finalAnswers["custom_fields[$questionId]"] = selectedValue;
+        // }
+        else if (question.type == "radio") {
           String selectedValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = selectedValue;
+          // --- التعديل هنا: إضافة القيمة إلى المتغير التفاعلي الخاص بالراديو ---
+          radioAnswer[questionId] = selectedValue;
+          // ------------------------------------------------------------------
         } else if (question.type == "text") {
           String textValue = answer.value.toString();
 
