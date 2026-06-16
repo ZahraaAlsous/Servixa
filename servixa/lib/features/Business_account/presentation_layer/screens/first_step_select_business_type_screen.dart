@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
@@ -33,9 +34,11 @@ class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
         );
       }
       if (businessAccountController.hasErrorLoadingUserTypes.value) {
-        return InternetConnectionErrorWidget(onPressed: (){
-          businessAccountController.getUserTypes();
-        });
+        return InternetConnectionErrorWidget(
+          onPressed: () {
+            businessAccountController.getUserTypes();
+          },
+        );
       }
       return GridView.builder(
         shrinkWrap: true,
@@ -68,6 +71,10 @@ class FirstStepSelectBusinessTypeScreen extends StatelessWidget {
                     // SvgPicture.network(
                     //   userType.icon!.url,
                     // ),
+                    if (userType.icon != null)
+                      Expanded(
+                        child: Image(image: NetworkImage(userType.icon!.url)),
+                      ),
                     Text(
                       userType.name,
                       style: TypographyApp.Body_mid_Mid.copyWith(
