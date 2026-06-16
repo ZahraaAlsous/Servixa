@@ -410,11 +410,14 @@ class AddAdsController extends GetxController {
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ cleanedValue $cleanedValue",
             );
 
-            finalAnswers["custom_fields[$questionId]"] = cleanedValue;
+            // finalAnswers["custom_fields[$questionId]"] = cleanedValue;
 
             List<String> parsedOptions = cleanedValue.isEmpty
                 ? []
                 : cleanedValue.split(',').map((e) => e.trim()).toList();
+                finalAnswers["custom_fields[$questionId]"] = jsonEncode(
+              parsedOptions,
+            );
 
             log(
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ parsedOptions $parsedOptions",

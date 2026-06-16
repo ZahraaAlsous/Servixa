@@ -76,8 +76,8 @@
   "Update": "Update",
   "Profile information has been successfully updated": "Profile information has been successfully updated",
   "None of the fields have been changed.": "None of the fields have been changed.",
-  "Update ":"Update ",
-  "Profile":"Profile",
+  "Update ": "Update ",
+  "Profile": "Profile",
 
   "Select a Business Profile Type": "Select a Business Profile Type",
   "Enter The Business Details": "Enter The Business Details",
@@ -260,6 +260,7 @@
   "No results found.": "No results found.",
   "Searched items": "Searched items",
   "All Ads": "All Ads",
+  "You cannot update your business account": "You cannot update your business account",
 
   "Password is required": "Password is required",
   "Password must contain at least one uppercase letter": "Password must contain at least one uppercase letter",
