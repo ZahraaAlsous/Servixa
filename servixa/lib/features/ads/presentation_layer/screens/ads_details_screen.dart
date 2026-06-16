@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/favoite_widget.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
 import 'package:servixa/common/widgets/app_rich_text_widget.dart';
@@ -208,16 +209,47 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                               ],
                             ),
                             Spacer(),
-                            // Obx(() {
-                            //   return
-                            IconButton(
-                              onPressed: authController.isLoggedIn.value
+                           
+                            // IconButton(
+                            //   onPressed: authController.isLoggedIn.value
+                            //       ? () {
+                            //           // adsController.favorite(ads.id);
+                            //           // favoriteController.addToFavorite(ads.id, (e) {
+                            //           //   AppSnackbar.showError(e);
+                            //           // });
+                            //           // favoriteController.favoriteAdDetails(ads.id);
+                            //           favoriteController.addToFavorite(ads.id, (
+                            //             e,
+                            //           ) {
+                            //             AppSnackbar.showError(e);
+                            //           });
+                            //         }
+                            //       : () {
+                            //           AppSnackbar.showAlert(
+                            //             "You must be logged in".tr(),
+                            //           );
+                            //         },
+                            //   icon: Obx(() {
+                            //     final isFavorite =
+                            //         adsController.adsDetails.value?.favorite ??
+                            //         false;
+                            //     return SvgPicture.asset(
+                            //       width: 20,
+                            //       height: 20,
+                            //       isFavorite
+                            //           ? IconApp.favorite
+                            //           : IconApp.favoriteBorder,
+                            //       color: isFavorite
+                            //           ? ThemeApp.Foundation_Main_main_400
+                            //           : ThemeApp.black,
+                            //     );
+                            //   }),
+                            // ),
+                          
+                             FavoriteAnimatedButton(
+                              isFavorite: ads.favorite,
+                              onTap: authController.isLoggedIn.value
                                   ? () {
-                                      // adsController.favorite(ads.id);
-                                      // favoriteController.addToFavorite(ads.id, (e) {
-                                      //   AppSnackbar.showError(e);
-                                      // });
-                                      // favoriteController.favoriteAdDetails(ads.id);
                                       favoriteController.addToFavorite(ads.id, (
                                         e,
                                       ) {
@@ -226,28 +258,11 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                     }
                                   : () {
                                       AppSnackbar.showAlert(
-                                        "You must be logged in".tr(),
+                                        "You must be logged in",
                                       );
                                     },
-                              icon: Obx(() {
-                                final isFavorite =
-                                    adsController.adsDetails.value?.favorite ??
-                                    false;
-                                return SvgPicture.asset(
-                                  width: 20,
-                                  height: 20,
-                                  isFavorite
-                                      ? IconApp.favorite
-                                      : IconApp.favoriteBorder,
-                                  color: isFavorite
-                                      ? ThemeApp.Foundation_Main_main_400
-                                      : ThemeApp.black,
-                                );
-                              }),
                             ),
-                            // ;
-                            // }),
-                          ],
+                   ],
                         ),
 
                         Row(
