@@ -294,20 +294,72 @@ class AddAdsController extends GetxController {
     isEditOperation.value = true;
     adIdEdit.value = ad.id;
     selectedBusinessAccountId.value = ad.businessAccountId!;
-    oldCategoryId = ad.category!.parentId != null
-        ? ad.category!.parentId
-        : ad.category!.id;
-    selectedCategoryAdsId.value = ad.category!.parentId != null
-        ? ad.category!.parentId
-        : ad.category!.id;
+    // oldCategoryId = ad.category!.parentId != null
+    //     ? ad.category!.parentId
+    //     : ad.category!.id;
+    // selectedCategoryAdsId.value = ad.category!.parentId != null
+    //     ? ad.category!.parentId
+    //     : ad.category!.id;
 
-    selectedSubCategoryAds.value = ad.category!.parentId != null
-        ? ad.category
-        : null;
-    selectedSubCategoryAdsId.value = ad.category!.parentId != null
-        ? ad.category!.id
-        : null;
-    oldSupCategoryId = ad.category!.parentId != null ? ad.category!.id : null;
+    // selectedSubCategoryAds.value = ad.category!.parentId != null
+    //     ? ad.category
+    //     : null;
+    // selectedSubCategoryAdsId.value = ad.category!.parentId != null
+    //     ? ad.category!.id
+    //     : null;
+    // oldSupCategoryId = ad.category!.parentId != null ? ad.category!.id : null;
+    
+    // ✅ أولاً: حاول استعادة التصنيف من ad.category
+    if (ad.category != null) {
+      // التصنيف موجود (تصنيف فرعي عادة)
+      oldCategoryId = ad.category!.parentId != null
+          ? ad.category!.parentId
+          : ad.category!.id;
+      selectedCategoryAdsId.value = ad.category!.parentId != null
+          ? ad.category!.parentId
+          : ad.category!.id;
+
+      if (ad.category!.parentId != null) {
+        selectedSubCategoryAds.value = ad.category;
+        selectedSubCategoryAdsId.value = ad.category!.id;
+        oldSupCategoryId = ad.category!.id;
+      } else {
+        selectedSubCategoryAds.value = null;
+        selectedSubCategoryAdsId.value = null;
+        oldSupCategoryId = null;
+      }
+    } else {
+      // ✅ ad.category == null (تصنيف رئيسي أو API لم يرسل category)
+      log("⚠️ ad.category is null, using stored or inferred values");
+
+      // ✅ استخدم القيم المخزنة من previous edit أو من ad.categoryId
+      if (selectedCategoryAdsId.value != null) {
+        // القيم موجودة من قبل
+        oldCategoryId = selectedCategoryAdsId.value;
+        // لا تغير selectedCategoryAdsId لأنه موجود
+        log(
+          "✅ Using stored selectedCategoryAdsId: ${selectedCategoryAdsId.value}",
+        );
+      } else if (ad.category_id != null) {
+        // ✅ استخدم category_id من الـ Response
+        oldCategoryId = ad.category_id;
+        selectedCategoryAdsId.value = ad.category_id;
+        log("✅ Using ad.categoryId: ${ad.category_id}");
+      } else {
+        // ❌ لا يمكن تحديد التصنيف
+        log("❌ Cannot determine category for ad ${ad.id}");
+        Get.snackbar("Error", "Cannot load category data");
+        return;
+      }
+
+      // ✅ إذا كان هناك تصنيف فرعي مخزن، احتفظ به
+      if (selectedSubCategoryAdsId.value != null) {
+        oldSupCategoryId = selectedSubCategoryAdsId.value;
+        log(
+          "✅ Keeping stored selectedSubCategoryAdsId: ${selectedSubCategoryAdsId.value}",
+        );
+      }
+    }
     titleController.text = ad.title;
     descriptionController.text = ad.dictation!;
     isRent.value = ad.isRent!;
@@ -517,6 +569,8 @@ class AddAdsController extends GetxController {
         price_currency: typeCoin!,
         address: addressDetailsController.text,
       );
+      log("////////////////////selectedSubCategoryAds.value ${selectedSubCategoryAds.value}");
+      log("////////////////////selectedCategoryAds.value ${selectedCategoryAds.value}");
       adsController.adsDetails.value!.category =
           selectedSubCategoryAds.value ?? selectedCategoryAds.value;
       adsController.adsDetails.value!.businessAccount =

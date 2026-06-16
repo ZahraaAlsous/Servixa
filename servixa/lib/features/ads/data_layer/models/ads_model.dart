@@ -20,6 +20,7 @@ class AdsModel {
   // List<ReviewModel>? listReview;
   String status;
   CategoryModel? category;
+  int? category_id;
   List<CategoryQuestionAnswerModel>? categoryQuestionAnswer;
   // SubCategoryModel? subCategory;
   UserModel user;
@@ -47,6 +48,7 @@ class AdsModel {
     // this.listReview,
     required this.status,
     this.category,
+    this.category_id,
     // this.subCategory,
     required this.user,
     this.categoryQuestionAnswer,
@@ -101,6 +103,7 @@ class AdsModel {
       category: json["category"] != null
           ? CategoryModel.fromJson(json["category"])
           : null,
+      category_id: json["category_id"] is String ? int.parse(json["category_id"]) : null,
       user: UserModel.fromJson(json["user"] ?? {}),
       categoryQuestionAnswer: json["custom_field_values"] != null
           ? CategoryQuestionAnswerModel.listFromJson(
