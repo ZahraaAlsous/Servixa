@@ -35,7 +35,8 @@ class AddAdsController extends GetxController {
   RxList<File> listSelectedMainImage = <File>[].obs;
   RxList<File> listSelectedSubImage = <File>[].obs;
   String? typeCoin;
-  String? typeService;
+  // String? typeService;
+  Rx<String?> typeService = Rx<String?>(null);
   String? adTitle;
   // String? adSlug;
   String? adDescription;
@@ -174,7 +175,7 @@ class AddAdsController extends GetxController {
             // : selectedCategoryAds.value!.id,
             : selectedCategoryAdsId.value!,
         main_image: selectedMainImage.value!,
-        type: typeService!,
+        type: typeService.value!,
         other_images: listSelectedSubImage,
         dynamicQuestions: finalAnswers,
         lat: selectedLatLng.value!.latitude,
@@ -258,7 +259,7 @@ class AddAdsController extends GetxController {
     listSelectedSubImage.clear();
     listSelectedMainImage.clear();
     typeCoin = null;
-    typeService = null;
+    typeService.value = null;
     selectedLatLng.value = null;
     currentAddress.value = "Select your location from map".tr();
     finalAnswers.clear();
@@ -308,7 +309,7 @@ class AddAdsController extends GetxController {
     //     ? ad.category!.id
     //     : null;
     // oldSupCategoryId = ad.category!.parentId != null ? ad.category!.id : null;
-    
+
     // ✅ أولاً: حاول استعادة التصنيف من ad.category
     if (ad.category != null) {
       // التصنيف موجود (تصنيف فرعي عادة)
@@ -370,7 +371,7 @@ class AddAdsController extends GetxController {
     existingSubImages.assignAll(ad.images);
     priceController.text = ad.price.toString();
     typeCoin = ad.typeCoin == "USD" ? "2" : "1";
-    typeService = ad.typeService == "service" ? "1" : "2";
+    typeService.value = ad.typeService == "service" ? "1" : "2";
     businessAccountAdUpdate.value = ad.businessAccount;
     addressDetailsController.text = ad.place ?? "";
     if (ad.lat != null && ad.lng != null) {
@@ -467,7 +468,7 @@ class AddAdsController extends GetxController {
             List<String> parsedOptions = cleanedValue.isEmpty
                 ? []
                 : cleanedValue.split(',').map((e) => e.trim()).toList();
-                finalAnswers["custom_fields[$questionId]"] = jsonEncode(
+            finalAnswers["custom_fields[$questionId]"] = jsonEncode(
               parsedOptions,
             );
 
@@ -560,7 +561,7 @@ class AddAdsController extends GetxController {
             // : selectedCategoryAds.value!.id,
             : selectedCategoryAdsId.value!,
         main_image: selectedMainImage.value,
-        type: typeService!,
+        type: typeService.value!,
         other_images: listSelectedSubImage,
         // dynamicQuestions: answersToSend.isEmpty ? null : answersToSend,
         dynamicQuestions: answersToSend,
@@ -569,8 +570,12 @@ class AddAdsController extends GetxController {
         price_currency: typeCoin!,
         address: addressDetailsController.text,
       );
-      log("////////////////////selectedSubCategoryAds.value ${selectedSubCategoryAds.value}");
-      log("////////////////////selectedCategoryAds.value ${selectedCategoryAds.value}");
+      log(
+        "////////////////////selectedSubCategoryAds.value ${selectedSubCategoryAds.value}",
+      );
+      log(
+        "////////////////////selectedCategoryAds.value ${selectedCategoryAds.value}",
+      );
       adsController.adsDetails.value!.category =
           selectedSubCategoryAds.value ?? selectedCategoryAds.value;
       adsController.adsDetails.value!.businessAccount =

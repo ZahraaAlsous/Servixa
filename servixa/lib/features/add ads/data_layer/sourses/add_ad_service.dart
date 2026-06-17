@@ -239,6 +239,7 @@ class AddAdService {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service : UpdateAd IN");
       String? token = await storage.read(key: "token");
+      log("////////////////////////////////////////////////$is_rent");
 
       FormData formData = FormData();
 

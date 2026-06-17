@@ -76,28 +76,6 @@ class _FourStepWriteAdDetailsWidgetState
           ),
           const SizedBox(height: 16),
 
-          Row(
-            children: [
-              Obx(
-                () => Checkbox(
-                  value: addAdsController.isRent.value,
-                  onChanged: (value) {
-                    // addAdsController.isRent.value = value!;
-                    addAdsController.isRent.value =
-                        !addAdsController.isRent.value;
-                  },
-                ),
-              ),
-              Text(
-                "Is it for rent ?".tr(),
-                style: TypographyApp.Title_Mid_Mid.copyWith(
-                  color: ThemeApp.Foundation_Secendary_grey_600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
           AddMainImageWidget(title: "Main Picture"),
 
           const SizedBox(height: 16),
@@ -180,9 +158,9 @@ class _FourStepWriteAdDetailsWidgetState
           const SizedBox(height: 5),
           AppDropdownButtonFormFieldWidget(
             hintText: "Service Request",
-            value: addAdsController.typeService,
+            value: addAdsController.typeService.value,
             onChanged: (value) {
-              addAdsController.typeService = value;
+              addAdsController.typeService.value = value;
             },
             prefixIcon: IconApp.suggestion,
             borderRadio: 4,
@@ -211,6 +189,36 @@ class _FourStepWriteAdDetailsWidgetState
               ),
             ],
           ),
+          const SizedBox(height: 16),
+
+          Obx(() {
+            if (addAdsController.typeService.value == "2") {
+              return Row(
+                children: [
+                  Obx(
+                    () => Checkbox(
+                      value: addAdsController.isRent.value,
+                      onChanged: (value) {
+                        // addAdsController.isRent.value = value!;
+                        addAdsController.isRent.value =
+                            !addAdsController.isRent.value;
+                      },
+                    ),
+                  ),
+                  Text(
+                    "Is it for rent ?".tr(),
+                    style: TypographyApp.Title_Mid_Mid.copyWith(
+                      color: ThemeApp.Foundation_Secendary_grey_600,
+                    ),
+                  ),
+                ],
+              );
+            }
+            if (addAdsController.typeService.value == "1") {
+              addAdsController.isRent.value = false;
+            }
+            return SizedBox.shrink();
+          }),
           const SizedBox(height: 16),
 
           // if (addAdsController.selectedCategoryAds.value?.questions != null &&
