@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_dialogs.dart';
 import 'package:servixa/common/widgets/favoite_widget.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_nothing_widget.dart';
@@ -209,7 +210,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                               ],
                             ),
                             Spacer(),
-                           
+
                             // IconButton(
                             //   onPressed: authController.isLoggedIn.value
                             //       ? () {
@@ -245,8 +246,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             //     );
                             //   }),
                             // ),
-                          
-                             FavoriteAnimatedButton(
+                            FavoriteAnimatedButton(
                               isFavorite: ads.favorite,
                               onTap: authController.isLoggedIn.value
                                   ? () {
@@ -262,7 +262,7 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                       );
                                     },
                             ),
-                   ],
+                          ],
                         ),
 
                         Row(
@@ -605,17 +605,27 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     Get.to(SuperAdsScreen());
                   },
                   onPressedButtonElevetedBorder: () {
-                    // businessAccountController.getBusinessAccountApproved();
-                    // Get.bottomSheet(
-                    //   isDismissible: true,
-                    //   enableDrag: true,
-                    //   isScrollControlled: true,
-                    //   BottomSheetAddOrderWidget(adId: ads.id),
-                    // );
-                    adsController.deleteAd(ads.id, () {
-                      Get.back();
-                      AppSnackbar.showSuccess("Ad removed successfully");
-                    }, (e) => AppSnackbar.showError(e));
+                    //   // businessAccountController.getBusinessAccountApproved();
+                    //   // Get.bottomSheet(
+                    //   //   isDismissible: true,
+                    //   //   enableDrag: true,
+                    //   //   isScrollControlled: true,
+                    //   //   BottomSheetAddOrderWidget(adId: ads.id),
+                    //   // );
+                    //   adsController.deleteAd(ads.id, () {
+                    //     Get.back();
+                    //     AppSnackbar.showSuccess("Ad removed successfully");
+                    //   }, (e) => AppSnackbar.showError(e));
+                    AppDialogs.showConfirmation(
+                      title: "Confirm deletion",
+                      message: "Are you sure you want to delete this ad?",
+                      onConfirm: () {
+                        adsController.deleteAd(ads.id, () {
+                          Get.back();
+                          AppSnackbar.showSuccess("Ad removed successfully");
+                        }, (e) => AppSnackbar.showError(e));
+                      },
+                    );
                   },
                 );
               })
@@ -869,7 +879,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
       final ads = adsController.adsDetails.value!;
 
       // 1. تجهيز نص المشاركة
-      String shareContent = currentLang == "ar" ?'''
+      String shareContent = currentLang == "ar"
+          ? '''
 🏠 *شارك إعلانًا من Servixa*
 ═══════════════════════
 
@@ -885,8 +896,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
 🔗 *رابط عرض الإعلان:* https://servixa.com/ads/${ads.id}
 
 📱 حمّل تطبيق Servixa
-https://play.google.com/store/apps/details?id=com.servixa''' :
-          '''
+https://play.google.com/store/apps/details?id=com.servixa'''
+          : '''
 🏠 *Share ad from Servixa*
 ══════════════════════
 
@@ -924,8 +935,8 @@ https://play.google.com/store/apps/details?id=com.servixa''';
           subject: 'Share ad: ${ads.title}',
         );
       } else {
-      // إذا لم يكن هناك صورة، شارك النص فقط
-      await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
+        // إذا لم يكن هناك صورة، شارك النص فقط
+        await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
       }
 
       log("Share Done with Dio");

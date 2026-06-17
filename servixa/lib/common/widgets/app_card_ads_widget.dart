@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_dialogs.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/favoite_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -445,9 +446,21 @@ class AppCardAdsWidget extends StatelessWidget {
               isMyAdd
                   ? IconButton(
                       onPressed: () {
-                        adsController.deleteAd(ads.id, () {
-                          AppSnackbar.showSuccess("Ad removed successfully");
-                        }, (e) => AppSnackbar.showError(e));
+                        // adsController.deleteAd(ads.id, () {
+                        //   AppSnackbar.showSuccess("Ad removed successfully");
+                        // }, (e) => AppSnackbar.showError(e));
+                        AppDialogs.showConfirmation(
+                          title: "Confirm deletion",
+                          message: "Are you sure you want to delete this ad?",
+                          onConfirm: () {
+                            adsController.deleteAd(ads.id, () {
+                              Get.back();
+                              AppSnackbar.showSuccess(
+                                "Ad removed successfully",
+                              );
+                            }, (e) => AppSnackbar.showError(e));
+                          },
+                        );
                       },
                       icon: Icon(
                         Icons.delete_rounded,

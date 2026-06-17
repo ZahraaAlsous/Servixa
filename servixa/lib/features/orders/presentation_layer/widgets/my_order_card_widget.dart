@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_dialogs.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
@@ -126,17 +127,36 @@ class MyOrderCardWidget extends StatelessWidget {
                       width: size.width * 0.739,
                       height: 29,
                       child: OutlinedButton.icon(
-                        onPressed: () => orderController.deleteOrder(
-                          order.id,
-                          () {
-                            AppSnackbar.showSuccess("The order was deleted");
-                          },
-                          (e) {
-                            AppSnackbar.showError(e);
-                          },
-                        ),
+                        // onPressed: () => orderController.deleteOrder(
+                        //   order.id,
+                        //   () {
+                        //     AppSnackbar.showSuccess("The order was deleted");
+                        //   },
+                        //   (e) {
+                        //     AppSnackbar.showError(e);
+                        //   },
+                        // ),
+                        onPressed: () {
+                          AppDialogs.showConfirmation(
+                            title: "Confirm deletion",
+                            message:
+                                "Are you sure you want to delete this order?",
+                            onConfirm: () => orderController.deleteOrder(
+                              order.id,
+                              () {
+                                AppSnackbar.showSuccess(
+                                  "The order was deleted",
+                                );
+                              },
+                              (e) {
+                                AppSnackbar.showError(e);
+                              },
+                            ),
+                          );
+                        },
                         label: Text(
-                          "Decline".tr(),
+                          // "Decline".tr(),
+                          "Delete".tr(),
                           style: TypographyApp.Label_Mid_Mid.copyWith(
                             color: ThemeApp.Foundation_Statue_Red,
                           ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
+import 'package:servixa/common/widgets/app_dialogs.dart';
 import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -95,17 +96,27 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      orderController.updateStatusOrder(
-                        order.id,
-                        // order.status,
-                        2,
-                        (status) {
-                          AppSnackbar.showSuccess(
-                            "The situation has become".tr() + "$status",
+                      AppDialogs.showConfirmation(
+                        title: "Accept order",
+                        message:
+                            "Their trust in you is the start of a wonderful collaboration. Will you accept this order?",
+                        confirmText: "Accept",
+                        confirmButtonColor: ThemeApp.Foundation_Main_main_500,
+                        titleColor: ThemeApp.Foundation_Main_main_500,
+                        onConfirm: () {
+                          orderController.updateStatusOrder(
+                            order.id,
+                            // order.status,
+                            2,
+                            (status) {
+                              AppSnackbar.showSuccess(
+                                "The situation has become".tr() + "$status",
+                              );
+                            },
+                            (e) {
+                              AppSnackbar.showError(e);
+                            },
                           );
-                        },
-                        (e) {
-                          AppSnackbar.showError(e);
                         },
                       );
                     },
@@ -129,17 +140,23 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      orderController.updateStatusOrder(
-                        order.id,
-                        5,
-                        // "rejected",
-                        (status) {
-                          AppSnackbar.showSuccess(
-                            "The situation has become".tr() + "$status",
+                      AppDialogs.showConfirmation(
+                        title: "Confirm deletion",
+                        message: "Are you sure you're going to refuse this order? Accepting it could be the start of a great collaboration and a strong professional relationship!",
+                        onConfirm: () {
+                          orderController.updateStatusOrder(
+                            order.id,
+                            5,
+                            // "rejected",
+                            (status) {
+                              AppSnackbar.showSuccess(
+                                "The situation has become".tr() + "$status",
+                              );
+                            },
+                            (e) {
+                              AppSnackbar.showError(e);
+                            },
                           );
-                        },
-                        (e) {
-                          AppSnackbar.showError(e);
                         },
                       );
                     },
