@@ -60,7 +60,7 @@ class LocationController extends GetxController {
   Future<void> getCurrentLocation() async {
     try {
       isLoading.value = true;
-      await requestPermissions();
+      // await requestPermissions();
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
