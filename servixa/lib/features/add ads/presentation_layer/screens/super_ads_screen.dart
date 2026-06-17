@@ -21,6 +21,7 @@ import 'package:servixa/features/add%20ads/presentation_layer/screens/third_step
 import 'package:servixa/features/category/business_later/category_controller.dart';
 import 'package:servixa/features/home/business_later/home_controller.dart';
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
+import 'package:animations/animations.dart';
 
 class SuperAdsScreen extends StatefulWidget {
   const SuperAdsScreen({super.key});
@@ -58,6 +59,8 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     FourStepWriteAdDetailsWidget(),
     FiveStepAddLocationPage(),
   ];
+
+  bool _isReversing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -102,29 +105,60 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Expanded(
-                // child: SingleChildScrollView(child: _pages[_currentStep]),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: AnimatedSwitcher(
-                    duration: Duration(seconds: 1),
-                    switchInCurve: Curves.easeOutCubic,
-                    switchOutCurve: Curves.easeInCubic,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: SlideTransition(
-                              position: Tween<Offset>(
-                                begin: Offset(0.1, 0),
-                                end: Offset(0, 0),
-                              ).animate(animation),
-                              child: child,
-                            ),
-                          );
-                        },
-                    child: Container(
-                      key: ValueKey<int>(_currentStep),
+              // Expanded(
+              //   // child: SingleChildScrollView(child: _pages[_currentStep]),
+              //   child: SingleChildScrollView(
+              //     physics: const BouncingScrollPhysics(),
+              //     child: AnimatedSwitcher(
+              //       duration: Duration(seconds: 1),
+              //       switchInCurve: Curves.easeOutCubic,
+              //       switchOutCurve: Curves.easeInCubic,
+              //       transitionBuilder:
+              //           (Widget child, Animation<double> animation) {
+              //             return FadeTransition(
+              //               opacity: animation,
+              //               child: SlideTransition(
+              //                 position: Tween<Offset>(
+              //                   begin: Offset(0.1, 0),
+              //                   end: Offset(0, 0),
+              //                 ).animate(animation),
+              //                 child: child,
+              //               ),
+              //             );
+              //           },
+              //       child: Container(
+              //         key: ValueKey<int>(_currentStep),
+              //         child: _pages[_currentStep],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+             
+             Expanded(
+                child: PageTransitionSwitcher(
+                  duration: const Duration(milliseconds: 400),
+                  reverse: _isReversing, // ✅ للتحكم باتجاه الحركة
+                  transitionBuilder:
+                      (
+                        Widget child,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                      ) {
+                        return Align(
+                          alignment: Alignment.topCenter,
+                          child: SharedAxisTransition(
+                            animation: animation,
+                            secondaryAnimation: secondaryAnimation,
+                            transitionType: SharedAxisTransitionType.horizontal,
+                            fillColor: Colors.transparent,
+                            child: child,
+                          ),
+                        );
+                      },
+                  child: Container(
+                    key: ValueKey<int>(_currentStep),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       child: _pages[_currentStep],
                     ),
                   ),
@@ -210,10 +244,12 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 if (_currentStep == 3 &&
                     addAdsController.selectedSubCategoryAds.value == null) {
                   setState(() {
+                    _isReversing = true;
                     _currentStep = 1;
                   });
                 } else {
                   setState(() {
+                    _isReversing = true;
                     _currentStep--;
                   });
                 }
@@ -368,6 +404,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 }
 
                 setState(() {
+                  _isReversing = false;
                   _currentStep = 4;
                 });
                 return;
@@ -428,6 +465,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       addAdsController.selectedCategoryAdsId.value!,
                     );
                     setState(() {
+                      _isReversing = false;
                       _currentStep = 2;
                     });
                   } else {
@@ -460,6 +498,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       false,
                     );
                     setState(() {
+                      _isReversing = false;
                       _currentStep = 3;
                     });
                   }
@@ -526,6 +565,7 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       true,
                     );
                     setState(() {
+                      _isReversing = false;
                       _currentStep = 3;
                     });
                   } else {
