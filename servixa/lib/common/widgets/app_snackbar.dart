@@ -28,8 +28,9 @@ class AppSnackbar {
       "Successfully completed".tr(),
       message.tr(),
       // snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green.withOpacity(0.8),
-      colorText: Colors.white,
+      // backgroundColor: Colors.green.withOpacity(0.8),
+      backgroundColor: ThemeApp.Foundation_Main_main_50,
+      colorText: ThemeApp.Foundation_Main_main_500,
       icon: const Icon(Icons.check_circle_outline, color: Colors.white),
     );
   }
