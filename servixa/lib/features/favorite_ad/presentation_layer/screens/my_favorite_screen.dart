@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
@@ -9,6 +10,7 @@ import 'package:servixa/core/const/dimens_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 
 class MyFavoriteScreen extends StatelessWidget {
@@ -64,10 +66,32 @@ class MyFavoriteScreen extends StatelessWidget {
             itemCount: favoriteController.myFavoriteAdsList.length,
             itemBuilder: (context, indexAd) {
               AdsModel ad = favoriteController.myFavoriteAdsList[indexAd];
-              return AppCardAdsWidget(
-                ads: ad,
-                widthCard: 0.431,
-                isGridView: true,
+              return
+              // AppCardAdsWidget(
+              //   ads: ad,
+              //   widthCard: 0.431,
+              //   isGridView: true,
+              // );
+              OpenContainer(
+                transitionType: ContainerTransitionType.fadeThrough,
+                closedShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                closedElevation: 0,
+
+                closedBuilder: (context, action) {
+                  return AppCardAdsWidget(
+                    ads: ad,
+                    widthCard: 0.431,
+                    isGridView: true,
+                  );
+                },
+
+                openBuilder: (context, action) {
+                  return AdsDetailsScreen(
+                    adsId: ad.id,
+                  );
+                },
               );
             },
           ),

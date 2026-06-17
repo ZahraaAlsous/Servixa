@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/common/widgets/app_card_ads_widget.dart';
+import 'package:servixa/features/ads/presentation_layer/screens/ads_details_screen.dart';
 import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
 
@@ -119,11 +121,34 @@ class ViewAllAdsScreen extends StatelessWidget {
                   ),
                   itemCount: adsController.adsList.length,
                   itemBuilder: (context, indexAds) {
-                    return AppCardAdsWidget(
-                      ads: adsController.adsList[indexAds],
-                      widthCard: 0.431,
-                      isGridView: crossAxisCount.value == 2,
-                      isViewAll: true
+                    return
+                    // AppCardAdsWidget(
+                    //   ads: adsController.adsList[indexAds],
+                    //   widthCard: 0.431,
+                    //   isGridView: crossAxisCount.value == 2,
+                    //   isViewAll: true
+                    // );
+                    OpenContainer(
+                      transitionType: ContainerTransitionType.fadeThrough,
+                      closedShape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      closedElevation: 0,
+
+                      closedBuilder: (context, action) {
+                        return AppCardAdsWidget(
+                          ads: adsController.adsList[indexAds],
+                          widthCard: 0.431,
+                          isGridView: crossAxisCount.value == 2,
+                          isViewAll: true,
+                        );
+                      },
+
+                      openBuilder: (context, action) {
+                        return AdsDetailsScreen(
+                          adsId: adsController.adsList[indexAds].id,
+                        );
+                      },
                     );
                   },
                 );

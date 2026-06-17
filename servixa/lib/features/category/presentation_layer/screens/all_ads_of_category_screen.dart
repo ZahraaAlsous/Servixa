@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/app_bar_widget.dart';
@@ -91,19 +92,51 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
                   ),
                   itemCount: adsController.adsCategory.length,
                   itemBuilder: (context, indexAds) {
-                    return AppCardAdsWidget(
+                    return 
+                    // AppCardAdsWidget(
+                    //   ads: adsController.adsCategory[indexAds],
+                    //   widthCard: 0.431,
+                    //   isGridView: crossAxisCount.value == 2,
+                    //   isSearchCard: true,
+                    //   onTap: () {
+                    //     Get.to(
+                    //       () => AdsDetailsScreen(
+                    //         adsId: adsController.adsCategory[indexAds].id,
+                    //       ),
+                    //     );
+                    //   },
+                    // );
+                  
+                     OpenContainer(
+                      transitionType: ContainerTransitionType.fadeThrough,
+                      closedShape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      closedElevation: 0,
+
+                      closedBuilder: (context, action) {
+                        return AppCardAdsWidget(
                       ads: adsController.adsCategory[indexAds],
                       widthCard: 0.431,
                       isGridView: crossAxisCount.value == 2,
                       isSearchCard: true,
-                      onTap: () {
-                        Get.to(
-                          () => AdsDetailsScreen(
-                            adsId: adsController.adsCategory[indexAds].id,
-                          ),
+                      // onTap: () {
+                      //   Get.to(
+                      //     () => AdsDetailsScreen(
+                      //       adsId: adsController.adsCategory[indexAds].id,
+                      //     ),
+                      //   );
+                      // },
+                    );
+                  
+                      },
+
+                      openBuilder: (context, action) {
+                        return AdsDetailsScreen(adsId: adsController.adsCategory[indexAds].id,
                         );
                       },
                     );
+            
                   },
                 ),
               );

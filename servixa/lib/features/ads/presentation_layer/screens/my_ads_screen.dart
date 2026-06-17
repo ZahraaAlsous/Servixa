@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
@@ -123,13 +124,39 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
           itemCount: myAdsListFilter.length,
           itemBuilder: (context, indexAds) {
             AdsModel ads = myAdsListFilter[indexAds];
-            return AppCardAdsWidget(
-              ads: ads,
-              widthCard: 0.431,
-              isGridView: true,
-              isMyAdd: true,
-              onTap: () {
-                Get.to(() => AdsDetailsScreen(adsId: ads.id));
+            return
+            // AppCardAdsWidget(
+            //   ads: ads,
+            //   widthCard: 0.431,
+            //   isGridView: true,
+            //   isMyAdd: true,
+            //   onTap: () {
+            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
+            //   },
+            // );
+            OpenContainer(
+              transitionType: ContainerTransitionType.fadeThrough,
+              closedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              closedElevation: 0,
+
+              closedBuilder: (context, action) {
+                return AppCardAdsWidget(
+                  ads: ads,
+                  widthCard: 0.431,
+                  isGridView: true,
+                  isMyAdd: true,
+                  // onTap: () {
+                  //   Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                  // },
+                );
+              },
+
+              openBuilder: (context, action) {
+                return AdsDetailsScreen(
+                  adsId: adsController.adsList[indexAds].id,
+                );
               },
             );
           },

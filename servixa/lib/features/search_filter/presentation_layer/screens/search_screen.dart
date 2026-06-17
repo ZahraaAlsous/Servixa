@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
@@ -127,15 +128,49 @@ class SearchScreen extends StatelessWidget {
                           searchFilterController.adsSearchList[indexAds];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: AppCardAdsWidget(
-                          ads: ads,
-                          widthCard: 0.9139,
-                          isGridView: false,
-                          isSearchCard: true,
-                          onTap: () {
-                            Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                          },
-                        ),
+                        child:
+                            // AppCardAdsWidget(
+                            //   ads: ads,
+                            //   widthCard: 0.9139,
+                            //   isGridView: false,
+                            //   isSearchCard: true,
+                            //   onTap: () {
+                            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                            //   },
+                            // ),
+                            OpenContainer(
+                              transitionType:
+                                  ContainerTransitionType.fadeThrough,
+                              closedShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(33),
+                                ),
+                              ),
+                              closedElevation: 4,
+                              closedColor: Colors.white,
+                              openElevation: 0,
+                              openColor: Colors
+                                  .transparent, 
+                              closedBuilder: (context, action) {
+                                return AppCardAdsWidget(
+                                  ads: ads,
+                                  widthCard: 0.9139,
+                                  isGridView: false,
+                                  isSearchCard: true,
+                                  // onTap: () {
+                                  //   Get.to(
+                                  //     () => AdsDetailsScreen(adsId: ads.id),
+                                  //   );
+                                  // },
+                                );
+                              },
+
+                              openBuilder: (context, action) {
+                                return AdsDetailsScreen(
+                                  adsId: adsController.adsList[indexAds].id,
+                                );
+                              },
+                            ),
                       );
                     },
                   );

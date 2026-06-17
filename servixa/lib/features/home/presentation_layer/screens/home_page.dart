@@ -26,6 +26,7 @@ import 'package:servixa/features/home/presentation_layer/widgets/app_bar_home_wi
 import 'package:servixa/features/home/presentation_layer/widgets/circle_sliders_widget.dart';
 import 'package:servixa/features/home/presentation_layer/widgets/sliders_home_widget.dart';
 import 'package:servixa/features/search_filter/presentation_layer/screens/search_screen.dart';
+import 'package:animations/animations.dart';
 
 class HomePage extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
@@ -46,7 +47,6 @@ class HomePage extends StatelessWidget {
 
           children: [
             // TextButton(onPressed: () => Get.to(()=> SliversDemoPage()), child: Text("sliver")),
-          
             Padding(
               padding: EdgeInsetsGeometry.symmetric(
                 horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -90,7 +90,11 @@ class HomePage extends StatelessWidget {
                 return ShimmerCategoriesList(height: 84);
               }
               if (categoryController.hasErrorLoadingCategory.value) {
-                return InternetConnectionErrorWidget(onPressed : (){categoryController.getCategories(AppSnackbar.showError);});
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    categoryController.getCategories(AppSnackbar.showError);
+                  },
+                );
               }
               return SizedBox(
                 // height: size.height * 0.090,
@@ -145,7 +149,11 @@ class HomePage extends StatelessWidget {
               }
 
               if (adsController.hasErrorLoadingAds.value) {
-                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    adsController.getAds();
+                  },
+                );
               }
               return SizedBox(
                 // note
@@ -162,15 +170,38 @@ class HomePage extends StatelessWidget {
                       AdsModel ads = adsController.adsList[indexAds];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: AppCardAdsWidget(
-                          ads: ads,
-                          widthCard: 0.413,
-                          onTap: () {
-                            Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                            // Get.to(AdsDetailsScreen(), arguments: ads.id);
-                          },
-                          isGridView: true,
-                        ),
+                        child:
+                            // AppCardAdsWidget(
+                            //   ads: ads,
+                            //   widthCard: 0.413,
+                            //   onTap: () {
+                            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                            //     // Get.to(AdsDetailsScreen(), arguments: ads.id);
+                            //   },
+                            //   isGridView: true,
+                            // ),
+                            OpenContainer(
+                              transitionType:
+                                  ContainerTransitionType.fadeThrough,
+                              closedShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              closedElevation: 0,
+
+                              closedBuilder: (context, action) {
+                                return AppCardAdsWidget(
+                                  ads: adsController.adsList[indexAds],
+                                  widthCard: 0.413,
+                                  isGridView: true,
+                                );
+                              },
+
+                              openBuilder: (context, action) {
+                                return AdsDetailsScreen(
+                                  adsId: adsController.adsList[indexAds].id,
+                                );
+                              },
+                            ),
                       );
                     },
                   );
@@ -198,7 +229,11 @@ class HomePage extends StatelessWidget {
                 );
               }
               if (adsController.hasErrorLoadingAds.value) {
-                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    adsController.getAds();
+                  },
+                );
               }
               return SizedBox(
                 // note
@@ -217,14 +252,40 @@ class HomePage extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
 
-                        child: AppCardAdsWidget(
-                          ads: ads,
-                          widthCard: 0.367,
-                          isGridView: true,
-                          onTap: () {
-                            Get.to(AdsDetailsScreen(adsId: ads.id));
-                          },
-                        ),
+                        child:
+                            // AppCardAdsWidget(
+                            //   ads: ads,
+                            //   widthCard: 0.367,
+                            //   isGridView: true,
+                            //   onTap: () {
+                            //     Get.to(AdsDetailsScreen(adsId: ads.id));
+                            //   },
+                            // ),
+                            OpenContainer(
+                              transitionType:
+                                  ContainerTransitionType.fadeThrough,
+                              closedShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              closedElevation: 0,
+
+                              closedBuilder: (context, action) {
+                                return AppCardAdsWidget(
+                                  ads: ads,
+                                  widthCard: 0.367,
+                                  isGridView: true,
+                                  // onTap: () {
+                                  //   Get.to(AdsDetailsScreen(adsId: ads.id));
+                                  // },
+                                );
+                              },
+
+                              openBuilder: (context, action) {
+                                return AdsDetailsScreen(
+                                  adsId: adsController.adsList[indexAds].id,
+                                );
+                              },
+                            ),
                       );
                     },
                   );
@@ -251,7 +312,11 @@ class HomePage extends StatelessWidget {
                 );
               }
               if (adsController.hasErrorLoadingAds.value) {
-                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    adsController.getAds();
+                  },
+                );
               }
               return SizedBox(
                 // note
@@ -268,14 +333,42 @@ class HomePage extends StatelessWidget {
                       AdsModel ads = adsController.adsList[indexAds];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: AppCardAdsWidget(
-                          ads: adsController.adsList[indexAds],
-                          widthCard: 0.611,
-                          isGridView: true,
-                          onTap: () {
-                            Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                          },
-                        ),
+                        child:
+                            // AppCardAdsWidget(
+                            //   ads: adsController.adsList[indexAds],
+                            //   widthCard: 0.611,
+                            //   isGridView: true,
+                            //   onTap: () {
+                            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                            //   },
+                            // ),
+                            OpenContainer(
+                              transitionType:
+                                  ContainerTransitionType.fadeThrough,
+                              closedShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              closedElevation: 0,
+
+                              closedBuilder: (context, action) {
+                                return AppCardAdsWidget(
+                                  ads: ads,
+                                  widthCard: 0.611,
+                                  isGridView: true,
+                                  // onTap: () {
+                                  //   Get.to(
+                                  //     () => AdsDetailsScreen(adsId: ads.id),
+                                  //   );
+                                  // },
+                                );
+                              },
+
+                              openBuilder: (context, action) {
+                                return AdsDetailsScreen(
+                                  adsId: ads.id,
+                                );
+                              },
+                            ),
                       );
                     },
                   );
@@ -291,7 +384,11 @@ class HomePage extends StatelessWidget {
                 return ShimmerCardGridView(widthCard: 0.413, shrinkWrap: true);
               }
               if (adsController.hasErrorLoadingAds.value) {
-                return InternetConnectionErrorWidget(onPressed : (){adsController.getAds();});
+                return InternetConnectionErrorWidget(
+                  onPressed: () {
+                    adsController.getAds();
+                  },
+                );
               }
               return GridView.builder(
                 padding: EdgeInsetsGeometry.only(
@@ -314,12 +411,37 @@ class HomePage extends StatelessWidget {
                   //   return _buildEndOfListIndicator(context);
                   // }
                   AdsModel ads = adsController.adsList[indexAds];
-                  return AppCardAdsWidget(
-                    ads: ads,
-                    widthCard: 0.431,
-                    isGridView: true,
-                    onTap: () {
-                      Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                  return
+                  // AppCardAdsWidget(
+                  //   ads: ads,
+                  //   widthCard: 0.431,
+                  //   isGridView: true,
+                  //   onTap: () {
+                  //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                  //   },
+                  // );
+                  OpenContainer(
+                    transitionType: ContainerTransitionType.fadeThrough,
+                    closedShape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    closedElevation: 0,
+
+                    closedBuilder: (context, action) {
+                      return AppCardAdsWidget(
+                        ads: ads,
+                        widthCard: 0.431,
+                        isGridView: true,
+                        // onTap: () {
+                        //   Get.to(() => AdsDetailsScreen(adsId: ads.id));
+                        // },
+                      );
+                    },
+
+                    openBuilder: (context, action) {
+                      return AdsDetailsScreen(
+                        adsId: adsController.adsList[indexAds].id,
+                      );
                     },
                   );
                 },

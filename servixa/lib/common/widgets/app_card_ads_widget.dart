@@ -545,22 +545,22 @@ class AppCardAdsWidget extends StatelessWidget {
                 width: 1,
               )
             : null,
-        boxShadow: isSearchCard
-            ? [
-                BoxShadow(
-                  offset: const Offset(0, 16),
-                  blurRadius: 32,
-                  spreadRadius: -4,
-                  color: const Color(0xff0C0C0D1A).withOpacity(0.10),
-                ),
-                BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 4,
-                  spreadRadius: -4,
-                  color: const Color(0xff0C0C0D1A).withOpacity(0.05),
-                ),
-              ]
-            : null,
+        // boxShadow: isSearchCard
+        //     ? [
+        //         BoxShadow(
+        //           offset: const Offset(0, 16),
+        //           blurRadius: 32,
+        //           spreadRadius: -4,
+        //           color: const Color(0xff0C0C0D1A).withOpacity(0.10),
+        //         ),
+        //         BoxShadow(
+        //           offset: const Offset(0, 4),
+        //           blurRadius: 4,
+        //           spreadRadius: -4,
+        //           color: const Color(0xff0C0C0D1A).withOpacity(0.05),
+        //         ),
+        //       ]
+        //     : null,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
