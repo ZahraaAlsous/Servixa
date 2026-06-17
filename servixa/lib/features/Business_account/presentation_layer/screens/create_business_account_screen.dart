@@ -15,6 +15,7 @@ import 'package:servixa/features/Business_account/presentation_layer/screens/Sec
 import 'package:servixa/features/Business_account/presentation_layer/screens/first_step_select_business_type_screen.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/four_step_business_account_document_screen.dart';
 import 'package:servixa/features/Business_account/presentation_layer/screens/third_step_business_account_contact_information_screen.dart';
+import 'package:animations/animations.dart';
 
 class CreateBusinessAccountScreen extends StatelessWidget {
   final BusinessAccountController businessAccountController = Get.put(
@@ -44,6 +45,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
 
   CreateBusinessAccountScreen({super.key});
 
+bool _isReversing = false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -197,35 +199,65 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                     //   ),
                     //   child:
                     // Obx(() => _pages[businessAccountController.currentStep.value]),
-                    Obx(
-                      () => AnimatedSwitcher(
-                        duration: Duration(seconds: 1),
-                        switchInCurve: Curves.easeOutCubic,
-                        switchOutCurve: Curves.easeInCubic,
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: Offset(0.1, 0),
-                                    end: Offset(0, 0),
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                              );
-                            },
+                    // Obx(
+                    //   () => AnimatedSwitcher(
+                    //     duration: Duration(seconds: 1),
+                    //     switchInCurve: Curves.easeOutCubic,
+                    //     switchOutCurve: Curves.easeInCubic,
+                    //     transitionBuilder:
+                    //         (Widget child, Animation<double> animation) {
+                    //           return FadeTransition(
+                    //             opacity: animation,
+                    //             child: SlideTransition(
+                    //               position: Tween<Offset>(
+                    //                 begin: Offset(0.1, 0),
+                    //                 end: Offset(0, 0),
+                    //               ).animate(animation),
+                    //               child: child,
+                    //             ),
+                    //           );
+                    //         },
+                    //     child: Container(
+                    //       key: ValueKey<int>(
+                    //         businessAccountController.currentStep.value,
+                    //       ),
+                    //       child:
+                    //           _pages[businessAccountController
+                    //               .currentStep
+                    //               .value],
+                    //     ),
+                    //   ),
+                    // ),
+                   
+                   Obx(
+                      () => PageTransitionSwitcher(
+                        duration: const Duration(milliseconds: 400),
+                        reverse: _isReversing, // استخدام متغير الاتجاه
+                        transitionBuilder: (
+                          Widget child,
+                          Animation<double> animation,
+                          Animation<double> secondaryAnimation,
+                        ) {
+                          return Align(
+                            alignment: Alignment.topCenter, // لمنع الفراغات والمحاذاة في المنتصف
+                            child: SharedAxisTransition(
+                              animation: animation,
+                              secondaryAnimation: secondaryAnimation,
+                              transitionType: SharedAxisTransitionType.horizontal,
+                              fillColor: Colors.transparent,
+                              child: child,
+                            ),
+                          );
+                        },
                         child: Container(
-                          key: ValueKey<int>(
-                            businessAccountController.currentStep.value,
-                          ),
-                          child:
-                              _pages[businessAccountController
-                                  .currentStep
-                                  .value],
+                          key: ValueKey<int>(businessAccountController.currentStep.value),
+                          width: double.infinity,
+                          child: _pages[businessAccountController.currentStep.value],
                         ),
                       ),
                     ),
+                  
+                   
                     // ),
                     const SizedBox(height: 10),
 
