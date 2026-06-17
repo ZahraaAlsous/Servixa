@@ -15,6 +15,7 @@ import 'package:servixa/features/home/presentation_layer/screens/home_page.dart'
 import 'package:servixa/features/notification/presentation_layer/screens/notification_screen.dart';
 import 'package:servixa/features/orders/business_later/order_controller.dart';
 import 'package:servixa/features/orders/presentation_layer/screens/order_screen.dart';
+import 'package:animations/animations.dart';
 
 class SuperHomeScreen extends StatefulWidget {
   const SuperHomeScreen({super.key});
@@ -52,7 +53,17 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Obx(() => pages[homeController.selectedIndex.value]),
+      // body: Obx(() => pages[homeController.selectedIndex.value]),
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, animation, secondaryAnimation) {
+          return FadeThroughTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          );
+        },
+        child: pages[homeController.selectedIndex.value],
+      ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
