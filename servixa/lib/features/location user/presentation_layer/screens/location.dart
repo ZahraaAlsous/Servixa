@@ -167,6 +167,7 @@ class LocationPickerScreen extends StatelessWidget {
                             locationController.saveUserLocation(
                               () {
                                 Get.offAll(() => const SuperHomeScreen());
+                                locationController.selectedAddress.value = "";
                               },
                               (error) {
                                 Get.snackbar("Error", error);
