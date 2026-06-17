@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
@@ -16,6 +17,7 @@ import 'package:servixa/core/services/url_launcher_service%20.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/ads/presentation_layer/widgets/bottom_sheet_portfolio_widget.dart';
 import 'package:servixa/features/search_filter/business_later/search_filter_controller.dart';
+import 'package:flutter/gestures.dart';
 
 class LocationSection extends StatelessWidget {
   final AdsModel ads;
@@ -120,18 +122,42 @@ class LocationSection extends StatelessWidget {
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(12),
                     ),
-                    child: GoogleMap(
-                      initialCameraPosition: _kGooglePlex,
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                      },
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId('adsLocation'),
-                          position: LatLng(ads.lat!, ads.lng!),
+                    child:
+                        // GoogleMap(
+                        //   initialCameraPosition: _kGooglePlex,
+                        //   onMapCreated: (GoogleMapController controller) {
+                        //     _controller.complete(controller);
+                        //   },
+                        //   markers: {
+                        //     Marker(
+                        //       markerId: const MarkerId('adsLocation'),
+                        //       position: LatLng(ads.lat!, ads.lng!),
+                        //     ),
+                        //   },
+                        // ),
+                        GoogleMap(
+                          initialCameraPosition: _kGooglePlex,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
+                          markers: {
+                            Marker(
+                              markerId: const MarkerId('adsLocation'),
+                              position: LatLng(ads.lat!, ads.lng!),
+                            ),
+                          },
+                          gestureRecognizers: {
+                            Factory<OneSequenceGestureRecognizer>(
+                              () => EagerGestureRecognizer(),
+                            ),
+                          },
+
+                          zoomControlsEnabled: true,
+
+                          mapType: MapType.normal,
+
+                          zoomGesturesEnabled: true,
                         ),
-                      },
-                    ),
                   ),
                 ),
 
@@ -239,7 +265,9 @@ class LocationSection extends StatelessWidget {
                       flex: 10,
                       child: IconButton(
                         onPressed: () {
-                          AppSnackbar.showAlert("This feature will be available soon.");
+                          AppSnackbar.showAlert(
+                            "This feature will be available soon.",
+                          );
                         },
                         // iconSize: 50,
                         padding: EdgeInsets.zero,
@@ -251,25 +279,25 @@ class LocationSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if(ads.user.phone != null)
-                    Expanded(
-                      flex: 10,
-                      child: IconButton(
-                        onPressed: () async {
-                          await UrlLauncherService.makePhoneCall(
-                            ads.user.phone!,
-                          );
-                        },
-                        // iconSize: 50,
-                        padding: EdgeInsets.zero,
-                        icon: SvgPicture.asset(
-                          IconApp.phone,
-                          width: 29,
-                          height: 29,
-                          color: ThemeApp.Foundation_Main_main_500,
+                    if (ads.user.phone != null)
+                      Expanded(
+                        flex: 10,
+                        child: IconButton(
+                          onPressed: () async {
+                            await UrlLauncherService.makePhoneCall(
+                              ads.user.phone!,
+                            );
+                          },
+                          // iconSize: 50,
+                          padding: EdgeInsets.zero,
+                          icon: SvgPicture.asset(
+                            IconApp.phone,
+                            width: 29,
+                            height: 29,
+                            color: ThemeApp.Foundation_Main_main_500,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ],
