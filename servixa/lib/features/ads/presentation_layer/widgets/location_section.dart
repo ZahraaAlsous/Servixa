@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -195,28 +196,65 @@ class LocationSection extends StatelessWidget {
                             // ),
                             ClipRRect(
                               borderRadius: BorderRadiusGeometry.circular(50),
-                              child: FadeInImage(
-                                width: 53,
-                                height: 53,
-                                fit: BoxFit.cover,
-                                placeholder: AssetImage(ImageApp.placeholder),
-                                image: ads.user.image == null
-                                    ? AssetImage(ImageApp.profileImage)
-                                    : NetworkImage(ads.user.image!),
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                      return CircleAvatar(
-                                        radius: 37,
-                                        backgroundColor: ThemeApp
-                                            .Foundation_Secendary_grey_100,
-                                        child: const Icon(
-                                          Icons.broken_image,
-                                          size: 30,
-                                          color: Colors.grey,
-                                        ),
-                                      );
-                                    },
-                              ),
+                              child: ads.user.image == null
+                                  ? Image.asset(
+                                      ImageApp.profileImage,
+                                      fit: BoxFit.cover,
+                                      width: 53,
+                                      height: 53,
+                                    )
+                                  :
+                                    // FadeInImage(
+                                    //   width: 53,
+                                    //   height: 53,
+                                    //   fit: BoxFit.cover,
+                                    //   placeholder: AssetImage(ImageApp.placeholder),
+                                    //   image: ads.user.image == null
+                                    //       ? AssetImage(ImageApp.profileImage)
+                                    //       : NetworkImage(ads.user.image!),
+                                    //   imageErrorBuilder:
+                                    //       (context, error, stackTrace) {
+                                    //         return CircleAvatar(
+                                    //           radius: 37,
+                                    //           backgroundColor: ThemeApp
+                                    //               .Foundation_Secendary_grey_100,
+                                    //           child: const Icon(
+                                    //             Icons.broken_image,
+                                    //             size: 30,
+                                    //             color: Colors.grey,
+                                    //           ),
+                                    //         );
+                                    //       },
+                                    // ),
+                                    CachedNetworkImage(
+                                      imageUrl: ads.user.image!,
+                                      placeholder: (context, url) =>
+                                          Image.asset(
+                                            ImageApp.placeholder,
+                                            fit: BoxFit.cover,
+                                          ),
+                                      fit: BoxFit.cover,
+                                      width: 53,
+                                      height: 53,
+                                      errorWidget: (context, url, error) {
+                                        return Container(
+                                          width: 53,
+                                          height: 53,
+                                          color: ThemeApp
+                                              .Foundation_Secendary_grey_100,
+                                          child: const Icon(
+                                            Icons.broken_image,
+                                            size: 30,
+                                            color: Colors.grey,
+                                          ),
+                                        );
+                                      },
+                                      fadeInDuration: Duration(seconds: 1),
+                                      fadeOutDuration: Duration(seconds: 1),
+                                      placeholderFadeInDuration: Duration(
+                                        seconds: 1,
+                                      ),
+                                    ),
                             ),
                       ),
                     ),

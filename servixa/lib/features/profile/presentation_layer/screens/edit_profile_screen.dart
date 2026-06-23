@@ -1,3 +1,4 @@
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
@@ -315,20 +316,40 @@ class EditProfileScreen extends GetView<ProfileController> {
 
     final imageUrl = authController.currentUser.value?.image;
     if (imageUrl != null && imageUrl.isNotEmpty) {
-      return FadeInImage(
-        image: NetworkImage(imageUrl),
-        placeholder: const AssetImage(ImageApp.placeholder),
+      return
+      // FadeInImage(
+      //   image: NetworkImage(imageUrl),
+      //   placeholder: const AssetImage(ImageApp.placeholder),
+      //   fit: BoxFit.cover,
+      //   width: 120,
+      //   height: 120,
+      //   imageErrorBuilder: (context, error, stackTrace) {
+      //     return Container(
+      //       width: 120,
+      //       height: 120,
+      //       color: ThemeApp.Foundation_Secendary_grey_100,
+      //       child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
+      //     );
+      //   },
+      // );
+      CachedNetworkImage(
+        imageUrl: imageUrl,
+        placeholder: (context, url) =>
+            Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
         fit: BoxFit.cover,
         width: 120,
         height: 120,
-        imageErrorBuilder: (context, error, stackTrace) {
+        errorWidget: (context, url, error) {
           return Container(
             width: 120,
             height: 120,
             color: ThemeApp.Foundation_Secendary_grey_100,
-            child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
+            child: const Icon(Icons.broken_image, size: 30, color: Colors.grey),
           );
         },
+        fadeInDuration: Duration(seconds: 1),
+        fadeOutDuration: Duration(seconds: 1),
+        placeholderFadeInDuration: Duration(seconds: 1),
       );
     }
 

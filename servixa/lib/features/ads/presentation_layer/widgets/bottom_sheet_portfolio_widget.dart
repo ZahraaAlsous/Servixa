@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -80,27 +81,60 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                   // ),
                   ClipRRect(
                     borderRadius: BorderRadiusGeometry.circular(50),
-                    child: FadeInImage(
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                      placeholder: AssetImage(ImageApp.placeholder),
-                      image: ad.user.image == null
-                          ? AssetImage(ImageApp.profileImage)
-                          : NetworkImage(ad.user.image!),
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return CircleAvatar(
-                          radius: 37,
-                          backgroundColor:
-                              ThemeApp.Foundation_Secendary_grey_100,
-                          child: const Icon(
-                            Icons.broken_image,
-                            size: 30,
-                            color: Colors.grey,
+                    child:
+                        // FadeInImage(
+                        //   width: 80,
+                        //   height: 80,
+                        //   fit: BoxFit.cover,
+                        //   placeholder: AssetImage(ImageApp.placeholder),
+                        //   image: ad.user.image == null
+                        //       ? AssetImage(ImageApp.profileImage)
+                        //       : NetworkImage(ad.user.image!),
+                        //   imageErrorBuilder: (context, error, stackTrace) {
+                        //     return CircleAvatar(
+                        //       radius: 37,
+                        //       backgroundColor:
+                        //           ThemeApp.Foundation_Secendary_grey_100,
+                        //       child: const Icon(
+                        //         Icons.broken_image,
+                        //         size: 30,
+                        //         color: Colors.grey,
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
+                        ad.user.image == null
+                        ? Image(
+                            image: AssetImage(ImageApp.profileImage),
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: ad.user.image!,
+                            placeholder: (context, url) => Image.asset(
+                              ImageApp.placeholder,
+                              fit: BoxFit.cover,
+                            ),
+                            fit: BoxFit.cover,
+                            width: 80,
+                            height: 80,
+                            errorWidget: (context, url, error) {
+                              return CircleAvatar(
+                                radius: 37,
+                                backgroundColor:
+                                    ThemeApp.Foundation_Secendary_grey_100,
+                                child: const Icon(
+                                  Icons.broken_image,
+                                  size: 30,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
+                            fadeInDuration: Duration(seconds: 1),
+                            fadeOutDuration: Duration(seconds: 1),
+                            placeholderFadeInDuration: Duration(seconds: 1),
                           ),
-                        );
-                      },
-                    ),
                   ),
 
                   const SizedBox(height: 10),

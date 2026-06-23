@@ -1,3 +1,4 @@
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,34 +79,74 @@ class ReviewSection extends StatelessWidget {
                             //   ),
                             // ),
                             ClipRRect(
-                              child: FadeInImage(
-                                width: widthScreen * 0.109,
-                                height: 48.6,
-                                fit: BoxFit.cover,
-                                placeholder: AssetImage(ImageApp.placeholder),
-                                image: review.user.image != null
-                                    ? NetworkImage(review.user.image!)
-                                    : AssetImage(ImageApp.profileImage),
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                      return Container(
+                              borderRadius: BorderRadiusGeometry.circular(100),
+                              child:
+                                  // FadeInImage(
+                                  //   width: widthScreen * 0.109,
+                                  //   height: 48.6,
+                                  //   fit: BoxFit.cover,
+                                  //   placeholder: AssetImage(ImageApp.placeholder),
+                                  //   image: review.user.image != null
+                                  //       ? NetworkImage(review.user.image!)
+                                  //       : AssetImage(ImageApp.profileImage),
+                                  //   imageErrorBuilder:
+                                  //       (context, error, stackTrace) {
+                                  //         return Container(
+                                  //           width: widthScreen * 0.109,
+                                  //           height: 48.6,
+                                  //           decoration: BoxDecoration(
+                                  //             borderRadius: BorderRadius.circular(
+                                  //               100,
+                                  //             ),
+                                  //             color: ThemeApp
+                                  //                 .Foundation_Secendary_grey_100,
+                                  //           ),
+                                  //           child: const Icon(
+                                  //             Icons.broken_image,
+                                  //             size: 30,
+                                  //             color: Colors.grey,
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  // ),
+                                  review.user.image != null
+                                  ? CircleAvatar(
+                                      child: CachedNetworkImage(
+                                        imageUrl: review.user.image!,
+                                        placeholder: (context, url) =>
+                                            Image.asset(
+                                              ImageApp.placeholder,
+                                              fit: BoxFit.cover,
+                                            ),
+                                        fit: BoxFit.cover,
                                         width: widthScreen * 0.109,
                                         height: 48.6,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            100,
-                                          ),
-                                          color: ThemeApp
-                                              .Foundation_Secendary_grey_100,
+                                        errorWidget: (context, url, error) {
+                                          return Container(
+                                            width: widthScreen * 0.109,
+                                            height: 48.6,
+                                            color: ThemeApp
+                                                .Foundation_Secendary_grey_100,
+                                            child: const Icon(
+                                              Icons.broken_image,
+                                              size: 30,
+                                              color: Colors.grey,
+                                            ),
+                                          );
+                                        },
+                                        fadeInDuration: Duration(seconds: 1),
+                                        fadeOutDuration: Duration(seconds: 1),
+                                        placeholderFadeInDuration: Duration(
+                                          seconds: 1,
                                         ),
-                                        child: const Icon(
-                                          Icons.broken_image,
-                                          size: 30,
-                                          color: Colors.grey,
-                                        ),
-                                      );
-                                    },
-                              ),
+                                      ),
+                                    )
+                                  : Image(
+                                      image: AssetImage(ImageApp.profileImage),
+                                      width: widthScreen * 0.109,
+                                      height: 48.6,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
 
                             Column(
