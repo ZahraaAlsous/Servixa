@@ -1,3 +1,4 @@
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -93,27 +94,55 @@ class SlidersHomeWidget extends StatelessWidget {
                   //   child:
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: FadeInImage(
-                      placeholder: AssetImage(ImageApp.placeholder),
-                      image: NetworkImage(
-                        homeController.sliders[itemIndex].imageUrl.toString(),
-                      ),
-                      fit: BoxFit.cover,
-                      width: size.width * 0.913,
-                      height: 145,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Container(
+                    child:
+                        // FadeInImage(
+                        //   placeholder: AssetImage(ImageApp.placeholder),
+                        //   image: NetworkImage(
+                        //     homeController.sliders[itemIndex].imageUrl.toString(),
+                        //   ),
+                        //   fit: BoxFit.cover,
+                        //   width: size.width * 0.913,
+                        //   height: 145,
+                        //   imageErrorBuilder: (context, error, stackTrace) {
+                        //     return Container(
+                        //       width: size.width * 0.913,
+                        //       height: 145,
+                        //       color: ThemeApp.Foundation_Secendary_grey_100,
+                        //       child: const Icon(
+                        //         Icons.broken_image,
+                        //         size: 30,
+                        //         color: Colors.grey,
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
+                        CachedNetworkImage(
+                          placeholder: (context, url) => Image(
+                            image: AssetImage(ImageApp.placeholder),
+                            fit: BoxFit.cover,
+                          ),
+                          imageUrl: homeController.sliders[itemIndex].imageUrl
+                              .toString(),
+                          fit: BoxFit.cover,
                           width: size.width * 0.913,
                           height: 145,
-                          color: ThemeApp.Foundation_Secendary_grey_100,
-                          child: const Icon(
-                            Icons.broken_image,
-                            size: 30,
-                            color: Colors.grey,
-                          ),
-                        );
-                      },
-                    ),
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              width: size.width * 0.913,
+                              height: 145,
+                              color: ThemeApp.Foundation_Secendary_grey_100,
+                              child: const Icon(
+                                Icons.broken_image,
+                                size: 30,
+                                color: Colors.grey,
+                              ),
+                            );
+                          },
+                        
+                        fadeInDuration: Duration(seconds: 1),
+                        fadeOutDuration: Duration(seconds: 1),
+                        placeholderFadeInDuration: Duration(seconds: 1),
+                        ),
                   ),
               // ),
             );

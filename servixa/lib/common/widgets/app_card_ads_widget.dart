@@ -13,6 +13,7 @@ import 'package:servixa/features/ads/business_later/ads_controller.dart';
 import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
+import 'package:cached_network_image_ce/cached_network_image.dart';
 
 // class AppCardAdsWidget extends StatelessWidget {
 //   final AdsController adsController = Get.put(AdsController());
@@ -423,25 +424,49 @@ class AppCardAdsWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(8),
                 ),
-                child: FadeInImage(
-                  image: NetworkImage(ads.image),
-                  placeholder: const AssetImage(ImageApp.placeholder),
-                  fit: BoxFit.cover,
-                  width: size.width,
-                  height: 126,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Container(
+                child:
+                    // FadeInImage(
+                    //   image: NetworkImage(ads.image),
+                    //   placeholder: const AssetImage(ImageApp.placeholder),
+                    //   fit: BoxFit.cover,
+                    //   width: size.width,
+                    //   height: 126,
+                    //   imageErrorBuilder: (context, error, stackTrace) {
+                    //     return Container(
+                    //       width: size.width,
+                    //       height: 126,
+                    //       color: ThemeApp.Foundation_Secendary_grey_100,
+                    //       child: const Icon(
+                    //         Icons.broken_image,
+                    //         size: 30,
+                    //         color: Colors.grey,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    CachedNetworkImage(
+                      imageUrl: ads.image,
+                      placeholder: (context, url) =>
+                          Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
+                      fit: BoxFit.cover,
                       width: size.width,
                       height: 126,
-                      color: ThemeApp.Foundation_Secendary_grey_100,
-                      child: const Icon(
-                        Icons.broken_image,
-                        size: 30,
-                        color: Colors.grey,
-                      ),
-                    );
-                  },
-                ),
+                      errorWidget: (context, url, error) {
+                        return Container(
+                          width: size.width,
+                          height: 126,
+                          color: ThemeApp.Foundation_Secendary_grey_100,
+                          child: const Icon(
+                            Icons.broken_image,
+                            size: 30,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                      fadeInDuration: Duration(seconds: 1),
+                      fadeOutDuration: Duration(seconds: 1),
+                      placeholderFadeInDuration: Duration(seconds: 1),
+                    ),
               ),
               isMyAdd
                   ? IconButton(
@@ -567,25 +592,49 @@ class AppCardAdsWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: FadeInImage(
-              image: NetworkImage(ads.image),
-              placeholder: const AssetImage(ImageApp.placeholder),
-              fit: BoxFit.cover,
-              width: size.width * 0.230,
-              height: 95,
-              imageErrorBuilder: (context, error, stackTrace) {
-                return Container(
+            child:
+                // FadeInImage(
+                //   image: NetworkImage(ads.image),
+                //   placeholder: const AssetImage(ImageApp.placeholder),
+                //   fit: BoxFit.cover,
+                //   width: size.width * 0.230,
+                //   height: 95,
+                //   imageErrorBuilder: (context, error, stackTrace) {
+                //     return Container(
+                //       width: size.width * 0.230,
+                //       height: 95,
+                //       color: ThemeApp.Foundation_Secendary_grey_100,
+                //       child: const Icon(
+                //         Icons.broken_image,
+                //         size: 30,
+                //         color: Colors.grey,
+                //       ),
+                //     );
+                //   },
+                // ),
+                CachedNetworkImage(
+                  imageUrl: ads.image,
+                  placeholder: (context, url) =>
+                      Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
+                  fit: BoxFit.cover,
                   width: size.width * 0.230,
                   height: 95,
-                  color: ThemeApp.Foundation_Secendary_grey_100,
-                  child: const Icon(
-                    Icons.broken_image,
-                    size: 30,
-                    color: Colors.grey,
-                  ),
-                );
-              },
-            ),
+                  errorWidget: (context, url, error) {
+                    return Container(
+                      width: size.width * 0.230,
+                      height: 95,
+                      color: ThemeApp.Foundation_Secendary_grey_100,
+                      child: const Icon(
+                        Icons.broken_image,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                  fadeInDuration: Duration(seconds: 1),
+                  fadeOutDuration: Duration(seconds: 1),
+                  placeholderFadeInDuration: Duration(seconds: 1),
+                ),
           ),
           const SizedBox(width: 16),
           Expanded(
