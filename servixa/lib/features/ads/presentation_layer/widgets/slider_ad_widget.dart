@@ -1,3 +1,4 @@
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,81 +15,103 @@ class SliderAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widthScreen = Get.width;
+    // final widthScreen = Get.width;
+    final size = MediaQuery.of(context).size;
 
     return Stack(
       alignment: AlignmentGeometry.bottomCenter,
       children: [
         CarouselSlider.builder(
           itemCount: ads.images.length,
-          itemBuilder:
-              (BuildContext context, int itemIndex, int pageViewIndex) {
-                return Container(
-                  // width: size.width,
-                  width: widthScreen,
-                  height: 325,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(21),
-                      bottomRight: Radius.circular(21),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        blurRadius: 7,
-                        spreadRadius: 0,
-                        color: Color.fromRGBO(0, 0, 0, 0.25),
-                      ),
-                    ],
-                    // image: DecorationImage(
-                    //   image: NetworkImage(
-                    //     ads.images[itemIndex].url,
-                    //   ),
-                    //   fit: BoxFit.cover,
-                    // ),
+          itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+            return Container(
+              width: size.width,
+              height: 325,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(21),
+                  bottomRight: Radius.circular(21),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 1),
+                    blurRadius: 7,
+                    spreadRadius: 0,
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
                   ),
+                ],
+                // image: DecorationImage(
+                //   image: NetworkImage(
+                //     ads.images[itemIndex].url,
+                //   ),
+                //   fit: BoxFit.cover,
+                // ),
+              ),
 
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.vertical(
-                      bottom: Radius.circular(21),
-                    ),
-                    child: FadeInImage(
-                      placeholder: AssetImage(ImageApp.placeholder),
-                      image: NetworkImage(ads.images[itemIndex].url),
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.vertical(
+                  bottom: Radius.circular(21),
+                ),
+                child:
+                    // FadeInImage(
+                    //   placeholder: AssetImage(ImageApp.placeholder),
+                    //   image: NetworkImage(ads.images[itemIndex].url),
+                    //   fit: BoxFit.cover,
+                    //   width: widthScreen,
+                    //   height: 325,
+                    //   imageErrorBuilder: (context, error, stackTrace) {
+                    //     return Container(
+                    //       width: widthScreen,
+                    //       height: 325,
+                    //       decoration: BoxDecoration(
+                    //         color: ThemeApp.Foundation_Secendary_grey_100,
+                    //         borderRadius: BorderRadius.only(
+                    //           bottomLeft: Radius.circular(21),
+                    //           bottomRight: Radius.circular(21),
+                    //         ),
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             offset: Offset(0, 1),
+                    //             blurRadius: 7,
+                    //             spreadRadius: 0,
+                    //             color: Color.fromRGBO(0, 0, 0, 0.25),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       child: const Icon(
+                    //         Icons.broken_image,
+                    //         size: 50,
+                    //         color: Colors.grey,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    CachedNetworkImage(
+                      imageUrl: ads.images[itemIndex].url,
+                      placeholder: (context, url) =>
+                          Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
                       fit: BoxFit.cover,
-                      width: widthScreen,
+                      width: size.width,
                       height: 325,
-                      imageErrorBuilder: (context, error, stackTrace) {
+                      errorWidget: (context, url, error) {
                         return Container(
-                          width: widthScreen,
+                          width: size.width,
                           height: 325,
-                          decoration: BoxDecoration(
-                            color: ThemeApp.Foundation_Secendary_grey_100,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(21),
-                              bottomRight: Radius.circular(21),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(0, 1),
-                                blurRadius: 7,
-                                spreadRadius: 0,
-                                color: Color.fromRGBO(0, 0, 0, 0.25),
-                              ),
-                            ],
-                          ),
-
+                          color: ThemeApp.Foundation_Secendary_grey_100,
                           child: const Icon(
                             Icons.broken_image,
-                            size: 50,
+                            size: 30,
                             color: Colors.grey,
                           ),
                         );
                       },
+                      fadeInDuration: Duration(seconds: 1),
+                      fadeOutDuration: Duration(seconds: 1),
+                      placeholderFadeInDuration: Duration(seconds: 1),
                     ),
-                  ),
-                );
-              },
+              ),
+            );
+          },
           options: CarouselOptions(
             height: 325,
             // aspectRatio: 16 / 9,
