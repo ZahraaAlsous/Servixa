@@ -154,9 +154,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
               },
 
               openBuilder: (context, action) {
-                return AdsDetailsScreen(
-                  adsId: adsController.adsList[indexAds].id,
-                );
+                return AdsDetailsScreen(adsId: ads.id);
               },
             );
           },

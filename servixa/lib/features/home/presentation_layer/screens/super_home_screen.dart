@@ -54,15 +54,17 @@ class _SuperHomeScreenState extends State<SuperHomeScreen> {
     return Scaffold(
       extendBody: true,
       // body: Obx(() => pages[homeController.selectedIndex.value]),
-      body: PageTransitionSwitcher(
-        transitionBuilder: (child, animation, secondaryAnimation) {
-          return FadeThroughTransition(
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-            child: child,
-          );
-        },
-        child: pages[homeController.selectedIndex.value],
+      body: Obx(
+        () => PageTransitionSwitcher(
+          transitionBuilder: (child, animation, secondaryAnimation) {
+            return FadeThroughTransition(
+              animation: animation,
+              secondaryAnimation: secondaryAnimation,
+              child: child,
+            );
+          },
+          child: pages[homeController.selectedIndex.value],
+        ),
       ),
 
       floatingActionButton: FloatingActionButton(
