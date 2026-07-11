@@ -252,6 +252,8 @@ class QuestionDynamicSection extends StatelessWidget {
       if (answer.value == null) return false;
       if (answer.value is String && answer.value.toString().isEmpty)
         return false;
+      if (answer.value is List && (answer.value as List).isEmpty)
+        return false;
       return true;
     }).toList();
 

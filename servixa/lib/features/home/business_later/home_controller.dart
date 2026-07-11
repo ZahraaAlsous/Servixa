@@ -33,7 +33,7 @@ class HomeController extends GetxController {
       hasErrorLoadingSlider.value = true;
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: getImageSliders ERROR");
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>The error is: ${e.toString()}");
-      Get.snackbar('Error', e.toString());
+      // Get.snackbar('Error', e.toString());
     } finally {
       isLoadingSlider.value = false;
     }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
 import 'package:servixa/common/widgets/app_search_text_form_field_widget.dart';
-import 'package:servixa/common/widgets/app_snackbar.dart';
+// import 'package:servixa/common/widgets/app_snackbar.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_ad_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_category_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
@@ -92,7 +92,10 @@ class HomePage extends StatelessWidget {
               if (categoryController.hasErrorLoadingCategory.value) {
                 return InternetConnectionErrorWidget(
                   onPressed: () {
-                    categoryController.getCategories(AppSnackbar.showError);
+                    categoryController.getCategories(
+                      (e) {},
+                      // AppSnackbar.showError
+                    );
                   },
                 );
               }
@@ -364,9 +367,7 @@ class HomePage extends StatelessWidget {
                               },
 
                               openBuilder: (context, action) {
-                                return AdsDetailsScreen(
-                                  adsId: ads.id,
-                                );
+                                return AdsDetailsScreen(adsId: ads.id);
                               },
                             ),
                       );

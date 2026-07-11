@@ -26,11 +26,10 @@ class _FavoriteAnimatedButtonState extends State<FavoriteAnimatedButton>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 200), // مدة النبضة
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
 
-    // تسلسل الحركة: تكبير إلى 1.3 ثم العودة إلى 1.0 بنعومة
     _scaleAnimation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween<double>(
@@ -52,7 +51,6 @@ class _FavoriteAnimatedButtonState extends State<FavoriteAnimatedButton>
   @override
   void didUpdateWidget(covariant FavoriteAnimatedButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // إذا تغيرت الحالة إلى "مفضلة"، قم بتشغيل حركة النبض فوراً
     if (widget.isFavorite != oldWidget.isFavorite && widget.isFavorite) {
       _controller.forward(from: 0.0);
     }

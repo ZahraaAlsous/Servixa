@@ -64,7 +64,7 @@ class BusinessAccountController extends GetxController {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
         type: FileType.custom,
-        allowedExtensions: ['pdf', 'doc'],
+        allowedExtensions: ['pdf', 'doc', 'docx'],
       );
 
       if (result != null) {

@@ -23,7 +23,9 @@ class CategoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCategories(AppSnackbar.showError);
+    getCategories((String e) {}
+      // AppSnackbar.showError
+      );
     // // getCategories();
     // ever(isLoadingCategory, (_) {
     //   if (!isLoadingCategory.value && categories.isEmpty) {
