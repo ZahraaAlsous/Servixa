@@ -451,8 +451,10 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                 );
               })
             : DetailsBottomNavigationBarWidget(
-                textButtonOutBorder: "Chat",
-                iconButtonOutBorder: IconApp.messages,
+                // textButtonOutBorder: "Chat",
+                textButtonOutBorder: "Order",
+                // iconButtonOutBorder: IconApp.messages,
+                iconButtonOutBorder: IconApp.orders,
                 textButtonElevetedBorder: " Make An Offer",
                 iconButtonElevetedBorder: IconApp.badgePercent,
                 onPressedButtonElevetedBorder: () {
