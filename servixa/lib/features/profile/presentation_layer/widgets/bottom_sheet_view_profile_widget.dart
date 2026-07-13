@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
@@ -40,7 +41,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                   //   radius: 40,
                   //   backgroundImage: AssetImage(ImageApp.profileImageRounded),
                   // ),
-                  ProfileImageWidget(width: 80, height: 80,),
+                  ProfileImageWidget(width: 80, height: 80),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,8 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                         ),
                         Text(
                           // "Membership Expire Date : 2026/5/5",
-                          "Membership Expire Date : ${authController.currentUser.value!.createdAt}",
+                          "Membership Start Date : ".tr() +
+                              "${authController.currentUser.value!.createdAt}",
                           style: TypographyApp.Label_Mid_Mid.copyWith(
                             color: ThemeApp.Foundation_Secendary_grey_300,
                           ),
@@ -94,7 +96,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
             ),
 
             Text(
-              "User Information",
+              "User Information".tr(),
               style: TypographyApp.Title_larg_Mid.copyWith(
                 color: ThemeApp.black,
               ),
@@ -102,7 +104,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
             // _buildListTile("Arabic Name : ", IconApp.person, "احمد محمد"),
             _buildListTile(
               // "English Name : ",
-              "Name : ",
+              "Name : ".tr(),
               IconApp.person,
               authController.currentUser.value!.firstName +
                   " " +
@@ -146,7 +148,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              "View Profile",
+              "View Profile".tr(),
               style: TypographyApp.Title_larg_Mid.copyWith(
                 color: ThemeApp.Foundation_Grey_grey_700,
               ),
@@ -189,7 +191,7 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
   ) {
     return ListTile(
       title: Text(
-        title,
+        title.tr(),
         style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
       ),
       // edit
@@ -198,12 +200,12 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            trailing,
+            trailing.tr(),
             style: TypographyApp.Body_mid_Mid.copyWith(
               color: ThemeApp.Foundation_Secendary_grey_300,
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           SvgPicture.asset(IconApp.trueIcon),
         ],
       ),
