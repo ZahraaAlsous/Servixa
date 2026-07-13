@@ -78,7 +78,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size.width;
@@ -238,22 +237,35 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                             //     );
                             //   }),
                             // ),
-                            FavoriteAnimatedButton(
-                              isFavorite: ads.favorite,
-                              onTap: authController.isLoggedIn.value
-                                  ? () {
-                                      favoriteController.addToFavorite(ads.id, (
-                                        e,
-                                      ) {
-                                        AppSnackbar.showError(e);
-                                      });
-                                    }
-                                  : () {
-                                      AppSnackbar.showAlert(
-                                        "You must be logged in",
-                                      );
-                                    },
-                            ),
+                            Obx(() {
+                              if (favoriteController.isMakeFavorite[ads.id] ==
+                                  true) {
+                                return const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                );
+                              }
+                              return FavoriteAnimatedButton(
+                                isFavorite: ads.favorite,
+                                onTap: authController.isLoggedIn.value
+                                    ? () {
+                                        favoriteController.addToFavorite(
+                                          ads.id,
+                                          (e) {
+                                            AppSnackbar.showError(e);
+                                          },
+                                        );
+                                      }
+                                    : () {
+                                        AppSnackbar.showAlert(
+                                          "You must be logged in",
+                                        );
+                                      },
+                              );
+                            }),
                           ],
                         ),
 
@@ -578,5 +590,4 @@ https://play.google.com/store/apps/details?id=com.servixa''';
       AppSnackbar.showError("Could not share image: $e");
     }
   }
-
 }

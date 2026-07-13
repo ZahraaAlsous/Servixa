@@ -10,6 +10,8 @@ class FavoriteController extends GetxController {
   final FavoriteService favoriteService = FavoriteService();
   final AdsController adsController = Get.put(AdsController());
   RxBool isLoadingFavorite = false.obs;
+  // RxBool isMakeFavorite = false.obs;
+  RxMap<int, bool> isMakeFavorite = <int, bool>{}.obs;
   RxBool hasErrorLoadingFavorite = false.obs;
   RxList<AdsModel> myFavoriteAdsList = <AdsModel>[].obs;
 
@@ -60,9 +62,9 @@ class FavoriteController extends GetxController {
   Future<bool> addToFavorite(int adId, void Function(String e) onError) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: AddToFavorite IN");
+      isMakeFavorite[adId] = true;
 
       bool isDone = await favoriteService.addToFavorite(adId: adId);
-
       if (isDone) {
         log("==============================Controller: AddToFavorite OK");
         changeFavoriteAd(adId);
@@ -76,6 +78,8 @@ class FavoriteController extends GetxController {
       log("Error: $e");
       onError(e.toString());
       return false;
+    } finally {
+      isMakeFavorite[adId] = false;
     }
   }
 

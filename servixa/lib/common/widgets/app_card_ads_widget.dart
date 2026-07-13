@@ -14,6 +14,7 @@ import 'package:servixa/features/ads/data_layer/models/ads_model.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/favorite_ad/business_layer/favorite_controller.dart';
 import 'package:cached_network_image_ce/cached_network_image.dart';
+
 class AppCardAdsWidget extends StatelessWidget {
   final AdsController adsController = Get.put(AdsController());
   final AddAdsController addAdsController = Get.put(AddAdsController());
@@ -68,30 +69,29 @@ class AppCardAdsWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(8),
                 ),
-                child:
-                    CachedNetworkImage(
-                      imageUrl: ads.image,
-                      placeholder: (context, url) =>
-                          Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
-                      fit: BoxFit.cover,
+                child: CachedNetworkImage(
+                  imageUrl: ads.image,
+                  placeholder: (context, url) =>
+                      Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
+                  fit: BoxFit.cover,
+                  width: size.width,
+                  height: 126,
+                  errorWidget: (context, url, error) {
+                    return Container(
                       width: size.width,
                       height: 126,
-                      errorWidget: (context, url, error) {
-                        return Container(
-                          width: size.width,
-                          height: 126,
-                          color: ThemeApp.Foundation_Secendary_grey_100,
-                          child: const Icon(
-                            Icons.broken_image,
-                            size: 30,
-                            color: Colors.grey,
-                          ),
-                        );
-                      },
-                      fadeInDuration: Duration(seconds: 1),
-                      fadeOutDuration: Duration(seconds: 1),
-                      placeholderFadeInDuration: Duration(seconds: 1),
-                    ),
+                      color: ThemeApp.Foundation_Secendary_grey_100,
+                      child: const Icon(
+                        Icons.broken_image,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                  fadeInDuration: Duration(seconds: 1),
+                  fadeOutDuration: Duration(seconds: 1),
+                  placeholderFadeInDuration: Duration(seconds: 1),
+                ),
               ),
               isMyAdd
                   ? IconButton(
@@ -146,7 +146,43 @@ class AppCardAdsWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: Text(
+                //         "${ads.price} ${ads.typeCoin}",
+                //         maxLines: 1,
+                //         style: TypographyApp.Body_mid_Mid.copyWith(
+                //           color: ThemeApp.Foundation_Main_main_500,
+                //           overflow: TextOverflow.ellipsis,
+                //         ),
+                //       ),
+                //     ),
+                //     // Obx(() {
+                //     //   if (favoriteController.isMakeFavorite[ads.id] == true) {
+                //     //     return const SizedBox(
+                //     //       width: 20,
+                //     //       height: 20,
+                //     //       child: CircularProgressIndicator(strokeWidth: 2),
+                //     //     );
+                //     //   }
+                //     //   return FavoriteAnimatedButton(
+                //     //     isFavorite: ads.favorite,
+                //     //     onTap: authController.isLoggedIn.value
+                //     //         ? () {
+                //     //             favoriteController.addToFavorite(ads.id, (e) {
+                //     //               AppSnackbar.showError(e);
+                //     //             });
+                //     //           }
+                //     //         : () {
+                //     //             AppSnackbar.showAlert("You must be logged in");
+                //     //           },
+                //     //   );
+                //     // }),
+
+                //   ],
+                // ),
+                 Row(
                   children: [
                     Expanded(
                       child: Text(
@@ -158,20 +194,49 @@ class AppCardAdsWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    FavoriteAnimatedButton(
-                      isFavorite: ads.favorite,
-                      onTap: authController.isLoggedIn.value
-                          ? () {
-                              favoriteController.addToFavorite(ads.id, (e) {
-                                AppSnackbar.showError(e);
-                              });
-                            }
-                          : () {
-                              AppSnackbar.showAlert("You must be logged in");
-                            },
-                    ),
+                    Obx(() {
+                      final isLoading =
+                          favoriteController.isMakeFavorite[ads.id] == true;
+
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // ✅ الزر دائماً موجود، لكن مخفي عند التحميل
+                          Opacity(
+                            opacity: isLoading ? 0.0 : 1.0,
+                            child: FavoriteAnimatedButton(
+                              isFavorite: ads.favorite,
+                              onTap: authController.isLoggedIn.value
+                                  ? () {
+                                      favoriteController.addToFavorite(ads.id, (
+                                        e,
+                                      ) {
+                                        AppSnackbar.showError(e);
+                                      });
+                                    }
+                                  : () {
+                                      AppSnackbar.showAlert(
+                                        "You must be logged in",
+                                      );
+                                    },
+                            ),
+                          ),
+                          // ✅ اللودينغ يظهر فوق الزر
+                          if (isLoading)
+                            const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: ThemeApp.Foundation_Main_main_500,
+                              ),
+                            ),
+                        ],
+                      );
+                    }),
                   ],
                 ),
+                 
               ],
             ),
           ),
@@ -216,30 +281,29 @@ class AppCardAdsWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child:
-                CachedNetworkImage(
-                  imageUrl: ads.image,
-                  placeholder: (context, url) =>
-                      Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
-                  fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              imageUrl: ads.image,
+              placeholder: (context, url) =>
+                  Image.asset(ImageApp.placeholder, fit: BoxFit.cover),
+              fit: BoxFit.cover,
+              width: size.width * 0.230,
+              height: 95,
+              errorWidget: (context, url, error) {
+                return Container(
                   width: size.width * 0.230,
                   height: 95,
-                  errorWidget: (context, url, error) {
-                    return Container(
-                      width: size.width * 0.230,
-                      height: 95,
-                      color: ThemeApp.Foundation_Secendary_grey_100,
-                      child: const Icon(
-                        Icons.broken_image,
-                        size: 30,
-                        color: Colors.grey,
-                      ),
-                    );
-                  },
-                  fadeInDuration: Duration(seconds: 1),
-                  fadeOutDuration: Duration(seconds: 1),
-                  placeholderFadeInDuration: Duration(seconds: 1),
-                ),
+                  color: ThemeApp.Foundation_Secendary_grey_100,
+                  child: const Icon(
+                    Icons.broken_image,
+                    size: 30,
+                    color: Colors.grey,
+                  ),
+                );
+              },
+              fadeInDuration: Duration(seconds: 1),
+              fadeOutDuration: Duration(seconds: 1),
+              placeholderFadeInDuration: Duration(seconds: 1),
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -279,18 +343,40 @@ class AppCardAdsWidget extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    FavoriteAnimatedButton(
-                      isFavorite: ads.favorite,
-                      onTap: authController.isLoggedIn.value
-                          ? () {
-                              favoriteController.addToFavorite(ads.id, (e) {
-                                AppSnackbar.showError(e);
-                              });
-                            }
-                          : () {
-                              AppSnackbar.showAlert("You must be logged in");
-                            },
-                    ),
+                    Obx(() {
+                      if (favoriteController.isMakeFavorite[ads.id] == true) {
+                        return const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        );
+                      }
+                      return FavoriteAnimatedButton(
+                        isFavorite: ads.favorite,
+                        onTap: authController.isLoggedIn.value
+                            ? () {
+                                favoriteController.addToFavorite(ads.id, (e) {
+                                  AppSnackbar.showError(e);
+                                });
+                              }
+                            : () {
+                                AppSnackbar.showAlert("You must be logged in");
+                              },
+                      );
+                    }),
+
+                    // FavoriteAnimatedButton(
+                    //   isFavorite: ads.favorite,
+                    //   onTap: authController.isLoggedIn.value
+                    //       ? () {
+                    //           favoriteController.addToFavorite(ads.id, (e) {
+                    //             AppSnackbar.showError(e);
+                    //           });
+                    //         }
+                    //       : () {
+                    //           AppSnackbar.showAlert("You must be logged in");
+                    //         },
+                    // ),
                   ],
                 ),
               ],
