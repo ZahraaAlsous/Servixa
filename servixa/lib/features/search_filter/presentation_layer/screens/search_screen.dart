@@ -113,11 +113,7 @@ class SearchScreen extends StatelessWidget {
                     //     color: ThemeApp.Foundation_Secendary_grey_300,
                     //   ),
                     // );
-                    return Expanded(
-                      child: AppNothingWidget(
-                        message: "No results found.".tr(),
-                      ),
-                    );
+                    return AppNothingWidget(message: "No results found.".tr());
                   }
                   return ListView.builder(
                     shrinkWrap: true,
@@ -149,8 +145,7 @@ class SearchScreen extends StatelessWidget {
                               closedElevation: 4,
                               closedColor: Colors.white,
                               openElevation: 0,
-                              openColor: Colors
-                                  .transparent, 
+                              openColor: Colors.transparent,
                               closedBuilder: (context, action) {
                                 return AppCardAdsWidget(
                                   ads: ads,
