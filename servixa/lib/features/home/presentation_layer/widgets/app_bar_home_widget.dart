@@ -9,7 +9,6 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
 import 'package:servixa/features/location%20user/business_layer/location_controller.dart';
-import 'package:servixa/features/location%20user/presentation_layer/screens/location.dart';
 import 'package:servixa/features/profile/presentation_layer/screens/option_profile_screen.dart';
 
 class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -30,71 +29,6 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
             authController.currentUser.value != null) {
           return Row(
             children: [
-              // InkWell(
-              //   onTap: () {
-              //     Get.to(OptionProfileScreen());
-              //   },
-              //   child: Container(
-              //     width: size.width * 0.109,
-              //     height: 48.6,
-              //     decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //         image: authController.currentUser.value?.image != null
-              //             ? NetworkImage(
-              //                 authController.currentUser.value!.image!,
-              //               )
-              //             : AssetImage(ImageApp.profileImage),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     Get.to(() => OptionProfileScreen());
-              //   },
-              //   child: Container(
-              //     width: size.width * 0.109,
-              //     height: 48.6,
-              //     decoration: BoxDecoration(
-              //       shape: BoxShape.circle,
-              //       color: ThemeApp.Foundation_Secendary_grey_100,
-              //     ),
-              //     child: ClipOval(
-              //       child:
-              //           authController.currentUser.value?.image != null &&
-              //               authController.currentUser.value!.image!.isNotEmpty
-              //           ? FadeInImage(
-              //               image: NetworkImage(
-              //                 authController.currentUser.value!.image!,
-              //               ),
-              //               placeholder: const AssetImage(
-              //                 ImageApp.profileImage,
-              //               ),
-              //               fit: BoxFit.cover,
-              //               width: size.width * 0.109,
-              //               height: 48.6,
-              //               imageErrorBuilder: (context, error, stackTrace) {
-              //                 return Container(
-              //                   width: size.width * 0.109,
-              //                   height: 48.6,
-              //                   color: ThemeApp.Foundation_Secendary_grey_100,
-              //                   child: const Icon(
-              //                     Icons.broken_image,
-              //                     size: 30,
-              //                     color: Colors.grey,
-              //                   ),
-              //                 );
-              //               },
-              //             )
-              //           : Image.asset(
-              //               ImageApp.profileImage,
-              //               fit: BoxFit.cover,
-              //               width: size.width * 0.109,
-              //               height: 48.6,
-              //             ),
-              //     ),
-              //   ),
-              // ),
               ProfileImageWidget(
                 onTap: () {
                   Get.to(() => OptionProfileScreen());
@@ -113,35 +47,6 @@ class AppBarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
                         color: ThemeApp.Foundation_Grey_grey_700,
                       ),
                     ),
-
-                    // Obx(() {
-                    //   if (locationController
-                    //       .AddressUserSelected
-                    //       .value
-                    //       .isNotEmpty) {
-                    //     return Row(
-                    //       // mainAxisAlignment: MainAxisAlignment.end,
-                    //       children: [
-                    //         SvgPicture.asset(
-                    //           IconApp.place,
-                    //           width: 16,
-                    //           height: 16,
-                    //           color: ThemeApp.colorIconProfileHomeScreen,
-                    //         ),
-                    //         const SizedBox(width: 5),
-                    //         Text(
-                    //           locationController.AddressUserSelected.value,
-                    //           // "Riyadh – Malaz",
-                    //           style: TypographyApp.Label_Mid_Regular.copyWith(
-                    //             color: ThemeApp.Foundation_Secendary_grey_600,
-                    //             overflow: TextOverflow.ellipsis
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     );
-                    //   }
-                    //   return SizedBox.shrink();
-                    // }),
                     Obx(() {
                       if (locationController
                           .addressUserSelected

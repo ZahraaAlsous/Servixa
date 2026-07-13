@@ -9,7 +9,6 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/core/services/image_service.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
-import 'package:servixa/features/Business_account/presentation_layer/screens/dd.dart';
 import 'package:servixa/features/add%20ads/business_later/add_ads_controller.dart';
 
 class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
@@ -148,31 +147,6 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                               ),
                             ),
 
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     // setState(() {
-                            //     addAdsController.removeImageAt(list, index);
-                            //     // });
-                            //   },
-                            //   child:
-                            //   Container(
-                            //     width: 20,
-                            //     height: 20,
-                            //     decoration: BoxDecoration(
-                            //       color: Colors.red,
-                            //       shape: BoxShape.circle,
-                            //       // border: Border.all(
-                            //       //   color: Colors.white,
-                            //       //   width: 2,
-                            //       // ),
-                            //     ),
-                            //     child: Icon(
-                            //       Icons.close,
-                            //       size: 14,
-                            //       color: Colors.white,
-                            //     ),
-                            //   ),
-                            // ),
                             Positioned(
                               top: -10,
                               left: -10,

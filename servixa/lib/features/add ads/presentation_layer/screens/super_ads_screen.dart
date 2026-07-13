@@ -105,39 +105,11 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              // Expanded(
-              //   // child: SingleChildScrollView(child: _pages[_currentStep]),
-              //   child: SingleChildScrollView(
-              //     physics: const BouncingScrollPhysics(),
-              //     child: AnimatedSwitcher(
-              //       duration: Duration(seconds: 1),
-              //       switchInCurve: Curves.easeOutCubic,
-              //       switchOutCurve: Curves.easeInCubic,
-              //       transitionBuilder:
-              //           (Widget child, Animation<double> animation) {
-              //             return FadeTransition(
-              //               opacity: animation,
-              //               child: SlideTransition(
-              //                 position: Tween<Offset>(
-              //                   begin: Offset(0.1, 0),
-              //                   end: Offset(0, 0),
-              //                 ).animate(animation),
-              //                 child: child,
-              //               ),
-              //             );
-              //           },
-              //       child: Container(
-              //         key: ValueKey<int>(_currentStep),
-              //         child: _pages[_currentStep],
-              //       ),
-              //     ),
-              //   ),
-              // ),
              
              Expanded(
                 child: PageTransitionSwitcher(
                   duration: const Duration(milliseconds: 400),
-                  reverse: _isReversing, // ✅ للتحكم باتجاه الحركة
+                  reverse: _isReversing,
                   transitionBuilder:
                       (
                         Widget child,
@@ -273,15 +245,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
           child: ElevatedButton(
             onPressed: () {
               if (_currentStep == 4) {
-                // if (categoryController.categoryQuestions.isEmpty &&
-                //     addAdsController.finalAnswers.isNotEmpty) {
-                //   // addAdsController.checkboxStates.clear();
-                //   // addAdsController.finalAnswers.clear();
-                //   // addAdsController.collectCheckboxAnswers();
-                // }
-                // if (categoryController.categoryQuestions.isNotEmpty) {
-                //   // addAdsController.collectCheckboxAnswers();
-                // }
                 if (!addAdsController.formKey2.currentState!.validate()) {
                   return;
                 }
@@ -431,37 +394,15 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       addAdsController.oldSupCategoryId !=
                           addAdsController.selectedSubCategoryAdsId.value;
 
-                  // if ((addAdsController
-                  //         .selectedCategoryAds
-                  //         .value != null && addAdsController
-                  //         .selectedCategoryAds
-                  //         .value!
-                  //         .hasChildren) ||
-                  //     addAdsController.selectedSubCategoryAds.value!.parentId !=
-                  //         null) {
                   if (hasChildren || hasSubCategoryParent) {
-                    // if ((addAdsController.oldCategoryId !=
-                    //             addAdsController.selectedCategoryAdsId.value &&
-                    //         addAdsController.oldSupCategoryId !=
-                    //             addAdsController
-                    //                 .selectedSubCategoryAdsId
-                    //                 .value) ||
-                    //     (addAdsController.oldCategoryId ==
-                    //             addAdsController.selectedCategoryAdsId.value &&
-                    //         addAdsController.oldSupCategoryId !=
-                    //             addAdsController
-                    //                 .selectedSubCategoryAdsId
-                    //                 .value))
                     if (isCategoryChanged) {
                       addAdsController.prepareForNewCategory();
                     }
                     categoryController.getCategoryQuestions(
-                      // addAdsController.selectedCategoryAds.value!.id,
                       addAdsController.selectedCategoryAdsId.value!,
                       false,
                     );
                     categoryController.getSubCategories(
-                      // addAdsController.selectedCategoryAds.value!.id,
                       addAdsController.selectedCategoryAdsId.value!,
                     );
                     setState(() {
@@ -469,31 +410,13 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                       _currentStep = 2;
                     });
                   } else {
-                    // if ((addAdsController.oldCategoryId !=
-                    //             addAdsController.selectedCategoryAdsId.value &&
-                    //         addAdsController.oldSupCategoryId !=
-                    //             addAdsController
-                    //                 .selectedSubCategoryAdsId
-                    //                 .value) ||
-                    //     (addAdsController.oldCategoryId ==
-                    //             addAdsController.selectedCategoryAdsId.value &&
-                    //         addAdsController.oldSupCategoryId !=
-                    //             addAdsController
-                    //                 .selectedSubCategoryAdsId
-                    //                 .value))
 
                     if (isCategoryChanged) {
                       addAdsController.prepareForNewCategory();
                     }
                     addAdsController.selectedSubCategoryAds.value = null;
                     addAdsController.selectedSubCategoryAdsId.value = null;
-
-                    // addAdsController.finalAnswers.clear();
-                    // addAdsController.checkBoxAnswer.clear();
-                    // addAdsController.radioAnswer.clear();
-                    // addAdsController.cleanAnswerOldQuestion;
                     categoryController.getCategoryQuestions(
-                      // addAdsController.selectedCategoryAds.value!.id,
                       addAdsController.selectedCategoryAdsId.value!,
                       false,
                     );
@@ -513,12 +436,10 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                         in categoryController.supCategoryQuestion) {
                       String key = "custom_fields[${question.id}]";
 
-                      // تنظيف finalAnswers
                       log(
                         "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
                       );
 
-                      // addAdsController.finalAnswers.remove(key);
                       addAdsController.finalAnswers[key] = "";
                       log(
                         "+++++++++++++++++++++++++++++++++++++++++${addAdsController.finalAnswers}",
@@ -546,7 +467,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
                         "/+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",
                       );
 
-                      // تنظيف radioAnswer
                       addAdsController.radioAnswer.remove(question.id);
                       log(
                         "+++++++++++++++++++++++++++++++++++++++++${addAdsController.radioAnswer}",

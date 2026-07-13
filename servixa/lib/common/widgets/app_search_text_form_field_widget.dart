@@ -67,8 +67,6 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
             ),
           ),
           suffixIcon: IconButton(
-            // edit
-            // تابع فلترة
             onPressed: onPressed,
             icon: SvgPicture.asset(
               IconApp.tune,
@@ -76,11 +74,6 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
               height: 20,
               color: ThemeApp.Foundation_Secendary_grey_200,
             ),
-            // Icon(
-            //   Icons.tune,
-            //   color: ThemeApp.Foundation_Secendary_grey_200,
-            //   size: 20,
-            // ),
           ),
           contentPadding: EdgeInsetsGeometry.symmetric(
             horizontal: 25,

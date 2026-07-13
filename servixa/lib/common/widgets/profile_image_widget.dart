@@ -20,38 +20,11 @@ class ProfileImageWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child:
-          //  Container(
-          //   width: width ?? size.width * 0.109,
-          //   height: height ?? 48.6,
-          //   decoration: BoxDecoration(
-          //     shape: BoxShape.circle,
-          //     color: ThemeApp.Foundation_Secendary_grey_100,
-          //   ),
-          //   child:
           ClipOval(
             child:
                 authController.currentUser.value?.image != null &&
                     authController.currentUser.value!.image!.isNotEmpty
                 ?
-                  // FadeInImage(
-                  //     image: NetworkImage(authController.currentUser.value!.image!),
-                  //     placeholder: const AssetImage(ImageApp.placeholder),
-                  //     fit: BoxFit.cover,
-                  //      width: width ?? size.width * 0.109,
-                  //     height: height ?? 48.6,
-                  //     imageErrorBuilder: (context, error, stackTrace) {
-                  //       return Container(
-                  //          width: width ?? size.width * 0.109,
-                  //         height: height ?? 48.6,
-                  //         color: ThemeApp.Foundation_Secendary_grey_100,
-                  //         child: const Icon(
-                  //           Icons.broken_image,
-                  //           size: 30,
-                  //           color: Colors.grey,
-                  //         ),
-                  //       );
-                  //     },
-                  //   )
                   CachedNetworkImage(
                     imageUrl: authController.currentUser.value!.image!,
                     placeholder: (context, url) =>
@@ -82,7 +55,6 @@ class ProfileImageWidget extends StatelessWidget {
                     height: 48.6,
                   ),
           ),
-      // ),
     );
   }
 }

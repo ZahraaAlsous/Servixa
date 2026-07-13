@@ -59,24 +59,6 @@ class AdsModel {
     this.businessAccountId,
   });
 
-  // factory AdsModel.fromJson(Map<String, dynamic> json) {
-  //   return AdsModel(
-  //     id: json["id"],
-  //     title: json["name"],
-  //     dictation: json["description"] ?? null,
-  //     place: json["address"] ?? null,
-  //     image: json["main_image"],
-  //     images: json["images"],
-  //     favorite: json["is_favorited"],
-  //     price: int.parse(json["price"]),
-  //     typeCoin: json["price_currency"],
-  //     typeService: json["type"],
-  //     status: json["status"],
-  //     category: CategoryModel.fromJson(json["category"]),
-  //     user: UserModel.fromJson(json["user"]),
-  //   );
-  // }
-
   factory AdsModel.fromJson(Map<String, dynamic> json) {
     return AdsModel(
       id: json["id"] ?? 0,
@@ -84,11 +66,6 @@ class AdsModel {
       dictation: json["description"],
       place: json["address"], // الـ JSON يستخدم address
       image: json["main_image"] ?? "",
-      // images: json["images"] != null
-      //     ? (json["images"] as List)
-      //           .map((item) => item["url"].toString())
-      //           .toList()
-      //     : [],
       images: json["images"] != null
           ? ImageModel.listFromJson(json["images"])
           : [],

@@ -156,12 +156,6 @@ class PoliciesScreen extends StatelessWidget {
       if (content.isEmpty) {
         return Center(
           child: AppNothingWidget(),
-          // Text(
-          //   "No content available for this section".tr(),
-          //   style: TypographyApp.Body_mid_Regular.copyWith(
-          //     color: ThemeApp.Foundation_Secendary_grey_400,
-          //   ),
-          // ),
         );
       }
 

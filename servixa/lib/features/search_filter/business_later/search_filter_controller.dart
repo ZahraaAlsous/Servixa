@@ -121,46 +121,6 @@ class SearchFilterController extends GetxController {
     log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ascOrDesc");
   }
 
-  // void applyFilters() {
-  //   // edit
-  //   searchAndFilter(
-  //     name: filterSearch.value.isEmpty ? null : filterSearch.value,
-  //     // categoryName:
-  //     // selectCategory.value.isEmpty || !EffectiveCategoryFilter.value
-  //     // ? null
-  //     // : selectCategory.value,
-  //     subCategory:
-  //         // selectCategory.value.isEmpty ||
-  //         !EffectiveCategoryFilter.value ||
-  //             selectSubCategory.value.isEmpty ||
-  //             !EffectiveSubCategoryFilter.value
-  //         ? null
-  //         : selectSubCategory.value,
-  //   );
-  // }
-
-  // void searchAndFilter({
-  //   String? name,
-  //   String? location,
-  //   String? categoryName,
-  //   String? subCategory,
-  //   int? minPrice,
-  //   int? maxPrice,
-  //   String? type,
-  //   String? posted,
-  // }) {
-  //   adsSearchList.value = adsController.adsList;
-
-  //   name != null ? searchResault(name) : adsSearchList;
-  //   location != null ? adsSearchList : adsSearchList;
-  //   categoryName != null ? filterByCategory(categoryName) : adsSearchList;
-  //   subCategory != null ? adsSearchList : adsSearchList;
-  //   minPrice != null ? adsSearchList : adsSearchList;
-  //   maxPrice != null ? adsSearchList : adsSearchList;
-  //   type != null ? adsSearchList : adsSearchList;
-  //   posted != null ? adsSearchList : adsSearchList;
-  // }
-
   bool checkIfSelectedOnceFilter() {
     return EffectiveCategoryFilter.value ||
         EffectiveSubCategoryFilter.value ||
@@ -211,17 +171,6 @@ class SearchFilterController extends GetxController {
     }
   }
 
-  // void searchResault(String? name) {
-  //   adsSearchList.value = adsController.adsList
-  //       .where((item) => item.title.toLowerCase().contains(name!.toLowerCase()))
-  //       .toList();
-  // }
-
-  // void filterByCategory(String? categoryName) {
-  //   adsSearchList.value = adsSearchList
-  //       .where((item) => item.category.name == categoryName)
-  //       .toList();
-  // }
 
   void resetSearchFilterToInitialState() {
     filterSearch.value = "";
@@ -264,28 +213,6 @@ class SearchFilterController extends GetxController {
         EffectiveSortFilter.value;
   }
 
-  // RxInt numberOfEffectiveFilters() {
-  //   int num = 0;
-  //   if (EffectiveLocationFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   if (EffectiveCategoryFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   if (EffectiveSubCategoryFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   if (EffectiveBudgetFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   if (EffectiveTypeFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   if (EffectivePostedFilter.value) {
-  //     num = num + 1;
-  //   }
-  //   return num.obs;
-  // }
 
   int numberOfEffectiveFilters() {
     int count = 0;
@@ -298,42 +225,12 @@ class SearchFilterController extends GetxController {
     if (EffectivePostedFilter.value) count++;
     if (EffectiveSortFilter.value) count++;
 
-    // if (filterSearch.value.isNotEmpty) count++;
-    // if (selectCategory.value.isNotEmpty && EffectiveCategoryFilter.value)
-    //   count++;
-    // if (selectedAdType.value != null && EffectiveTypeFilter.value) count++;
-    // if (minPriceFilter.value != null && EffectiveBudgetFilter.value) count++;
-    // if (maxPriceFilter.value != null && EffectiveBudgetFilter.value) count++;
-    // if (selectPosted.value.isNotEmpty && EffectivePostedFilter.value) count++;
-
     return count;
   }
 
-  // int numberOfEffectiveFilters() {
-  //     return [
-  //       EffectiveLocationFilter.value,
-  //       EffectiveCategoryFilter.value,
-  //       EffectiveSubCategoryFilter.value,
-  //       EffectiveBudgetFilter.value,
-  //       EffectiveTypeFilter.value,
-  //       EffectivePostedFilter.value,
-  //     ].where((isActive) => isActive).length;
-  //   }
   @override
   void dispose() {
     _debounce?.cancel();
-    // minPriceController.dispose();
-    // maxPriceController.dispose();
-    // adsSearchList.clear();
-    // _controller.dispose();
-    //  filterSearch = "".obs;
-    //  EffectiveLocationFilter = false.obs;
-    //  EffectiveCategoryFilter = false.obs;
-    //  EffectiveSubCategoryFilter = false.obs;
-    //  EffectiveBudgetFilter = false.obs;
-    //  EffectiveTypeFilter = false.obs;
-    //  EffectivePostedFilter = false.obs;
-    //  selsctCategory = "".obs;
     minPriceController.dispose();
     maxPriceController.dispose();
     searchController.dispose();

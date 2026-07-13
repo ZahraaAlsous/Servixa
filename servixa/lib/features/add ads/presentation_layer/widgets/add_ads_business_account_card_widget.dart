@@ -38,18 +38,6 @@ class AddAdsBusinessAccountCardWidget extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // // صورة الحساب
-              // Container(
-              //   width: 60,
-              //   height: 60,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(12),
-              //     image: DecorationImage(
-              //       image: AssetImage(ImageApp.profileImageRounded),
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // ),
               const SizedBox(width: 16),
 
               Expanded(

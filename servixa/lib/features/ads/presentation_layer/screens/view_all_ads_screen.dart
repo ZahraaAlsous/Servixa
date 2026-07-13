@@ -28,17 +28,6 @@ class ViewAllAdsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ThemeApp.whiteBackground,
       appBar: AppBarWidget(),
-      // AppBar(
-      //   flexibleSpace: Container(
-      //     decoration: const BoxDecoration(
-      //       gradient: LinearGradient(
-      //         begin: Alignment.topCenter,
-      //         end: Alignment.bottomCenter,
-      //         colors: [ThemeApp.linearBackground, ThemeApp.whiteBackground],
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
@@ -64,20 +53,6 @@ class ViewAllAdsScreen extends StatelessWidget {
                 ),
               );
             }),
-            // Text(
-            //   // "Top Construction Services in",
-            //   "Top Construction Services".tr(),
-            //   style: TypographyApp.Title_larg_Mid.copyWith(
-            //     color: ThemeApp.Foundation_Secendary_grey_700,
-            //   ),
-            // ),
-
-            // Text(
-            //   "your location",
-            //   style: TypographyApp.Title_larg_Mid.copyWith(
-            //     color: ThemeApp.Foundation_Main_main_500,
-            //   ),
-            // ),
             const SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
             Obx(() {
               return Row(
@@ -122,12 +97,6 @@ class ViewAllAdsScreen extends StatelessWidget {
                   itemCount: adsController.adsList.length,
                   itemBuilder: (context, indexAds) {
                     return
-                    // AppCardAdsWidget(
-                    //   ads: adsController.adsList[indexAds],
-                    //   widthCard: 0.431,
-                    //   isGridView: crossAxisCount.value == 2,
-                    //   isViewAll: true
-                    // );
                     OpenContainer(
                       transitionType: ContainerTransitionType.fadeThrough,
                       closedShape: const RoundedRectangleBorder(

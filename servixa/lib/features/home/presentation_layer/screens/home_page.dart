@@ -174,15 +174,6 @@ class HomePage extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child:
-                            // AppCardAdsWidget(
-                            //   ads: ads,
-                            //   widthCard: 0.413,
-                            //   onTap: () {
-                            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                            //     // Get.to(AdsDetailsScreen(), arguments: ads.id);
-                            //   },
-                            //   isGridView: true,
-                            // ),
                             OpenContainer(
                               transitionType:
                                   ContainerTransitionType.fadeThrough,
@@ -256,14 +247,6 @@ class HomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
 
                         child:
-                            // AppCardAdsWidget(
-                            //   ads: ads,
-                            //   widthCard: 0.367,
-                            //   isGridView: true,
-                            //   onTap: () {
-                            //     Get.to(AdsDetailsScreen(adsId: ads.id));
-                            //   },
-                            // ),
                             OpenContainer(
                               transitionType:
                                   ContainerTransitionType.fadeThrough,
@@ -337,14 +320,6 @@ class HomePage extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child:
-                            // AppCardAdsWidget(
-                            //   ads: adsController.adsList[indexAds],
-                            //   widthCard: 0.611,
-                            //   isGridView: true,
-                            //   onTap: () {
-                            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                            //   },
-                            // ),
                             OpenContainer(
                               transitionType:
                                   ContainerTransitionType.fadeThrough,
@@ -413,14 +388,6 @@ class HomePage extends StatelessWidget {
                   // }
                   AdsModel ads = adsController.adsList[indexAds];
                   return
-                  // AppCardAdsWidget(
-                  //   ads: ads,
-                  //   widthCard: 0.431,
-                  //   isGridView: true,
-                  //   onTap: () {
-                  //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
-                  //   },
-                  // );
                   OpenContainer(
                     transitionType: ContainerTransitionType.fadeThrough,
                     closedShape: const RoundedRectangleBorder(

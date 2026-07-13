@@ -11,11 +11,6 @@ import 'package:servixa/features/location%20user/business_layer/location_control
 import 'package:servixa/features/home/presentation_layer/screens/super_home_screen.dart';
 
 class LocationPickerScreen extends StatelessWidget {
-  // final LocationController locationController = Get.put(LocationController());
-  // final LocationController locationController =
-  //     Get.isRegistered<LocationController>()
-  //     ? Get.find<LocationController>()
-  //     : Get.put(LocationController(), permanent: true);
   final LocationController locationController = Get.find<LocationController>();
 
   LocationPickerScreen({super.key});

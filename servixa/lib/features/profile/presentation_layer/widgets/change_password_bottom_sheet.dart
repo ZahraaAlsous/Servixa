@@ -36,15 +36,6 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return
-    // WillPopScope(
-    //   onWillPop: () async {
-    //     authController.clearFailedChangePassword();
-    //     log(
-    //       "===============================Screen: Clear Data CreateBusinessAccount",
-    //     );
-    //     return true;
-    //   },
-    //   child:
     Container(
       decoration: const BoxDecoration(
         color: ThemeApp.whiteBackground,

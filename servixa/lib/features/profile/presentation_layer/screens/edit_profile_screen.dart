@@ -52,49 +52,6 @@ class EditProfileScreen extends GetView<ProfileController> {
               ),
               SizedBox(height: DimensApp.spaceBetweenTitleAndDetails),
 
-              // Center(
-              //   child: Stack(
-              //     children: [
-              //       Obx(
-              //         () => CircleAvatar(
-              //           radius: 60,
-              //           backgroundImage:
-              //               profileController.selectedImage.value != null
-              //               ? FileImage(profileController.selectedImage.value!)
-              //               : (authController.currentUser.value!.image!.isNotEmpty
-              //                     ? NetworkImage(
-              //                         authController.currentUser.value!.image!,
-              //                       )
-              //                     : null),
-              //           child:
-              //               authController.currentUser.value!.image!.isEmpty &&
-              //                   profileController.selectedImage.value == null
-              //               ? const Icon(Icons.person, size: 60)
-              //               : null,
-              //         ),
-              //       ),
-              //       Positioned(
-              //         bottom: 0,
-              //         right: 0,
-              //         child: CircleAvatar(
-              //           radius: 18,
-              //           backgroundColor: const Color.fromARGB(255, 102, 102, 102),
-              //           child: IconButton(
-              //             icon: Icon(
-              //               Icons.camera_alt,
-              //               size: 15,
-              //               color: Colors.white,
-              //             ),
-              //             // onPressed: _pickImage,
-              //             onPressed: () => ImageService.pickImage(
-              //               profileController.selectedImage,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               Center(
                 child: Stack(
                   children: [
@@ -189,73 +146,6 @@ class EditProfileScreen extends GetView<ProfileController> {
                   profileController.emailController.text,
                 ),
               ),
-              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-              // AppDropdownButtonFormFieldWidget(
-              //   hintText: "City",
-              //   // edit
-              //   onChanged: (value) {
-              //     // addAdsController.typeService = value;
-              //   },
-              //   // edit
-              //   prefixIcon: IconApp.city,
-              //   borderRadio: 16,
-              //   // edit
-              //   // validator: Validators.validateReviewAndRequestOrder,
-              //   // edit
-              //   items: [
-              //     DropdownMenuItem<String>(
-              //       value: "dolar",
-              //       child: Text(
-              //         "Dollar \$",
-              //         style: TypographyApp.Body_mid_Mid.copyWith(
-              //           color: ThemeApp.Foundation_Secendary_grey_400,
-              //         ),
-              //       ),
-              //       alignment: Alignment.center,
-              //     ),
-
-              //     DropdownMenuItem<String>(
-              //       value: "sp",
-              //       child: Text(
-              //         "Sp Syrian pounds",
-              //         style: TypographyApp.Body_mid_Mid.copyWith(
-              //           color: ThemeApp.Foundation_Secendary_grey_400,
-              //         ),
-              //       ),
-              //       alignment: Alignment.center,
-              //     ),
-              //   ],
-              // ),
-
-              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-              // Row(
-              //   children: [
-              //     SvgPicture.asset(
-              //       IconApp.place,
-              //       color: ThemeApp.Foundation_Main_main_500,
-              //     ),
-              //     // edit
-              //     Text(
-              //       "742 Evergreen Terrace, Springfield",
-              //       style: TypographyApp.Body_mid_Regular.copyWith(
-              //         color: ThemeApp.Foundation_Secendary_grey_300,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-
-              // AppMapWidget(),
-              // const SizedBox(height: DimensApp.hightBetweenTextFormField),
-
-              // AppTextAreaWidget(
-              //   hintText: "Address Detail",
-              //   // edit
-              //   prefixIcon: IconApp.Balconies,
-              //   controller: addressDetailsController,
-              //               validate: Validators.validateReviewAndRequestOrder,
-
-              // ),
               const SizedBox(height: DimensApp.hightBetweenTextFormField),
               Obx(() {
                 if (profileController.isLoading.value) {
@@ -317,21 +207,6 @@ class EditProfileScreen extends GetView<ProfileController> {
     final imageUrl = authController.currentUser.value?.image;
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return
-      // FadeInImage(
-      //   image: NetworkImage(imageUrl),
-      //   placeholder: const AssetImage(ImageApp.placeholder),
-      //   fit: BoxFit.cover,
-      //   width: 120,
-      //   height: 120,
-      //   imageErrorBuilder: (context, error, stackTrace) {
-      //     return Container(
-      //       width: 120,
-      //       height: 120,
-      //       color: ThemeApp.Foundation_Secendary_grey_100,
-      //       child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
-      //     );
-      //   },
-      // );
       CachedNetworkImage(
         imageUrl: imageUrl,
         placeholder: (context, url) =>

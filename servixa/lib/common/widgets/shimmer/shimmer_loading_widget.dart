@@ -28,7 +28,7 @@ class ShimmerLoadingWidget extends StatelessWidget {
         margin: margin,
         decoration: BoxDecoration(
           color: Colors
-              .white, // الشيمر يحتاج لون خلفية أبيض ليتحول للرمادي المتحرك
+              .white,
           borderRadius: borderRadius,
         ),
       ),

@@ -267,20 +267,6 @@ class BottomSheetChangeAcountWidget extends StatelessWidget {
             );
           }).toList(),
 
-          // const [
-          //   DropdownMenuItem<String>(
-          //     value: "business1",
-          //     child: Text("Al Shamel Contracting"),
-          //   ),
-          //   DropdownMenuItem<String>(
-          //     value: "business2",
-          //     child: Text("Tech Solutions LLC"),
-          //   ),
-          //   DropdownMenuItem<String>(
-          //     value: "business3",
-          //     child: Text("Al Rajhi Trading"),
-          //   ),
-          // ],
           onChanged:
               busiessAccountController.isLoadingCreateBusinessAccount.value
               ? null

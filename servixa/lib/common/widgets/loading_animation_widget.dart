@@ -88,15 +88,6 @@ class _LoadingAnimationWidgetState extends State<LoadingAnimationWidget>
                         ),
                         child: Center(
                           child: Image(image: AssetImage(ImageApp.loading)),
-                          // SvgPicture.asset(
-                          //   IconApp.favorite,
-                          //   // ImageApp.loading,
-                          //   width: 60,
-                          //   height: 60,
-                          //   color:
-                          //       widget.loaderColor ??
-                          //       ThemeApp.Foundation_Main_main_500,
-                          // ),
                         ),
                       ),
                     ),
@@ -121,7 +112,6 @@ class _LoadingAnimationWidgetState extends State<LoadingAnimationWidget>
             ),
           if (widget.showText) const SizedBox(height: 10),
 
-          // ✅ نقاط متحركة
           _buildLoadingDots(),
         ],
       ),

@@ -20,7 +20,6 @@ class UrlLauncherService {
       }
     } catch (e) {
       print('خطأ في الاتصال: $e');
-      // يمكنك إظهار رسالة للمستخدم
     }
   }
 }

@@ -82,27 +82,6 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadiusGeometry.circular(50),
                     child:
-                        // FadeInImage(
-                        //   width: 80,
-                        //   height: 80,
-                        //   fit: BoxFit.cover,
-                        //   placeholder: AssetImage(ImageApp.placeholder),
-                        //   image: ad.user.image == null
-                        //       ? AssetImage(ImageApp.profileImage)
-                        //       : NetworkImage(ad.user.image!),
-                        //   imageErrorBuilder: (context, error, stackTrace) {
-                        //     return CircleAvatar(
-                        //       radius: 37,
-                        //       backgroundColor:
-                        //           ThemeApp.Foundation_Secendary_grey_100,
-                        //       child: const Icon(
-                        //         Icons.broken_image,
-                        //         size: 30,
-                        //         color: Colors.grey,
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
                         ad.user.image == null
                         ? Image(
                             image: AssetImage(ImageApp.profileImage),
@@ -251,17 +230,6 @@ class BottomSheetPortfolioWidget extends StatelessWidget {
                                   width: size.width * 0.367,
                                   margin: EdgeInsets.only(right: 12),
                                   child:
-                                      // AppCardAdsWidget(
-                                      //   ads: ad,
-                                      //   widthCard: size.width * 0.367,
-                                      //   isGridView: true,
-                                      //   onTap: () {
-                                      //     // Get.to(
-                                      //     //   () => AdsDetailsScreen(adsId: ad.id),
-                                      //     // );
-                                      //     // Get.to(AdsDetailsScreen(), arguments: ads.id);
-                                      //   },
-                                      // ),
                                       OpenContainer(
                                         transitionType:
                                             ContainerTransitionType.fadeThrough,

@@ -52,15 +52,6 @@ class VerifyScreen extends StatelessWidget {
                     color: ThemeApp.Foundation_Main_main_500,
                   ),
                 ),
-                // edit
-                // const SizedBox(height: 8),
-                // Text(
-                //   "Please enter the code we sent to your email".tr(),
-                //   textAlign: TextAlign.center,
-                //   style: TypographyApp.Body_mid_Mid.copyWith(
-                //     color: ThemeApp.Foundation_Secendary_grey_300.withOpacity(0.7),
-                //   ),
-                // ),
               ],
             ),
             const SizedBox(height: 20),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_loading_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
 
-// ✅ Shimmer مخصص للفئات (Categories)
 class ShimmerCategoriesGrid extends StatelessWidget {
   final int itemCount;
 

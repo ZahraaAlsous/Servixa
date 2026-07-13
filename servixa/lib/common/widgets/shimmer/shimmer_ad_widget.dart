@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_loading_widget.dart';
 import 'package:servixa/core/const/dimens_app.dart';
-import 'package:shimmer/shimmer.dart';
 
-// ✅ Shimmer مخصص ومحاكي تماماً لبطاقات الإعلانات المربعات (GridView Layout)
 class ShimmerCardGridView extends StatelessWidget {
   final int itemCount;
   final double widthCard;
@@ -42,7 +40,6 @@ class ShimmerCardGridView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. مكان الصورة العلوية
               ShimmerLoadingWidget(
                 width: double.infinity,
                 height: 126,
@@ -55,10 +52,8 @@ class ShimmerCardGridView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 2. محاكاة نص العنوان (Title)
                     ShimmerLoadingWidget(width: size.width * 0.25, height: 14),
                     const SizedBox(height: 8),
-                    // 3. محاكاة سطر الموقع (Location Row)
                     Row(
                       children: [
                         const Icon(
@@ -74,7 +69,6 @@ class ShimmerCardGridView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // 4. محاكاة السعر وزر المفضلة (Price & Favorite)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -100,7 +94,6 @@ class ShimmerCardGridView extends StatelessWidget {
   }
 }
 
-// ✅ Shimmer مخصص ومحاكي تماماً لبطاقات الإعلانات المستطيلة (ListView Layout)
 class ShimmerCardList extends StatelessWidget {
   final int itemCount;
   final double widthCard;
@@ -133,26 +126,22 @@ class ShimmerCardList extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // 1. محاكاة الصورة الجانبية الكليب
                 ShimmerLoadingWidget(
                   width: size.width * 0.230,
                   height: 95,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 const SizedBox(width: 16),
-                // 2. تفاصيل الإعلان بالجنب
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // العنوان
                       ShimmerLoadingWidget(
                         width: size.width * 0.35,
                         height: 14,
                       ),
                       const SizedBox(height: 8),
-                      // الموقع
                       Row(
                         children: [
                           const Icon(
@@ -168,7 +157,6 @@ class ShimmerCardList extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      // السعر والمفضلة
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -195,7 +183,6 @@ class ShimmerCardList extends StatelessWidget {
   }
 }
 
-// ✅ Shimmer مخصص لبطاقات الإعلانات (ListView الأفقي)
 class ShimmerCardHorizontalList extends StatelessWidget {
   final int itemCount;
   final double widthCard;
@@ -232,7 +219,6 @@ class ShimmerCardHorizontalList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. مكان الصورة العلوية
                   ShimmerLoadingWidget(
                     width: double.infinity,
                     height: 126,
@@ -245,13 +231,11 @@ class ShimmerCardHorizontalList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 2. محاكاة نص العنوان (Title)
                         ShimmerLoadingWidget(
                           width: size.width * 0.25,
                           height: 14,
                         ),
                         const SizedBox(height: 8),
-                        // 3. محاكاة سطر الموقع (Location Row)
                         Row(
                           children: [
                             const Icon(
@@ -267,7 +251,6 @@ class ShimmerCardHorizontalList extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        // 4. محاكاة السعر وزر المفضلة (Price & Favorite)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

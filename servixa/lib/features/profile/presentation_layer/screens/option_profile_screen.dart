@@ -71,35 +71,6 @@ class OptionProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          // InkWell(
-                          //   onTap: () {
-                          //     Get.bottomSheet(
-                          //       isDismissible: true,
-                          //       enableDrag: true,
-                          //       isScrollControlled: true,
-                          //       BottomSheetViewProfileWidget(),
-                          //     );
-                          //   },
-                          //   child: Container(
-                          //     width: widthScreen * 0.109,
-                          //     height: 48.6,
-                          //     decoration: BoxDecoration(
-                          //       image: DecorationImage(
-                          //         image:
-                          //             authController.currentUser.value?.image !=
-                          //                 null
-                          //             ? NetworkImage(
-                          //                 authController
-                          //                     .currentUser
-                          //                     .value!
-                          //                     .image!,
-
-                          //               )
-                          //             : AssetImage(ImageApp.profileImage),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           ProfileImageWidget(
                             onTap: () {
                               Get.bottomSheet(
@@ -122,30 +93,6 @@ class OptionProfileScreen extends StatelessWidget {
                               color: ThemeApp.whiteBackground,
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     // qustion
-                          //     // مو من مكتبة الألوان
-                          //     // Icon(Icons.place_outlined, color: Color(0xff6D3FAE)),
-                          //     SvgPicture.asset(
-                          //       IconApp.place,
-                          //       width: 16,
-                          //       height: 16,
-                          //       color: ThemeApp.Foundation_Main_yellow_50,
-                          //     ),
-                          // const SizedBox(width: 5),
-                          // Text(
-                          //   "Riyadh – Malaz",
-                          //   style:
-                          //       TypographyApp
-                          //           .Label_Mid_Regular.copyWith(
-                          //         color: ThemeApp.whiteBackground,
-                          //       ),
-                          // ),
-                          // ],
-                          // ),
-                          //   ],
-                          // ),
                           const Spacer(),
                           ElevatedButton(
                             onPressed: () {
@@ -382,16 +329,6 @@ class OptionProfileScreen extends StatelessWidget {
             },
             icon: IconApp.language,
           ),
-          //     ListTileWidget(
-          //   title: "Dark",
-          //   // edit
-          //   onTap: () {
-          //     Get.changeTheme(
-          //       Get.isDarkMode ? ThemeApp.lightTheme : ThemeApp.darkTheme,
-          //     );
-          //   },
-          //   icon: IconApp.language,
-          // ),
           if (authController.isLoggedIn.value)
             Obx(() {
               if (authController.isLogOutNow.value) {

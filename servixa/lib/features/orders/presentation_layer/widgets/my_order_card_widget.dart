@@ -46,25 +46,6 @@ class MyOrderCardWidget extends StatelessWidget {
             trailing: order.fromDate ?? "Not available".tr(),
           ),
           ListTileOrderWidget(title: "Status :", trailing: order.status),
-
-          // Row(
-          //   children: [
-          // Row(
-          //   children: [
-          //     Text(
-          //       "Detail :",
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(color: ThemeApp.black),
-          //     ),
-          //     Text(
-          //       order.details ?? "nnnn",
-          //       maxLines: 3,
-          //       style: TypographyApp.Title_Mid_Mid.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //         overflow: TextOverflow.ellipsis
-          //       ),
-          //     ),
-          //   ],
-          // ),
           const SizedBox(height: 7),
           Expanded(
             child: Row(
@@ -127,15 +108,6 @@ class MyOrderCardWidget extends StatelessWidget {
                       width: size.width * 0.739,
                       height: 29,
                       child: OutlinedButton.icon(
-                        // onPressed: () => orderController.deleteOrder(
-                        //   order.id,
-                        //   () {
-                        //     AppSnackbar.showSuccess("The order was deleted");
-                        //   },
-                        //   (e) {
-                        //     AppSnackbar.showError(e);
-                        //   },
-                        // ),
                         onPressed: () {
                           AppDialogs.showConfirmation(
                             title: "Confirm deletion",

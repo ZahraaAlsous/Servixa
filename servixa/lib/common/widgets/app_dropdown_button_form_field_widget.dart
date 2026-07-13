@@ -58,23 +58,6 @@ class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
       isDense: true,
       decoration: InputDecoration(
         hintText: hintText.tr(),
-        // hintStyle:   TypographyApp.Body_mid_Regular.copyWith(
-        //   color: ThemeApp.Foundation_Secendary_grey_200,
-        // ),
-        // hintStyle: TextStyle(
-        //   fontSize: 9,
-        //   color: Colors.red
-        // ),
-        // hint: Text(
-        //   hintText,
-        //   style: TextStyle(
-        //     fontFamily: "Roboto",
-        //     fontWeight: FontWeight.w400,
-        //     fontSize: 10,
-        //     height: 1.4,
-        //     letterSpacing: 0,
-        //   ),
-        // ),
         hintStyle: TextStyle(
           fontFamily: "Roboto",
           fontWeight: FontWeight.w400,

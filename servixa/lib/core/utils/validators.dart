@@ -114,23 +114,6 @@ class Validators {
   }
 
   static String? validatePhoneRegister(String? value, String? emailValue) {
-    // // if (value == null || value.trim().isEmpty) {
-    // //   return "This field is required";
-    // // }
-    // bool isPhone = true;
-    // if (value != null  ) {
-    //   String input = value.trim();
-    //   //  isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
-    //    isPhone = RegExp(r'^[0-9]{9,15}$').hasMatch(input);
-    // }
-    // // bool isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
-
-    // // if (!isPhone && !isEmail) {
-    // if (value != null && !isPhone) {
-    //   return "Enter a valid phone number";
-    // }
-
-    // return null;
 
     String input = value?.trim() ?? "";
     String emailInput = emailValue?.trim() ?? "";
@@ -148,22 +131,6 @@ class Validators {
   }
 
   static String? validateEmailRegister(String? value, String? phoneValue) {
-    // // if (value == null || value.trim().isEmpty) {
-    // //   return "This field is required";
-    // // }
-    // bool isEmail = true;
-    // if (value != null) {
-    //   String input = value.trim();
-    //   isEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input);
-    // }
-    // // bool isPhone = RegExp(r'^[0-9]{10,15}$').hasMatch(input);
-
-    // // if (!isPhone && !isEmail) {
-    // if (value != null && !isEmail) {
-    //   return "Enter a valid email address";
-    // }
-
-    // return null;
     String input = value?.trim() ?? "";
     String phoneInput = phoneValue?.trim() ?? "";
 
@@ -213,31 +180,6 @@ class Validators {
     return null;
   }
 
-  // static String? validateMinPrice(
-  //   String? value,
-  //   SearchFilterController controller,
-  // ) {
-  //   if (value != null &&
-  //       value.trim().isNotEmpty &&
-  //       controller.maxPriceFilter.value != null &&
-  //       int.parse(value) > controller.maxPriceFilter.value!) {
-  //     return "hhh";
-  //   }
-  //   return null;
-  // }
-
-  // static String? validateMaxPrice(
-  //   String? value,
-  //   SearchFilterController controller,
-  // ) {
-  //   if (value != null &&
-  //       value.trim().isNotEmpty &&
-  //       controller.minPriceFilter.value != null &&
-  //       int.parse(value) < controller.minPriceFilter.value!) {
-  //     return "hhh";
-  //   }
-  //   return null;
-  // }
 
   static String? validateMinPrice(
     String? value,
@@ -314,15 +256,6 @@ class Validators {
     if (!isRequired && (value == null || value.isEmpty)) {
       return null;
     }
-    // if (!isRequired && (value == null || value.trim().isEmpty)) {
-    //   return null;
-    // }
-
-    // if (value != null && value.trim().isNotEmpty && !value.isNum) {
-    //   // if (value.trim().length < 2) {
-    //   return "Please enter a valid value";
-    //   // }
-    // }
 
     final trimmedValue = value!.trim();
     final number = double.tryParse(trimmedValue);

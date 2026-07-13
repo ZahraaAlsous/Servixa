@@ -9,19 +9,17 @@ class ShimmerReceivedOrderCardList extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ListView.builder(
-      // shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
       itemCount: itemCount,
       itemBuilder: (context, index) {
         return Align(
           alignment: Alignment.center,
           child: Container(
-            height: 231, // نفس الارتفاع المحدد بالكرت الأصلي
-            width: size.width * 0.8976, // نفس العرض
+            height: 231,
+            width: size.width * 0.8976,
             padding: const EdgeInsets.symmetric(
               vertical: 16,
               horizontal: 30,
-            ), // الـ Padding الأصلي للكرت المستلم
+            ), 
             margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(13),
@@ -29,7 +27,6 @@ class ShimmerReceivedOrderCardList extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // أسطر البيانات الأربعة (Request Date, Service, Name, Phone/Email)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -67,7 +64,6 @@ class ShimmerReceivedOrderCardList extends StatelessWidget {
                   thickness: 2,
                   color: Colors.transparent,
                 ),
-                // محاكاة الزرين السفليين المتجاورين (Accept / Decline)
                 Row(
                   children: [
                     Expanded(

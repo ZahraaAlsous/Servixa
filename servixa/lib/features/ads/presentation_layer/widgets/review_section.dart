@@ -65,50 +65,10 @@ class ReviewSection extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            // Container(
-                            //   width: widthScreen * 0.109,
-                            //   height: 48.6,
-                            //   decoration: BoxDecoration(
-                            //     image: DecorationImage(
-                            //       image: AssetImage(
-                            //         review.user.image != null
-                            //             ? review.user.image!
-                            //             : ImageApp.profileImage,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
+                            
                             ClipRRect(
                               borderRadius: BorderRadiusGeometry.circular(100),
                               child:
-                                  // FadeInImage(
-                                  //   width: widthScreen * 0.109,
-                                  //   height: 48.6,
-                                  //   fit: BoxFit.cover,
-                                  //   placeholder: AssetImage(ImageApp.placeholder),
-                                  //   image: review.user.image != null
-                                  //       ? NetworkImage(review.user.image!)
-                                  //       : AssetImage(ImageApp.profileImage),
-                                  //   imageErrorBuilder:
-                                  //       (context, error, stackTrace) {
-                                  //         return Container(
-                                  //           width: widthScreen * 0.109,
-                                  //           height: 48.6,
-                                  //           decoration: BoxDecoration(
-                                  //             borderRadius: BorderRadius.circular(
-                                  //               100,
-                                  //             ),
-                                  //             color: ThemeApp
-                                  //                 .Foundation_Secendary_grey_100,
-                                  //           ),
-                                  //           child: const Icon(
-                                  //             Icons.broken_image,
-                                  //             size: 30,
-                                  //             color: Colors.grey,
-                                  //           ),
-                                  //         );
-                                  //       },
-                                  // ),
                                   review.user.image != null
                                   ? CircleAvatar(
                                       child: CachedNetworkImage(

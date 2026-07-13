@@ -121,61 +121,6 @@ class FavoriteController extends GetxController {
     }
   }
 
-  //   Future<bool> addToFavorite(int adId, void Function(String e) onError) async {
-  //     try {
-  //       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: AddToFavorite IN");
-  //       bool isDone = await favoriteService.addToFavorite(adId: adId);
-  //       if (isDone) {
-  //         log("==============================Controller: AddToFavorite OK");
-  //         final index = adsController.adsList.indexWhere(
-  //           (item) => item.id == adId,
-  //         );
-  //         final index2 = myFavoriteAdsList.indexWhere((item) => item.id == adId);
-  //         final indexInMyAdList = adsController.myAdsList.indexWhere(
-  //           (item) => item.id == adId,
-  //         );
-
-  // // true
-  //         if (index2 != -1) {
-  //           myFavoriteAdsList.removeWhere((item) => item.id == adId);
-  //           myFavoriteAdsList.refresh();
-  //         }
-  //         if (index != -1) {
-  //           adsController.adsList[index].favorite = index2 != -1 ? false : true;
-  //           //     !adsController.adsList[index].favorite;
-  //           // adsController.adsList[index].favorite ? false : true;
-  //           adsController.adsList.refresh();
-  //         }
-
-  //         if (adsController.adsDetails.value?.id == adId) {
-  //           // adsController.adsDetails.value?.favorite = true;
-  //           // adsController.adsDetails.value!.favorite ? false : true;
-  //           adsController.adsDetails.value!.favorite = index2 != -1
-  //               ? false
-  //               : true;
-  //         //   if (indexInMyAdList != -1) {
-  //         //     adsController.myAdsList[indexInMyAdList].favorite = index2 != -1
-  //         //         ? false
-  //         //         : true;
-  //         //     myFavoriteAdsList.refresh();
-  //         //   }
-
-  //           adsController.adsDetails.refresh();
-  //         }
-  //         return true;
-  //       } else {
-  //         log("==============================Controller: AddToFavorite FAILED");
-  //         return false;
-  //       }
-  //     } catch (e) {
-  //       log("==============================Controller: AddToFavorite ERROR");
-  //       log("==============================The error is: $e");
-
-  //       onError(e.toString());
-  //       return false;
-  //     }
-  //   }
-
   Future<void> getMyFavorite(void Function(String e) onError) async {
     try {
       log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller: GetMyFavorite IN");

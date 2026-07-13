@@ -71,20 +71,6 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                     ],
                   ),
 
-                  // SectionActiveFilterTitleWidget(
-                  //   value: searchFilterController.EffectiveLocationFilter,
-                  //   onChanged: (value) {
-                  //     searchFilterController.activeLocationFilter();
-                  //   },
-                  //   FilterName: "Location",
-                  // ),
-                  // AppOutlinedButtonWidget(
-                  //   textContent: "Add Location",
-                  //   icon: IconApp.place,
-                  //   // edit
-                  //   onPressed: () {},
-                  // ),
-                  // const SizedBox(height: 5),
                   Obx(
                     () => Row(
                       children: [
@@ -390,57 +376,6 @@ class FiltterBottomSheetWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
 
-                  // SectionActiveFilterTitleWidget(
-                  //   value: searchFilterController.EffectiveTypeFilter,
-                  //   onChanged: (value) {
-                  //     searchFilterController.activeTypeFilter();
-                  //   },
-                  //   FilterName: "Ad Type",
-                  // ),
-
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: FiltterRadioWidget(
-                  //         option: 'Buying',
-                  //         optionSelected: AdType.buying,
-                  //       ),
-                  //     ),
-                  //     const SizedBox(width: 12),
-                  //     Expanded(
-                  //       child: FiltterRadioWidget(
-                  //         option: "Selling",
-                  //         optionSelected: AdType.selling,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 5),
-
-                  // SectionActiveFilterTitleWidget(
-                  //   value: searchFilterController.EffectivePostedFilter,
-                  //   onChanged: (value) {
-                  //     searchFilterController.activePostedFilter();
-                  //   },
-                  //   FilterName: "Posted Since",
-                  // ),
-                  // AppDropdownButtonFormFieldWidget(
-                  //   hintText: "All in Time ",
-                  //   onChanged: (value) {
-                  //     if (value != null) {
-                  //       searchFilterController.selectPosted.value = value
-                  //           .toString();
-                  //     }
-                  //   },
-                  //   // edit
-                  //   items: [],
-                  //   // edit
-                  //   prefixIcon: IconApp.clarityDateLine,
-                  //   borderRadio: 16,
-                  // ),
-                  // SizedBox(height: 5),
-                  // Obx(
-                  //   ()=>
                   SectionActiveFilterTitleWidget(
                     value: searchFilterController.EffectiveSortFilter,
                     onChanged: (value) {

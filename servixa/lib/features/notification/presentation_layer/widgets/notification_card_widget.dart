@@ -14,35 +14,6 @@ class NotificationCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return
-    // Container(
-    //   width: size.width * 0.916,
-    //   height: 128,
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(14),
-    //     border: BoxBorder.all(
-    //       width: 1,
-    //       color: ThemeApp.Foundation_Main_main_50,
-    //       // style: BorderSide(style: BorderStyle.solid),
-    //     ),
-    //   ),
-    //   child:
-    //   Column(
-    //     children: [
-    //       Row(
-    //         children: [
-    //           SvgPicture.asset(
-    //             notification.type == "alert"
-    //                 ? IconApp.notificationAlert
-    //                 : IconApp.notificationCard,
-    //           ),
-    //           Text(notification.title),
-    //           Text(notification.time)
-    //         ],
-    //       ),
-    //       Text(notification.body)
-    //     ],
-    //   ),
-    // );
     DottedBorder(
       options: RectDottedBorderOptions(
         dashPattern: [3, 3],

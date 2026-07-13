@@ -40,12 +40,6 @@ class SliderAdWidget extends StatelessWidget {
                     color: Color.fromRGBO(0, 0, 0, 0.25),
                   ),
                 ],
-                // image: DecorationImage(
-                //   image: NetworkImage(
-                //     ads.images[itemIndex].url,
-                //   ),
-                //   fit: BoxFit.cover,
-                // ),
               ),
 
               child: ClipRRect(
@@ -53,39 +47,6 @@ class SliderAdWidget extends StatelessWidget {
                   bottom: Radius.circular(21),
                 ),
                 child:
-                    // FadeInImage(
-                    //   placeholder: AssetImage(ImageApp.placeholder),
-                    //   image: NetworkImage(ads.images[itemIndex].url),
-                    //   fit: BoxFit.cover,
-                    //   width: widthScreen,
-                    //   height: 325,
-                    //   imageErrorBuilder: (context, error, stackTrace) {
-                    //     return Container(
-                    //       width: widthScreen,
-                    //       height: 325,
-                    //       decoration: BoxDecoration(
-                    //         color: ThemeApp.Foundation_Secendary_grey_100,
-                    //         borderRadius: BorderRadius.only(
-                    //           bottomLeft: Radius.circular(21),
-                    //           bottomRight: Radius.circular(21),
-                    //         ),
-                    //         boxShadow: [
-                    //           BoxShadow(
-                    //             offset: Offset(0, 1),
-                    //             blurRadius: 7,
-                    //             spreadRadius: 0,
-                    //             color: Color.fromRGBO(0, 0, 0, 0.25),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //       child: const Icon(
-                    //         Icons.broken_image,
-                    //         size: 50,
-                    //         color: Colors.grey,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                     CachedNetworkImage(
                       imageUrl: ads.images[itemIndex].url,
                       placeholder: (context, url) =>

@@ -16,31 +16,6 @@ class ShimmerPolicyWidget extends StatelessWidget {
           ShimmerLoadingWidget(width: size.width * 0.95),
           ShimmerLoadingWidget(width: size.width * 0.95),
           ShimmerLoadingWidget(width: size.width * 0.95),
-
-          // Container(
-          //   height: 20,
-          //   width: double.infinity,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          //   color: Colors.grey[300],
-          // ),
-          // Container(
-          //   height: 20,
-          //   width: double.infinity,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          //   color: Colors.grey[300],
-          // ),
-          // Container(
-          //   height: 20,
-          //   width: double.infinity,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          //   color: Colors.grey[300],
-          // ),
-          // Container(
-          //   height: 20,
-          //   width: double.infinity,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          //   color: Colors.grey[300],
-          // ),
         ],
       ),
     );

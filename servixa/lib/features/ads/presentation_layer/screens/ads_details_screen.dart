@@ -78,14 +78,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
     super.initState();
   }
 
-  // final Completer<GoogleMapController> _controller =
-  //     Completer<GoogleMapController>();
-
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   // target: LatLng(37.42796133580664, -122.085749655962),
-  //   target: LatLng(33.5138, 36.2765),
-  //   zoom: 14.4746,
-  // );
 
   @override
   Widget build(BuildContext context) {
@@ -302,110 +294,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                           ),
                         ),
 
-                        // Obx((){
-                        //   return               Text(
-                        //                 ads.dictation ?? "",
-                        //                 overflow: showMore
-                        //                     ? TextOverflow.visible
-                        //                     : TextOverflow.ellipsis,
-                        //                 maxLines: showMore ? null : 6,
-                        //               );
-                        //               TextButton(onPressed: (){
-                        //                 showMore = !showMore;
-                        //               }, child: Text("More"));
-
-                        // })
-                        // Obx(() {
-                        //   final bool showMore = adsController.showMore.value;
-                        //   final String description = ads.dictation ?? "";
-
-                        //   return Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       Text(
-                        //         description,
-                        //         style: TypographyApp.Body_mid_Regular,
-                        //         overflow: showMore
-                        //             ? TextOverflow.visible
-                        //             : TextOverflow.ellipsis,
-                        //         maxLines: showMore
-                        //             ? null
-                        //             : 3, // بدل 6 عشان نظهر الـ More أسرع
-                        //       ),
-
-                        //       // ✅ إظهار زر More فقط إذا كان النص طويل
-                        //       if (description.length > 100) // تقدير بسيط
-                        //         TextButton(
-                        //           onPressed: () {
-                        //             // adsController.toggleShowMore();
-                        //             adsController.showMore.value =
-                        //                 !adsController.showMore.value;
-                        //           },
-                        //           style: TextButton.styleFrom(
-                        //             padding: EdgeInsets.zero,
-                        //             minimumSize: const Size(50, 30),
-                        //             alignment: Alignment.centerLeft,
-                        //           ),
-                        //           child: Text(
-                        //             showMore ? "Less" : "More",
-                        //             style: TextStyle(
-                        //               color: ThemeApp.Foundation_Main_main_500,
-                        //               fontWeight: FontWeight.w600,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //     ],
-                        //   );
-                        // }),
-                        // Obx(() {
-                        //   final bool showMore = adsController.showMore.value;
-                        //   final String description = ads.dictation ?? "";
-
-                        //   return RichText(
-                        //     maxLines: showMore ? null : 3,
-                        //     overflow: showMore
-                        //         ? TextOverflow.visible
-                        //         : TextOverflow.ellipsis,
-                        //     text: TextSpan(
-                        //       // style: typographyApp,
-                        //       children: [
-                        //         TextSpan(
-                        //           text: description,
-                        //           style: TextStyle(
-                        //             color:
-                        //                 // colorFirstText ??
-                        //                 ThemeApp.Foundation_Secendary_grey_700,
-                        //           ),
-                        //         ),
-                        //         WidgetSpan(
-                        //           child: TextButton(
-                        //             onPressed: () {},
-                        //             child: Text(
-                        //               showMore ? "Less" : "More",
-                        //               style: TextStyle(
-                        //                 color: ThemeApp.Foundation_Main_main_500,
-                        //                 fontWeight: FontWeight.w600,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         // TextSpan(
-                        //         //   text: showMore ? "Less" : "More",
-                        //         //   style: TextStyle(
-                        //         //     color: ThemeApp.Foundation_Main_main_500,
-                        //         //     fontWeight: FontWeight.w600,
-                        //         //   ),
-                        //         //   // style: TextStyle(
-                        //         //   //   color:
-                        //         //   //       colorSecondText ??
-                        //         //   //       ThemeApp.Foundation_Main_main_500,
-                        //         //   // ),
-                        //         // ),
-
-                        //       ],
-                        //     ),
-                        //   );
-                        // }),
                         ReadMoreText(
                           ads.dictation!,
                           // "Specialize in delivering high-quality construction solutions tailored to meet the unique needs of residential, commercial, and industrial clients. With years of experience, a skilled team of engineers and builders, and a strong commitment to safety and excellence,",
@@ -435,66 +323,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                       ],
                     ),
                   ),
-
-                  // RichText(
-                  //   text: TextSpan(
-                  //     style: TextStyle(color: Colors.black, fontSize: 16),
-                  //     children: <InlineSpan>[
-                  //       // Use <InlineSpan> instead of <TextSpan>
-                  //       TextSpan(text: 'Please agree to the '),
-                  //       WidgetSpan(
-                  //         child: Padding(
-                  //           padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  //           child: TextButton(
-                  //             onPressed: () {
-                  //               // Handle button press, e.g., navigate to Terms screen
-                  //               print('Terms of Service pressed!');
-                  //             },
-                  //             child: Text(
-                  //               'Terms of Service',
-                  //               style: TextStyle(
-                  //                 color: Colors.blue,
-                  //                 decoration: TextDecoration.underline,
-                  //               ),
-                  //             ),
-                  //             style: TextButton.styleFrom(
-                  //               // Optional: adjust padding and alignment to fit inline
-                  //               minimumSize: Size.zero,
-                  //               padding: EdgeInsets.zero,
-                  //               alignment: Alignment.centerLeft,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-
-                  //       // TextSpan(text: ' and the '),
-                  //       // WidgetSpan(
-                  //       //   child: Padding(
-                  //       //     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  //       //     child: TextButton(
-                  //       //       onPressed: () {
-                  //       //         // Handle button press, e.g., navigate to Policy screen
-                  //       //         print('Privacy Policy pressed!');
-                  //       //       },
-                  //       //       child: Text(
-                  //       //         'Privacy Policy',
-                  //       //         style: TextStyle(
-                  //       //           color: Colors.blue,
-                  //       //           decoration: TextDecoration.underline,
-                  //       //         ),
-                  //       //       ),
-                  //       //       style: TextButton.styleFrom(
-                  //       //         minimumSize: Size.zero,
-                  //       //         padding: EdgeInsets.zero,
-                  //       //         alignment: Alignment.centerLeft,
-                  //       //       ),
-                  //       //     ),
-                  //       //   ),
-                  //       // ),
-                  //       // TextSpan(text: '.'),
-                  //     ],
-                  //   ),
-                  // ),
                   const SpaceBetweenSectionWidget(),
                   if (ads.categoryQuestionAnswer != null &&
                       ads.categoryQuestionAnswer!.isNotEmpty)
@@ -605,13 +433,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                     Get.to(SuperAdsScreen());
                   },
                   onPressedButtonElevetedBorder: () {
-                    //   // businessAccountController.getBusinessAccountApproved();
-                    //   // Get.bottomSheet(
-                    //   //   isDismissible: true,
-                    //   //   enableDrag: true,
-                    //   //   isScrollControlled: true,
-                    //   //   BottomSheetAddOrderWidget(adId: ads.id),
-                    //   // );
                     //   adsController.deleteAd(ads.id, () {
                     //     Get.back();
                     //     AppSnackbar.showSuccess("Ad removed successfully");
@@ -629,81 +450,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   },
                 );
               })
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: OutlinedButton(
-            //         style: OutlinedButton.styleFrom(
-            //           side: BorderSide(
-            //             color: ThemeApp.Foundation_Main_main_500,
-            //           ),
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(16),
-            //           ),
-            //         ),
-            //         onPressed: () {
-            //           addAdsController.initialFailedEditAd(ads);
-            //           Get.to(SuperAdsScreen());
-            //         },
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             SvgPicture.asset(
-            //               IconApp.messages,
-            //               width: 20,
-            //               height: 20,
-            //               color: ThemeApp.Foundation_Main_main_500,
-            //             ),
-            //             Text(
-            //               "Edit",
-            //               style: TypographyApp.Body_mid_Mid.copyWith(
-            //                 color: ThemeApp.Foundation_Main_main_500,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //     const SizedBox(width: 10),
-            //     Expanded(
-            //       child: ElevatedButton(
-            //         style: ElevatedButton.styleFrom(
-            //           backgroundColor: ThemeApp.Foundation_Main_main_500,
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(16),
-            //           ),
-            //         ),
-            //         onPressed: () {
-            //           businessAccountController
-            //               .getBusinessAccountApproved();
-            //           Get.bottomSheet(
-            //             isDismissible: true,
-            //             enableDrag: true,
-            //             isScrollControlled: true,
-            //             BottomSheetAddOrderWidget(adId: ads.id),
-            //           );
-            //         },
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             SvgPicture.asset(
-            //               IconApp.badgePercent,
-            //               width: 20,
-            //               height: 20,
-            //               color: ThemeApp.Foundation_Main_yellow_50,
-            //             ),
-            //             Text(
-            //               " Make An Offer",
-            //               style: TypographyApp.Body_mid_Mid.copyWith(
-            //                 color: ThemeApp.Foundation_Main_yellow_50,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             : DetailsBottomNavigationBarWidget(
                 textButtonOutBorder: "Chat",
                 iconButtonOutBorder: IconApp.messages,
@@ -752,122 +498,10 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                   }
                 },
               ),
-
-        //  Row(
-        //   children: [
-        //     Expanded(
-        //       child: OutlinedButton(
-        //         style: OutlinedButton.styleFrom(
-        //           side: BorderSide(
-        //             color: ThemeApp.Foundation_Main_main_500,
-        //           ),
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(16),
-        //           ),
-        //         ),
-        //         onPressed: () {
-        //           Get.bottomSheet(
-        //             isDismissible: true,
-        //             enableDrag: true,
-        //             BottomSheetReviewWidget(adId: ads.id),
-        //           );
-        //         },
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           children: [
-        //             SvgPicture.asset(
-        //               IconApp.messages,
-        //               width: 20,
-        //               height: 20,
-        //               color: ThemeApp.Foundation_Main_main_500,
-        //             ),
-        //             Text(
-        //               "Chat",
-        //               style: TypographyApp.Body_mid_Mid.copyWith(
-        //                 color: ThemeApp.Foundation_Main_main_500,
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     const SizedBox(width: 10),
-        //     Expanded(
-        //       child: ElevatedButton(
-        //         style: ElevatedButton.styleFrom(
-        //           backgroundColor: ThemeApp.Foundation_Main_main_500,
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(16),
-        //           ),
-        //         ),
-        //         onPressed: () {
-        //           businessAccountController
-        //               .getBusinessAccountApproved();
-        //           Get.bottomSheet(
-        //             isDismissible: true,
-        //             enableDrag: true,
-        //             isScrollControlled: true,
-        //             BottomSheetAddOrderWidget(adId: ads.id),
-        //           );
-        //         },
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           children: [
-        //             SvgPicture.asset(
-        //               IconApp.badgePercent,
-        //               width: 20,
-        //               height: 20,
-        //               color: ThemeApp.Foundation_Main_yellow_50,
-        //             ),
-
-        //             Text(
-        //               " Make An Offer",
-        //               style: TypographyApp.Body_mid_Mid.copyWith(
-        //                 color: ThemeApp.Foundation_Main_yellow_50,
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-
-        // );
       );
     });
   }
 
-  // Future<void> _shareAds() async {
-  //   try {
-  //     final ads = adsController.adsDetails.value!;
-
-  //     String shareContent =
-  //         '''
-  // 🏠 *Share ad from Servixa*
-  // ═══════════════════════
-
-  // 📌 *${ads.title}*
-  // 💰 *Price:* ${ads.price} ${ads.typeCoin}
-  // 📍 *Location:* 742 Evergreen Terrace, Springfield
-  // 📋 *Type:* ${ads.typeService}
-
-  // 📝 *Description:* ${ads.dictation?.substring(0, ads.dictation!.length > 100 ? 100 : ads.dictation!.length)}${ads.dictation != null && ads.dictation!.length > 100 ? '...' : ''}
-
-  // ⭐ *Rate:* 4.0/5
-  // ═══════════════════════
-  // For more details:
-  // 📱 Download the Servixa app''';
-
-  //     await SharePlus.instance.share(
-  //       ShareParams(text: shareContent, subject: 'Share ads: ${ads.title}'),
-  //     );
-
-  //     log("Share Done");
-  //   } catch (e) {
-  //     log("Error in share: $e");
-  //   }
-  // }
   Future<void> _shareAds() async {
     try {
       String currentLang =
@@ -878,7 +512,6 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
           "en";
       final ads = adsController.adsDetails.value!;
 
-      // 1. تجهيز نص المشاركة
       String shareContent = currentLang == "ar"
           ? '''
 🏠 *شارك إعلانًا من Servixa*
@@ -928,14 +561,12 @@ https://play.google.com/store/apps/details?id=com.servixa''';
         final dio = Dio();
         await dio.download(imageUrl, savePath);
 
-        // مشاركة الصورة المحفوظة والنص معاً
         await Share.shareXFiles(
           [XFile(savePath)],
           text: shareContent,
           subject: 'Share ad: ${ads.title}',
         );
       } else {
-        // إذا لم يكن هناك صورة، شارك النص فقط
         await Share.share(shareContent, subject: 'Share ad: ${ads.title}');
       }
 
@@ -946,5 +577,4 @@ https://play.google.com/store/apps/details?id=com.servixa''';
     }
   }
 
-  // }
 }

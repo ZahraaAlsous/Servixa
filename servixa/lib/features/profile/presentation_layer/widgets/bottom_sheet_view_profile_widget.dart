@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:servixa/common/widgets/profile_image_widget.dart';
 import 'package:servixa/core/const/icon_app.dart';
-import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/auth/business_later/auth_controller.dart';
@@ -62,17 +61,6 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                             color: ThemeApp.Foundation_Secendary_grey_300,
                           ),
                         ),
-
-                        // OutlinedButton(
-                        //   onPressed: () {
-                        //     log("******************************Click on Create Business Account");
-                        //      Get.to(() => CreateBusinessAccountScreen());
-                        //   },
-                        //   child: Text(
-                        //     "Create Business Account",
-                        //     style: TypographyApp.Label_Mid_Regular,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -120,16 +108,6 @@ class BottomSheetViewProfileWidget extends StatelessWidget {
                   " " +
                   authController.currentUser.value!.lastName,
             ),
-            // edit
-            // icon
-            // _buildListTile("City :", IconApp.city, "Newyork , USA"),
-            // edit
-            // icon
-            // _buildListTile(
-            //   "Address :",
-            //   IconApp.person,
-            //   "Building 15 , Sreet gold 12",
-            // ),
             const Divider(
               thickness: 8,
               color: ThemeApp.Foundation_Secendary_grey_50,

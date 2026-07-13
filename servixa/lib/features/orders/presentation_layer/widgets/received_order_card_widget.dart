@@ -83,14 +83,7 @@ class ReceivedOrderCardWidget extends StatelessWidget {
                 ),
               );
             }
-            // if (order.status == "cancelled") {
-            //   return Text(
-            //     "You have cancelled this request.",
-            //     style: TypographyApp.Title_Mid_Mid.copyWith(
-            //       color: ThemeApp.Foundation_Main_main_500,
-            //     ),
-            //   );
-            // }
+           
             return Row(
               children: [
                 Expanded(

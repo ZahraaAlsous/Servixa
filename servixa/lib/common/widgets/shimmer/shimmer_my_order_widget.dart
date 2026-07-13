@@ -9,8 +9,6 @@ class ShimmerMyOrderCardList extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ListView.builder(
-      // shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
       itemCount: itemCount,
       itemBuilder: (context, index) {
         return Align(
@@ -27,7 +25,6 @@ class ShimmerMyOrderCardList extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // أسطر الـ ListTileOrderWidget الثلاثة (Service, Date, Status)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,7 +49,6 @@ class ShimmerMyOrderCardList extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // جزء التفاصيل (Detail)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,7 +58,6 @@ class ShimmerMyOrderCardList extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Divider(thickness: 2, color: Colors.transparent),
-                // محاكاة زر الإلغاء السفلي (Decline) بنفس الأبعاد
                 Center(
                   child: ShimmerLoadingWidget(
                     width: size.width * 0.739,

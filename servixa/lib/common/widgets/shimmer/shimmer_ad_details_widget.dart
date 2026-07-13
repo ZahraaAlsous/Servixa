@@ -13,7 +13,6 @@ class ShimmerAdDetailsWidget extends StatelessWidget {
     return Scaffold(
       body: ListView(
         padding: EdgeInsetsGeometry.symmetric(
-          // horizontal: size.width * DimensApp.spaceHorizontalScreen,
           horizontal: size.width * DimensApp.spaceHorizontalScreen,
           vertical: 5,
         ),
@@ -21,7 +20,6 @@ class ShimmerAdDetailsWidget extends StatelessWidget {
           ShimmerLoadingWidget(width: double.infinity, height: 325),
           const SizedBox(height: 10),
           Container(
-            // margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
@@ -41,17 +39,6 @@ class ShimmerAdDetailsWidget extends StatelessWidget {
           ShimmerRateSection(),
           const SizedBox(height: 12),
           ShimmerReviewSection(),
-          // ShimmerRateWidget(),
-          // ShimmerLoadingWidget(
-          //   width: double.infinity,
-          //   height: 100,
-          //   margin: EdgeInsetsGeometry.symmetric(vertical: 10),
-          // ),
-          // ShimmerLoadingWidget(
-          //   width: double.infinity,
-          //   height: 100,
-          //   margin: EdgeInsetsGeometry.symmetric(vertical: 10),
-          // ),
         ],
       ),
     );

@@ -310,9 +310,7 @@ class AddAdsController extends GetxController {
     //     : null;
     // oldSupCategoryId = ad.category!.parentId != null ? ad.category!.id : null;
 
-    // ✅ أولاً: حاول استعادة التصنيف من ad.category
     if (ad.category != null) {
-      // التصنيف موجود (تصنيف فرعي عادة)
       oldCategoryId = ad.category!.parentId != null
           ? ad.category!.parentId
           : ad.category!.id;
@@ -330,34 +328,27 @@ class AddAdsController extends GetxController {
         oldSupCategoryId = null;
       }
     } else {
-      // ✅ ad.category == null (تصنيف رئيسي أو API لم يرسل category)
-      log("⚠️ ad.category is null, using stored or inferred values");
+      log(" ad.category is null, using stored or inferred values");
 
-      // ✅ استخدم القيم المخزنة من previous edit أو من ad.categoryId
       if (selectedCategoryAdsId.value != null) {
-        // القيم موجودة من قبل
         oldCategoryId = selectedCategoryAdsId.value;
-        // لا تغير selectedCategoryAdsId لأنه موجود
         log(
-          "✅ Using stored selectedCategoryAdsId: ${selectedCategoryAdsId.value}",
+          " Using stored selectedCategoryAdsId: ${selectedCategoryAdsId.value}",
         );
       } else if (ad.category_id != null) {
-        // ✅ استخدم category_id من الـ Response
         oldCategoryId = ad.category_id;
         selectedCategoryAdsId.value = ad.category_id;
-        log("✅ Using ad.categoryId: ${ad.category_id}");
+        log("Using ad.categoryId: ${ad.category_id}");
       } else {
-        // ❌ لا يمكن تحديد التصنيف
-        log("❌ Cannot determine category for ad ${ad.id}");
+        log("Cannot determine category for ad ${ad.id}");
         Get.snackbar("Error", "Cannot load category data");
         return;
       }
 
-      // ✅ إذا كان هناك تصنيف فرعي مخزن، احتفظ به
       if (selectedSubCategoryAdsId.value != null) {
         oldSupCategoryId = selectedSubCategoryAdsId.value;
         log(
-          "✅ Keeping stored selectedSubCategoryAdsId: ${selectedSubCategoryAdsId.value}",
+          "Keeping stored selectedSubCategoryAdsId: ${selectedSubCategoryAdsId.value}",
         );
       }
     }
@@ -381,24 +372,7 @@ class AddAdsController extends GetxController {
       _updateAddressFromLatLng(position);
     }
 
-    // final int categoryIdForQuestions =
-    //     selectedSubCategoryAdsId.value ?? selectedCategoryAdsId.value!;
-    // log(" Loading questions for category: $categoryIdForQuestions");
-
-    // await categoryController.getCategoryQuestions(categoryIdForQuestions);
-    // if (selectedSubCategoryAdsId.value != null) {
-    //   await categoryController.getCategoryQuestions(
-    //     selectedCategoryAdsId.value!,
-    //     false,
-    //   );
-    // }
-    // await categoryController.getCategoryQuestions(
-    //   selectedSubCategoryAdsId.value!,
-    //   true,
-    // );
-    // --- التعديل هنا لتجنب الكراش ولجلب الأسئلة بالترتيب الصحيح ---
     if (selectedSubCategoryAdsId.value != null) {
-      // جلب أسئلة الرئيسي ثم الفرعي
       await categoryController.getCategoryQuestions(
         selectedCategoryAdsId.value!,
         false,
@@ -408,13 +382,11 @@ class AddAdsController extends GetxController {
         true,
       );
     } else if (selectedCategoryAdsId.value != null) {
-      // جلب أسئلة الرئيسي فقط
       await categoryController.getCategoryQuestions(
         selectedCategoryAdsId.value!,
         false,
       );
     }
-    // -------------------------------------------------------------
     await _initializeDynamicQuestions(ad);
     log("*************************************initialize ad done");
   }
@@ -430,7 +402,6 @@ class AddAdsController extends GetxController {
       log("####################################NotNull");
 
       finalAnswers.clear();
-      // checkboxStates.clear();
 
       for (var answer in ad.categoryQuestionAnswer!) {
         final questionId = answer.question.id;
@@ -462,9 +433,6 @@ class AddAdsController extends GetxController {
             log(
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ cleanedValue $cleanedValue",
             );
-
-            // finalAnswers["custom_fields[$questionId]"] = cleanedValue;
-
             List<String> parsedOptions = cleanedValue.isEmpty
                 ? []
                 : cleanedValue.split(',').map((e) => e.trim()).toList();
@@ -481,18 +449,11 @@ class AddAdsController extends GetxController {
               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ checkBoxAnswer ${checkBoxAnswer[questionId]}",
             );
           }
-        }
-        //  else if (question.type == "radio") {
-        //   String selectedValue = answer.value.toString();
-        //   finalAnswers["custom_fields[$questionId]"] = selectedValue;
-        // }
-        else if (question.type == "radio") {
+        } else if (question.type == "radio") {
           String selectedValue = answer.value.toString();
 
           finalAnswers["custom_fields[$questionId]"] = selectedValue;
-          // --- التعديل هنا: إضافة القيمة إلى المتغير التفاعلي الخاص بالراديو ---
           radioAnswer[questionId] = selectedValue;
-          // ------------------------------------------------------------------
         } else if (question.type == "text") {
           String textValue = answer.value.toString();
 
@@ -531,12 +492,6 @@ class AddAdsController extends GetxController {
       currentAddress.value = "Unknown Location";
     }
   }
-
-  // void removeExistingSubImageAt(int index) {
-  // if (index >= 0 && index < existingSubImagesUrls.length) {
-  //   existingSubImagesUrls.removeAt(index);
-  // }
-  // }
 
   Future<void> updateAd(
     int adId,
@@ -636,58 +591,6 @@ class AddAdsController extends GetxController {
     return result;
   }
 
-  // Map<String, dynamic> getFinalAnswersForSubmit() {
-  //   final Map<String, dynamic> result = {};
-
-  //   result.addAll(finalAnswers);
-
-  //   for (var key in oldAnswers.keys) {
-  //     result[key] = "";
-  //     log("##################### ${oldAnswers.keys}");
-  //   }
-
-  //   return result;
-  // }
-
-  // void reFreshListAfterUpdateAd(int adId) {
-  //   final indexPending = adsController.pendingMyAdList.indexWhere(
-  //     (item) => item.id == adId,
-  //   );
-  //   final indexAccept = adsController.acceptedMyAdList.indexWhere(
-  //     (item) => item.id == adId,
-  //   );
-  //   final indexReject = adsController.rejectedMyAdList.indexWhere(
-  //     (item) => item.id == adId,
-  //   );
-  //   final indexMyAd = adsController.myAdsList.indexWhere(
-  //     (item) => item.id == adId,
-  //   );
-
-  //   if (indexPending != -1) {
-  //     adsController.pendingMyAdList[indexPending] =
-  //         adsController.adsDetails.value!;
-  //   }
-  //   if (indexAccept != -1) {
-  //     adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
-  //     adsController.adsList.removeWhere((item) => item.id == adId);
-
-  //     adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
-  //   }
-
-  //   if (indexReject != -1) {
-  //     adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
-  //     adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
-  //   }
-  //   if (indexMyAd != -1) {
-  //     adsController.pendingMyAdList[indexPending] =
-  //         adsController.adsDetails.value!;
-  //   }
-  //   adsController.pendingMyAdList.refresh();
-  //   adsController.acceptedMyAdList.refresh();
-  //   adsController.adsList.refresh();
-  //   adsController.rejectedMyAdList.refresh();
-  //   adsController.myAdsList.refresh();
-  // }
   void reFreshListAfterUpdateAd(int adId) {
     final indexPending = adsController.pendingMyAdList.indexWhere(
       (item) => item.id == adId,
@@ -711,19 +614,11 @@ class AddAdsController extends GetxController {
     }
 
     if (indexAccept != -1) {
-      // adsController.acceptedMyAdList.removeWhere((item) => item.id == adId);
-
-      // adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
-      // adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
       adsController.acceptedMyAdList[indexAccept] =
           adsController.adsDetails.value!;
     }
 
     if (indexReject != -1) {
-      //   adsController.rejectedMyAdList.removeWhere((item) => item.id == adId);
-
-      //   adsController.pendingMyAdList.removeWhere((item) => item.id == adId);
-      //   adsController.pendingMyAdList.insert(0, adsController.adsDetails.value!);
       adsController.rejectedMyAdList[indexReject] =
           adsController.adsDetails.value!;
     }
@@ -762,23 +657,12 @@ class AddAdsController extends GetxController {
 
       if (isDeleted) {
         log("================= Controller: delete image OK");
-        // removeExistingSubImageAt();
-        // if (isNetworkImage) {
         existingSubImages.removeAt(localIndex);
-        // existingSubImagesUrls.removeAt(localIndex);
-        // existingSubImagesIds.removeAt(localIndex);
         if (adsController.adsDetails.value != null) {
           adsController.adsDetails.value!.images.removeAt(localIndex);
           adsController.adsDetails.refresh();
         }
         log("Existing sub image removed from local list");
-        // }
-        // else {
-        //   listSelectedSubImage.removeAt(localIndex);
-        //   log(" New sub image removed from local list");
-        // }
-
-        // existingSubImagesUrls.refresh();
         existingSubImages.refresh();
         listSelectedSubImage.refresh();
       }

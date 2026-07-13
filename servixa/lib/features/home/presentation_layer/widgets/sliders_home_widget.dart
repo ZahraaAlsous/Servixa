@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:servixa/common/widgets/internet_connection_error_widget.dart';
-import 'package:servixa/common/widgets/loading_animation_widget.dart';
 import 'package:servixa/common/widgets/shimmer/shimmer_loading_widget.dart';
 import 'package:servixa/core/const/image_app.dart';
 import 'package:servixa/core/const/theme_app.dart';
@@ -77,45 +76,9 @@ class SlidersHomeWidget extends StatelessWidget {
                 Uri.parse(homeController.sliders[itemIndex].url),
               ),
               child:
-                  // Container(
-                  //   width: size.width * 0.913,
-                  //   height: 145,
-                  //   decoration: BoxDecoration(
-                  //     color: ThemeApp.Foundation_Main_main_50,
-                  //     borderRadius: BorderRadius.circular(12),
-                  //     // image: DecorationImage(
-                  //     //   // image: AssetImage(carouselImages[itemIndex]),
-                  //     //   image: NetworkImage(
-                  //     //     homeController.sliders[itemIndex].imageUrl.toString(),
-                  //     //   ),
-                  //     //   fit: BoxFit.cover,
-                  //     // ),
-                  //   ),
-                  //   child:
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child:
-                        // FadeInImage(
-                        //   placeholder: AssetImage(ImageApp.placeholder),
-                        //   image: NetworkImage(
-                        //     homeController.sliders[itemIndex].imageUrl.toString(),
-                        //   ),
-                        //   fit: BoxFit.cover,
-                        //   width: size.width * 0.913,
-                        //   height: 145,
-                        //   imageErrorBuilder: (context, error, stackTrace) {
-                        //     return Container(
-                        //       width: size.width * 0.913,
-                        //       height: 145,
-                        //       color: ThemeApp.Foundation_Secendary_grey_100,
-                        //       child: const Icon(
-                        //         Icons.broken_image,
-                        //         size: 30,
-                        //         color: Colors.grey,
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
                         CachedNetworkImage(
                           placeholder: (context, url) => Image(
                             image: AssetImage(ImageApp.placeholder),

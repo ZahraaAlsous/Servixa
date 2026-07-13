@@ -29,7 +29,7 @@ class ShimmerReviewSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 width: 1,
-                color: Colors.grey[200]!, // محاكاة حدود الكرت الأصلي التجميلية
+                color: Colors.grey[200]!, 
               ),
             ),
             child: Column(
@@ -37,16 +37,14 @@ class ShimmerReviewSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    // الصورة الشخصية للمستخدم (ClipRRect / FadeInImage)
                     ShimmerLoadingWidget(
                       width: widthScreen * 0.109,
                       height: 48.6,
                       borderRadius: BorderRadius.circular(
                         100,
-                      ), // دائرية بالكامل للحساب الشخصي
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    // عمود يحتوي على الاسم وتاريخ التعليق
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -62,14 +60,12 @@ class ShimmerReviewSection extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    // الجزء الأيمن العلوي: رقم التقييم وشعار النجمة الخاص به
                     const ShimmerLoadingWidget(width: 20, height: 12),
                     const SizedBox(width: 4),
                     const ShimmerLoadingWidget(width: 16, height: 15),
                   ],
                 ),
                 const SizedBox(height: 10),
-                // محاكاة نص التعليق (السطر الأول كامل والسطر الثاني أقصر)
                 ShimmerLoadingWidget(width: widthScreen * 0.8, height: 12),
                 const SizedBox(height: 6),
                 ShimmerLoadingWidget(width: widthScreen * 0.5, height: 12),

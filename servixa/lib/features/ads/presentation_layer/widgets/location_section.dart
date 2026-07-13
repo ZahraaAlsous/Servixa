@@ -124,18 +124,6 @@ class LocationSection extends StatelessWidget {
                       top: Radius.circular(12),
                     ),
                     child:
-                        // GoogleMap(
-                        //   initialCameraPosition: _kGooglePlex,
-                        //   onMapCreated: (GoogleMapController controller) {
-                        //     _controller.complete(controller);
-                        //   },
-                        //   markers: {
-                        //     Marker(
-                        //       markerId: const MarkerId('adsLocation'),
-                        //       position: LatLng(ads.lat!, ads.lng!),
-                        //     ),
-                        //   },
-                        // ),
                         GoogleMap(
                           initialCameraPosition: _kGooglePlex,
                           onMapCreated: (GoogleMapController controller) {
@@ -180,20 +168,6 @@ class LocationSection extends StatelessWidget {
                           );
                         },
                         child:
-                            //  CircleAvatar(
-                            //   // radius: size.width * 0.100,
-                            //   radius: widthScreen * 0.100,
-                            //   // radius: 36,
-                            //   // edit
-                            //   // الصورة ما عم تطلع
-                            //   backgroundImage: AssetImage(ImageApp.profileImage),
-                            //   // backgroundImage: selectedImage != null
-                            //   //     ? FileImage(selectedImage!)
-                            //   //     : (user.img!.isNotEmpty ? NetworkImage(user.img!) : null),
-                            //   // child: user.img!.isEmpty && selectedImage == null
-                            //   //     ? const Icon(Icons.person, size: 60)
-                            //   //     : null,
-                            // ),
                             ClipRRect(
                               borderRadius: BorderRadiusGeometry.circular(50),
                               child: ads.user.image == null
@@ -204,28 +178,6 @@ class LocationSection extends StatelessWidget {
                                       height: 53,
                                     )
                                   :
-                                    // FadeInImage(
-                                    //   width: 53,
-                                    //   height: 53,
-                                    //   fit: BoxFit.cover,
-                                    //   placeholder: AssetImage(ImageApp.placeholder),
-                                    //   image: ads.user.image == null
-                                    //       ? AssetImage(ImageApp.profileImage)
-                                    //       : NetworkImage(ads.user.image!),
-                                    //   imageErrorBuilder:
-                                    //       (context, error, stackTrace) {
-                                    //         return CircleAvatar(
-                                    //           radius: 37,
-                                    //           backgroundColor: ThemeApp
-                                    //               .Foundation_Secendary_grey_100,
-                                    //           child: const Icon(
-                                    //             Icons.broken_image,
-                                    //             size: 30,
-                                    //             color: Colors.grey,
-                                    //           ),
-                                    //         );
-                                    //       },
-                                    // ),
                                     CachedNetworkImage(
                                       imageUrl: ads.user.image!,
                                       placeholder: (context, url) =>

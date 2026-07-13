@@ -78,7 +78,7 @@ class AppDialogs {
         ],
       ),
       barrierDismissible:
-          false, // يمنع إغلاق الدايلوج بالضغط خارجه بالخطأ لتأكيد القرار
+          false,
     );
   }
 }

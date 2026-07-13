@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:servixa/core/utils/validators.dart';
 
 class AppTextAreaWidget extends StatelessWidget {
   String hintText;
@@ -16,12 +15,12 @@ class AppTextAreaWidget extends StatelessWidget {
   AppTextAreaWidget({
     super.key,
     required this.hintText,
-     this.prefixIcon,
-     this.controller,
+    this.prefixIcon,
+    this.controller,
     this.textInputAction,
     this.onChange,
     required this.validate,
-    this.initialValue
+    this.initialValue,
   });
 
   @override
@@ -60,40 +59,25 @@ class AppTextAreaWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(width: 1, color: Colors.red),
         ),
-        
-
-        // prefixIcon: Column(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(vertical: 15),
-        //       child: SvgPicture.asset(
-        //         // IconApp.details,
-        //         prefixIcon,
-        //         width: 20,
-        //         height: 20,
-        //         color: ThemeApp.Foundation_Main_main_500,
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        prefixIcon: prefixIcon != null ? SizedBox(
-          height: 140,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 15,
-                left: 10,
-                child: SvgPicture.asset(
-                  prefixIcon!,
-                  width: 20,
-                  height: 20,
-                  color: ThemeApp.Foundation_Main_main_500,
+        prefixIcon: prefixIcon != null
+            ? SizedBox(
+                height: 140,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 15,
+                      left: 10,
+                      child: SvgPicture.asset(
+                        prefixIcon!,
+                        width: 20,
+                        height: 20,
+                        color: ThemeApp.Foundation_Main_main_500,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ): null,
+              )
+            : null,
 
         prefixIconConstraints: const BoxConstraints(minWidth: 40, maxWidth: 40),
       ),

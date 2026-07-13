@@ -92,22 +92,7 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
                   ),
                   itemCount: adsController.adsCategory.length,
                   itemBuilder: (context, indexAds) {
-                    return 
-                    // AppCardAdsWidget(
-                    //   ads: adsController.adsCategory[indexAds],
-                    //   widthCard: 0.431,
-                    //   isGridView: crossAxisCount.value == 2,
-                    //   isSearchCard: true,
-                    //   onTap: () {
-                    //     Get.to(
-                    //       () => AdsDetailsScreen(
-                    //         adsId: adsController.adsCategory[indexAds].id,
-                    //       ),
-                    //     );
-                    //   },
-                    // );
-                  
-                     OpenContainer(
+                    return OpenContainer(
                       transitionType: ContainerTransitionType.fadeThrough,
                       closedShape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
@@ -116,27 +101,26 @@ class _AllAdsOfCategoryScreenState extends State<AllAdsOfCategoryScreen> {
 
                       closedBuilder: (context, action) {
                         return AppCardAdsWidget(
-                      ads: adsController.adsCategory[indexAds],
-                      widthCard: 0.431,
-                      isGridView: crossAxisCount.value == 2,
-                      isSearchCard: true,
-                      // onTap: () {
-                      //   Get.to(
-                      //     () => AdsDetailsScreen(
-                      //       adsId: adsController.adsCategory[indexAds].id,
-                      //     ),
-                      //   );
-                      // },
-                    );
-                  
+                          ads: adsController.adsCategory[indexAds],
+                          widthCard: 0.431,
+                          isGridView: crossAxisCount.value == 2,
+                          isSearchCard: true,
+                          // onTap: () {
+                          //   Get.to(
+                          //     () => AdsDetailsScreen(
+                          //       adsId: adsController.adsCategory[indexAds].id,
+                          //     ),
+                          //   );
+                          // },
+                        );
                       },
 
                       openBuilder: (context, action) {
-                        return AdsDetailsScreen(adsId: adsController.adsCategory[indexAds].id,
+                        return AdsDetailsScreen(
+                          adsId: adsController.adsCategory[indexAds].id,
                         );
                       },
                     );
-            
                   },
                 ),
               );

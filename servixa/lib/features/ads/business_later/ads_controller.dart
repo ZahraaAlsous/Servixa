@@ -33,27 +33,7 @@ class AdsController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // int? adId = Get.arguments;
     getAds();
-    // if (adId != null) {
-    // //   log("///////id${adId}");
-    //   getAddDetailss(adId);
-    // //   //  getAdsDetails(adId);
-    // }
-
-    // ever(isLoading, (_) {
-    //   if (!isLoading.value && adsList.isEmpty) {
-    //     Future.delayed(Duration(seconds: 5), () {
-    //       if (adsList.isEmpty) {
-    //         log('⏰ مرت 3 ثوانٍ وما زالت قائمة الإعلانات فارغة');
-    //         log('🚀 إعادة محاولة تحميل الإعلانات...');
-    //         getAds();
-    //       } else {
-    //         log('✅ تم تحميل الإعلانات خلال فترة الانتظار');
-    //       }
-    //     });
-    //   }
-    // });
   }
 
   Future<void> getAds({int? categoryId}) async {
@@ -79,10 +59,6 @@ class AdsController extends GetxController {
     }
   }
 
-  // void getAdsDetails(int AdsId) {
-  //   adsDetails.value = adsList.firstWhere((item) => item.id == AdsId);
-  // }
-
   Future<void> getAddDetailss(
     int adId,
     // void Function() onSuccess,
@@ -107,75 +83,6 @@ class AdsController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  // Future<void> getMyAds(
-  //   void Function() onSuccess,
-  //   void Function(String e) onError,
-  // ) async {
-  //   try {
-  //     isLoadingMyAdd.value = true;
-  //     log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : My Ads IN");
-
-  //     List<AdsModel> myAds = await adService.getMyAds();
-  //     myAdsList.clear();
-  //     myAdsList.addAll(myAds);
-
-  //     log("==============================Controller : My Ads OK");
-  //   } catch (e) {
-  //     log("==============================Controller : My Ads ERROR");
-  //     log(
-  //       "==============================Controller THE ERROR IS: " +
-  //           e.toString(),
-  //     );
-  //     onError(e.toString());
-  //   } finally {
-  //     isLoadingMyAdd.value = false;
-  //   }
-  // }
-
-  // Future<void> getMyAds(
-  //   void Function() onSuccess,
-  //   void Function(String e) onError,
-  // ) async {
-  //   try {
-  //     int curenPage = 1;
-  //     List<AdsModel> adsPage = [];
-  //     List<AdsModel> allMyAd = [];
-  //     do {
-  //       log(
-  //         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Controller : My Ads Page $curenPage IN",
-  //       );
-  //       curenPage == 1
-  //           ? isLoadingMyAdd.value = true
-  //           : isLoadingMyAdd.value = false;
-
-  //       adsPage.clear();
-  //       adsPage = await adService.getMyAds(page: curenPage);
-  //       curenPage++;
-  //       allMyAd.addAll(adsPage);
-  //       log(
-  //         "==============================Controller : My Ads Page $curenPage OK",
-  //       );
-  //     } while (adsPage.length == 15);
-  //     myAdsList.clear();
-  //     myAdsList.addAll(allMyAd);
-  //     await acceptMyAds();
-  //     await pendingMyAds();
-  //     await rejectedMyAds();
-
-  //     log("==============================Controller : My Ads OK");
-  //   } catch (e) {
-  //     log("==============================Controller : My Ads ERROR");
-  //     log(
-  //       "==============================Controller THE ERROR IS: " +
-  //           e.toString(),
-  //     );
-  //     onError(e.toString());
-  //   } finally {
-  //     isLoadingMyAdd.value = false;
-  //   }
-  // }
-
   Future<void> deleteAd(
     int adId,
     void Function() onSuccess,

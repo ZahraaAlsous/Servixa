@@ -81,21 +81,6 @@ class ThirdStepBusinessAccountContactInformationScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          // Row(
-          //   children: [
-          //     SvgPicture.asset(
-          //       IconApp.place,
-          //       color: ThemeApp.Foundation_Main_main_500,
-          //     ),
-          //     // edit
-          //     Text(
-          //       "742 Evergreen Terrace, Springfield",
-          //       style: TypographyApp.Body_mid_Regular.copyWith(
-          //         color: ThemeApp.Foundation_Secendary_grey_300,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           Row(
             children: [
               SvgPicture.asset(

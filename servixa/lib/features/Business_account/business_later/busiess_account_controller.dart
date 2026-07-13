@@ -49,16 +49,7 @@ class BusinessAccountController extends GetxController {
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
   ];
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // getCities((e) {
-  //   AppSnackbar.showError(e);
-  // }); // getCategories();
-  //   // getUserTypes();
-  // }
-
+  
   Future<void> pickFile() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(

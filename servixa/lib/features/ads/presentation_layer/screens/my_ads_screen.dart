@@ -43,13 +43,6 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       // appBar: AppBarWidget(title: Text("My Ads"),),
       appBar: AppBarMyAdsWidget(toolbarHeight: 80),
       body: Obx(() {
-        // if (adsController.isLoadingMyAdd.value &&
-        //     ((adsController.isSelectedAcceptedMyAd.value &&
-        //             adsController.acceptedMyAdList.isEmpty) ||
-        //         (adsController.isSelectedPendingMyAd.value &&
-        //             adsController.pendingMyAdList.isEmpty) ||
-        //         (adsController.isSelectedRejectedMyAd.value &&
-        //             adsController.rejectedMyAdList.isEmpty))) {
         if (adsController.isLoadingMyAdd.value ||
             ((adsController.isSelectedAcceptedMyAd.value &&
                     adsController.acceptedMyAdList.isEmpty &&
@@ -67,15 +60,6 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
           // );
           return ShimmerCardGridView(widthCard: 0.34, shrinkWrap: false);
         }
-        // if ((adsController.isLoadingMyAdd.value && adsController.hasErrorLoadingMyAds.value) ||(adsController.isSelectedAcceptedMyAd.value &&
-        //         adsController.acceptedMyAdList.isEmpty &&
-        //         adsController.isLoadingMore.value) ||
-        //     (adsController.isSelectedPendingMyAd.value &&
-        //         adsController.pendingMyAdList.isEmpty &&
-        //         adsController.isLoadingMore.value) ||
-        //     (adsController.isSelectedRejectedMyAd.value &&
-        //         adsController.rejectedMyAdList.isEmpty &&
-        //         adsController.isLoadingMore.value)) {
         if (adsController.hasErrorLoadingMyAds.value ||
             (adsController.isSelectedAcceptedMyAd.value &&
                 adsController.acceptedMyAdList.isEmpty &&
