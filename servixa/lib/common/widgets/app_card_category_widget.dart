@@ -61,7 +61,6 @@ class AppCardCategoryWidget extends StatelessWidget {
             Text(
               categoryName,
               textAlign: TextAlign.center,
-              // note
               maxLines: 2,
               style:
                   typographyApp ??

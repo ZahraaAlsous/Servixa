@@ -187,9 +187,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
     required Size size,
   }) {
     return
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //   children: [
     AnimatedContainer(
       duration: Duration(seconds: 1),
       margin: EdgeInsetsGeometry.symmetric(horizontal: 1),
@@ -201,8 +198,6 @@ class _SuperAdsScreenState extends State<SuperAdsScreen> {
             ? ThemeApp.Foundation_Main_main_500
             : ThemeApp.Foundation_Secendary_grey_100,
       ),
-      //   ),
-      // ],
     );
   }
 

@@ -129,22 +129,7 @@ class AddMainImageWidget extends StatelessWidget {
                   ImageService.pickImage(controller.selectedMainImage),
             ),
           ),
-        ),
-        // Positioned(
-        //   top: 8,
-        //   left: 8,
-        //   child: Container(
-        //     decoration: const BoxDecoration(
-        //       color: ThemeApp.Foundation_Statue_Red,
-        //       shape: BoxShape.circle,
-        //     ),
-        //     child: IconButton(
-        //       icon: const Icon(Icons.delete, color: Colors.white, size: 20),
-        //       onPressed: () => controller.removeMainImage(),
-        //     ),
-        //   ),
-        // ),
-      
+        ),      
       ],
     );
   }
@@ -176,20 +161,6 @@ class AddMainImageWidget extends StatelessWidget {
             ),
           ),
         ),
-        // Positioned(
-        //   top: 8,
-        //   left: 8,
-        //   child: Container(
-        //     decoration: const BoxDecoration(
-        //       color: ThemeApp.Foundation_Statue_Red,
-        //       shape: BoxShape.circle,
-        //     ),
-        //     child: IconButton(
-        //       icon: const Icon(Icons.delete, color: Colors.white, size: 20),
-        //       onPressed: () => controller.removeMainImage(),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }

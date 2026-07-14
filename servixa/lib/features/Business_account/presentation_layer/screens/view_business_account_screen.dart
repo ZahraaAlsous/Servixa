@@ -11,6 +11,7 @@ import 'package:servixa/core/const/theme_app.dart';
 import 'package:servixa/core/const/typography_app.dart';
 import 'package:servixa/features/Business_account/business_later/busiess_account_controller.dart';
 import 'package:servixa/features/Business_account/data_layer/models/Business_account_model.dart';
+import 'package:servixa/features/Business_account/presentation_layer/screens/details_business_account_screen.dart';
 
 class ViewBusinessAccountScreen extends StatefulWidget {
   const ViewBusinessAccountScreen({super.key});
@@ -72,69 +73,77 @@ class _ViewBusinessAccountScreenState extends State<ViewBusinessAccountScreen> {
           itemBuilder: (context, indexAccount) {
             BusinessAccountModel account =
                 businessAccountController.businessAccountsList[indexAccount];
-            return Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: account.status == "approved"
-                      ? ThemeApp.Foundation_Main_main_500
-                      : account.status == "rejected"
-                      ? ThemeApp.Foundation_Statue_Red
-                      : ThemeApp.Foundation_Secendary_grey_100,
-                  width: 2,
-                ),
-                color: account.status == "approved"
-                    ? ThemeApp.Foundation_Main_main_50
-                    : ThemeApp.whiteBackground,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        account.businessNameEnglish,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        account.typeBusinessAccount.name,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ],
+            return InkWell(
+              onTap: () {
+                Get.to(() => BusinessAccountDetailsScreen(account: account));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: account.status == "approved"
+                        ? ThemeApp.Foundation_Main_main_500
+                        : account.status == "rejected"
+                        ? ThemeApp.Foundation_Statue_Red
+                        : ThemeApp.Foundation_Secendary_grey_100,
+                    width: 2,
                   ),
-                  const SizedBox(height: 4),
-                  RichText(
-                    text: TextSpan(
-                      style: TypographyApp.Body_mid_Mid,
+                  color: account.status == "approved"
+                      ? ThemeApp.Foundation_Main_main_50
+                      : ThemeApp.whiteBackground,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        TextSpan(
-                          text: account.status,
-                          style: TextStyle(
-                            color: account.status == "approved"
-                                ? ThemeApp.Foundation_Main_main_500
-                                : account.status == "rejected"
-                                ? ThemeApp.Foundation_Statue_Red
-                                : Colors.grey[600],
+                        Text(
+                          account.businessNameEnglish,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(
-                          text: account.status == "approved"
-                              ? " at " + account.approvedAt.toString()
-                              : account.status == "rejected"
-                              ? " ,The resons is: " + account.rejectReason!
-                              : "",
-                          style: TextStyle(color: Colors.grey[600]),
+                        Spacer(),
+                        Text(
+                          account.typeBusinessAccount.name,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 14,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    RichText(
+                      text: TextSpan(
+                        style: TypographyApp.Body_mid_Mid,
+                        children: [
+                          TextSpan(
+                            text: account.status,
+                            style: TextStyle(
+                              color: account.status == "approved"
+                                  ? ThemeApp.Foundation_Main_main_500
+                                  : account.status == "rejected"
+                                  ? ThemeApp.Foundation_Statue_Red
+                                  : Colors.grey[600],
+                            ),
+                          ),
+                          TextSpan(
+                            text: account.status == "approved"
+                                ? " at " + account.approvedAt.toString()
+                                : account.status == "rejected"
+                                ? " ,The resons is: " + account.rejectReason!
+                                : "",
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

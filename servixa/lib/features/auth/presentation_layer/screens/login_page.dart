@@ -57,9 +57,6 @@ class LoginPage extends StatelessWidget {
               height: 86,
             ),
 
-            // const SizedBox(height: 20),
-            // edit
-            // لازم عرض النص أقل من عرض حقل الإدخال
             const AppRichTextWidget(
               firstText: "TitleLogin",
               secondText: "Account",
@@ -104,9 +101,6 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           authController.changePasswordVisible();
                         },
-                        // edit
-                        // icon visible
-                        // size icon
                         icon: Icon(
                           isObscured
                               ? Icons.visibility_outlined
@@ -137,15 +131,11 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Spacer(), يدفع الزر لليسار
+                      // Spacer(), 
                     ],
                   ),
                   const SizedBox(height: DimensApp.hightBetweenTextFormField),
 
-                  // edit
-                  // get.offall
-                  // يروح عال home?
-                  // لازم laoding و جرب const
                   Obx(
                     () => authController.isLoading.value
                         // ? const CircularProgressIndicator()

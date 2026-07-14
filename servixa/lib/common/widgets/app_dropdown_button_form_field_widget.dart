@@ -36,8 +36,6 @@ class AppDropdownButtonFormFieldWidget<T> extends StatelessWidget {
     return DropdownButtonFormField<T>(
       initialValue: initialValue ?? null,
       value: value,
-      // edit 
-      // تأكد إذا بالنص أو لا
       alignment: Alignment.center,
       icon: Padding(
         padding: const EdgeInsets.all(12),

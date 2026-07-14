@@ -55,8 +55,6 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
             ),
           ),
 
-          // edit
-          // تابع بحث
           prefixIcon: IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(
@@ -80,8 +78,6 @@ class AppSearchTextFormFieldWidget extends StatelessWidget {
             vertical: 13,
           ),
         ),
-        // edit
-        // إعمل validator? التطبيقات الضخمة ما بتعمل
         onFieldSubmitted: onFieldSubmitted,
         onChanged: onChanged,
       ),

@@ -51,7 +51,8 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
                     color: ThemeApp.Foundation_Secendary_grey_100,
                   ),
                 ),
-                child: ListTile(
+                child: 
+                ListTile(
                   leading: Icon(
                     fileName.endsWith('.pdf')
                         ? Icons.picture_as_pdf
@@ -181,18 +182,10 @@ class FourStepBusinessAccountDocumentScreen extends StatelessWidget {
         AppOutlinedButtonWidget(
           textContent: "Upload Image",
           onPressed: () {
-            // addAdsController.pickImage(busiessAccountController.listImage);
-            // addAdsController.pickMultipleSubImages(busiessAccountController.listImage);
             ImageService.pickMultipleSubImages(businessAccountController.listImage);
           },
           icon: IconApp.camera,
         ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     Get.to(CurrentLocationPage());
-        //   },
-        //   child: Text("jj"),
-        // ),
       ],
     );
   }

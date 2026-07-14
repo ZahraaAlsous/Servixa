@@ -200,43 +200,8 @@ class _AdsDetailsScreenState extends State<AdsDetailsScreen> {
                                 ),
                               ],
                             ),
-                            Spacer(),
+                            const Spacer(),
 
-                            // IconButton(
-                            //   onPressed: authController.isLoggedIn.value
-                            //       ? () {
-                            //           // adsController.favorite(ads.id);
-                            //           // favoriteController.addToFavorite(ads.id, (e) {
-                            //           //   AppSnackbar.showError(e);
-                            //           // });
-                            //           // favoriteController.favoriteAdDetails(ads.id);
-                            //           favoriteController.addToFavorite(ads.id, (
-                            //             e,
-                            //           ) {
-                            //             AppSnackbar.showError(e);
-                            //           });
-                            //         }
-                            //       : () {
-                            //           AppSnackbar.showAlert(
-                            //             "You must be logged in".tr(),
-                            //           );
-                            //         },
-                            //   icon: Obx(() {
-                            //     final isFavorite =
-                            //         adsController.adsDetails.value?.favorite ??
-                            //         false;
-                            //     return SvgPicture.asset(
-                            //       width: 20,
-                            //       height: 20,
-                            //       isFavorite
-                            //           ? IconApp.favorite
-                            //           : IconApp.favoriteBorder,
-                            //       color: isFavorite
-                            //           ? ThemeApp.Foundation_Main_main_400
-                            //           : ThemeApp.black,
-                            //     );
-                            //   }),
-                            // ),
                             Obx(() {
                               if (favoriteController.isMakeFavorite[ads.id] ==
                                   true) {
@@ -562,16 +527,13 @@ https://play.google.com/store/apps/details?id=com.servixa'''
 📱 Download the Servixa app 
 https://play.google.com/store/apps/details?id=com.servixa''';
 
-      // 2. التحقق من وجود صور للإعلان ومشاركتها
       if (ads.image != null && ads.image.isNotEmpty) {
-        // final imageUrl = ads.images[0].url; // مسار رابط الصورة من الـ Model
-        final imageUrl = ads.image; // مسار رابط الصورة من الـ Model
+        // final imageUrl = ads.images[0].url; 
+        final imageUrl = ads.image; 
 
-        // الحصول على مسار مجلد الكاش المؤقت بالجهاز
         final tempDir = await getTemporaryDirectory();
         final savePath = '${tempDir.path}/shared_image.png';
 
-        // استخدام Dio لتحميل الصورة وحفظها مباشرة كملف
         final dio = Dio();
         await dio.download(imageUrl, savePath);
 

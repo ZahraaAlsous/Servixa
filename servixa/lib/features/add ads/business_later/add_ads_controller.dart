@@ -55,32 +55,19 @@ class AddAdsController extends GetxController {
   Rx<LatLng?> selectedLatLng = Rx<LatLng?>(null);
   Rx<File?> selectedMainImage = Rx<File?>(null);
   RxMap<String, dynamic> finalAnswers = <String, dynamic>{}
-      .obs; // var checkboxStates = <int, RxList<bool>>{}.obs;
+      .obs; 
   RxMap<int, String> radioAnswer = <int, String>{}.obs;
   RxMap<int, List<String>> checkBoxAnswer = <int, List<String>>{}.obs;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   // getBusinessAccounts();
-  //   businessAccountController.getBusinessAccountApproved();
-  // }
 
   bool validateStepAddAds(int step) {
     switch (step) {
       case 0:
-        // return selectedBusinessAccount.value != null
-        return selectedBusinessAccountId.value != null
-        // &&
-        //     isBusinessAccountValid()
-        ;
+        return selectedBusinessAccountId.value != null;
       case 1:
-        // return selectedCategoryAds.value != null && selectedCategoryAdsId.value != null;
         return selectedCategoryAds.value != null ||
             selectedCategoryAdsId.value != null;
       case 2:
-        // if (selectedCategoryAds.value?.subCategories!.isNotEmpty ?? false) {
-        // if (selectedCategoryAds.value!.hasChildren) {
         final bool hasCategory = selectedCategoryAds.value != null;
         final bool hasChildren =
             hasCategory && selectedCategoryAds.value!.hasChildren;

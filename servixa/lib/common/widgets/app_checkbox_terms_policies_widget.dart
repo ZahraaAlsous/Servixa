@@ -46,9 +46,6 @@ class AppCheckboxTermsPoliciesWidget extends StatelessWidget {
             // minimumSize: Size.zero,
           ),
           onPressed: () {
-            // edit
-            // page terms & policies
-            // Get.to(RegisterPage());
             Get.to(() => PoliciesScreen());
           },
           child: Text(

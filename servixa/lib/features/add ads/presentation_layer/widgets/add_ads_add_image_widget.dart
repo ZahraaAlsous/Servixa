@@ -89,18 +89,6 @@ class AddAdsAddImageWidget extends StatelessWidget {
                               if (index >= networkImages.length) {
                                 return IconButton(
                                   onPressed: () {
-                                    // if (isNetworkImage) {
-                                    //   // addAdsController.removeExistingSubImageAt(
-                                    //   //   index,
-                                    //   // );
-
-                                    //   addAdsController.deleteImage(
-                                    //     adId:
-                                    //         adsController.adsDetails.value!.id,
-                                    //     imageId: networkImages[index].id,
-                                    //     localIndex: index,
-                                    //   );
-                                    // } else {
                                     final localIndex = index - networkCount;
                                     addAdsController.removeImageAt(
                                       list,

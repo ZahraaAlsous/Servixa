@@ -20,14 +20,12 @@ class AppDialogs {
         backgroundColor: ThemeApp.Foundation_Main_main_50,
         title: Text(
           title.tr(),
-          // style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           style: TypographyApp.Title_larg_Mid.copyWith(
             color: titleColor ?? ThemeApp.Foundation_Statue_Red,
           ),
         ),
         content: Text(
           message.tr(),
-          // style: const TextStyle(fontSize: 14, color: Colors.black87),
           style: TypographyApp.Body_mid_Mid.copyWith(
             color: ThemeApp.Foundation_Secendary_grey_300,
           ),

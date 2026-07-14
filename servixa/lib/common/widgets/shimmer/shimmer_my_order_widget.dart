@@ -14,8 +14,8 @@ class ShimmerMyOrderCardList extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: Container(
-            height: 231, // نفس الارتفاع المحدد بالكرت الأصلي
-            width: size.width * 0.8976, // نفس العرض
+            height: 231,
+            width: size.width * 0.8976,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
             margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(

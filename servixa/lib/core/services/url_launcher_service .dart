@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherService {
@@ -16,10 +18,10 @@ class UrlLauncherService {
       if (await canLaunchUrl(phoneUri)) {
         await launchUrl(phoneUri);
       } else {
-        throw 'لا يمكن الاتصال بهذا الرقم: $cleanNumber';
+        throw 'This number cannot be contacted: $cleanNumber';
       }
     } catch (e) {
-      print('خطأ في الاتصال: $e');
+      log('Connection error: $e');
     }
   }
 }

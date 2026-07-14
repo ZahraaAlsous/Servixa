@@ -208,15 +208,6 @@ class AddAdsQuestionSection extends StatelessWidget {
                             return "${question.question}" + " is required".tr();
                           }
                         }
-
-                        // if (stringValue != null && stringValue.isNotEmpty) {
-                        //   return Validators.validateTextDinamckQuestion(
-                        //     stringValue,
-                        //     question.question,
-                        //     question.metaData.is_required,
-                        //   );
-                        // }
-
                         return null;
                       },
 
@@ -339,8 +330,6 @@ class AddAdsQuestionSection extends StatelessWidget {
                         color: ThemeApp.Foundation_Secendary_grey_200,
                       ),
                     ),
-                    //     if (question.metaData.is_required)
-                    //       Text(" *", style: const TextStyle(color: Colors.red)),
                       ],
                     ),
                     // const SizedBox(height: 8),
@@ -398,10 +387,6 @@ class AddAdsQuestionSection extends StatelessWidget {
                         color: ThemeApp.Foundation_Secendary_grey_600,
                       ),
                     ),
-                    // if (question.metaData.is_required)
-                    //   Text(" *", style: TextStyle(color: Colors.red)),
-                    //   ],
-                    // ),
                     const SizedBox(height: 5),
                     AppTextAreaWidget(
                       hintText: question.metaData.hint ?? question.question,
@@ -409,12 +394,6 @@ class AddAdsQuestionSection extends StatelessWidget {
                           addAdsController
                               .finalAnswers["custom_fields[${question.id}]"] ??
                           "",
-                      // controller: TextEditingController(
-                      //   text:
-                      //       addAdsController
-                      //           .finalAnswers["custom_fields[${question.id}]"] ??
-                      //       "",
-                      // ),
                       validate: (value) =>
                           Validators.validateTextDinamckQuestion(
                             value,

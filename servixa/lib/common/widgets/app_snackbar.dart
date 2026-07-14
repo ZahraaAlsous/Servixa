@@ -42,7 +42,6 @@ class AppSnackbar {
       // snackPosition: SnackPosition.BOTTOM,
       backgroundColor: ThemeApp.Foundation_Main_main_50,
       colorText: ThemeApp.Foundation_Main_main_500,
-      // icon: const Icon(Icons.check_circle_outline, color: Colors.white),
     );
   }
 }

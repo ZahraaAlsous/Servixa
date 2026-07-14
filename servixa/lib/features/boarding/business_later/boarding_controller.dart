@@ -13,12 +13,6 @@ class BoardingController extends GetxController {
     BoardingSecondScreen(),
   ];
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   checkIfFirstLunch();
-  // }
-
   Future<void> checkIfFirstLunch() async {
     String? status = await storage.read(key: "isFirstLaunch");
 

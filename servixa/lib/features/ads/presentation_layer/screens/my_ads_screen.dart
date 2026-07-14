@@ -109,15 +109,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
           itemBuilder: (context, indexAds) {
             AdsModel ads = myAdsListFilter[indexAds];
             return
-            // AppCardAdsWidget(
-            //   ads: ads,
-            //   widthCard: 0.431,
-            //   isGridView: true,
-            //   isMyAdd: true,
-            //   onTap: () {
-            //     Get.to(() => AdsDetailsScreen(adsId: ads.id));
-            //   },
-            // );
+          
             OpenContainer(
               transitionType: ContainerTransitionType.fadeThrough,
               closedShape: const RoundedRectangleBorder(

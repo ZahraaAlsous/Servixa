@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:servixa/features/Business_account/data_layer/models/city_model.dart';
+import 'package:servixa/features/Business_account/data_layer/models/document_model.dart';
 import 'package:servixa/features/Business_account/data_layer/models/user_type_model.dart';
 
 class BusinessAccountModel {
@@ -9,14 +11,18 @@ class BusinessAccountModel {
   String businessNameEnglish;
   String activities;
   String details;
-  // CityModel city;
+  CityModel? city;
   String addressDetail;
+  double? lat;
+  double? lng;
   // String location;
-  List<String>? documents;
+  List<DocumentModel>? documents;
   String status; //Account under review / Accepted / Rejected
   UserTypeModel? userType;
   String? approvedAt;
   String? rejectReason;
+   String? createdAt;
+  String? updatedAt;
 
   BusinessAccountModel({
     required this.id,
@@ -24,8 +30,10 @@ class BusinessAccountModel {
     required this.businessNameEnglish,
     required this.typeBusinessAccount,
     required this.licenseNumber,
-    // required this.city,
+    this.city,
     required this.addressDetail,
+    this.lat,
+    this.lng,
     // required this.location,
     required this.activities,
     required this.details,
@@ -35,6 +43,8 @@ class BusinessAccountModel {
     this.userType,
     this.approvedAt,
     this.rejectReason,
+    this.createdAt,
+    this.updatedAt,
   });
 
   String getFormattedApprovedDate() {
@@ -67,12 +77,17 @@ class BusinessAccountModel {
       businessNameEnglish: json["business_name"],
       typeBusinessAccount: UserTypeModel.fromJson(json["user_type"]),
       licenseNumber: json["license_number"],
-      // city: CityModel.fromJson(json["city"])  ,
+      city: json["city"] != null ? CityModel.fromJson(json["city"]) : null,
       addressDetail: json["business_address"],
+      lat: json["lat"] != null ? double.tryParse(json["lat"].toString()) : null,
+      lng: json["lng"] != null ? double.tryParse(json["lng"].toString()) : null,
       // location: json["location"],
       activities: json["activities"],
       details: json["details"],
       // documents: List<String>.from(json["documents"]),
+      documents: json["documents"] != null
+          ? DocumentModel.listFromJson(json["documents"])
+          : null,
       // image: json["image"],
       status: json["status"],
       userType: json["user_type"] != null
@@ -81,6 +96,8 @@ class BusinessAccountModel {
       approvedAt: formatDate(json["approved_at"]),
       // approvedAt: json["approved_at"],
       rejectReason: json["reject_reason"],
+      createdAt: json["created_at"],
+      updatedAt: json["updated_at"],
     );
   }
 

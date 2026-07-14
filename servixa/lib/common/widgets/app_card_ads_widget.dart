@@ -146,42 +146,6 @@ class AppCardAdsWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: Text(
-                //         "${ads.price} ${ads.typeCoin}",
-                //         maxLines: 1,
-                //         style: TypographyApp.Body_mid_Mid.copyWith(
-                //           color: ThemeApp.Foundation_Main_main_500,
-                //           overflow: TextOverflow.ellipsis,
-                //         ),
-                //       ),
-                //     ),
-                //     // Obx(() {
-                //     //   if (favoriteController.isMakeFavorite[ads.id] == true) {
-                //     //     return const SizedBox(
-                //     //       width: 20,
-                //     //       height: 20,
-                //     //       child: CircularProgressIndicator(strokeWidth: 2),
-                //     //     );
-                //     //   }
-                //     //   return FavoriteAnimatedButton(
-                //     //     isFavorite: ads.favorite,
-                //     //     onTap: authController.isLoggedIn.value
-                //     //         ? () {
-                //     //             favoriteController.addToFavorite(ads.id, (e) {
-                //     //               AppSnackbar.showError(e);
-                //     //             });
-                //     //           }
-                //     //         : () {
-                //     //             AppSnackbar.showAlert("You must be logged in");
-                //     //           },
-                //     //   );
-                //     // }),
-
-                //   ],
-                // ),
                  Row(
                   children: [
                     Expanded(
@@ -201,7 +165,6 @@ class AppCardAdsWidget extends StatelessWidget {
                       return Stack(
                         alignment: Alignment.center,
                         children: [
-                          // ✅ الزر دائماً موجود، لكن مخفي عند التحميل
                           Opacity(
                             opacity: isLoading ? 0.0 : 1.0,
                             child: FavoriteAnimatedButton(

@@ -64,7 +64,6 @@ class AppMapWidget extends StatelessWidget {
                         markers: {
                           Marker(
                             markerId: MarkerId("pos"),
-                            // position: controller.selectedLatLng.value!,
                             position: position.value!,
                           ),
                         },
